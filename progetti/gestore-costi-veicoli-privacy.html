@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informativa sulla privacy — Gestore Costi Veicoli</title>
+<meta name="description" content="Informativa sulla privacy di Gestore Costi Veicoli: come vengono trattati i tuoi dati.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff}
+  a{color:#4B3FE3;text-decoration:none}
+  a:hover{color:#3730A3}
+  .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
+  .back-bar a{color:#fff}
+  h1{font-size:2rem;margin:0 0 6px;font-weight:800;letter-spacing:-0.5px}
+  .updated{color:#8A85A3;font-size:0.95rem;margin-bottom:2.5rem}
+  h2{font-size:1.2rem;font-weight:800;margin-top:2.5rem;border-bottom:1px solid #EEE9FF;padding-bottom:0.4rem}
+  main{max-width:720px;margin:0 auto;padding:48px 24px 96px;line-height:1.7}
+  ul{padding-left:1.3rem}
+  li{margin-bottom:0.6rem}
+  table{border-collapse:collapse;width:100%;margin:1rem 0}
+  th,td{border:1px solid #EEE9FF;padding:0.6rem 0.8rem;text-align:left;font-size:0.95rem}
+  th{background:#FAFAFE}
+  code{background:#F1EEFF;color:#4B3FE3;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.9em}
+  .highlight{background:#F1EEFF;border-left:3px solid #4B3FE3;padding:0.9rem 1.1rem;border-radius:8px}
+</style>
+</head>
+<body>
+
+<div class="back-bar"><a href="gestore-costi-veicoli.html">← Torna a Gestore Costi Veicoli</a></div>
+
+<main>
+
+<h1>Informativa sulla privacy</h1>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 29 luglio 2026</p>
+
+<h2>Titolare del trattamento</h2>
+<p>
+  Gestore Costi Veicoli è un'app sviluppata e mantenuta da un singolo sviluppatore indipendente,
+  Andrea Zanasi. Per qualunque domanda su questa informativa o sui dati trattati puoi scrivere a
+  <a href="mailto:andreazanasi1993@gmail.com">andreazanasi1993@gmail.com</a>.
+</p>
+
+<h2>Cosa fa l'app</h2>
+<p>
+  L'app ti aiuta a tracciare costi, rifornimenti, spese, viaggi e scadenze dei tuoi veicoli.
+  Non esiste un account utente, non esiste un server dell'app: tutti i dati che inserisci
+  (veicoli, spese, rifornimenti, viaggi, scadenze, foto) sono salvati esclusivamente
+  <strong>sul tuo dispositivo</strong>, in un database locale.
+</p>
+
+<h2>Dati trattati</h2>
+<ul>
+  <li><strong>Dati veicolo</strong>: targa, telaio, marca/modello, note e foto che inserisci tu.</li>
+  <li><strong>Dati economici</strong>: importi di spese, rifornimenti, costi fissi, che inserisci tu.</li>
+  <li><strong>Posizione geografica</strong>: se scegli di registrare la posizione di un rifornimento o
+    di un viaggio, le coordinate GPS restano salvate insieme a quella voce (storico permanente finché
+    non la elimini tu).</li>
+  <li><strong>Foto e allegati</strong> che carichi dalla galleria del dispositivo.</li>
+</ul>
+<p>Nessuno di questi dati è raccolto, ricevuto o visto dallo sviluppatore: non esiste un server che li riceve.</p>
+
+<h2>Sicurezza dei tuoi dati</h2>
+<ul>
+  <li>Il database locale che contiene tutti i tuoi dati è <strong>cifrato</strong> (SQLCipher):
+    anche accedendo fisicamente ai file dell'app, i dati non sono leggibili senza la chiave di
+    cifratura, generata automaticamente e conservata nell'enclave sicura del sistema operativo
+    (Keychain su iOS, Keystore su Android) — mai in chiaro, mai condivisa.</li>
+  <li>Puoi impostare un <strong>blocco app con PIN e/o Face ID / Touch ID / impronta</strong>.
+    Il PIN non viene mai salvato in chiaro (solo un suo hash con sale casuale) e i dati
+    biometrici non lasciano mai il sistema operativo del tuo dispositivo: l'app non li vede né
+    li memorizza in alcuna forma. Dopo alcuni tentativi di PIN errati consecutivi, l'app applica
+    un breve blocco temporaneo crescente a scopo di protezione da tentativi ripetuti.</li>
+  <li>Un backup esportato può essere protetto da una password a tua scelta, cifrata con
+    algoritmi standard (AES-256, PBKDF2/HKDF) — se la perdi, nessuno (nemmeno lo sviluppatore)
+    può recuperare il contenuto del backup.</li>
+</ul>
+
+<h2>Dati inviati a servizi di terze parti</h2>
+<p class="highlight">
+  Anche se l'app è "locale", alcune funzionalità opzionali che usano la posizione inviano le
+  coordinate a servizi pubblici esterni per svolgere un calcolo che non può essere fatto solo
+  sul dispositivo. Ecco esattamente quando succede:
+</p>
+<table>
+  <tr><th>Funzionalità</th><th>Servizio terzo</th><th>Cosa viene inviato</th></tr>
+  <tr>
+    <td>Indirizzo del distributore su un rifornimento</td>
+    <td><code>nominatim.openstreetmap.org</code></td>
+    <td>Le coordinate GPS del punto scelto, per ottenere l'indirizzo leggibile (geocoding inverso)</td>
+  </tr>
+  <tr>
+    <td>Visualizzazione della mappa rifornimenti</td>
+    <td><code>basemaps.cartocdn.com</code> (CARTO)</td>
+    <td>L'area geografica inquadrata sulla mappa (necessario per scaricare le immagini della mappa stessa)</td>
+  </tr>
+</table>
+<p>
+  Questi servizi sono pubblici, gratuiti e non richiedono un account: nessuna chiave o
+  identificativo personale viene inviato insieme alla richiesta, ma le coordinate stesse sono un
+  dato di localizzazione e transitano quindi verso infrastrutture non gestite da questo sviluppatore.
+  Queste chiamate avvengono solo quando usi attivamente quelle funzionalità specifiche.
+</p>
+<p>
+  <strong>La ricerca "distributori più vicini" fa eccezione</strong>: la tua posizione GPS non
+  viene mai inviata a nessun server per questa funzione. L'app scarica periodicamente un elenco
+  pubblico di distributori e prezzi (dati aperti del Ministero delle Imprese e del Made in Italy,
+  <code>mimit.gov.it</code>, identici per tutti gli utenti) e calcola la distanza dal tuo dispositivo
+  a ogni distributore interamente in locale, senza mai trasmettere le tue coordinate.
+</p>
+<p>
+  Nella scheda di un distributore vicino trovi anche un link "Apri in mappa" che ti porta su
+  <code>openstreetmap.org</code> nel browser del tuo dispositivo: è un link esterno che apri tu
+  volontariamente, non una richiesta di rete fatta dall'app in automatico.
+</p>
+
+<h2>Cosa NON facciamo</h2>
+<ul>
+  <li>Nessun analytics, tracciamento o telemetria di alcun tipo.</li>
+  <li>Nessuna pubblicità.</li>
+  <li>Nessuna vendita o condivisione dei tuoi dati con terzi per finalità commerciali.</li>
+  <li>Nessun account utente, nessuna sincronizzazione su server proprietari.</li>
+</ul>
+
+<h2>Backup ed esportazione dati</h2>
+<p>
+  Puoi esportare in qualsiasi momento un file di backup dei tuoi dati dalla schermata Impostazioni.
+  L'esportazione avviene tramite la finestra di condivisione nativa del sistema operativo: scegli tu
+  dove salvarlo o con chi condividerlo (es. email, cloud personale, AirDrop). L'app stessa non invia
+  questo file a nessun server.
+</p>
+
+<h2>I tuoi diritti</h2>
+<p>
+  Puoi in qualsiasi momento esportare i tuoi dati (backup, opzionalmente protetto da password)
+  dalla schermata Impostazioni. Nella stessa schermata trovi anche un pulsante "Cancella tutti i
+  dati" che cancella definitivamente veicoli, spese, scadenze, viaggi, foto e allegati dal
+  dispositivo — in alternativa, la disinstallazione dell'app ha lo stesso effetto.
+</p>
+<p>
+  Poiché i tuoi dati restano esclusivamente sul tuo dispositivo, hai già pieno controllo diretto
+  su accesso, modifica, esportazione e cancellazione, senza bisogno di richiederlo a nessuno. Se
+  ritieni comunque che i tuoi diritti in materia di protezione dei dati personali non siano
+  stati rispettati, hai diritto di proporre reclamo all'Autorità Garante per la protezione dei
+  dati personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>)
+  o all'autorità di controllo del tuo Paese di residenza, se diverso dall'Italia.
+</p>
+
+<h2>Modifiche a questa informativa</h2>
+<p>
+  Questa informativa può essere aggiornata in futuro, ad esempio se vengono aggiunte nuove
+  funzionalità che trattano dati in modo diverso. La data in cima alla pagina indica l'ultimo
+  aggiornamento.
+</p>
+
+</main>
+
+<footer style="padding:32px 64px;background:#151129;color:#B3AECB;font-size:13px;text-align:center">
+  © 2026 Gestore Costi Veicoli — un progetto di <a href="../chi-sono.html" style="color:#fff">Andrea Zanasi</a>
+</footer>
+
+</body>
+</html>
