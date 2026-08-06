@@ -1,0 +1,59 @@
+/* ============================================================
+   Andrea Zanasi — sito personale
+   Palette dark/tech — versione definitiva
+   ============================================================ */
+
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#0B0E14;
+  background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+  background-size:26px 26px;
+  color:#EDEFF3;
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:#4FE3C1}
+a:hover{color:#7FEFD4}
+img{max-width:100%;display:block}
+
+/* nav links */
+.nav-link{color:#8A93A3;text-decoration:none;transition:color .15s ease}
+.nav-link:hover{color:#EDEFF3}
+.nav-link.active{color:#4FE3C1}
+
+/* buttons */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:8px;background:#4FE3C1;color:#0B0E14;
+  font-weight:600;font-size:15px;text-decoration:none;transition:background .15s ease;
+}
+.btn-primary:hover{background:#7FEFD4}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:8px;border:1px solid #2A3140;color:#EDEFF3;
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:border-color .15s ease, color .15s ease;
+}
+.btn-outline:hover{border-color:#4FE3C1;color:#4FE3C1}
+
+/* footer links */
+.footer-link{color:#8A93A3;text-decoration:none;transition:color .15s ease}
+.footer-link:hover{color:#4FE3C1}
+
+/* responsive */
+@media (max-width: 860px){
+  .hero-grid{grid-template-columns:1fr !important;gap:40px !important}
+  .hero-grid h1{font-size:38px !important}
+  .fact-grid{grid-template-columns:1fr !important}
+  .project-grid{grid-template-columns:1fr !important}
+  .project-grid .shot-box{max-width:220px;margin:0 auto}
+  .tl-grid{grid-template-columns:80px 24px 1fr !important}
+  nav > div:last-child{gap:16px !important}
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+}

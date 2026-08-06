@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestore Costi Veicoli — un progetto di Andrea Zanasi</title>
+<meta name="description" content="Gestore Costi Veicoli: l'app per tracciare rate, carburante, bollo, assicurazione e revisione di auto e moto in un'unica dashboard.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff}
+  a{color:#4B3FE3;text-decoration:none}
+  a:hover{color:#3730A3}
+  .store-btn{transition:transform .15s ease}
+  .store-btn:hover{transform:translateY(-2px)}
+  details summary{cursor:pointer;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
+  .back-bar a{color:#fff}
+  .shot-frame{width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);font-size:13px;text-align:center;padding:16px}
+</style>
+</head>
+<body>
+
+<div class="back-bar"><a href="../progetti.html">← Torna ai progetti di Andrea Zanasi</a></div>
+
+<div style="max-width:1440px;margin:0 auto">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;position:relative">
+        <div style="width:20px;height:20px;border-radius:50%;border:3px solid #fff"></div>
+        <div style="position:absolute;width:3px;height:9px;background:#fff;top:5px;left:18.5px;border-radius:2px"></div>
+      </div>
+      <span style="font-weight:800;font-size:20px;color:#1B1830">Gestore Costi Veicoli</span>
+    </div>
+    <nav style="display:flex;align-items:center;gap:36px">
+      <a href="#features" style="color:#4B4566;font-weight:600;font-size:16px">Funzioni</a>
+      <a href="#gallery" style="color:#4B4566;font-weight:600;font-size:16px">App</a>
+      <a href="#pricing" style="color:#4B4566;font-weight:600;font-size:16px">Prezzi</a>
+      <a href="#faq" style="color:#4B4566;font-weight:600;font-size:16px">FAQ</a>
+      <a href="#download" style="background:#4B3FE3;color:#fff;font-weight:700;font-size:15px;padding:12px 24px;border-radius:100px">Scarica l'app</a>
+    </nav>
+  </header>
+
+  <div style="margin:0 64px 0;background:#F1EEFF;border-radius:16px;padding:14px 22px;text-align:center;color:#4B3FE3;font-weight:600;font-size:15px">
+    🚀 In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio
+  </div>
+
+  <section style="display:flex;align-items:center;gap:64px;padding:64px 64px 40px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:26px">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:8px 16px;border-radius:100px;width:fit-content">Per auto, moto e ogni veicolo</div>
+      <h1 style="margin:0;font-size:56px;line-height:1.1;font-weight:800;letter-spacing:-1px">Ogni euro della tua auto, <span style="color:#4B3FE3">sotto controllo.</span></h1>
+      <p style="margin:0;font-size:19px;line-height:1.6;color:#4B4566;max-width:480px">Rate, carburante, bollo, assicurazione e revisione in un'unica dashboard. Scopri quanto ti costa davvero ogni veicolo, ogni mese.</p>
+      <div id="download" style="display:flex;gap:16px;margin-top:8px">
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;padding:13px 22px;border-radius:14px;font-weight:600">
+          <svg viewBox="0 0 384 512" style="width:24px;height:24px;fill:#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>
+          <div style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:11px;opacity:0.8">Scarica su</span><span style="font-size:17px;font-weight:700">App Store</span></div>
+        </a>
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;padding:13px 22px;border-radius:14px;font-weight:600">
+          <svg viewBox="0 0 512 512" style="width:24px;height:24px"><path fill="#00D6FF" d="M325.3 234.3L104.3 6.5c-4.7-2.7-9.7-4.2-14.6-4.5L325.3 234.3z"></path><path fill="#00F076" d="M77.8 5.7C68.6 10.3 62 19.6 62 32v448c0 12.4 6.6 21.7 15.8 26.3L325.3 277.7 77.8 5.7z"></path><path fill="#FF3A44" d="M104.3 505.5c4.9-.3 9.9-1.8 14.6-4.5l221-227.3-53.6-53.6z"></path><path fill="#FFCE00" d="M411.8 231.9L339.9 189 286.5 242l53.4 53 71.9-42.9c17.5-10.9 17.5-38.3 0-49.2z"></path></svg>
+          <div style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:11px;opacity:0.8">Disponibile su</span><span style="font-size:17px;font-weight:700">Google Play</span></div>
+        </a>
+      </div>
+      <div style="display:flex;gap:28px;margin-top:12px;color:#8A85A3;font-size:14px;font-weight:600">
+        <span>🚗 Auto e moto</span>
+        <span>🔔 Notifiche scadenze</span>
+        <span>📊 Dati sempre tuoi</span>
+      </div>
+    </div>
+    <div style="flex:0 0 340px;display:flex;justify-content:center">
+      <div style="width:300px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:44px;padding:10px;box-shadow:0 40px 90px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
+        <div class="shot-frame">Dashboard<br>screenshot in arrivo</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" style="padding:100px 64px;background:#FAFAFE">
+    <div style="text-align:center;max-width:640px;margin:0 auto 56px">
+      <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Tutto quello che serve per gestire i tuoi veicoli</h2>
+      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Una sola app per non perdere mai di vista tempo e denaro spesi su auto e moto.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><div style="width:24px;height:24px;border-radius:6px;background:#4B3FE3"></div></div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Garage multi-veicolo</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Registra auto, moto e ogni altro veicolo con parametri, finanziamento e consumi dedicati.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#FFF1E6;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><div style="width:24px;height:24px;border-radius:50%;background:#F08A3C"></div></div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Carburante e consumi</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Traccia ogni rifornimento e confronta il consumo reale con quello teorico del veicolo.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#FDE8EC;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><div style="width:22px;height:22px;background:#E0537A;border-radius:5px"></div></div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Scadenze e notifiche</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Bollo, assicurazione, revisione e tagliando: ricevi un avviso prima che sia troppo tardi.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#E6F7F1;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><div style="width:24px;height:14px;background:#2FAE7C;border-radius:4px"></div></div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Costo reale di possesso</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Rata, carburante e costi operativi in un unico totale mensile, annuo o complessivo.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><div style="width:24px;height:24px;border:4px solid #4B3FE3;border-radius:6px"></div></div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Insight automatici</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Confronti mensili, anomalie di spesa e prezzi carburante vicino a te, dai dati ufficiali MIMIT.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#FFF1E6;display:flex;align-items:center;justify-content:center;margin-bottom:18px"><div style="width:24px;height:24px;background:#F08A3C;border-radius:50% 50% 50% 0"></div></div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Esporta i tuoi dati</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Scarica lo storico spese e scadenze in CSV, in qualsiasi momento.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" style="padding:100px 64px">
+    <div style="text-align:center;max-width:640px;margin:0 auto 48px">
+      <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Guarda l'app in azione</h2>
+      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende.</p>
+    </div>
+    <div style="display:flex;gap:24px;overflow-x:auto;padding:8px 8px 20px">
+      <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="width:220px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:34px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><div class="shot-frame" style="border-radius:26px">Dashboard</div></div>
+        <span style="font-size:14px;font-weight:600;color:#4B4566">Dashboard</span>
+      </div>
+      <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="width:220px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:34px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><div class="shot-frame" style="border-radius:26px">Garage</div></div>
+        <span style="font-size:14px;font-weight:600;color:#4B4566">Garage</span>
+      </div>
+      <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="width:220px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:34px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><div class="shot-frame" style="border-radius:26px">Carburante</div></div>
+        <span style="font-size:14px;font-weight:600;color:#4B4566">Carburante</span>
+      </div>
+      <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="width:220px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:34px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><div class="shot-frame" style="border-radius:26px">Scadenze</div></div>
+        <span style="font-size:14px;font-weight:600;color:#4B4566">Scadenze</span>
+      </div>
+      <div style="flex:0 0 220px;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="width:220px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:34px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><div class="shot-frame" style="border-radius:26px">Dettaglio veicolo</div></div>
+        <span style="font-size:14px;font-weight:600;color:#4B4566">Dettaglio veicolo</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" style="padding:100px 64px;background:#FAFAFE">
+    <div style="text-align:center;max-width:640px;margin:0 auto 48px">
+      <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Un piano per ogni esigenza</h2>
+    </div>
+    <div style="display:flex;gap:28px;max-width:820px;margin:0 auto;align-items:stretch">
+      <div style="flex:1;background:#FAFAFE;border-radius:24px;padding:36px;border:1px solid #EEE9FF;display:flex;flex-direction:column;gap:18px">
+        <div>
+          <h3 style="margin:0 0 6px;font-size:22px;font-weight:800">Gratuito</h3>
+          <p style="margin:0;color:#8A85A3;font-size:14px">Per iniziare a monitorare un veicolo</p>
+        </div>
+        <div style="font-size:40px;font-weight:800">0 €</div>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;color:#4B4566;font-size:15px">
+          <li>✓ 1 veicolo</li>
+          <li>✓ Carburante e consumi</li>
+          <li>✓ Scadenze di base</li>
+        </ul>
+        <a href="#download" style="margin-top:auto;text-align:center;background:#fff;border:2px solid #4B3FE3;color:#4B3FE3;font-weight:700;padding:12px;border-radius:14px">Inizia gratis</a>
+      </div>
+      <div style="flex:1;background:linear-gradient(160deg,#4B3FE3,#7566F5);border-radius:24px;padding:36px;color:#fff;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 60px rgba(75,63,227,0.3)">
+        <div>
+          <h3 style="margin:0 0 6px;font-size:22px;font-weight:800">Premium</h3>
+          <p style="margin:0;color:rgba(255,255,255,0.75);font-size:14px">Per chi gestisce più veicoli o vuole il massimo controllo</p>
+        </div>
+        <div style="font-size:40px;font-weight:800">2,99 €<span style="font-size:16px;font-weight:600">/mese</span></div>
+        <p style="margin:-10px 0 0;color:rgba(255,255,255,0.75);font-size:13px">oppure 24,90 €/anno (-30%)</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:15px">
+          <li>✓ Veicoli illimitati</li>
+          <li>✓ Insight e confronti automatici</li>
+          <li>✓ Notifiche scadenze avanzate</li>
+          <li>✓ Esportazione CSV</li>
+        </ul>
+        <a href="#download" style="margin-top:auto;text-align:center;background:#fff;color:#4B3FE3;font-weight:700;padding:12px;border-radius:14px">Passa a Premium</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding:100px 64px">
+    <div style="text-align:center;max-width:640px;margin:0 auto 48px">
+      <h2 style="margin:0;font-size:38px;font-weight:800;letter-spacing:-0.5px">Domande frequenti</h2>
+    </div>
+    <div style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">L'app funziona anche offline?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Puoi registrare rifornimenti e spese anche senza connessione: i dati si sincronizzano non appena torni online.</p>
+      </details>
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso gestire più veicoli insieme?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì, il piano gratuito supporta 1 veicolo, mentre Premium permette di gestirne quanti vuoi, con confronti tra i costi di ciascuno.</p>
+      </details>
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Come vengono calcolati i costi stimati?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Combiniamo rata, consumo medio, prezzo del carburante impostato e costi operativi che inserisci tu per stimare il costo reale di possesso.</p>
+      </details>
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">I miei dati sono al sicuro?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">I tuoi dati restano sul tuo account personale e non vengono mai condivisi con terzi.</p>
+      </details>
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso esportare il mio storico spese?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì, con Premium puoi esportare in CSV lo storico di rifornimenti, scadenze e spese in qualsiasi momento.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer style="padding:56px 64px;background:#151129;color:#B3AECB;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;position:relative">
+          <div style="width:18px;height:18px;border-radius:50%;border:3px solid #fff"></div>
+        </div>
+        <span style="color:#fff;font-weight:800;font-size:17px">Gestore Costi Veicoli</span>
+      </div>
+      <div style="display:flex;gap:14px">
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:8px;background:#221D3E;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600"><svg viewBox="0 0 384 512" style="width:16px;height:16px;fill:#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>App Store</a>
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:8px;background:#221D3E;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600"><svg viewBox="0 0 512 512" style="width:16px;height:16px"><path fill="#00D6FF" d="M325.3 234.3L104.3 6.5c-4.7-2.7-9.7-4.2-14.6-4.5L325.3 234.3z"></path><path fill="#00F076" d="M77.8 5.7C68.6 10.3 62 19.6 62 32v448c0 12.4 6.6 21.7 15.8 26.3L325.3 277.7 77.8 5.7z"></path><path fill="#FF3A44" d="M104.3 505.5c4.9-.3 9.9-1.8 14.6-4.5l221-227.3-53.6-53.6z"></path><path fill="#FFCE00" d="M411.8 231.9L339.9 189 286.5 242l53.4 53 71.9-42.9c17.5-10.9 17.5-38.3 0-49.2z"></path></svg>Google Play</a>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid #26214A;padding-top:24px;font-size:13px">
+      <span>© 2026 Gestore Costi Veicoli — un progetto di <a href="../chi-sono.html" style="color:#fff">Andrea Zanasi</a></span>
+      <div style="display:flex;gap:24px">
+        <a href="#" style="color:#B3AECB">Privacy</a>
+        <a href="#" style="color:#B3AECB">Termini</a>
+        <a href="mailto:andreazanasi1993@gmail.com" style="color:#B3AECB">Contatti</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
