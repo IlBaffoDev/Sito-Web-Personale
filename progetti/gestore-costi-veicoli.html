@@ -19,6 +19,47 @@
   .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
   .back-bar a{color:#fff}
   .shot-frame{width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);font-size:13px;text-align:center;padding:16px}
+
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:pointer;padding:0}
+  .nav-toggle span{display:block;width:100%;height:2px;background:#1B1830;border-radius:2px;transition:transform .2s ease, opacity .2s ease}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  @media (max-width: 900px){
+    header{padding:20px 24px !important}
+    .nav-toggle{display:flex}
+    .nav-links{
+      display:none !important;
+      position:absolute !important;
+      top:100% !important;left:0 !important;right:0 !important;
+      flex-direction:column !important;align-items:flex-start !important;gap:4px !important;
+      background:#fff !important;border-bottom:1px solid #EEE9FF;
+      padding:16px 24px !important;box-shadow:0 12px 24px rgba(20,10,60,0.08);
+    }
+    .nav-links a{padding:10px 0;width:100%}
+    header{position:relative}
+    nav.nav-open .nav-links{display:flex !important}
+  }
+
+  @media (max-width: 860px){
+    h1{font-size:36px !important}
+    h2{font-size:28px !important}
+    h3{font-size:21px !important}
+    #features,#gallery,#pricing,#faq{padding-left:24px !important;padding-right:24px !important;padding-top:56px !important}
+    section{padding-left:24px !important;padding-right:24px !important}
+    .hero-media{flex:1 1 auto !important;max-width:260px !important;margin:0 auto}
+    .gallery-row{flex-wrap:wrap !important;gap:32px !important;padding:40px 0 !important}
+    .gallery-shots{flex:1 1 100% !important;justify-content:center !important}
+    .gallery-row > div:last-child{flex:1 1 100% !important}
+  }
+
+  @media (min-width: 641px) and (max-width: 900px){
+    .feature-grid{grid-template-columns:repeat(2,1fr) !important}
+  }
+  @media (max-width: 640px){
+    .feature-grid{grid-template-columns:1fr !important}
+  }
 </style>
 </head>
 <body>
@@ -34,12 +75,17 @@
       </div>
       <span style="font-weight:800;font-size:20px;color:#1B1830">Gestore Costi Veicoli</span>
     </div>
-    <nav style="display:flex;align-items:center;gap:36px">
-      <a href="#features" style="color:#4B4566;font-weight:600;font-size:16px">Funzioni</a>
-      <a href="#gallery" style="color:#4B4566;font-weight:600;font-size:16px">App</a>
-      <a href="#pricing" style="color:#4B4566;font-weight:600;font-size:16px">Prezzi</a>
-      <a href="#faq" style="color:#4B4566;font-weight:600;font-size:16px">FAQ</a>
-      <a href="#download" style="background:#4B3FE3;color:#fff;font-weight:700;font-size:15px;padding:12px 24px;border-radius:100px">Scarica l'app</a>
+    <nav>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" style="display:flex;align-items:center;gap:36px">
+        <a href="#features" style="color:#4B4566;font-weight:600;font-size:16px">Funzioni</a>
+        <a href="#gallery" style="color:#4B4566;font-weight:600;font-size:16px">App</a>
+        <a href="#pricing" style="color:#4B4566;font-weight:600;font-size:16px">Prezzi</a>
+        <a href="#faq" style="color:#4B4566;font-weight:600;font-size:16px">FAQ</a>
+        <a href="#download" style="background:#4B3FE3;color:#fff;font-weight:700;font-size:15px;padding:12px 24px;border-radius:100px">Scarica l'app</a>
+      </div>
     </nav>
   </header>
 
@@ -47,8 +93,8 @@
     🚀 In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio
   </div>
 
-  <section style="display:flex;align-items:center;gap:64px;padding:64px 64px 40px">
-    <div style="flex:1;display:flex;flex-direction:column;gap:26px">
+  <section style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:64px 64px 40px">
+    <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:26px">
       <div style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:8px 16px;border-radius:100px;width:fit-content">Per auto, moto e ogni veicolo</div>
       <h1 style="margin:0;font-size:56px;line-height:1.1;font-weight:800;letter-spacing:-1px">Ogni euro della tua auto, <span style="color:#4B3FE3">sotto controllo.</span></h1>
       <p style="margin:0;font-size:19px;line-height:1.6;color:#4B4566;max-width:480px">Rate, carburante, bollo, assicurazione e revisione in un'unica dashboard. Scopri quanto ti costa davvero ogni veicolo, ogni mese.</p>
@@ -68,8 +114,8 @@
         <span>📊 Dati sempre tuoi</span>
       </div>
     </div>
-    <div style="flex:0 0 340px;display:flex;justify-content:center">
-      <div style="width:300px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:44px;padding:10px;box-shadow:0 40px 90px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
+    <div class="hero-media" style="flex:0 0 340px;display:flex;justify-content:center">
+      <div style="width:min(300px,70vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:44px;padding:10px;box-shadow:0 40px 90px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
         <img src="../assets/screenshots/dashboard.png" alt="Dashboard di Gestore Costi Veicoli" style="width:100%;height:100%;border-radius:36px;object-fit:cover;display:block">
       </div>
     </div>
@@ -80,7 +126,7 @@
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Tutto quello che serve per gestire i tuoi veicoli</h2>
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Una sola app per non perdere mai di vista tempo e denaro spesi su auto e moto.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+    <div class="feature-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
       <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><path d="M6 18.5v1.5M18 18.5v1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg>
@@ -132,10 +178,10 @@
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende. Disponibile in tema chiaro e scuro.</p>
     </div>
 
-    <div style="display:flex;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dashboard.png" alt="Dashboard - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dashboard-dark.png" alt="Dashboard - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
+      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dashboard.png" alt="Dashboard - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dashboard-dark.png" alt="Dashboard - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
       </div>
       <div style="flex:1">
         <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
@@ -149,10 +195,10 @@
       </div>
     </div>
 
-    <div style="display:flex;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/garage.png" alt="Garage - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/garage-dark.png" alt="Garage - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-row" style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
+      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/garage.png" alt="Garage - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/garage-dark.png" alt="Garage - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
       </div>
       <div style="flex:1">
         <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Garage</span>
@@ -166,10 +212,10 @@
       </div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/carburante.png" alt="Carburante - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/carburante-dark.png" alt="Carburante - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
+      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/carburante.png" alt="Carburante - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/carburante-dark.png" alt="Carburante - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
       </div>
       <div style="flex:1">
         <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Carburante</span>
@@ -183,10 +229,10 @@
       </div>
     </div>
 
-    <div style="display:flex;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/scadenze.png" alt="Scadenze - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/scadenze-dark.png" alt="Scadenze - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-row" style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
+      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/scadenze.png" alt="Scadenze - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/scadenze-dark.png" alt="Scadenze - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
       </div>
       <div style="flex:1">
         <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Scadenze</span>
@@ -200,10 +246,10 @@
       </div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dettaglio-veicolo-dark.png" alt="Dettaglio veicolo - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
+      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dettaglio-veicolo-dark.png" alt="Dettaglio veicolo - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
       </div>
       <div style="flex:1">
         <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dettaglio veicolo</span>
@@ -217,10 +263,10 @@
       </div>
     </div>
 
-    <div style="display:flex;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/impostazioni.png" alt="Impostazioni - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:170px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/impostazioni-dark.png" alt="Impostazioni - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-row" style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
+      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/impostazioni.png" alt="Impostazioni - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/impostazioni-dark.png" alt="Impostazioni - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
       </div>
       <div style="flex:1">
         <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Impostazioni</span>
@@ -242,7 +288,7 @@
     </div>
     <div style="display:flex;gap:56px;max-width:1080px;margin:0 auto;align-items:center;flex-wrap:wrap;justify-content:center">
       <div style="flex:0 0 260px;display:flex;justify-content:center">
-        <div style="width:260px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:38px;padding:9px;box-shadow:0 30px 70px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
+        <div style="width:min(260px,70vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:38px;padding:9px;box-shadow:0 30px 70px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
           <img src="../assets/screenshots/pro-paywall.png" alt="Schermata Gestore Costi Veicoli Pro nell'app" style="width:100%;height:100%;border-radius:30px;object-fit:cover;display:block">
         </div>
       </div>
@@ -327,5 +373,6 @@
   </footer>
 </div>
 
+<script defer src="../assets/nav.js"></script>
 </body>
 </html>

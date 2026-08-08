@@ -17,7 +17,10 @@
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FE3C1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
     Andrea Zanasi
   </a>
-  <div style="display:flex;align-items:center;gap:30px;font-family:'IBM Plex Mono',monospace;font-size:14px">
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" style="display:flex;align-items:center;gap:30px;font-family:'IBM Plex Mono',monospace;font-size:14px">
     <a href="index.html" class="nav-link">home</a>
     <a href="chi-sono.html" class="nav-link active">chi-sono</a>
     <a href="progetti.html" class="nav-link">progetti</a>
@@ -27,7 +30,7 @@
 
 <section style="max-width:1120px;margin:0 auto;padding:64px 32px 56px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 16px">Chi sono</p>
-  <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;margin:0 0 22px;letter-spacing:-1px;max-width:700px">Andrea Zanasi, sviluppatore full-stack</h1>
+  <h1 class="page-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;margin:0 0 22px;letter-spacing:-1px;max-width:700px">Andrea Zanasi, sviluppatore full-stack</h1>
   <p style="font-size:18px;line-height:1.7;color:#A7AEBB;max-width:640px;margin:0">Nato a Bologna il 26 gennaio 1993, lavoro nel mondo IT dal 2015. Ho iniziato in consulenza, seguendo progetti per clienti diversi, per poi entrare in una grande compagnia assicurativa, dove mi occupo di sviluppo software a tempo pieno. Nel tempo libero continuo a costruire: progetto e sviluppo applicazioni da zero, dall'idea al codice.</p>
 </section>
 
@@ -109,5 +112,6 @@
   </div>
 </footer>
 
+<script defer src="assets/nav.js"></script>
 </body>
 </html>

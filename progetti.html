@@ -17,7 +17,10 @@
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FE3C1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
     Andrea Zanasi
   </a>
-  <div style="display:flex;align-items:center;gap:30px;font-family:'IBM Plex Mono',monospace;font-size:14px">
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" style="display:flex;align-items:center;gap:30px;font-family:'IBM Plex Mono',monospace;font-size:14px">
     <a href="index.html" class="nav-link">home</a>
     <a href="chi-sono.html" class="nav-link">chi-sono</a>
     <a href="progetti.html" class="nav-link active">progetti</a>
@@ -27,7 +30,7 @@
 
 <section style="max-width:1120px;margin:0 auto;padding:64px 32px 48px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 16px">Progetti</p>
-  <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;margin:0 0 18px;letter-spacing:-1px;max-width:640px">Le app che sto costruendo.</h1>
+  <h1 class="page-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;margin:0 0 18px;letter-spacing:-1px;max-width:640px">Le app che sto costruendo.</h1>
   <p style="font-size:18px;line-height:1.7;color:#A7AEBB;max-width:560px;margin:0">Progetti personali, sviluppati nel tempo libero — dall'idea al codice, fino alla pubblicazione.</p>
 </section>
 
@@ -60,5 +63,6 @@
   </div>
 </footer>
 
+<script defer src="assets/nav.js"></script>
 </body>
 </html>
