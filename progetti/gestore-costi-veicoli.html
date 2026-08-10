@@ -109,11 +109,14 @@
     .watch-frame-wrap{transition:none}
   }
 
+  .gallery-sticky{overflow:hidden}
   .phone-frames{transition:opacity .5s ease, transform .5s ease}
-  .gallery-sticky[data-active-step="7"] .phone-frames{opacity:0;transform:scale(.94);pointer-events:none}
-  .watch-frame-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.94);transition:opacity .5s ease, transform .5s ease;pointer-events:none}
-  .gallery-sticky[data-active-step="7"] .watch-frame-wrap{opacity:1;transform:scale(1);pointer-events:auto}
+  .gallery-sticky[data-active-step="7"] .phone-frames{opacity:0;transform:translateX(-48px);pointer-events:none}
+  .watch-frame-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateX(48px);transition:opacity .5s ease, transform .5s ease;pointer-events:none}
+  .gallery-sticky[data-active-step="7"] .watch-frame-wrap{opacity:1;transform:translateX(0);pointer-events:auto}
   .watch-frame{position:relative;width:min(128px,34vw)}
+  .gallery-step-img{display:none}
+  .gallery-step-static-img{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);border-radius:21px;object-fit:cover;display:block}
   .watch-crown{position:absolute;right:-3px;top:36%;width:4px;height:10%;border-radius:0 2px 2px 0;background:#3a3a42}
   .watch-button{position:absolute;right:-4.5px;top:50%;width:5.5px;height:15%;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#3a3a42,#57575f)}
   .watch-case{box-sizing:border-box;width:100%;aspect-ratio:396/484;background:linear-gradient(155deg,#2c2c33,#0a0a0d 55%);border-radius:15%;padding:6.5%;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
@@ -152,11 +155,13 @@
     #features,#gallery,#pricing,#faq{padding-left:24px !important;padding-right:24px !important;padding-top:56px !important}
     section{padding-left:24px !important;padding-right:24px !important}
     .hero-media{flex:1 1 auto !important;max-width:260px !important;margin:0 auto}
+    .watch-glow-wrap{margin:0 auto 20px !important}
     .gallery-scroller{grid-template-columns:1fr !important;gap:32px !important}
-    .gallery-sticky{position:sticky !important;top:12px !important;margin:0 auto;z-index:2}
+    .gallery-sticky{display:none !important}
     .gallery-frame{width:min(120px,30vw) !important}
-    .watch-frame{width:min(110px,30vw) !important}
+    .watch-frame{width:min(150px,42vw) !important}
     .gallery-steps{gap:40px !important}
+    .gallery-step-img{display:flex !important;justify-content:center;margin-bottom:22px}
   }
 
   @media (min-width: 641px) and (max-width: 900px){
@@ -276,7 +281,7 @@
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Scarica lo storico spese e scadenze in CSV, in qualsiasi momento.</p>
       </div>
       <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap">
-        <div style="flex-shrink:0;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#EFEBFF 0%,rgba(239,235,255,0) 72%);display:flex;align-items:center;justify-content:center;margin:-14px 0">
+        <div class="watch-glow-wrap" style="flex-shrink:0;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#EFEBFF 0%,rgba(239,235,255,0) 72%);display:flex;align-items:center;justify-content:center;margin:-14px 0">
           <div style="position:relative;width:150px;height:184px">
             <div style="position:absolute;right:-2.5px;top:44px;width:3px;height:11px;border-radius:0 2px 2px 0;background:#3a3a42"></div>
             <div style="position:absolute;right:-3.5px;top:62px;width:4px;height:18px;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#3a3a42,#57575f)"></div>
@@ -300,7 +305,7 @@
     </div>
 
     <div class="gallery-scroller" style="display:grid;grid-template-columns:320px 1fr;gap:64px;max-width:1080px;margin:0 auto">
-      <div class="gallery-sticky" style="position:sticky;top:100px;align-self:start;display:flex;gap:10px;justify-content:center;height:fit-content">
+      <div class="gallery-sticky" style="position:sticky;top:100px;align-self:start;display:flex;gap:10px;justify-content:center">
         <div class="phone-frames" style="display:flex;gap:10px">
           <div class="gallery-frame">
             <img class="gallery-img is-active" data-step="1" src="../assets/screenshots/dashboard.png" alt="Dashboard - tema chiaro">
@@ -332,6 +337,7 @@
 
       <div class="gallery-steps">
         <div class="gallery-step is-active" data-step="1">
+          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/dashboard.png" alt="Dashboard di Gestore Costi Veicoli"></div></div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutto il costo dei tuoi veicoli, in un colpo d'occhio</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">La schermata che apri per prima: quanto spendi questo mese, quest'anno o in totale, con il dettaglio diviso per categoria.</p>
@@ -343,6 +349,7 @@
         </div>
 
         <div class="gallery-step" data-step="2">
+          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/garage.png" alt="Garage di Gestore Costi Veicoli"></div></div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Garage</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutti i tuoi veicoli, sempre a portata di mano</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Auto, moto e ogni altro mezzo registrato in un unico garage, con prezzo finale, rata mensile e costo annuo reale a colpo d'occhio.</p>
@@ -354,6 +361,7 @@
         </div>
 
         <div class="gallery-step" data-step="3">
+          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/carburante.png" alt="Carburante in Gestore Costi Veicoli"></div></div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Carburante</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni rifornimento, tracciato nel dettaglio</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Importo, litri e prezzo al litro di ogni pieno, mese per mese, per capire davvero quanto ti costa muoverti.</p>
@@ -365,6 +373,7 @@
         </div>
 
         <div class="gallery-step" data-step="4">
+          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/scadenze.png" alt="Scadenze in Gestore Costi Veicoli"></div></div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Scadenze</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Bollo, assicurazione, revisione: mai più una sorpresa</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tutte le scadenze di tutti i veicoli in un'unica timeline ordinata per data, con lo storico di quelle già completate.</p>
@@ -376,6 +385,7 @@
         </div>
 
         <div class="gallery-step" data-step="5">
+          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo in Gestore Costi Veicoli"></div></div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dettaglio veicolo</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni parametro del tuo veicolo, sotto controllo</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Prezzo di listino, prezzo pagato, costi operativi annui e i dati necessari per calcolare il bollo, tutto in una scheda.</p>
@@ -387,6 +397,7 @@
         </div>
 
         <div class="gallery-step" data-step="6">
+          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/impostazioni.png" alt="Impostazioni di Gestore Costi Veicoli"></div></div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Impostazioni</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">L'app si adatta a te</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tema, sicurezza e backup dei tuoi dati, tutto a portata di mano in un'unica schermata.</p>
@@ -398,6 +409,13 @@
         </div>
 
         <div class="gallery-step" data-step="7">
+          <div class="gallery-step-img">
+            <div class="watch-frame">
+              <div class="watch-crown"></div>
+              <div class="watch-button"></div>
+              <div class="watch-case"><img loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch"></div>
+            </div>
+          </div>
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Apple Watch</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Anche dal polso, senza tirare fuori il telefono</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Registra un rifornimento in pochi secondi direttamente dall'Apple Watch, con veicoli e categorie già sincronizzati dal telefono.</p>
