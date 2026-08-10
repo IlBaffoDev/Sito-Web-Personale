@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Andrea Zanasi — sviluppatore full-stack</title>
 <meta name="description" content="Sito personale di Andrea Zanasi: sviluppatore full-stack, progetti e app.">
+<link rel="canonical" href="https://azanasi.it/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Andrea Zanasi — sviluppatore full-stack">
+<meta property="og:description" content="Sito personale di Andrea Zanasi: sviluppatore full-stack, progetti e app.">
+<meta property="og:url" content="https://azanasi.it/">
+<meta property="og:image" content="https://azanasi.it/assets/og-main.png">
+<meta property="og:image:width" content="1512">
+<meta property="og:image:height" content="793">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Andrea Zanasi — sviluppatore full-stack">
+<meta name="twitter:description" content="Sito personale di Andrea Zanasi: sviluppatore full-stack, progetti e app.">
+<meta name="twitter:image" content="https://azanasi.it/assets/og-main.png">
+<meta name="view-transition" content="same-origin">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -12,9 +25,11 @@
 </head>
 <body>
 
+<a href="#main" class="skip-link">Vai al contenuto</a>
+
 <nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;max-width:1120px;margin:0 auto;padding:22px 32px;background:rgba(11,14,20,0.82);backdrop-filter:blur(10px)">
   <a href="index.html" style="display:flex;align-items:center;gap:10px;color:#EDEFF3;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FE3C1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FE3C1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
     Andrea Zanasi
   </a>
   <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
@@ -28,10 +43,10 @@
   </div>
 </nav>
 
-<section class="hero-grid" style="max-width:1120px;margin:0 auto;padding:64px 32px 96px;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center">
+<section id="main" class="hero-grid" style="max-width:1120px;margin:0 auto;padding:64px 32px 96px;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center">
   <div>
     <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 16px">Bologna, IT — dal 2015</p>
-    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:54px;line-height:1.12;letter-spacing:-1px;margin:0 0 22px;color:#EDEFF3">Costruisco software,<br><span style="color:#7C6FFF;font-style:italic;font-weight:600">un arco alla volta.</span></h1>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:54px;line-height:1.12;letter-spacing:-1px;margin:0 0 22px;color:#EDEFF3">Costruisco software,<br><span style="color:#7C6FFF;font-style:italic;font-weight:600">una linea di codice alla volta.</span></h1>
     <p style="font-size:18px;line-height:1.7;color:#A7AEBB;max-width:520px;margin:0 0 36px">Sono Andrea Zanasi, sviluppatore full-stack. Lavoro nell'IT dal 2015 — prima in consulenza, oggi in una grande compagnia assicurativa — e nel tempo libero progetto e costruisco applicazioni da zero.</p>
     <div style="display:flex;gap:16px">
       <a href="progetti.html" class="btn-primary">Guarda i progetti</a>
@@ -39,23 +54,23 @@
     </div>
   </div>
 
-  <div style="background:#12161F;border:1px solid #1E2430;border-radius:12px;padding:22px 26px;font-family:'IBM Plex Mono',monospace;font-size:14.5px;line-height:2;box-shadow:0 24px 60px -20px rgba(0,0,0,0.6)">
+  <div class="hero-code" style="background:#12161F;border:1px solid #1E2430;border-radius:12px;padding:22px 26px;font-family:'IBM Plex Mono',monospace;font-size:14.5px;line-height:2;box-shadow:0 24px 60px -20px rgba(0,0,0,0.6)">
     <div style="display:flex;gap:7px;margin-bottom:18px">
       <span style="width:9px;height:9px;border-radius:50%;background:#2A3140"></span>
       <span style="width:9px;height:9px;border-radius:50%;background:#2A3140"></span>
       <span style="width:9px;height:9px;border-radius:50%;background:#2A3140"></span>
     </div>
-    <div style="color:#5C6577">// profilo.ts</div>
-    <div><span style="color:#4FE3C1">nome</span>: <span style="color:#7C6FFF">"Andrea Zanasi"</span>,</div>
-    <div><span style="color:#4FE3C1">nato</span>: <span style="color:#7C6FFF">"Bologna, 26/01/1993"</span>,</div>
-    <div><span style="color:#4FE3C1">ruolo</span>: <span style="color:#7C6FFF">"Full-stack developer"</span>,</div>
-    <div><span style="color:#4FE3C1">settore</span>: <span style="color:#7C6FFF">"Assicurazioni"</span>,</div>
-    <div><span style="color:#4FE3C1">dal</span>: <span style="color:#7C6FFF">2015</span>,</div>
-    <div><span style="color:#4FE3C1">progetti</span>: [<span style="color:#7C6FFF">"Gestore Costi Veicoli"</span>]<span style="display:inline-block;width:8px;background:#4FE3C1;margin-left:2px;animation:blink 1s step-end infinite">&nbsp;</span></div>
+    <div class="hero-code-line" style="color:#5C6577">// profilo.ts</div>
+    <div class="hero-code-line"><span style="color:#4FE3C1">nome</span>: <span style="color:#7C6FFF">"Andrea Zanasi"</span>,</div>
+    <div class="hero-code-line"><span style="color:#4FE3C1">nato</span>: <span style="color:#7C6FFF">"Bologna, 26/01/1993"</span>,</div>
+    <div class="hero-code-line"><span style="color:#4FE3C1">ruolo</span>: <span style="color:#7C6FFF">"Full-stack developer"</span>,</div>
+    <div class="hero-code-line"><span style="color:#4FE3C1">settore</span>: <span style="color:#7C6FFF">"Assicurazioni"</span>,</div>
+    <div class="hero-code-line"><span style="color:#4FE3C1">dal</span>: <span style="color:#7C6FFF">2015</span>,</div>
+    <div class="hero-code-line"><span style="color:#4FE3C1">progetti</span>: [<span style="color:#7C6FFF">"Gestore Costi Veicoli"</span>]<span style="display:inline-block;width:8px;background:#4FE3C1;margin-left:2px;animation:blink 1s step-end infinite">&nbsp;</span></div>
   </div>
 </section>
 
-<section style="max-width:1120px;margin:0 auto;padding:0 32px 88px;border-top:1px solid #1A1E28;padding-top:56px">
+<section class="reveal" style="max-width:1120px;margin:0 auto;padding:0 32px 88px;border-top:1px solid #1A1E28;padding-top:56px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 12px">In breve</p>
   <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 36px;max-width:640px">Nove anni nell'IT, una passione che parte da prima.</h2>
   <div class="fact-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1A1E28;border:1px solid #1A1E28;border-radius:10px;overflow:hidden">
@@ -77,7 +92,7 @@
   </div>
 </section>
 
-<section style="max-width:1120px;margin:0 auto;padding:0 32px 100px">
+<section class="reveal" style="max-width:1120px;margin:0 auto;padding:0 32px 100px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 12px">Progetto in evidenza</p>
   <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 32px">Gestore Costi Veicoli</h2>
   <div class="project-grid" style="display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;background:#12161F;border:1px solid #1E2430;border-radius:14px;padding:36px">
@@ -99,11 +114,14 @@
     <div style="display:flex;gap:24px">
       <a href="https://github.com/IlBaffoDev" target="_blank" rel="noopener" class="footer-link">GitHub</a>
       <a href="https://www.linkedin.com/in/andrea-zanasi-49b5b4151/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
-      <a href="mailto:andreazanasi1993@gmail.com" class="footer-link">Email</a>
+      <a href="mailto:andreazanasi1993@gmail.com" class="footer-link copy-email">Email</a>
     </div>
   </div>
 </footer>
 
 <script defer src="assets/nav.js"></script>
+<script defer src="assets/reveal.js"></script>
+<script defer src="assets/hero.js"></script>
+<script defer src="assets/copy-email.js"></script>
 </body>
 </html>

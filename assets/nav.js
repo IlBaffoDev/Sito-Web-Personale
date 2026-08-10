@@ -20,3 +20,9 @@ document.querySelectorAll('.nav-toggle').forEach(function (toggle) {
     if (e.key === 'Escape') close();
   });
 });
+
+if (!window.__consoleEasterEgg) {
+  window.__consoleEasterEgg = true;
+  console.log('%cPsst — se stai leggendo il sorgente, forse ti interessa collaborare?', 'color:#4FE3C1;font-weight:600;font-size:14px');
+  console.log('%cAndrea Zanasi — andreazanasi1993@gmail.com — github.com/IlBaffoDev', 'color:#8A93A3;font-size:12px');
+}

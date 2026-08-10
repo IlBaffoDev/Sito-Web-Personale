@@ -5,9 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gestore Costi Veicoli — un progetto di Andrea Zanasi</title>
 <meta name="description" content="Gestore Costi Veicoli: l'app per tracciare rate, carburante, bollo, assicurazione e revisione di auto e moto in un'unica dashboard.">
+<link rel="canonical" href="https://azanasi.it/progetti/gestore-costi-veicoli.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gestore Costi Veicoli — un progetto di Andrea Zanasi">
+<meta property="og:description" content="Gestore Costi Veicoli: l'app per tracciare rate, carburante, bollo, assicurazione e revisione di auto e moto in un'unica dashboard.">
+<meta property="og:url" content="https://azanasi.it/progetti/gestore-costi-veicoli.html">
+<meta property="og:image" content="https://azanasi.it/assets/og-app.png">
+<meta property="og:image:width" content="1512">
+<meta property="og:image:height" content="793">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gestore Costi Veicoli — un progetto di Andrea Zanasi">
+<meta name="twitter:description" content="Gestore Costi Veicoli: l'app per tracciare rate, carburante, bollo, assicurazione e revisione di auto e moto in un'unica dashboard.">
+<meta name="twitter:image" content="https://azanasi.it/assets/og-app.png">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Gestore Costi Veicoli",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "iOS, Android",
+  "description": "App per tracciare rate, carburante, bollo, assicurazione e revisione di auto e moto in un'unica dashboard.",
+  "url": "https://azanasi.it/progetti/gestore-costi-veicoli.html",
+  "author": {
+    "@type": "Person",
+    "name": "Andrea Zanasi",
+    "url": "https://azanasi.it/chi-sono.html"
+  },
+  "offers": [
+    { "@type": "Offer", "name": "Gratuito", "price": "0", "priceCurrency": "EUR" },
+    { "@type": "Offer", "name": "Pro", "price": "4.99", "priceCurrency": "EUR" }
+  ]
+}
+</script>
 <style>
   body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff}
   a{color:#4B3FE3;text-decoration:none}
@@ -16,6 +48,64 @@
   .store-btn:hover{transform:translateY(-2px)}
   details summary{cursor:pointer;list-style:none}
   details summary::-webkit-details-marker{display:none}
+
+  .skip-link{
+    position:absolute;top:-40px;left:8px;z-index:100;
+    background:#4B3FE3;color:#fff;
+    padding:10px 16px;border-radius:6px;
+    font-weight:600;font-size:14px;text-decoration:none;
+    transition:top .15s ease;
+  }
+  .skip-link:focus{top:8px}
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:2px solid #4B3FE3;outline-offset:3px;border-radius:4px;
+  }
+
+  .feature-grid > div{transition:transform .25s ease, box-shadow .25s ease}
+  .feature-grid > div:hover{
+    transform:translateY(-6px);
+    box-shadow:0 2px 8px rgba(20,10,60,.05), 0 20px 40px -16px rgba(75,63,227,.25);
+  }
+  .feature-grid > div > div:first-child{transition:transform .25s ease}
+  .feature-grid > div:hover > div:first-child{transform:scale(1.08)}
+
+  .pricing-card{transition:transform .25s ease, box-shadow .25s ease}
+  .pricing-card:hover{transform:translateY(-6px)}
+
+  #faq details{transition:transform .2s ease, box-shadow .2s ease}
+  #faq details:hover{transform:translateY(-3px);box-shadow:0 12px 28px -12px rgba(20,10,60,.18)}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
+  .reveal.is-visible{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+
+  /* bento feature grid */
+  .feature-grid{grid-template-columns:repeat(4,1fr) !important}
+  .feature-grid > div:nth-child(1){
+    grid-column:span 2;grid-row:span 2;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .feature-grid > div:nth-child(1) > div:first-child{width:64px !important;height:64px !important}
+  .feature-grid > div:nth-child(1) h3{font-size:24px !important}
+  .feature-grid > div:nth-child(1) p{font-size:16px !important}
+  .feature-grid > div:nth-child(4),
+  .feature-grid > div:nth-child(5),
+  .feature-grid > div:nth-child(6){grid-column:span 2}
+
+  /* scrollytelling gallery */
+  .gallery-frame{position:relative;width:min(140px,38vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
+  .gallery-img{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);border-radius:21px;object-fit:cover;opacity:0;transition:opacity .5s ease}
+  .gallery-img.is-active{opacity:1}
+  .gallery-steps{display:flex;flex-direction:column;gap:56px}
+  .gallery-step{opacity:.4;transition:opacity .4s ease}
+  .gallery-step.is-active{opacity:1}
+  @media (prefers-reduced-motion: reduce){
+    .gallery-img{transition:none}
+    .gallery-step{transition:none}
+  }
+
   .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
   .back-bar a{color:#fff}
   .shot-frame{width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);font-size:13px;text-align:center;padding:16px}
@@ -49,27 +139,32 @@
     #features,#gallery,#pricing,#faq{padding-left:24px !important;padding-right:24px !important;padding-top:56px !important}
     section{padding-left:24px !important;padding-right:24px !important}
     .hero-media{flex:1 1 auto !important;max-width:260px !important;margin:0 auto}
-    .gallery-row{flex-wrap:wrap !important;gap:32px !important;padding:40px 0 !important}
-    .gallery-shots{flex:1 1 100% !important;justify-content:center !important}
-    .gallery-row > div:last-child{flex:1 1 100% !important}
+    .gallery-scroller{grid-template-columns:1fr !important;gap:32px !important}
+    .gallery-sticky{position:sticky !important;top:12px !important;margin:0 auto;z-index:2}
+    .gallery-frame{width:min(120px,30vw) !important}
+    .gallery-steps{gap:40px !important}
   }
 
   @media (min-width: 641px) and (max-width: 900px){
     .feature-grid{grid-template-columns:repeat(2,1fr) !important}
+    .feature-grid > div{grid-column:auto !important;grid-row:auto !important;display:block !important}
   }
   @media (max-width: 640px){
     .feature-grid{grid-template-columns:1fr !important}
+    .feature-grid > div{grid-column:auto !important;grid-row:auto !important;display:block !important}
   }
 </style>
 </head>
 <body>
+
+<a href="#main" class="skip-link">Vai al contenuto</a>
 
 <div class="back-bar"><a href="../progetti.html">← Torna ai progetti di Andrea Zanasi</a></div>
 
 <div style="max-width:1440px;margin:0 auto">
   <header style="display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
     <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;position:relative">
+      <div aria-hidden="true" style="width:40px;height:40px;border-radius:12px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;position:relative">
         <div style="width:20px;height:20px;border-radius:50%;border:3px solid #fff"></div>
         <div style="position:absolute;width:3px;height:9px;background:#fff;top:5px;left:18.5px;border-radius:2px"></div>
       </div>
@@ -93,7 +188,7 @@
     🚀 In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio
   </div>
 
-  <section style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:64px 64px 40px">
+  <section id="main" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:64px 64px 40px">
     <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:26px">
       <div style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:8px 16px;border-radius:100px;width:fit-content">Per auto, moto e ogni veicolo</div>
       <h1 style="margin:0;font-size:56px;line-height:1.1;font-weight:800;letter-spacing:-1px">Ogni euro della tua auto, <span style="color:#4B3FE3">sotto controllo.</span></h1>
@@ -116,12 +211,12 @@
     </div>
     <div class="hero-media" style="flex:0 0 340px;display:flex;justify-content:center">
       <div style="width:min(300px,70vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:44px;padding:10px;box-shadow:0 40px 90px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
-        <img src="../assets/screenshots/dashboard.png" alt="Dashboard di Gestore Costi Veicoli" style="width:100%;height:100%;border-radius:36px;object-fit:cover;display:block">
+        <img src="../assets/screenshots/dashboard.png" alt="Dashboard di Gestore Costi Veicoli" fetchpriority="high" style="width:100%;height:100%;border-radius:36px;object-fit:cover;display:block">
       </div>
     </div>
   </section>
 
-  <section id="features" style="padding:100px 64px;background:#FAFAFE">
+  <section id="features" class="reveal" style="padding:100px 64px;background:#FAFAFE">
     <div style="text-align:center;max-width:640px;margin:0 auto 56px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Tutto quello che serve per gestire i tuoi veicoli</h2>
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Una sola app per non perdere mai di vista tempo e denaro spesi su auto e moto.</p>
@@ -178,110 +273,97 @@
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende. Disponibile in tema chiaro e scuro.</p>
     </div>
 
-    <div class="gallery-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dashboard.png" alt="Dashboard - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dashboard-dark.png" alt="Dashboard - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
+    <div class="gallery-scroller" style="display:grid;grid-template-columns:320px 1fr;gap:64px;max-width:1080px;margin:0 auto">
+      <div class="gallery-sticky" style="position:sticky;top:100px;align-self:start;display:flex;gap:10px;justify-content:center;height:fit-content">
+        <div class="gallery-frame">
+          <img class="gallery-img is-active" data-step="1" src="../assets/screenshots/dashboard.png" alt="Dashboard - tema chiaro">
+          <img class="gallery-img" data-step="2" loading="lazy" src="../assets/screenshots/garage.png" alt="Garage - tema chiaro">
+          <img class="gallery-img" data-step="3" loading="lazy" src="../assets/screenshots/carburante.png" alt="Carburante - tema chiaro">
+          <img class="gallery-img" data-step="4" loading="lazy" src="../assets/screenshots/scadenze.png" alt="Scadenze - tema chiaro">
+          <img class="gallery-img" data-step="5" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo - tema chiaro">
+          <img class="gallery-img" data-step="6" loading="lazy" src="../assets/screenshots/impostazioni.png" alt="Impostazioni - tema chiaro">
+        </div>
+        <div class="gallery-frame">
+          <img class="gallery-img is-active" data-step="1" src="../assets/screenshots/dashboard-dark.png" alt="Dashboard - tema scuro">
+          <img class="gallery-img" data-step="2" loading="lazy" src="../assets/screenshots/garage-dark.png" alt="Garage - tema scuro">
+          <img class="gallery-img" data-step="3" loading="lazy" src="../assets/screenshots/carburante-dark.png" alt="Carburante - tema scuro">
+          <img class="gallery-img" data-step="4" loading="lazy" src="../assets/screenshots/scadenze-dark.png" alt="Scadenze - tema scuro">
+          <img class="gallery-img" data-step="5" loading="lazy" src="../assets/screenshots/dettaglio-veicolo-dark.png" alt="Dettaglio veicolo - tema scuro">
+          <img class="gallery-img" data-step="6" loading="lazy" src="../assets/screenshots/impostazioni-dark.png" alt="Impostazioni - tema scuro">
+        </div>
       </div>
-      <div style="flex:1">
-        <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
-        <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutto il costo dei tuoi veicoli, in un colpo d'occhio</h3>
-        <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">La schermata che apri per prima: quanto spendi questo mese, quest'anno o in totale, con il dettaglio diviso per categoria.</p>
-        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-          <li>✓ Vista Mensile, Annuo o Totale del costo complessivo</li>
-          <li>✓ Insight automatici sulla voce di spesa principale e sulle anomalie</li>
-          <li>✓ Prezzi benzina e diesel self-service aggiornati (dati MIMIT)</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="gallery-row" style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/garage.png" alt="Garage - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/garage-dark.png" alt="Garage - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-      </div>
-      <div style="flex:1">
-        <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Garage</span>
-        <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutti i tuoi veicoli, sempre a portata di mano</h3>
-        <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Auto, moto e ogni altro mezzo registrato in un unico garage, con prezzo finale, rata mensile e costo annuo reale a colpo d'occhio.</p>
-        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-          <li>✓ Registra auto, moto e altri veicoli senza limiti (con Pro)</li>
-          <li>✓ Prezzo finale, rata mensile e costo annuo per ciascun veicolo</li>
-          <li>✓ Modifica, archivia o elimina un veicolo in un tap</li>
-        </ul>
-      </div>
-    </div>
+      <div class="gallery-steps">
+        <div class="gallery-step is-active" data-step="1">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
+          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutto il costo dei tuoi veicoli, in un colpo d'occhio</h3>
+          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">La schermata che apri per prima: quanto spendi questo mese, quest'anno o in totale, con il dettaglio diviso per categoria.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
+            <li>✓ Vista Mensile, Annuo o Totale del costo complessivo</li>
+            <li>✓ Insight automatici sulla voce di spesa principale e sulle anomalie</li>
+            <li>✓ Prezzi benzina e diesel self-service aggiornati (dati MIMIT)</li>
+          </ul>
+        </div>
 
-    <div class="gallery-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/carburante.png" alt="Carburante - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/carburante-dark.png" alt="Carburante - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-      </div>
-      <div style="flex:1">
-        <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Carburante</span>
-        <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni rifornimento, tracciato nel dettaglio</h3>
-        <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Importo, litri e prezzo al litro di ogni pieno, mese per mese, per capire davvero quanto ti costa muoverti.</p>
-        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-          <li>✓ Spesa totale, litri e prezzo medio per periodo</li>
-          <li>✓ Stime intelligenti sul prossimo rifornimento (Pro)</li>
-          <li>✓ Mappa dei distributori dove hai fatto rifornimento (Pro)</li>
-        </ul>
-      </div>
-    </div>
+        <div class="gallery-step" data-step="2">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Garage</span>
+          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutti i tuoi veicoli, sempre a portata di mano</h3>
+          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Auto, moto e ogni altro mezzo registrato in un unico garage, con prezzo finale, rata mensile e costo annuo reale a colpo d'occhio.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
+            <li>✓ Registra auto, moto e altri veicoli senza limiti (con Pro)</li>
+            <li>✓ Prezzo finale, rata mensile e costo annuo per ciascun veicolo</li>
+            <li>✓ Modifica, archivia o elimina un veicolo in un tap</li>
+          </ul>
+        </div>
 
-    <div class="gallery-row" style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/scadenze.png" alt="Scadenze - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/scadenze-dark.png" alt="Scadenze - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-      </div>
-      <div style="flex:1">
-        <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Scadenze</span>
-        <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Bollo, assicurazione, revisione: mai più una sorpresa</h3>
-        <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tutte le scadenze di tutti i veicoli in un'unica timeline ordinata per data, con lo storico di quelle già completate.</p>
-        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-          <li>✓ Timeline delle prossime scadenze per ogni veicolo</li>
-          <li>✓ Notifiche attivabili per non dimenticare nulla</li>
-          <li>✓ Esporta lo storico in CSV o PDF (Pro)</li>
-        </ul>
-      </div>
-    </div>
+        <div class="gallery-step" data-step="3">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Carburante</span>
+          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni rifornimento, tracciato nel dettaglio</h3>
+          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Importo, litri e prezzo al litro di ogni pieno, mese per mese, per capire davvero quanto ti costa muoverti.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
+            <li>✓ Spesa totale, litri e prezzo medio per periodo</li>
+            <li>✓ Stime intelligenti sul prossimo rifornimento (Pro)</li>
+            <li>✓ Mappa dei distributori dove hai fatto rifornimento (Pro)</li>
+          </ul>
+        </div>
 
-    <div class="gallery-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/dettaglio-veicolo-dark.png" alt="Dettaglio veicolo - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-      </div>
-      <div style="flex:1">
-        <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dettaglio veicolo</span>
-        <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni parametro del tuo veicolo, sotto controllo</h3>
-        <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Prezzo di listino, prezzo pagato, costi operativi annui e i dati necessari per calcolare il bollo, tutto in una scheda.</p>
-        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-          <li>✓ Prezzo di listino vs prezzo pagato</li>
-          <li>✓ Costi operativi annui: manutenzione e revisione</li>
-          <li>✓ Potenza, anno, regione e classe euro per il bollo</li>
-        </ul>
-      </div>
-    </div>
+        <div class="gallery-step" data-step="4">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Scadenze</span>
+          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Bollo, assicurazione, revisione: mai più una sorpresa</h3>
+          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tutte le scadenze di tutti i veicoli in un'unica timeline ordinata per data, con lo storico di quelle già completate.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
+            <li>✓ Timeline delle prossime scadenze per ogni veicolo</li>
+            <li>✓ Notifiche attivabili per non dimenticare nulla</li>
+            <li>✓ Esporta lo storico in CSV o PDF (Pro)</li>
+          </ul>
+        </div>
 
-    <div class="gallery-row" style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:center;gap:64px;padding:56px 0;border-top:1px solid #EEE9FF;max-width:1080px;margin:0 auto">
-      <div class="gallery-shots" style="flex:0 0 300px;display:flex;gap:10px;justify-content:center">
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/impostazioni.png" alt="Impostazioni - tema chiaro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-        <div style="width:min(170px,42vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)"><img src="../assets/screenshots/impostazioni-dark.png" alt="Impostazioni - tema scuro" style="width:100%;height:100%;border-radius:21px;object-fit:cover;display:block"></div>
-      </div>
-      <div style="flex:1">
-        <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Impostazioni</span>
-        <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">L'app si adatta a te</h3>
-        <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tema, sicurezza e backup dei tuoi dati, tutto a portata di mano in un'unica schermata.</p>
-        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-          <li>✓ Tema chiaro o scuro, a tua scelta</li>
-          <li>✓ Blocco app con PIN, Face ID o Touch ID</li>
-          <li>✓ Backup completo con password opzionale, sempre esportabile</li>
-        </ul>
+        <div class="gallery-step" data-step="5">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dettaglio veicolo</span>
+          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni parametro del tuo veicolo, sotto controllo</h3>
+          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Prezzo di listino, prezzo pagato, costi operativi annui e i dati necessari per calcolare il bollo, tutto in una scheda.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
+            <li>✓ Prezzo di listino vs prezzo pagato</li>
+            <li>✓ Costi operativi annui: manutenzione e revisione</li>
+            <li>✓ Potenza, anno, regione e classe euro per il bollo</li>
+          </ul>
+        </div>
+
+        <div class="gallery-step" data-step="6">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Impostazioni</span>
+          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">L'app si adatta a te</h3>
+          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tema, sicurezza e backup dei tuoi dati, tutto a portata di mano in un'unica schermata.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
+            <li>✓ Tema chiaro o scuro, a tua scelta</li>
+            <li>✓ Blocco app con PIN, Face ID o Touch ID</li>
+            <li>✓ Backup completo con password opzionale, sempre esportabile</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="pricing" style="padding:100px 64px;background:#FAFAFE">
+  <section id="pricing" class="reveal" style="padding:100px 64px;background:#FAFAFE">
     <div style="text-align:center;max-width:640px;margin:0 auto 56px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Un piano per ogni esigenza</h2>
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Gratis per iniziare. Pro con un acquisto unico, per sempre — nessun abbonamento.</p>
@@ -293,14 +375,14 @@
         </div>
       </div>
       <div style="flex:1;min-width:280px;max-width:400px;display:flex;flex-direction:column;gap:24px">
-        <div style="background:#fff;border-radius:20px;padding:28px 32px;border:1px solid #EEE9FF;display:flex;justify-content:space-between;align-items:center;gap:20px">
+        <div class="pricing-card" style="background:#fff;border-radius:20px;padding:28px 32px;border:1px solid #EEE9FF;display:flex;justify-content:space-between;align-items:center;gap:20px">
           <div>
             <h3 style="margin:0 0 4px;font-size:19px;font-weight:800">Gratuito</h3>
             <p style="margin:0;color:#8A85A3;font-size:14px">1 veicolo, carburante e scadenze di base</p>
           </div>
           <div style="font-size:26px;font-weight:800;white-space:nowrap">0 €</div>
         </div>
-        <div style="background:linear-gradient(160deg,#4B3FE3,#7566F5);border-radius:20px;padding:28px 32px;color:#fff;box-shadow:0 20px 50px rgba(75,63,227,0.28)">
+        <div class="pricing-card" style="background:linear-gradient(160deg,#4B3FE3,#7566F5);border-radius:20px;padding:28px 32px;color:#fff;box-shadow:0 20px 50px rgba(75,63,227,0.28)">
           <div style="margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
             <div>
               <h3 style="margin:0 0 4px;font-size:19px;font-weight:800">Pro</h3>
@@ -321,29 +403,29 @@
     </div>
   </section>
 
-  <section id="faq" style="padding:100px 64px">
+  <section id="faq" class="reveal" style="padding:100px 64px">
     <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0;font-size:38px;font-weight:800;letter-spacing:-0.5px">Domande frequenti</h2>
     </div>
     <div style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
-        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">L'app funziona anche offline?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">L'app funziona anche offline?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
         <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: l'app funziona completamente offline. Tutti i dati restano solo sul tuo dispositivo, non c'è nessun server con cui sincronizzarsi — anche le poche funzioni che usano internet (mappe, prezzi carburante) sono opzionali.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
-        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso gestire più veicoli insieme?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso gestire più veicoli insieme?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
         <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì, il piano gratuito supporta 1 veicolo, mentre Pro permette di gestirne quanti vuoi, con un unico acquisto di 4,99 €.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
-        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Come vengono calcolati i costi stimati?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Come vengono calcolati i costi stimati?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
         <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Combiniamo rata, consumo medio, prezzo del carburante impostato e costi operativi che inserisci tu per stimare il costo reale di possesso.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
-        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">I miei dati sono al sicuro?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">I miei dati sono al sicuro?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
         <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: non esiste un account né un server, i tuoi dati restano solo sul tuo telefono in un database cifrato che nemmeno lo sviluppatore può leggere.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
-        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso esportare il mio storico spese?<span style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso esportare il mio storico spese?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
         <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì, con Pro puoi esportare in PDF o CSV lo storico di rifornimenti, scadenze e spese in qualsiasi momento.</p>
       </details>
     </div>
@@ -374,5 +456,7 @@
 </div>
 
 <script defer src="../assets/nav.js"></script>
+<script defer src="../assets/reveal.js"></script>
+<script defer src="../assets/gallery.js"></script>
 </body>
 </html>
