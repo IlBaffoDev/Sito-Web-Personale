@@ -5,6 +5,8 @@
   var steps = scroller.querySelectorAll('.gallery-step');
   if (!steps.length) return;
 
+  var sticky = scroller.querySelector('.gallery-sticky');
+
   function setActive(step) {
     scroller.querySelectorAll('.is-active').forEach(function (el) {
       if (el !== step) el.classList.remove('is-active');
@@ -13,6 +15,7 @@
     scroller.querySelectorAll('.gallery-img[data-step="' + step.dataset.step + '"]').forEach(function (img) {
       img.classList.add('is-active');
     });
+    if (sticky) sticky.setAttribute('data-active-step', step.dataset.step);
   }
 
   var observer = new IntersectionObserver(function (entries) {
