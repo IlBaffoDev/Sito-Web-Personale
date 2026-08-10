@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://azanasi.it/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://azanasi.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://azanasi.it/en/index.html"/>
   </url>
   <url>
     <loc>https://azanasi.it/chi-sono.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://azanasi.it/chi-sono.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://azanasi.it/en/chi-sono.html"/>
   </url>
   <url>
     <loc>https://azanasi.it/progetti.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://azanasi.it/progetti.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://azanasi.it/en/progetti.html"/>
+  </url>
+  <url>
+    <loc>https://azanasi.it/en/index.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://azanasi.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://azanasi.it/en/index.html"/>
+  </url>
+  <url>
+    <loc>https://azanasi.it/en/chi-sono.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://azanasi.it/chi-sono.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://azanasi.it/en/chi-sono.html"/>
+  </url>
+  <url>
+    <loc>https://azanasi.it/en/progetti.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://azanasi.it/progetti.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://azanasi.it/en/progetti.html"/>
   </url>
   <url>
     <loc>https://azanasi.it/progetti/gestore-costi-veicoli.html</loc>

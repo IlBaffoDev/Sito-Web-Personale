@@ -3,6 +3,7 @@
   if (!links.length || !navigator.clipboard) return;
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var toastText = document.documentElement.lang === 'en' ? 'Email copied!' : 'Email copiata!';
 
   function showToast(link, text) {
     var toast = document.createElement('span');
@@ -23,7 +24,7 @@
       e.preventDefault();
       var email = link.href.replace('mailto:', '');
       navigator.clipboard.writeText(email).then(function () {
-        showToast(link, 'Email copiata!');
+        showToast(link, toastText);
       }).catch(function () {
         window.location.href = link.href;
       });
