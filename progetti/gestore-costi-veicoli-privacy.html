@@ -55,7 +55,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 14 agosto 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 16 agosto 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -90,6 +90,9 @@
   <li><strong>Dati di accesso</strong> (solo se attivi la sincronizzazione): l'identificativo
     dell'account, l'indirizzo email e, se lo fornisci tu tramite Apple/Google, il nome associato
     al provider di accesso scelto.</li>
+  <li><strong>Dati di condivisione</strong> (solo se attivi la sincronizzazione e inviti o accetti
+    un invito su una Dash): nome ed email delle persone con cui condividi, il ruolo assegnato a
+    ciascuna (editor o sola lettura) e l'attribuzione di chi ha aggiunto o modificato ogni voce.</li>
 </ul>
 <p>Per impostazione predefinita nessuno di questi dati è raccolto, ricevuto o visto dallo
   sviluppatore. Questo resta vero finché non attivi esplicitamente la sincronizzazione
@@ -125,12 +128,36 @@
     gli stessi dati che già tieni nell'app — veicoli, spese, rifornimenti, viaggi, scadenze e le
     foto che alleghi — così da poterli leggere anche dagli altri tuoi dispositivi collegati allo
     stesso account.</li>
-  <li><strong>Chi può vedere questi dati</strong>: solo tu. Il database su Supabase applica
-    regole di sicurezza a livello di riga (Row Level Security) che isolano i dati di ogni utente
-    — nessun altro account, incluso lo sviluppatore, può leggerli tramite l'app.</li>
+  <li><strong>Chi può vedere questi dati</strong>: solo tu, a meno che tu non attivi anche la
+    condivisione descritta nella sezione successiva. Il database su Supabase applica regole di
+    sicurezza a livello di riga (Row Level Security) che isolano i dati di ogni utente — nessun
+    altro account, incluso lo sviluppatore, può leggerli tramite l'app.</li>
   <li><strong>Disattivazione</strong>: puoi disconnetterti in qualsiasi momento dalla schermata
     Impostazioni; l'app torna a funzionare solo in locale. La cancellazione dei dati già inviati
     a Supabase può essere richiesta scrivendo all'indirizzo email in cima a questa pagina.</li>
+</ul>
+
+<h2>Condivisione della Dash con altre persone (opzionale)</h2>
+<p class="highlight">
+  Questa funzionalità richiede la sincronizzazione attiva (vedi sopra) ed è anch'essa una scelta
+  esplicita: se non inviti né accetti nessuno, questa sezione non si applica.
+</p>
+<ul>
+  <li><strong>Cosa condividi</strong>: se inviti un'altra persona sulla tua Dash, i tuoi veicoli,
+    spese, rifornimenti, viaggi e scadenze diventano visibili a chi accetta l'invito, con il
+    ruolo che assegni — <strong>editor</strong> (può aggiungere e modificare) o
+    <strong>sola lettura</strong> (può solo consultare). Resti sempre l'unico proprietario: solo
+    tu puoi invitare, rimuovere persone o cancellare un veicolo.</li>
+  <li><strong>Chi può vedere questi dati</strong>: solo tu e le persone che hai invitato
+    esplicitamente (o che ti hanno invitato, se sei tu ad accettare un invito) — le stesse regole
+    di sicurezza a livello di riga estendono l'accesso soltanto ai membri della Dash condivisa,
+    non a nessun altro.</li>
+  <li><strong>Cosa vedono i membri della Dash su di te</strong>: il tuo nome ed email (per
+    identificarti nella lista membri) e, su ogni voce, se l'hai aggiunta o modificata tu
+    (attribuzione "Aggiunto da"/"Modificato da").</li>
+  <li><strong>Revoca</strong>: il proprietario può rimuovere un membro in qualsiasi momento dalla
+    schermata Condivisione; chi è stato rimosso perde immediatamente l'accesso ai dati condivisi.
+    Un membro può anche uscire autonomamente da una Dash condivisa in qualsiasi momento.</li>
 </ul>
 
 <h2>Dati inviati a servizi di terze parti</h2>
