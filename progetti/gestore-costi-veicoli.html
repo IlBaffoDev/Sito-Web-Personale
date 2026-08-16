@@ -296,22 +296,13 @@
           <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:420px">Registra un rifornimento rapido direttamente dal polso, sincronizzato con il telefono — inclusa nel piano base, nessun costo aggiuntivo.</p>
         </div>
       </div>
-      <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;gap:48px;flex-wrap:wrap">
-        <div style="flex:1;min-width:260px">
-          <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 8.5a2.5 2.5 0 1 1 5 0c0 2.5-2.5 3-2.5 3"/><path d="M19.5 15v.01"/></svg>
-          </div>
-          <h3 style="margin:0 0 8px;font-size:22px;font-weight:700">Sincronizza tra i tuoi device e condividi la Dash</h3>
-          <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:420px">Accedi (facoltativo) con Apple o Google per avere veicoli, spese e scadenze sincronizzati su tutti i tuoi dispositivi — l'app resta comunque completamente utilizzabile senza account, con i dati solo sul telefono.</p>
+      <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap">
+        <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M17 8.5a2.5 2.5 0 1 1 5 0c0 2.5-2.5 3-2.5 3"/><path d="M19.5 15v.01"/></svg>
         </div>
-        <div style="flex:1;min-width:260px;background:#FAFAFE;border-radius:16px;padding:24px 26px">
-          <p style="margin:0 0 12px;font-weight:700;font-size:15px">Gestite i veicoli insieme a qualcuno? Invitatelo nella vostra Dash:</p>
-          <ul style="margin:0;padding-left:20px;color:#4B4566;font-size:14.5px;line-height:1.9">
-            <li><strong>Proprietario</strong> — sei sempre tu: unico a poter invitare o rimuovere persone e cancellare un veicolo.</li>
-            <li><strong>Editor</strong> — può aggiungere e modificare spese, scadenze e viaggi.</li>
-            <li><strong>Sola lettura</strong> — può solo consultare.</li>
-          </ul>
-          <p style="margin:14px 0 0;color:#8B85A3;font-size:13px;line-height:1.6">L'invito si genera dalla sezione Profilo e si condivide a mano (link o codice) — revocabile in qualsiasi momento. Generare un invito richiede Pro; chi lo accetta partecipa senza bisogno di Pro.</p>
+        <div style="flex:1;min-width:260px">
+          <h3 style="margin:0 0 8px;font-size:22px;font-weight:700">Sincronizza tra i tuoi device e condividi la Dash</h3>
+          <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:520px">Accedi (facoltativo) con Apple o Google per sincronizzare tutto tra i tuoi dispositivi, oppure invita altre persone sulla Dash come editor o sola lettura — l'app resta comunque completamente utilizzabile senza account.</p>
         </div>
       </div>
     </div>
@@ -507,11 +498,11 @@
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
         <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">I miei dati sono al sicuro?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
-        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: l'app funziona anche senza account, con i dati cifrati solo sul tuo telefono in un database che nemmeno lo sviluppatore può leggere. Se scegli di accedere con Apple o Google per sincronizzare tra device o condividere la Dash, i tuoi dati passano da Supabase con Row Level Security — solo tu e le persone che inviti esplicitamente potete vederli.</p>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: i dati sono cifrati e restano solo sul telefono per impostazione predefinita; se attivi il login opzionale per sincronizzare o condividere, passano da Supabase con Row Level Security, visibili solo a te e a chi inviti esplicitamente.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
         <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso condividere i dati con qualcuno (es. un familiare)?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
-        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: dalla sezione Profilo puoi invitare un'altra persona sulla tua Dash, scegliendo se può modificare (editor) o solo vedere (sola lettura) i tuoi veicoli, spese e scadenze. Resti sempre l'unico proprietario e puoi revocare l'accesso quando vuoi.</p>
+        <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: dalla sezione Profilo puoi invitare altre persone sulla Dash come editor o sola lettura (serve Pro per invitare, non per accettare); resti sempre proprietario e puoi revocare l'accesso quando vuoi.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
         <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso esportare il mio storico spese?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
