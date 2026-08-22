@@ -1,6 +1,10 @@
 (function () {
-  var anchor = document.getElementById('competenze');
+  var anchor = document.getElementById('github-activity');
   if (!anchor) return;
+
+  var columns = anchor.dataset.columns || '3';
+  var maxWidth = anchor.dataset.maxWidth || '1120px';
+  var paddingBottom = anchor.dataset.paddingBottom || '56px';
 
   function escapeHtml(str) {
     var div = document.createElement('div');
@@ -30,7 +34,7 @@
         if (repo.stargazers_count > 0) meta.push('★ ' + repo.stargazers_count);
         meta.push(new Date(repo.updated_at).toLocaleDateString(locale));
         return (
-          '<a href="' + repo.html_url + '" target="_blank" rel="noopener" style="display:block;background:#12161F;border:1px solid #1E2430;border-radius:12px;padding:20px;color:#EDEFF3;text-decoration:none">' +
+          '<a href="' + encodeURI(repo.html_url) + '" target="_blank" rel="noopener" style="display:block;background:#12161F;border:1px solid #1E2430;border-radius:12px;padding:20px;color:#EDEFF3;text-decoration:none">' +
           '<span style="display:block;font-family:\'Space Grotesk\',sans-serif;font-weight:600;font-size:16px;margin-bottom:8px;color:#4FE3C1">' + escapeHtml(repo.name) + '</span>' +
           desc +
           '<span style="display:block;font-family:\'IBM Plex Mono\',monospace;font-size:12px;color:#5C6577">' + meta.join(' · ') + '</span>' +
@@ -40,16 +44,20 @@
 
       var section = document.createElement('section');
       section.className = 'reveal';
-      section.style.cssText = 'max-width:1120px;margin:0 auto;padding:56px 32px;border-top:1px solid #1A1E28';
+      section.style.cssText = 'max-width:' + maxWidth + ';margin:0 auto;padding:56px 32px ' + paddingBottom + ';border-top:1px solid #1A1E28';
       section.innerHTML =
         '<p style="font-family:\'IBM Plex Mono\',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 12px">' + i18n.eyebrow + '</p>' +
         '<h2 style="font-family:\'Space Grotesk\',sans-serif;font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 32px">' + i18n.heading + '</h2>' +
-        '<div class="github-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">' + cards + '</div>';
+        '<div class="github-grid" data-stagger style="display:grid;grid-template-columns:repeat(' + columns + ',1fr);gap:16px">' + cards + '</div>';
 
-      anchor.insertAdjacentElement('afterend', section);
-      // inserted after reveal.js already ran its one-time scan, so drive the
-      // fade-in directly instead of relying on its IntersectionObserver
-      requestAnimationFrame(function () { section.classList.add('is-visible'); });
+      anchor.replaceWith(section);
+      // inserted after motion.js already ran its one-time scan of .reveal
+      // elements present at load, so wire this one up directly
+      if (window.__motionReveal) {
+        window.__motionReveal(section);
+      } else {
+        section.style.opacity = '1';
+      }
     })
     .catch(function () { /* no network / rate limit / offline: leave the page as-is */ });
 })();

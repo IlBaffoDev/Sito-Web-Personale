@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Andrea Zanasi — Team Lead</title>
 <meta name="description" content="Andrea Zanasi's personal site: Team Lead, architectural decisions and personal projects.">
 <link rel="canonical" href="https://azanasi.it/en/index.html">
@@ -25,6 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
+<link rel="preconnect" href="https://api.github.com">
 </head>
 <body>
 
@@ -74,10 +77,10 @@
   </div>
 </section>
 
-<section class="reveal" style="max-width:1120px;margin:0 auto;padding:0 32px 88px;border-top:1px solid #1A1E28;padding-top:56px">
+<section class="reveal section-glow glow-teal" style="max-width:1120px;margin:0 auto;padding:0 32px 88px;border-top:1px solid #1A1E28;padding-top:56px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 12px">In short</p>
   <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 36px;max-width:640px">Nine years in IT, a passion that started even earlier.</h2>
-  <div class="fact-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1A1E28;border:1px solid #1A1E28;border-radius:10px;overflow:hidden">
+  <div class="fact-grid" data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1A1E28;border:1px solid #1A1E28;border-radius:10px;overflow:hidden">
     <div style="background:#0F131B;padding:24px 26px">
       <div style="font-family:'IBM Plex Mono',monospace;color:#5C6577;font-size:13px;margin-bottom:8px">$ git log --since</div>
       <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:22px;color:#4FE3C1;margin-bottom:6px">2015</div>
@@ -96,36 +99,48 @@
   </div>
 </section>
 
-<section class="reveal" style="max-width:1120px;margin:0 auto;padding:0 32px 100px">
+<section class="reveal section-glow glow-violet" style="max-width:1120px;margin:0 auto;padding:0 32px 100px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 12px">Featured project</p>
   <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 32px">Gestore Costi Veicoli</h2>
   <div class="project-grid" style="display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;background:#12161F;border:1px solid #1E2430;border-radius:14px;padding:36px">
-    <div class="shot-box" style="aspect-ratio:1320/2868;background:#0d0d12;border-radius:36px;padding:9px;box-shadow:0 24px 60px -20px rgba(0,0,0,0.5)">
-      <img src="../assets/screenshots/dashboard.png" alt="Gestore Costi Veicoli dashboard" style="width:100%;height:100%;border-radius:28px;object-fit:cover;display:block">
+    <div class="phone-showcase">
+      <img class="shot-mockup" src="../assets/screenshots/dashboard-marketing.webp" alt="How much does your car really cost you every month? Loan, fuel and taxes at a glance — Gestore Costi Veicoli dashboard" fetchpriority="high">
     </div>
     <div>
-      <span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4FE3C1;margin-bottom:18px"><span style="width:7px;height:7px;border-radius:50%;background:#4FE3C1"></span>In development — coming soon to the App Store and Google Play</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4FE3C1;margin-bottom:18px"><span class="status-dot" aria-hidden="true"></span>In development — coming soon to the App Store and Google Play</span>
       <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:24px;margin:0 0 14px;letter-spacing:-.2px">What does your car really cost you every month?</h3>
       <p style="color:#A7AEBB;font-size:16px;line-height:1.7;margin:0 0 26px">An app to track loan payments, fuel, due dates and running costs for every vehicle, with a single dashboard to see what you really spend. Available in Italian.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#mobile-app</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#full-stack</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#react-native</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#expo</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#encrypted-sqlite</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#supabase-sync</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A7AEBB;background:#0F131B;border:1px solid #1E2430;border-radius:6px;padding:7px 14px">#typescript</span>
+      </div>
       <a href="../progetti/gestore-costi-veicoli.html" class="btn-primary">View the project</a>
     </div>
   </div>
 </section>
 
+<div id="github-activity" data-columns="3" data-max-width="1120px" data-padding-bottom="100px"></div>
+
 <footer style="border-top:1px solid #1A1E28;padding:32px 0">
   <div style="max-width:1120px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#5C6577">
     <span>© 2026 Andrea Zanasi</span>
     <div style="display:flex;gap:24px">
-      <a href="https://github.com/IlBaffoDev" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-      <a href="https://www.linkedin.com/in/andrea-zanasi-49b5b4151/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
-      <a href="mailto:andreazanasi1993@gmail.com" class="footer-link copy-email">Email</a>
+      <a href="https://github.com/IlBaffoDev" target="_blank" rel="noopener" class="footer-link"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>GitHub</a>
+      <a href="https://www.linkedin.com/in/andrea-zanasi-49b5b4151/" target="_blank" rel="noopener" class="footer-link"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+      <a href="mailto:andreazanasi1993@gmail.com" class="footer-link copy-email"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>Email</a>
     </div>
   </div>
 </footer>
 
 <script defer src="../assets/nav.js"></script>
-<script defer src="../assets/reveal.js"></script>
+<script defer src="../assets/motion.js"></script>
 <script defer src="../assets/hero.js"></script>
 <script defer src="../assets/copy-email.js"></script>
+<script defer src="../assets/github-widget.js"></script>
 </body>
 </html>

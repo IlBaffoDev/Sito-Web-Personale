@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Gestore Costi Veicoli — un progetto di Andrea Zanasi</title>
 <meta name="description" content="Gestore Costi Veicoli: l'app per tracciare rate, carburante, bollo, assicurazione e revisione di auto e moto in un'unica dashboard.">
 <link rel="canonical" href="https://azanasi.it/progetti/gestore-costi-veicoli.html">
@@ -44,8 +46,6 @@
   body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff}
   a{color:#4B3FE3;text-decoration:none}
   a:hover{color:#3730A3}
-  .store-btn{transition:transform .15s ease}
-  .store-btn:hover{transform:translateY(-2px)}
   details summary{cursor:pointer;list-style:none}
   details summary::-webkit-details-marker{display:none}
 
@@ -57,28 +57,29 @@
     transition:top .15s ease;
   }
   .skip-link:focus{top:8px}
-  a:focus-visible, button:focus-visible, summary:focus-visible{
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible{
     outline:2px solid #4B3FE3;outline-offset:3px;border-radius:4px;
   }
+  .sr-only{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
 
-  .feature-grid > div{transition:transform .25s ease, box-shadow .25s ease}
+  .feature-grid > div{transition:box-shadow .25s ease}
   .feature-grid > div:hover{
-    transform:translateY(-6px);
     box-shadow:0 2px 8px rgba(20,10,60,.05), 0 20px 40px -16px rgba(75,63,227,.25);
   }
   .feature-grid > div > div:first-child{transition:transform .25s ease}
   .feature-grid > div:hover > div:first-child{transform:scale(1.08)}
 
-  .pricing-card{transition:transform .25s ease, box-shadow .25s ease}
-  .pricing-card:hover{transform:translateY(-6px)}
+  #faq details{transition:box-shadow .2s ease}
+  #faq details:hover{box-shadow:0 12px 28px -12px rgba(20,10,60,.18)}
 
-  #faq details{transition:transform .2s ease, box-shadow .2s ease}
-  #faq details:hover{transform:translateY(-3px);box-shadow:0 12px 28px -12px rgba(20,10,60,.18)}
-
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
-  .reveal.is-visible{opacity:1;transform:none}
+  /* scroll reveal + stagger — animation timing driven by ../assets/motion.js, this is just the pre-JS/no-JS hidden default */
+  .reveal{opacity:0;transform:translateY(24px)}
+  [data-stagger] > *{opacity:0;transform:translateY(20px)}
   @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1;transform:none;transition:none}
+    .reveal, [data-stagger] > *{opacity:1;transform:none}
   }
 
   /* bento feature grid */
@@ -95,13 +96,6 @@
   .feature-grid > div:nth-child(6){grid-column:span 2}
   .feature-grid > div:nth-child(7){grid-column:span 2}
   .feature-grid > div:nth-child(8){grid-column:span 2}
-
-  /* ingresso a cascata delle card feature */
-  .feature-grid > div.reveal{
-    opacity:0;transform:translateY(24px);
-    transition:opacity .6s ease, transform .6s ease, box-shadow .25s ease;
-  }
-  .feature-grid > div.reveal.is-visible{opacity:1;transform:none}
 
   /* CTA fissa in fondo, solo mobile */
   .sticky-cta{
@@ -126,39 +120,93 @@
   .waitlist-msg{color:#4B3FE3;font-weight:600;font-size:15px}
   .waitlist-msg.is-error{color:#C0392B}
 
-  /* scrollytelling gallery */
-  .gallery-frame{position:relative;width:min(140px,38vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
-  .gallery-img{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);border-radius:21px;object-fit:cover;opacity:0;transition:opacity .5s ease}
-  .gallery-img.is-active{opacity:1}
-  .gallery-steps{display:flex;flex-direction:column;gap:56px}
-  .gallery-step{opacity:.4;transition:opacity .4s ease}
-  .gallery-step.is-active{opacity:1}
-  @media (prefers-reduced-motion: reduce){
-    .gallery-img{transition:none}
-    .gallery-step{transition:none}
-    .phone-frames{transition:none}
-    .watch-frame-wrap{transition:none}
+  /* carosello screenshot */
+  .gallery-carousel{ --gallery-card-w:min(200px,24vw); --gallery-card-h:440px; position:relative }
+  @media (max-width:860px){
+    .gallery-carousel{ --gallery-card-w:min(190px,60vw); --gallery-card-h:415px }
   }
+  .gallery-track-wrap{position:relative}
+  .gallery-track{
+    display:flex;gap:24px;margin:0;list-style:none;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:24px calc(50% - var(--gallery-card-w)/2);
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .gallery-track::-webkit-scrollbar{display:none}
+  @media (max-width:860px){ .gallery-track{gap:16px;padding-top:40px;padding-bottom:40px} }
 
-  .gallery-sticky{overflow:hidden}
-  .phone-frames{transition:opacity .5s ease, transform .5s ease}
-  .gallery-sticky[data-active-step="7"] .phone-frames{opacity:0;transform:translateX(-48px);pointer-events:none}
-  .watch-frame-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateX(48px);transition:opacity .5s ease, transform .5s ease;pointer-events:none}
-  .gallery-sticky[data-active-step="7"] .watch-frame-wrap{opacity:1;transform:translateX(0);pointer-events:auto}
-  .watch-frame{position:relative;width:min(128px,34vw)}
-  .gallery-step-img{display:none}
-  .gallery-step-static-img{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);border-radius:21px;object-fit:cover;display:block}
+  .gallery-card{
+    flex:0 0 auto;width:var(--gallery-card-w);height:var(--gallery-card-h);
+    display:flex;align-items:center;justify-content:center;
+    scroll-snap-align:center;
+    transform:scale(.82);opacity:.45;
+    transition:transform .35s cubic-bezier(.22,1,.36,1), opacity .35s cubic-bezier(.22,1,.36,1);
+  }
+  .gallery-card.is-active{transform:scale(1);opacity:1}
+
+  .gallery-frame{position:relative;width:var(--gallery-card-w);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
+  .gallery-card-img{width:100%;height:100%;border-radius:21px;object-fit:cover;display:block}
+
+  .watch-frame{position:relative;width:min(190px,50vw)}
+  @media (max-width:860px){ .watch-frame{width:min(160px,55vw)} }
   .watch-crown{position:absolute;right:-3px;top:36%;width:4px;height:10%;border-radius:0 2px 2px 0;background:#3a3a42}
   .watch-button{position:absolute;right:-4.5px;top:50%;width:5.5px;height:15%;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#3a3a42,#57575f)}
   .watch-case{box-sizing:border-box;width:100%;aspect-ratio:396/484;background:linear-gradient(155deg,#2c2c33,#0a0a0d 55%);border-radius:15%;padding:6.5%;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
   .watch-case img{width:100%;height:100%;border-radius:11%;object-fit:cover;display:block}
 
+  .gallery-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;
+    background:#fff;border:1px solid #EEE9FF;box-shadow:0 8px 20px rgba(20,10,60,0.12);
+    display:flex;align-items:center;justify-content:center;
+    color:#4B3FE3;cursor:pointer;z-index:2;
+    transition:background .2s ease, box-shadow .2s ease;
+  }
+  .gallery-nav:hover{background:#F1EEFF}
+  .gallery-nav:disabled{opacity:.35;cursor:default;box-shadow:none}
+  .gallery-nav-prev{left:-8px}
+  .gallery-nav-next{right:-8px}
+  @media (max-width:860px){
+    .gallery-nav{width:36px;height:36px}
+    .gallery-nav-prev{left:-4px}
+    .gallery-nav-next{right:-4px}
+  }
+
+  .gallery-dots{display:flex;justify-content:center;gap:10px;margin-top:20px}
+  .gallery-dot{width:8px;height:8px;border-radius:4px;background:#D9D2FA;border:none;padding:0;cursor:pointer;transition:background .25s ease, width .25s ease}
+  .gallery-dot.is-active{background:#4B3FE3;width:22px}
+
+  /* min-height è solo un fallback per contenuto pre-JS: assets/gallery.js misura e imposta
+     l'altezza esatta del pannello attivo ad ogni cambio, cosí non trabocca mai su nessuna larghezza */
+  .gallery-caption{position:relative;max-width:640px;margin:32px auto 0;min-height:280px;text-align:left;transition:height .3s ease}
+  @media (max-width:860px){ .gallery-caption{min-height:340px} }
+  @media (prefers-reduced-motion: reduce){ .gallery-caption{transition:none} }
+
+  /* affianca carosello e didascalia invece di impilarli: su schermi bassi (laptop 13")
+     lo stack verticale costringeva a scegliere tra vedere le schermate o leggere il testo */
+  @media (min-width:861px){
+    .gallery-carousel{
+      display:grid;grid-template-columns:1fr 360px;
+      grid-template-areas:"track caption" "dots caption";
+      align-items:center;column-gap:48px;
+    }
+    .gallery-track-wrap{grid-area:track;min-width:0}
+    .gallery-dots{grid-area:dots;margin-top:20px}
+    .gallery-caption{grid-area:caption;margin:0;align-self:center;max-width:none}
+  }
+  .gallery-caption-panel{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;pointer-events:none}
+  .gallery-caption-panel.is-active{opacity:1;pointer-events:auto}
+
+  @media (prefers-reduced-motion: reduce){
+    .gallery-card, .gallery-dot, .gallery-caption-panel{transition:none}
+  }
+
   .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
   .back-bar a{color:#fff}
   .shot-frame{width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);font-size:13px;text-align:center;padding:16px}
 
-  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:pointer;padding:0}
-  .nav-toggle span{display:block;width:100%;height:2px;background:#1B1830;border-radius:2px;transition:transform .2s ease, opacity .2s ease}
+  .nav-toggle{display:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0}
+  .nav-toggle span{display:block;width:22px;height:2px;background:#1B1830;border-radius:2px;transition:transform .2s ease, opacity .2s ease}
   .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
   .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -174,7 +222,7 @@
       background:#fff !important;border-bottom:1px solid #EEE9FF;
       padding:16px 24px !important;box-shadow:0 12px 24px rgba(20,10,60,0.08);
     }
-    .nav-links a{padding:10px 0;width:100%}
+    .nav-links a{padding:12px 0;width:100%;box-sizing:border-box}
     header{position:relative}
     nav.nav-open .nav-links{display:flex !important}
   }
@@ -188,12 +236,6 @@
     .calc-grid{grid-template-columns:1fr !important;padding:28px !important}
     .hero-media{flex:1 1 auto !important;max-width:260px !important;margin:0 auto}
     .watch-glow-wrap{margin:0 auto 20px !important}
-    .gallery-scroller{grid-template-columns:1fr !important;gap:32px !important}
-    .gallery-sticky{display:none !important}
-    .gallery-frame{width:min(120px,30vw) !important}
-    .watch-frame{width:min(150px,42vw) !important}
-    .gallery-steps{gap:40px !important}
-    .gallery-step-img{display:flex !important;justify-content:center;margin-bottom:22px}
   }
 
   @media (min-width: 641px) and (max-width: 900px){
@@ -234,9 +276,10 @@
   </header>
 
   <div class="waitlist" style="margin:0 64px 0;background:#F1EEFF;border-radius:16px;padding:16px 22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
-    <span style="color:#4B3FE3;font-weight:600;font-size:15px">🚀 In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio</span>
+    <span style="display:inline-flex;align-items:center;gap:8px;color:#4B3FE3;font-weight:600;font-size:15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio</span>
     <form class="waitlist-form" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-      <input type="email" name="email" required placeholder="La tua email" style="border:1px solid #D9D2FA;border-radius:100px;padding:10px 16px;font-size:14px;font-family:inherit;min-width:220px;color:#1B1830">
+      <label for="waitlist-email" class="sr-only">La tua email</label>
+      <input id="waitlist-email" type="email" name="email" required placeholder="La tua email" style="border:1px solid #D9D2FA;border-radius:100px;padding:10px 16px;font-size:14px;font-family:inherit;min-width:220px;color:#1B1830">
       <button type="submit" style="background:#4B3FE3;color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:100px;border:none;cursor:pointer;white-space:nowrap">Avvisami</button>
     </form>
   </div>
@@ -275,50 +318,50 @@
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Tutto quello che serve per gestire i tuoi veicoli</h2>
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Una sola app per non perdere mai di vista tempo e denaro spesi su auto e moto.</p>
     </div>
-    <div class="feature-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
-      <div class="reveal" style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06);transition-delay:0ms">
+    <div class="feature-grid" data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><path d="M6 18.5v1.5M18 18.5v1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg>
         </div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Garage multi-veicolo</h3>
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Registra auto, moto e ogni altro veicolo con parametri, finanziamento e consumi dedicati.</p>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06);transition-delay:60ms">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#FFF1E6;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15"/><path d="M4 11h10"/><path d="M14 8.5l3 2v6a1.5 1.5 0 0 0 3 0V9.5a2 2 0 0 0-.6-1.4l-2.4-2.4"/><path d="M2.5 21h13"/></svg>
         </div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Carburante e consumi</h3>
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Traccia ogni rifornimento e confronta il consumo reale con quello teorico del veicolo.</p>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06);transition-delay:120ms">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#FDE8EC;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0537A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
         </div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Scadenze e notifiche</h3>
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Bollo, assicurazione, revisione e tagliando: ricevi un avviso prima che sia troppo tardi.</p>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06);transition-delay:180ms">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#E6F7F1;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2FAE7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12.5h3"/><path d="M3 10.5h18"/></svg>
         </div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Costo reale di possesso</h3>
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Rata, carburante e costi operativi in un unico totale mensile, annuo o complessivo.</p>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06);transition-delay:240ms">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5.5-6 4 3L21 6"/><path d="M15 6h6v6"/></svg>
         </div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Insight automatici</h3>
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Confronti mensili, anomalie di spesa e prezzi carburante vicino a te, dai dati ufficiali MIMIT.</p>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06);transition-delay:300ms">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div style="width:52px;height:52px;border-radius:14px;background:#FFF1E6;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19.5h16"/></svg>
         </div>
         <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Esporta i tuoi dati <span style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
         <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Scarica lo storico spese e scadenze in PDF o CSV, in qualsiasi momento.</p>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap;transition-delay:360ms">
+      <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap">
         <div style="flex-shrink:0;width:190px;height:190px;position:relative;display:flex;align-items:center;justify-content:center;margin:-10px 0">
           <div style="position:absolute;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,#EFEBFF 0%,rgba(239,235,255,0) 72%)"></div>
           <div style="position:relative;width:126px;height:206px">
@@ -338,7 +381,7 @@
           <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:520px">Accedi (facoltativo) con <span style="font-weight:700;color:#1B1830"><svg width="13" height="13" viewBox="0 0 384 512" style="vertical-align:-1px;margin:0 1px 0 2px;fill:#1B1830"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>Apple</span> o <span style="font-weight:700;color:#1B1830"><svg width="13" height="13" viewBox="0 0 18 18" style="vertical-align:-1px;margin:0 1px 0 2px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>Google</span> per avere veicoli, spese e scadenze sincronizzati su tutti i tuoi dispositivi — l'app resta comunque completamente utilizzabile senza account.</p>
         </div>
       </div>
-      <div class="reveal" style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap;transition-delay:420ms">
+      <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap">
         <div class="watch-glow-wrap" style="flex-shrink:0;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#EFEBFF 0%,rgba(239,235,255,0) 72%);display:flex;align-items:center;justify-content:center;margin:-14px 0">
           <div style="position:relative;width:150px;height:184px">
             <div style="position:absolute;right:-2.5px;top:44px;width:3px;height:11px;border-radius:0 2px 2px 0;background:#3a3a42"></div>
@@ -378,142 +421,141 @@
       </div>
       <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
         <div>
-          <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#8A85A3;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
-          <p style="margin:0;font-size:36px;font-weight:800;color:#1B1830"><span id="calc-mensile">0 €</span><span style="font-size:15px;font-weight:600;color:#8A85A3"> /mese</span></p>
+          <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
+          <p style="margin:0;font-size:36px;font-weight:800;color:#1B1830"><span id="calc-mensile">0 €</span><span style="font-size:15px;font-weight:600;color:#6B6684"> /mese</span></p>
           <p style="margin:4px 0 0;font-size:15px;color:#4B4566"><span id="calc-annuo">0 €</span> /anno</p>
         </div>
         <div id="calc-bars" style="display:flex;flex-direction:column;gap:8px"></div>
         <a href="#download" style="display:block;text-align:center;background:#4B3FE3;color:#fff;font-weight:700;font-size:14.5px;padding:12px;border-radius:12px;margin-top:6px">Scarica l'app per tracciarlo in automatico</a>
-        <p style="margin:0;color:#8A85A3;font-size:12px;text-align:center">Il calcolo avviene solo nel tuo browser: nessun dato viene inviato o salvato.</p>
+        <p style="margin:0;color:#6B6684;font-size:12px;text-align:center">Il calcolo avviene solo nel tuo browser: nessun dato viene inviato o salvato.</p>
       </div>
     </div>
   </section>
 
   <section id="gallery" style="padding:100px 64px 40px">
-    <div style="text-align:center;max-width:640px;margin:0 auto 24px">
+    <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Guarda l'app in azione</h2>
-      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende. Disponibile in tema chiaro e scuro.</p>
+      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende.</p>
     </div>
 
-    <div class="gallery-scroller" style="display:grid;grid-template-columns:320px 1fr;gap:64px;max-width:1080px;margin:0 auto">
-      <div class="gallery-sticky" style="position:sticky;top:100px;align-self:start;display:flex;gap:10px;justify-content:center">
-        <div class="phone-frames" style="display:flex;gap:10px">
-          <div class="gallery-frame">
-            <img class="gallery-img is-active" data-step="1" src="../assets/screenshots/dashboard.png" alt="Dashboard - tema chiaro">
-            <img class="gallery-img" data-step="2" loading="lazy" src="../assets/screenshots/garage.png" alt="Garage - tema chiaro">
-            <img class="gallery-img" data-step="3" loading="lazy" src="../assets/screenshots/carburante.png" alt="Carburante - tema chiaro">
-            <img class="gallery-img" data-step="4" loading="lazy" src="../assets/screenshots/scadenze.png" alt="Scadenze - tema chiaro">
-            <img class="gallery-img" data-step="5" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo - tema chiaro">
-            <img class="gallery-img" data-step="6" loading="lazy" src="../assets/screenshots/impostazioni.png" alt="Impostazioni - tema chiaro">
-          </div>
-          <div class="gallery-frame">
-            <img class="gallery-img is-active" data-step="1" src="../assets/screenshots/dashboard-dark.png" alt="Dashboard - tema scuro">
-            <img class="gallery-img" data-step="2" loading="lazy" src="../assets/screenshots/garage-dark.png" alt="Garage - tema scuro">
-            <img class="gallery-img" data-step="3" loading="lazy" src="../assets/screenshots/carburante-dark.png" alt="Carburante - tema scuro">
-            <img class="gallery-img" data-step="4" loading="lazy" src="../assets/screenshots/scadenze-dark.png" alt="Scadenze - tema scuro">
-            <img class="gallery-img" data-step="5" loading="lazy" src="../assets/screenshots/dettaglio-veicolo-dark.png" alt="Dettaglio veicolo - tema scuro">
-            <img class="gallery-img" data-step="6" loading="lazy" src="../assets/screenshots/impostazioni-dark.png" alt="Impostazioni - tema scuro">
-          </div>
+    <div class="gallery-carousel" style="max-width:1080px;margin:0 auto">
+      <div class="gallery-track-wrap">
+        <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Schermata precedente" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+
+        <ul class="gallery-track" tabindex="0" aria-label="Schermate dell'app — scorri o usa le frecce">
+      <li class="gallery-card is-active" id="gallery-card-1" data-step="1">
+        <div class="gallery-frame"><img class="gallery-card-img" fetchpriority="high" src="../assets/screenshots/dashboard.webp" alt="Dashboard di Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-2" data-step="2">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/garage.webp" alt="Garage di Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-3" data-step="3">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/carburante.webp" alt="Carburante in Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-4" data-step="4">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/scadenze.webp" alt="Scadenze in Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-5" data-step="5">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-6" data-step="6">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/impostazioni.webp" alt="Impostazioni di Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card gallery-card-watch" id="gallery-card-7" data-step="7">
+        <div class="watch-frame">
+          <div class="watch-crown"></div>
+          <div class="watch-button"></div>
+          <div class="watch-case"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch"></div>
         </div>
-        <div class="watch-frame-wrap" style="align-items:center;justify-content:center">
-          <div class="watch-frame">
-            <div class="watch-crown"></div>
-            <div class="watch-button"></div>
-            <div class="watch-case">
-              <img loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch">
-            </div>
-          </div>
-        </div>
+      </li>
+        </ul>
+
+        <button type="button" class="gallery-nav gallery-nav-next" aria-label="Schermata successiva">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
 
-      <div class="gallery-steps">
-        <div class="gallery-step is-active" data-step="1">
-          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/dashboard.png" alt="Dashboard di Gestore Costi Veicoli"></div></div>
-          <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
+      <div class="gallery-dots" role="tablist" aria-label="Vai a una schermata">
+        <button type="button" class="gallery-dot is-active" role="tab" aria-selected="true" aria-controls="gallery-caption-1" data-step="1" aria-label="Dashboard"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-2" data-step="2" aria-label="Garage"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-3" data-step="3" aria-label="Carburante"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-4" data-step="4" aria-label="Scadenze"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-5" data-step="5" aria-label="Dettaglio veicolo"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-6" data-step="6" aria-label="Impostazioni"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-7" data-step="7" aria-label="Apple Watch"></button>
+      </div>
+
+      <div class="gallery-caption">
+        <div class="gallery-caption-panel is-active" id="gallery-caption-1" data-step="1" aria-hidden="false">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutto il costo dei tuoi veicoli, in un colpo d'occhio</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">La schermata che apri per prima: quanto spendi questo mese, quest'anno o in totale, con il dettaglio diviso per categoria.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Vista Mensile, Annuo o Totale del costo complessivo</li>
-            <li>✓ Insight automatici sulla voce di spesa principale e sulle anomalie</li>
-            <li>✓ Prezzi benzina e diesel self-service aggiornati (dati MIMIT)</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Vista Mensile, Annuo o Totale del costo complessivo</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Insight automatici sulla voce di spesa principale e sulle anomalie</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzi benzina e diesel self-service aggiornati (dati MIMIT)</span></li>
           </ul>
         </div>
-
-        <div class="gallery-step" data-step="2">
-          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/garage.png" alt="Garage di Gestore Costi Veicoli"></div></div>
+        <div class="gallery-caption-panel" id="gallery-caption-2" data-step="2" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Garage</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutti i tuoi veicoli, sempre a portata di mano</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Auto, moto e ogni altro mezzo registrato in un unico garage, con prezzo finale, rata mensile e costo annuo reale a colpo d'occhio.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Registra auto, moto e altri veicoli senza limiti (con Pro)</li>
-            <li>✓ Prezzo finale, rata mensile e costo annuo per ciascun veicolo</li>
-            <li>✓ Modifica, archivia o elimina un veicolo in un tap</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Registra auto, moto e altri veicoli senza limiti (con Pro)</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzo finale, rata mensile e costo annuo per ciascun veicolo</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Modifica, archivia o elimina un veicolo in un tap</span></li>
           </ul>
         </div>
-
-        <div class="gallery-step" data-step="3">
-          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/carburante.png" alt="Carburante in Gestore Costi Veicoli"></div></div>
+        <div class="gallery-caption-panel" id="gallery-caption-3" data-step="3" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Carburante</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni rifornimento, tracciato nel dettaglio</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Importo, litri e prezzo al litro di ogni pieno, mese per mese, per capire davvero quanto ti costa muoverti.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Spesa totale, litri e prezzo medio per periodo</li>
-            <li>✓ Stime intelligenti sul prossimo rifornimento (Pro)</li>
-            <li>✓ Mappa dei distributori dove hai fatto rifornimento (Pro)</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Spesa totale, litri e prezzo medio per periodo</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti sul prossimo rifornimento (Pro)</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Mappa dei distributori dove hai fatto rifornimento (Pro)</span></li>
           </ul>
         </div>
-
-        <div class="gallery-step" data-step="4">
-          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/scadenze.png" alt="Scadenze in Gestore Costi Veicoli"></div></div>
+        <div class="gallery-caption-panel" id="gallery-caption-4" data-step="4" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Scadenze</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Bollo, assicurazione, revisione: mai più una sorpresa</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tutte le scadenze di tutti i veicoli in un'unica timeline ordinata per data, con lo storico di quelle già completate.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Timeline delle prossime scadenze per ogni veicolo</li>
-            <li>✓ Notifiche attivabili per non dimenticare nulla</li>
-            <li>✓ Esporta lo storico in CSV o PDF (Pro)</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Timeline delle prossime scadenze per ogni veicolo</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Notifiche attivabili per non dimenticare nulla</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Esporta lo storico in CSV o PDF (Pro)</span></li>
           </ul>
         </div>
-
-        <div class="gallery-step" data-step="5">
-          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.png" alt="Dettaglio veicolo in Gestore Costi Veicoli"></div></div>
+        <div class="gallery-caption-panel" id="gallery-caption-5" data-step="5" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dettaglio veicolo</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Ogni parametro del tuo veicolo, sotto controllo</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Prezzo di listino, prezzo pagato, costi operativi annui e i dati necessari per calcolare il bollo, tutto in una scheda.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Prezzo di listino vs prezzo pagato</li>
-            <li>✓ Costi operativi annui: manutenzione e revisione</li>
-            <li>✓ Potenza, anno, regione e classe euro per il bollo</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzo di listino vs prezzo pagato</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Costi operativi annui: manutenzione e revisione</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Potenza, anno, regione e classe euro per il bollo</span></li>
           </ul>
         </div>
-
-        <div class="gallery-step" data-step="6">
-          <div class="gallery-step-img"><div class="gallery-frame"><img class="gallery-step-static-img" loading="lazy" src="../assets/screenshots/impostazioni.png" alt="Impostazioni di Gestore Costi Veicoli"></div></div>
+        <div class="gallery-caption-panel" id="gallery-caption-6" data-step="6" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Impostazioni</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">L'app si adatta a te</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Tema, sicurezza e backup dei tuoi dati, tutto a portata di mano in un'unica schermata.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Tema chiaro o scuro, a tua scelta</li>
-            <li>✓ Blocco app con PIN, Face ID o Touch ID</li>
-            <li>✓ Backup completo con password opzionale, sempre esportabile</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Tema chiaro o scuro, a tua scelta</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Blocco app con PIN, Face ID o Touch ID</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Backup completo con password opzionale, sempre esportabile</span></li>
           </ul>
         </div>
-
-        <div class="gallery-step" data-step="7">
-          <div class="gallery-step-img">
-            <div class="watch-frame">
-              <div class="watch-crown"></div>
-              <div class="watch-button"></div>
-              <div class="watch-case"><img loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch"></div>
-            </div>
-          </div>
+        <div class="gallery-caption-panel" id="gallery-caption-7" data-step="7" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Apple Watch</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Anche dal polso, senza tirare fuori il telefono</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Registra un rifornimento in pochi secondi direttamente dall'Apple Watch, con veicoli e categorie già sincronizzati dal telefono.</p>
           <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li>✓ Scelta rapida di veicolo, categoria e litri</li>
-            <li>✓ Tastierino numerico nativo per importo e litri</li>
-            <li>✓ Inclusa gratis, nessun costo aggiuntivo</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Scelta rapida di veicolo, categoria e litri</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Tastierino numerico nativo per importo e litri</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Inclusa gratis, nessun costo aggiuntivo</span></li>
           </ul>
         </div>
       </div>
@@ -531,11 +573,11 @@
           <img src="../assets/screenshots/pro-paywall.png" alt="Schermata Gestore Costi Veicoli Pro nell'app" style="width:100%;height:100%;border-radius:30px;object-fit:cover;display:block">
         </div>
       </div>
-      <div style="flex:1;min-width:280px;max-width:400px;display:flex;flex-direction:column;gap:24px">
+      <div data-stagger style="flex:1;min-width:280px;max-width:400px;display:flex;flex-direction:column;gap:24px">
         <div class="pricing-card" style="background:#fff;border-radius:20px;padding:28px 32px;border:1px solid #EEE9FF;display:flex;justify-content:space-between;align-items:center;gap:20px">
           <div>
             <h3 style="margin:0 0 4px;font-size:19px;font-weight:800">Gratuito</h3>
-            <p style="margin:0;color:#8A85A3;font-size:14px">1 veicolo, carburante e scadenze di base</p>
+            <p style="margin:0;color:#6B6684;font-size:14px">1 veicolo, carburante e scadenze di base</p>
           </div>
           <div style="font-size:26px;font-weight:800;white-space:nowrap">0 €</div>
         </div>
@@ -548,11 +590,11 @@
             <div style="font-size:26px;font-weight:800;white-space:nowrap">4,99 €</div>
           </div>
           <ul style="margin:0 0 22px;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14.5px">
-            <li>✓ Veicoli illimitati</li>
-            <li>✓ Export PDF e CSV</li>
-            <li>✓ Stime intelligenti</li>
-            <li>✓ Foto ricevuta</li>
-            <li>✓ Mappe distributori e rifornimenti</li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Export PDF e CSV</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Foto ricevuta</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Mappe distributori e rifornimenti</span></li>
           </ul>
           <a href="#download" style="display:block;text-align:center;background:#fff;color:#4B3FE3;font-weight:700;padding:12px;border-radius:14px">Sblocca Pro</a>
         </div>
@@ -564,7 +606,7 @@
     <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0;font-size:38px;font-weight:800;letter-spacing:-0.5px">Domande frequenti</h2>
     </div>
-    <div style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
+    <div data-stagger style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
         <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">L'app funziona anche offline?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
         <p style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: l'app funziona completamente offline. Tutti i dati restano solo sul tuo dispositivo, non c'è nessun server con cui sincronizzarsi — anche le poche funzioni che usano internet (mappe, prezzi carburante) sono opzionali.</p>
@@ -634,7 +676,7 @@
 </div>
 
 <script defer src="../assets/nav.js"></script>
-<script defer src="../assets/reveal.js"></script>
+<script defer src="../assets/motion.js"></script>
 <script defer src="../assets/gallery.js"></script>
 <script defer src="../assets/sticky-cta.js"></script>
 <script defer src="../assets/waitlist.js"></script>

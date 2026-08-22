@@ -5,6 +5,15 @@
 
 @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
 
+/* animated "live" status dot (project status badges) */
+.status-dot{position:relative;display:inline-block;width:7px;height:7px;border-radius:50%;background:#4FE3C1}
+.status-dot::after{
+  content:"";position:absolute;inset:0;border-radius:50%;background:#4FE3C1;
+  animation:status-ping 2s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes status-ping{0%{transform:scale(1);opacity:.6}75%,100%{transform:scale(2.8);opacity:0}}
+@media (prefers-reduced-motion: reduce){.status-dot::after{animation:none;display:none}}
+
 *{box-sizing:border-box}
 body{
   margin:0;
@@ -42,36 +51,46 @@ a:focus-visible, button:focus-visible, summary:focus-visible{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 26px;border-radius:8px;background:#4FE3C1;color:#0B0E14;
   font-weight:600;font-size:15px;text-decoration:none;
-  transition:background .15s ease, transform .2s ease, box-shadow .2s ease;
+  transition:background .15s ease, box-shadow .2s ease;
 }
-.btn-primary:hover{background:#7FEFD4;color:#0B0E14;transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(79,227,193,.35)}
+.btn-primary:hover{background:#7FEFD4;color:#0B0E14;box-shadow:0 12px 24px -8px rgba(79,227,193,.35)}
 .btn-outline{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 26px;border-radius:8px;border:1px solid #2A3140;color:#EDEFF3;
   font-weight:600;font-size:15px;text-decoration:none;
-  transition:border-color .15s ease, color .15s ease, transform .2s ease, box-shadow .2s ease;
+  transition:border-color .15s ease, color .15s ease, box-shadow .2s ease;
 }
-.btn-outline:hover{border-color:#4FE3C1;color:#4FE3C1;transform:translateY(-2px);box-shadow:0 12px 24px -8px rgba(79,227,193,.18)}
+.btn-outline:hover{border-color:#4FE3C1;color:#4FE3C1;box-shadow:0 12px 24px -8px rgba(79,227,193,.18)}
 
-/* depth & micro-interactions */
-.fact-grid > div{transition:transform .25s ease, background-color .25s ease}
-.fact-grid > div:hover{transform:translateY(-4px);background:#141924}
+/* depth & micro-interactions (transform-based lift is driven by assets/motion.js on hover) */
+.fact-grid > div{transition:background-color .25s ease}
+.fact-grid > div:hover{background:#141924}
 
 .project-grid{
-  transition:transform .3s ease, box-shadow .3s ease, background-color .3s ease, border-color .3s ease;
+  transition:box-shadow .3s ease, background-color .3s ease, border-color .3s ease;
 }
 .project-grid:hover{
-  transform:translateY(-4px);
   box-shadow:0 30px 70px -25px rgba(79,227,193,.25), 0 8px 24px -8px rgba(0,0,0,.5);
   background:rgba(18,22,31,.6) !important;
   backdrop-filter:blur(14px);
   border-color:rgba(79,227,193,.25) !important;
 }
-.project-grid .shot-box img{transition:transform .4s ease}
-.project-grid:hover .shot-box img{transform:scale(1.04)}
+.project-grid .shot-mockup{transition:transform .4s ease}
+.project-grid:hover .shot-mockup{transform:scale(1.04)}
+
+/* phone showcase: soft glow rings behind the device — the device frame itself
+   (bezel, Dynamic Island, status bar) is baked into the mockup PNG/WebP, cut
+   out from a real App Store marketing render, not drawn in CSS. */
+.phone-showcase{position:relative;display:flex;justify-content:center;isolation:isolate}
+.phone-showcase::before{
+  content:"";position:absolute;inset:-16%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle,rgba(79,227,193,.16) 0%,rgba(124,111,255,.08) 45%,transparent 72%);
+  filter:blur(6px);
+}
+.shot-mockup{width:100%;display:block;border-radius:20px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5))}
 
 /* footer links */
-.footer-link{color:#8A93A3;text-decoration:none;transition:color .15s ease}
+.footer-link{color:#8A93A3;text-decoration:none;transition:color .15s ease;display:inline-flex;align-items:center;gap:6px}
 .footer-link:hover{color:#4FE3C1}
 
 /* mobile nav toggle */
@@ -99,7 +118,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible{
   .fact-grid{grid-template-columns:1fr !important}
   .github-grid{grid-template-columns:1fr !important}
   .project-grid{grid-template-columns:1fr !important}
-  .project-grid .shot-box{max-width:220px;margin:0 auto}
+  .project-grid .phone-showcase{max-width:220px;margin:0 auto}
   .tl-grid{grid-template-columns:80px 24px 1fr !important}
   nav > div:last-child{gap:16px !important}
 }
@@ -150,6 +169,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible{
   100%{transform:translate(20px,-16px) scale(1.08)}
 }
 
+/* soft ambient glow for non-hero sections — lighter/sober version of the hero aurora */
+.section-glow{position:relative;isolation:isolate}
+.section-glow::before{
+  content:"";position:absolute;width:42%;height:115%;
+  border-radius:50%;filter:blur(90px);opacity:.09;
+  z-index:-1;pointer-events:none;
+}
+.section-glow.glow-teal::before{top:-18%;left:2%;background:radial-gradient(circle,#4FE3C1 0%,transparent 65%)}
+.section-glow.glow-violet::before{bottom:-18%;right:2%;background:radial-gradient(circle,#7C6FFF 0%,transparent 65%)}
+@media (prefers-reduced-motion: no-preference){
+  .section-glow::before{animation:aurora-drift 24s ease-in-out infinite alternate}
+}
+
 /* hero: typing effect on the profilo.ts mock */
 .hero-code-line{display:block}
 .hero-code.typing .hero-code-line{
@@ -173,11 +205,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible{
 }
 .copy-toast.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* scroll reveal */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
-.reveal.is-visible{opacity:1;transform:none}
+/* scroll reveal + stagger — animation timing driven by assets/motion.js, this is just the pre-JS/no-JS hidden default */
+.reveal{opacity:0;transform:translateY(24px)}
+[data-stagger] > *{opacity:0;transform:translateY(20px)}
 @media (prefers-reduced-motion: reduce){
-  .reveal{opacity:1;transform:none;transition:none}
+  .reveal, [data-stagger] > *{opacity:1;transform:none}
 }
 
 /* page transitions */
