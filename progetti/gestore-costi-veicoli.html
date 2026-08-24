@@ -281,7 +281,34 @@
     display:flex; align-items:center; justify-content:center;
   }
 
-  .gallery-frame{position:relative;width:var(--gallery-card-w);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
+  /* cornice a forma di iPhone fisico (non solo screen piatto): tasti volume/muto
+     a sinistra e tasto laterale a destra, stessa tecnica visiva della cornice
+     nell'hero ma via ::before/::after così non si duplica markup su ogni card
+     del carosello. Nota: i tasti DEVONO essere elementi veri (non layer di
+     background sul frame) perché un background è sempre clippato al border-box
+     del proprio elemento — un background-position negativo per farlo "sporgere"
+     fuori dal bordo viene semplicemente tagliato via, invisibile. */
+  .gallery-frame{
+    position:relative;width:var(--gallery-card-w);aspect-ratio:1320/2868;border-radius:30px;padding:11px;
+    background:linear-gradient(155deg,#45454e,#0a0a0d 60%);
+    box-shadow:
+      0 20px 50px rgba(20,10,60,0.16),
+      inset 0 1.5px 1px rgba(255,255,255,.3),
+      inset 0 -2px 3px rgba(0,0,0,.6),
+      inset 0 0 0 1px rgba(0,0,0,.4);
+  }
+  .gallery-card-img{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.55); }
+  .gallery-frame::before{
+    content:""; position:absolute; left:-3px; top:17%; width:3px; height:23.5%; border-radius:2px 0 0 2px;
+    background:
+      linear-gradient(90deg,#0a0a0d,#3a3a42) no-repeat 0 0 / 100% 17%,
+      linear-gradient(90deg,#0a0a0d,#3a3a42) no-repeat 0 32% / 100% 30%,
+      linear-gradient(90deg,#0a0a0d,#3a3a42) no-repeat 0 70% / 100% 30%;
+  }
+  .gallery-frame::after{
+    content:""; position:absolute; right:-3px; top:21%; width:3px; height:10%; border-radius:0 2px 2px 0;
+    background:linear-gradient(90deg,#3a3a42,#0a0a0d);
+  }
   .gallery-card-img{width:100%;height:100%;border-radius:21px;object-fit:cover;display:block;transition:opacity .22s ease}
   @media (prefers-reduced-motion:reduce){ .gallery-card-img{ transition:none; } }
 
@@ -452,11 +479,13 @@
     #widget div[style*="minmax(0,1fr) minmax(0,1fr)"]{grid-template-columns:1fr !important}
     #recensioni div[style*="repeat(3,1fr)"]{grid-template-columns:1fr !important}
     #widget .widget-mockups{margin-top:32px}
-    #hero{background-image:none !important;padding-bottom:80px !important}
+    #hero{padding-bottom:60px !important}
+    .hero-copy{flex-direction:column !important}
+    .hero-copy > div:last-child{flex-shrink:0 !important;min-height:480px !important;padding:12px 0 40px !important}
     #pilastri{margin-top:0 !important}
     .hero-copy{padding-left:24px !important;padding-right:24px !important}
     .waitlist{margin-left:24px !important;margin-right:24px !important}
-    .widget-panel{padding:36px 24px !important}
+    #widget .widget-panel{padding:36px 24px !important}
     #lista > div{padding:56px 28px !important}
     .site-footer{padding:56px 24px 28px !important}
   }
@@ -492,7 +521,8 @@
 
 <div style="max-width:1440px;margin:0 auto">
   <main id="main">
-  <section id="hero" style="position:relative;overflow:hidden;padding:0 0 200px;background-color:#25379B;background-image:linear-gradient(100deg,rgba(31,48,158,.97) 0%,rgba(33,52,170,.9) 34%,rgba(35,58,190,.35) 54%,rgba(35,58,190,0) 66%),url('../assets/hero-isometrico.webp');background-size:auto,1672px auto;background-position:center,right 0px top 0;background-repeat:no-repeat,no-repeat">
+  <section id="hero" class="widget-panel" style="position:relative;overflow:hidden;padding:0 0 200px;background-color:#25379B;background-image:linear-gradient(100deg,#1F309E 0%,#2136AC 45%,#233CBE 100%)">
+    <div class="widget-dot-grid" aria-hidden="true"></div>
     <header class="site-header" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
       <div style="display:flex;align-items:center;gap:12px">
         <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:44px;height:44px;border-radius:13px;display:block;box-shadow:0 6px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)">
@@ -522,8 +552,8 @@
       </form>
     </div>
     <div aria-hidden="true" style="position:absolute;bottom:-120px;left:-180px;width:520px;height:520px;border-radius:50%;background:rgba(255,255,255,.06);animation:gcvDrift 28s ease-in-out infinite alternate"></div>
-    <div class="hero-copy" style="position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:24px 64px 0">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:24px">
+    <div class="hero-copy" style="position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:24px 64px 0;display:flex;align-items:center;gap:48px;flex-wrap:wrap">
+      <div style="max-width:560px;flex:1 1 480px;display:flex;flex-direction:column;gap:24px;min-width:0">
         <span style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:700;font-size:13px;padding:8px 16px;border-radius:100px;width:fit-content;white-space:nowrap">
           <span style="width:7px;height:7px;border-radius:50%;background:#5CF0C4"></span>In arrivo su App Store e Google Play
         </span>
@@ -546,6 +576,14 @@
           <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>Notifiche scadenze</span>
           <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></span>Dati cifrati, sempre tuoi</span>
           <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9a3.3 3.3 0 0 0-3-1.7c-2 0-3.3 1.6-3.3 4.7s1.3 4.7 3.3 4.7A3.3 3.3 0 0 0 15 15"/><path d="M7 10.5h5.5M7 13.5h4.5"/></svg></span>Acquisto singolo, mai abbonamento</span>
+        </div>
+      </div>
+
+      <div class="widget-mockups" style="flex:1 1 380px;min-width:0;position:relative;display:flex;align-items:center;justify-content:center;min-height:380px;padding:20px 0 60px">
+        <div style="position:relative;z-index:2;width:min(510px,90vw);margin-top:60px">
+          <div style="transform:scale(1.25)">
+            <img class="widget-mockup" src="../assets/screenshots/hero-duo-mockup.webp" alt="Gestore Costi Veicoli su due iPhone: dashboard e sincronizzazione" fetchpriority="high" style="width:100%;display:block;filter:drop-shadow(0 40px 70px rgba(0,0,0,.5));--base-rot:0deg;--base-y:0px">
+          </div>
         </div>
       </div>
     </div>
