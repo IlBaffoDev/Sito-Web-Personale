@@ -466,6 +466,12 @@
      stretti invece di comprimersi come previsto da flex:1 */
   #costi div[style*="height:170px"] > div{min-width:0}
 
+  /* stessa causa un livello più su: la colonna flex che contiene la card "Andamento
+     dell'anno" + le 3 mini-card statistiche è un grid item del grid #costi collassato
+     a 1fr, ma senza min-width:0 il suo min-content (ereditato dai figli) resta più
+     largo della singola colonna 1fr e sfonda il bordo destro dello schermo su mobile */
+  #costi div[style*="flex-direction:column;gap:24px"]{min-width:0}
+
   @media (min-width: 641px) and (max-width: 900px){
     .feature-grid{grid-template-columns:repeat(2,1fr) !important}
     .feature-grid > div{grid-column:auto !important;grid-row:auto !important;display:block !important}
@@ -508,7 +514,7 @@
       </nav>
     </header>
     <div class="waitlist" id="waitlist" style="position:relative;z-index:2;margin:8px 64px 0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:16px 22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
-      <span style="display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:600;font-size:15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio</span>
+      <span style="display:inline-flex;align-items:flex-start;gap:8px;color:#fff;font-weight:600;font-size:15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio</span>
       <form class="waitlist-form" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
         <label for="waitlist-email" class="sr-only">La tua email</label>
         <input id="waitlist-email" type="email" name="email" required placeholder="La tua email" style="border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);border-radius:100px;padding:10px 16px;font-size:14px;font-family:inherit;min-width:220px;color:#fff">
