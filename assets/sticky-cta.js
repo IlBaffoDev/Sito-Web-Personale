@@ -1,6 +1,6 @@
 (function () {
   var bar = document.querySelector('.sticky-cta');
-  var hero = document.getElementById('main');
+  var hero = document.getElementById('hero');
   var downloadTarget = document.getElementById('download');
   if (!bar || !hero || !downloadTarget || !('IntersectionObserver' in window)) return;
 
