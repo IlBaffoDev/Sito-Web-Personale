@@ -17,7 +17,10 @@ document.querySelectorAll('.nav-toggle').forEach(function (toggle) {
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
+      close();
+      toggle.focus();
+    }
   });
 });
 
