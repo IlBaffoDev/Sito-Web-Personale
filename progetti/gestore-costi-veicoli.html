@@ -43,7 +43,7 @@
 }
 </script>
 <style>
-  html{overflow-x:hidden;overscroll-behavior-y:none}
+  html{overflow-x:hidden;overscroll-behavior:none}
   body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff;overflow-x:hidden}
   a{color:#4B3FE3;text-decoration:none}
   a:hover{color:#3730A3}
@@ -387,7 +387,11 @@
     .site-footer-grid{ grid-template-columns:1fr 1fr !important; }
   }
   @media (max-width:640px){
-    .site-footer-grid{ grid-template-columns:1fr !important; gap:32px !important; }
+    /* colonna logo/tagline/store-badge a piena larghezza, le 3 colonne di link
+       (troppo scarne per restare impilate a piena larghezza una sotto l'altra)
+       affiancate in una riga compatta sotto */
+    .site-footer-grid{ grid-template-columns:repeat(3,1fr) !important; gap:28px 16px !important; }
+    .site-footer-grid > div:first-child{ grid-column:1 / -1 !important; margin-bottom:4px; }
   }
 
   .nav-toggle{display:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0}
