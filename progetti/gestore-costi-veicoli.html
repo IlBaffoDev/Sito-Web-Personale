@@ -43,8 +43,7 @@
 }
 </script>
 <style>
-  html{overflow-x:hidden;overscroll-behavior:none}
-  body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff;overflow-x:hidden}
+  body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff}
   a{color:#4B3FE3;text-decoration:none}
   a:hover{color:#3730A3}
   details summary{cursor:pointer;list-style:none}
@@ -83,137 +82,6 @@
     .reveal, [data-stagger] > *{opacity:1;transform:none}
   }
 
-  /* profondità aggiuntiva alle card feature (e ad altre card che riusano .lift-card):
-     bordo che si illumina al hover, sopra al bagliore cursore già gestito da ../assets/card-glow.js */
-  .feature-grid > div, .lift-card{ border:1px solid transparent; transition:border-color .3s ease, box-shadow .3s ease, transform .3s ease; }
-  .feature-grid > div:hover, .lift-card:hover{ border-color:rgba(75,63,227,.16); transform:translateY(-3px); box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 40px -10px rgba(75,63,227,.16) !important; }
-  @media (prefers-reduced-motion:reduce){
-    .feature-grid > div, .lift-card{ transition:none; }
-    .feature-grid > div:hover, .lift-card:hover{ transform:none; }
-  }
-
-  /* i badge icona respirano di continuo, con un delay diverso ciascuno per non sembrare sincronizzati */
-  .feature-icon{ animation:feature-icon-float 4.5s ease-in-out infinite; }
-  @keyframes feature-icon-float{
-    0%, 100%{ transform:translateY(0) rotate(0deg); }
-    50%{ transform:translateY(-6px) rotate(-5deg); }
-  }
-  .feature-grid > div:hover .feature-icon{ animation-play-state:paused; transform:scale(1.08) rotate(-6deg); transition:transform .25s ease; }
-  @media (prefers-reduced-motion:reduce){
-    .feature-icon{ animation:none; }
-    .feature-grid > div:hover .feature-icon{ transform:none; transition:none; }
-  }
-
-  /* pannello widget scuro: puntini reattivi al mouse (variante chiara di .dot-grid, per
-     leggersi su sfondo scuro) + mockup che respirano e si inclinano in 3D al passaggio
-     del mouse via ../assets/widget-interactive.js — stesso principio dell'hero */
-  .widget-panel{ position:relative; overflow:hidden; perspective:1400px; }
-  .widget-dot-grid{
-    position:absolute; inset:-40px; z-index:0; pointer-events:none;
-    background-image:radial-gradient(rgba(255,255,255,.10) 1.5px, transparent 1.5px);
-    background-size:26px 26px;
-    transform:translate(var(--widget-dot-x,0px), var(--widget-dot-y,0px));
-    -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%, #000 40%, transparent 85%);
-    mask-image:radial-gradient(ellipse 70% 60% at 50% 45%, #000 40%, transparent 85%);
-  }
-  .widget-mockups{ position:relative; z-index:1; max-width:100%; }
-  .widget-mockup{
-    animation:widget-float 6s ease-in-out infinite; transform-style:preserve-3d;
-    display:block;
-  }
-  .widget-mockup--small{ animation-delay:.4s; }
-  @keyframes widget-float{
-    0%, 100%{ transform:translateY(var(--base-y,0px)) rotate(var(--base-rot,0deg)) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)); }
-    50%{ transform:translateY(calc(var(--base-y,0px) - 8px)) rotate(var(--base-rot,0deg)) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)); }
-  }
-  .widget-floating-badge{
-    position:absolute; z-index:2; display:inline-flex; align-items:center; gap:8px;
-    background:#fff; color:#1B1830; font-weight:700; font-size:13px; padding:10px 16px;
-    border-radius:100px; box-shadow:0 16px 32px -8px rgba(0,0,0,0.35);
-    animation:hero-float 5s ease-in-out infinite;
-  }
-  @media (prefers-reduced-motion:reduce){
-    .widget-mockup, .widget-floating-badge{ animation:none; }
-    .widget-dot-grid{ transform:none; }
-  }
-
-  /* bagliore che segue il cursore sulle card — ../assets/card-glow.js scrive --mx/--my */
-  .feature-grid > div, .pricing-card{ position:relative; }
-  .feature-grid > div, .pricing-card:not(.pricing-card--pro){ overflow:hidden; }
-  .feature-grid > div::after, .pricing-card::after{
-    content:""; position:absolute; inset:0; pointer-events:none; opacity:0; border-radius:inherit;
-    background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(75,63,227,.14), transparent 70%);
-    transition:opacity .3s ease;
-  }
-  .pricing-card--pro::after{
-    background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.16), transparent 70%);
-  }
-  .feature-grid > div:hover::after, .pricing-card:hover::after{ opacity:1; }
-  @media (prefers-reduced-motion:reduce){
-    .feature-grid > div::after, .pricing-card::after{ transition:none; opacity:0 !important; }
-  }
-
-  /* bordo aurora animato sulla card Pro: due layer di background, il primo (il viola
-     pieno della card) clippato a padding-box copre l'interno, il secondo (conic-gradient)
-     clippato a border-box resta visibile solo nell'anello del bordo. Si anima l'angolo del
-     gradiente (via @property), non un transform, altrimenti un pseudo-elemento ruotato
-     uscirebbe dai bordi della card negli angoli. Niente z-index/pseudo-elementi: evita che
-     il gradiente animato "sanguini" sopra il contenuto della card (bug con ::before). */
-  @property --aurora-angle{ syntax:'<angle>'; inherits:false; initial-value:0deg; }
-  .pricing-card--pro{
-    box-sizing:border-box; border:2px solid transparent;
-    background:
-      linear-gradient(160deg,#4B3FE3,#7566F5) padding-box,
-      conic-gradient(from var(--aurora-angle), #4B3FE3, #4FE3C1, #8B7BFA, #4B3FE3) border-box;
-    animation:aurora-spin 6s linear infinite;
-  }
-  @keyframes aurora-spin{ to{ --aurora-angle:360deg; } }
-  /* la card Pro si solleva come le altre .lift-card al hover, ma senza toccare border-color:
-     il bordo trasparente è ciò che lascia vedere l'anello aurora conic-gradient sotto */
-  .pricing-card--pro{ transition:transform .3s ease, box-shadow .3s ease; }
-  .pricing-card--pro:hover{ transform:translateY(-3px); box-shadow:0 28px 60px rgba(75,63,227,0.34); }
-  @media (prefers-reduced-motion:reduce){
-    .pricing-card--pro{ animation:none; transition:none; }
-    .pricing-card--pro:hover{ transform:none; }
-  }
-
-  /* FAQ — apertura fluida gestita da ../assets/faq.js, qui solo la rotazione del simbolo */
-  #faq details summary span{ transition:transform .25s ease; display:inline-block; }
-  #faq details[open] summary span{ transform:rotate(45deg); }
-  @media (prefers-reduced-motion:reduce){
-    #faq details summary span{ transition:none; }
-  }
-
-  @keyframes hero-float{
-    0%, 100%{ transform:translateY(0); }
-    50%{ transform:translateY(-12px); }
-  }
-
-  /* keyframes del redesign editoriale (pilastri/costi/come/fiducia/lista) */
-  @keyframes gcvFloatSoft{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-7px); } }
-  @keyframes gcvDrift{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(26px,-20px) scale(1.09); } }
-  @keyframes gcvSpin{ to{ transform:rotate(360deg); } }
-  @keyframes gcvGrow{ from{ transform:scaleY(.15); } to{ transform:scaleY(1); } }
-  @media (prefers-reduced-motion:reduce){
-    [style*="gcvFloat"],[style*="gcvDrift"],[style*="gcvSpin"],[style*="gcvGrow"]{ animation:none !important; }
-  }
-
-  /* base 3D coverflow — usata oggi solo dal carosello schermate più sotto
-     (.coverflow--gallery); pos/target/rAF-ease-out in ../assets/coverflow.js */
-  .coverflow{ max-width:640px; margin:0 auto; }
-  .coverflow-viewport{ position:relative; }
-  .coverflow-frame{
-    cursor:grab; overflow:hidden; padding:40px 0; outline:none; touch-action:pan-y;
-    perspective: calc(var(--cf-card, 260px) * 3);
-  }
-  .coverflow-frame:active{ cursor:grabbing; }
-  .coverflow-frame:focus-visible{ box-shadow:inset 0 0 0 2px #4B3FE3; border-radius:8px; }
-  .coverflow-stage{ position:relative; height:var(--cf-card, 260px); transform-style:preserve-3d; user-select:none; }
-  .coverflow-card{
-    position:absolute; left:50%; top:0; width:var(--cf-card, 260px);
-    will-change:transform;
-  }
-
   /* bento feature grid */
   .feature-grid{grid-template-columns:repeat(4,1fr) !important}
   .feature-grid > div:nth-child(1){
@@ -226,7 +94,8 @@
   .feature-grid > div:nth-child(4),
   .feature-grid > div:nth-child(5),
   .feature-grid > div:nth-child(6){grid-column:span 2}
-  .feature-grid > div:nth-child(7){grid-column:1/-1}
+  .feature-grid > div:nth-child(7){grid-column:span 2}
+  .feature-grid > div:nth-child(8){grid-column:span 2}
 
   /* CTA fissa in fondo, solo mobile */
   .sticky-cta{
@@ -246,44 +115,37 @@
   @media (max-width:640px){ .sticky-cta{display:block} }
   @media (prefers-reduced-motion: reduce){ .sticky-cta{transition:none} }
 
-  /* lista d'attesa — vive sull'hero blu, vetro traslucido */
+  /* lista d'attesa */
   .waitlist-form input:disabled, .waitlist-form button:disabled{opacity:.6}
-  .waitlist-form input::placeholder{color:rgba(255,255,255,.65)}
-  .waitlist-msg{color:#fff;font-weight:600;font-size:15px}
-  .waitlist-msg.is-error{color:#FFD1D1}
+  .waitlist-msg{color:#4B3FE3;font-weight:600;font-size:15px}
+  .waitlist-msg.is-error{color:#C0392B}
 
-  /* cornice premium che contiene tutto il carosello — lo stesso linguaggio delle card
-     prezzi/feature (bianco, bordo, ombra soffusa) cosí la sezione non resta "sospesa"
-     ma si lega visivamente al resto della pagina — riusata da più sezioni per coerenza */
-  .section-panel{
-    position:relative; max-width:1120px; margin:0 auto; border-radius:32px;
-    background:
-      radial-gradient(480px circle at 10% 0%, rgba(75,63,227,.05), transparent 60%),
-      radial-gradient(480px circle at 90% 100%, rgba(139,123,250,.045), transparent 60%),
-      #fff;
-    border:1px solid #EEE9FF; box-shadow:0 30px 70px rgba(20,10,60,0.10);
-    padding:48px 40px;
-  }
-  @media (max-width:640px){ .section-panel{ padding:36px 20px; border-radius:24px; } }
-
-  /* carosello screenshot — coverflow 3D, ../assets/coverflow.js, card in formato telefono. */
-  .gallery-carousel{ --gallery-card-w:min(200px,24vw); position:relative }
+  /* carosello screenshot */
+  .gallery-carousel{ --gallery-card-w:min(200px,24vw); --gallery-card-h:440px; position:relative }
   @media (max-width:860px){
-    .gallery-carousel{ --gallery-card-w:min(150px,44vw) }
+    .gallery-carousel{ --gallery-card-w:min(190px,60vw); --gallery-card-h:415px }
   }
   .gallery-track-wrap{position:relative}
-
-  .coverflow--gallery{ --cf-card: var(--gallery-card-w); max-width:none; margin:0; }
-  .coverflow--gallery .coverflow-frame{ padding:40px 0; }
-  .coverflow--gallery .coverflow-stage{ height:calc(var(--cf-card) * 2868 / 1320); }
-  .coverflow--gallery .coverflow-card{
-    width:var(--cf-card); aspect-ratio:auto; height:100%;
-    display:flex; align-items:center; justify-content:center;
+  .gallery-track{
+    display:flex;gap:24px;margin:0;list-style:none;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:24px calc(50% - var(--gallery-card-w)/2);
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
   }
+  .gallery-track::-webkit-scrollbar{display:none}
+  @media (max-width:860px){ .gallery-track{gap:16px;padding-top:40px;padding-bottom:40px} }
+
+  .gallery-card{
+    flex:0 0 auto;width:var(--gallery-card-w);height:var(--gallery-card-h);
+    display:flex;align-items:center;justify-content:center;
+    scroll-snap-align:center;
+    transform:scale(.82);opacity:.45;
+    transition:transform .35s cubic-bezier(.22,1,.36,1), opacity .35s cubic-bezier(.22,1,.36,1);
+  }
+  .gallery-card.is-active{transform:scale(1);opacity:1}
 
   .gallery-frame{position:relative;width:var(--gallery-card-w);aspect-ratio:1320/2868;background:#0d0d12;border-radius:28px;padding:8px;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
-  .gallery-card-img{width:100%;height:100%;border-radius:21px;object-fit:cover;display:block;transition:opacity .22s ease}
-  @media (prefers-reduced-motion:reduce){ .gallery-card-img{ transition:none; } }
+  .gallery-card-img{width:100%;height:100%;border-radius:21px;object-fit:cover;display:block}
 
   .watch-frame{position:relative;width:min(190px,50vw)}
   @media (max-width:860px){ .watch-frame{width:min(160px,55vw)} }
@@ -295,15 +157,13 @@
   .gallery-nav{
     position:absolute;top:50%;transform:translateY(-50%);
     width:44px;height:44px;border-radius:50%;
-    background:rgba(255,255,255,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border:1px solid rgba(75,63,227,.14);box-shadow:0 8px 20px rgba(20,10,60,0.12);
+    background:#fff;border:1px solid #EEE9FF;box-shadow:0 8px 20px rgba(20,10,60,0.12);
     display:flex;align-items:center;justify-content:center;
     color:#4B3FE3;cursor:pointer;z-index:2;
-    transition:background .2s ease, box-shadow .2s ease, transform .2s ease;
+    transition:background .2s ease, box-shadow .2s ease;
   }
-  .gallery-nav:hover{background:rgba(241,238,255,.9);transform:translateY(-50%) scale(1.06)}
+  .gallery-nav:hover{background:#F1EEFF}
   .gallery-nav:disabled{opacity:.35;cursor:default;box-shadow:none}
-  @media (prefers-reduced-motion:reduce){ .gallery-nav{transition:none} .gallery-nav:hover{transform:translateY(-50%)} }
   .gallery-nav-prev{left:-8px}
   .gallery-nav-next{right:-8px}
   @media (max-width:860px){
@@ -312,90 +172,41 @@
     .gallery-nav-next{right:-4px}
   }
 
-  /* min-height è solo un fallback per contenuto pre-JS: assets/coverflow.js misura e imposta
+  .gallery-dots{display:flex;justify-content:center;gap:10px;margin-top:20px}
+  .gallery-dot{width:8px;height:8px;border-radius:4px;background:#D9D2FA;border:none;padding:0;cursor:pointer;transition:background .25s ease, width .25s ease}
+  .gallery-dot.is-active{background:#4B3FE3;width:22px}
+
+  /* min-height è solo un fallback per contenuto pre-JS: assets/gallery.js misura e imposta
      l'altezza esatta del pannello attivo ad ogni cambio, cosí non trabocca mai su nessuna larghezza */
   .gallery-caption{position:relative;max-width:640px;margin:32px auto 0;min-height:280px;text-align:left;transition:height .3s ease}
   @media (max-width:860px){ .gallery-caption{min-height:340px} }
   @media (prefers-reduced-motion: reduce){ .gallery-caption{transition:none} }
-
-  /* pallini di paginazione — cliccabili, sincronizzati con lo step attivo da ../assets/coverflow.js */
-  .gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:28px}
-  .gallery-dot{
-    width:8px;height:8px;border-radius:50%;padding:0;border:none;cursor:pointer;
-    background:#D9D2FA;transition:background .25s ease, transform .25s ease;
-  }
-  .gallery-dot:hover{background:#B7ACF2}
-  .gallery-dot.is-active{background:#4B3FE3;transform:scale(1.3)}
-  @media (prefers-reduced-motion:reduce){ .gallery-dot{transition:none} }
 
   /* affianca carosello e didascalia invece di impilarli: su schermi bassi (laptop 13")
      lo stack verticale costringeva a scegliere tra vedere le schermate o leggere il testo */
   @media (min-width:861px){
     .gallery-carousel{
       display:grid;grid-template-columns:1fr 360px;
-      grid-template-areas:"track caption";
+      grid-template-areas:"track caption" "dots caption";
       align-items:center;column-gap:48px;
     }
     .gallery-track-wrap{grid-area:track;min-width:0}
+    .gallery-dots{grid-area:dots;margin-top:20px}
     .gallery-caption{grid-area:caption;margin:0;align-self:center;max-width:none}
   }
   .gallery-caption-panel{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;pointer-events:none}
   .gallery-caption-panel.is-active{opacity:1;pointer-events:auto}
 
-  /* toggle chiaro/scuro — scambia le vere screenshot light/dark via data-src-dark,
-     invece di un filtro CSS: mostra il tema reale dell'app. */
-  #gallery-theme-toggle[aria-pressed="true"]{background:#1B1830;color:#fff}
-
   @media (prefers-reduced-motion: reduce){
     .gallery-card, .gallery-dot, .gallery-caption-panel{transition:none}
-  }
-
-  .scroll-progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:#4B3FE3;z-index:999;pointer-events:none}
-
-  /* CTA shimmer — fascio di luce diagonale al passaggio del cursore */
-  .store-btn, .cta-shine{ position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease; }
-  .store-btn::before, .cta-shine::before{
-    content:""; position:absolute; top:0; left:-60%; width:40%; height:100%;
-    background:linear-gradient(120deg, transparent, var(--shine-color, rgba(255,255,255,.4)), transparent);
-    transform:skewX(-20deg); transition:left .6s ease; pointer-events:none;
-  }
-  .store-btn:hover::before, .cta-shine:hover::before{ left:130%; }
-  .store-btn:hover, .cta-shine:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(75,63,227,.25); }
-  @media (prefers-reduced-motion:reduce){
-    .store-btn::before, .cta-shine::before{ transition:none; }
-    .store-btn:hover, .cta-shine:hover{ transform:none; }
   }
 
   .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
   .back-bar a{color:#fff}
   .shot-frame{width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);font-size:13px;text-align:center;padding:16px}
 
-  /* navbar: vive dentro l'hero blu, sempre trasparente — testo bianco via style inline
-     sugli <a>, coerente col design (nessuno sticky-on-scroll: scorre via con l'hero). */
-  .site-header{ background:transparent; }
-
-  /* footer — stesso linguaggio mesh del resto del sito, in tonalità scure */
-  .site-footer{
-    background:
-      radial-gradient(560px circle at 15% 0%, rgba(139,123,250,.10), transparent 60%),
-      radial-gradient(560px circle at 85% 100%, rgba(75,63,227,.12), transparent 60%),
-      #151129;
-  }
-  .site-footer-grid a{ transition:color .2s ease; }
-  .site-footer-grid a:hover{ color:#fff; }
-  @media (max-width:860px){
-    .site-footer-grid{ grid-template-columns:1fr 1fr !important; }
-  }
-  @media (max-width:640px){
-    /* colonna logo/tagline/store-badge a piena larghezza, le 3 colonne di link
-       (troppo scarne per restare impilate a piena larghezza una sotto l'altra)
-       affiancate in una riga compatta sotto */
-    .site-footer-grid{ grid-template-columns:repeat(3,1fr) !important; gap:28px 16px !important; }
-    .site-footer-grid > div:first-child{ grid-column:1 / -1 !important; margin-bottom:4px; }
-  }
-
   .nav-toggle{display:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0}
-  .nav-toggle span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:transform .2s ease, opacity .2s ease}
+  .nav-toggle span{display:block;width:22px;height:2px;background:#1B1830;border-radius:2px;transition:transform .2s ease, opacity .2s ease}
   .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
   .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -404,73 +215,28 @@
     header{padding:20px 24px !important}
     .nav-toggle{display:flex}
     .nav-links{
-      display:flex !important;
+      display:none !important;
       position:absolute !important;
       top:100% !important;left:0 !important;right:0 !important;
       flex-direction:column !important;align-items:flex-start !important;gap:4px !important;
       background:#fff !important;border-bottom:1px solid #EEE9FF;
-      max-height:0;opacity:0;overflow:hidden;pointer-events:none;
-      padding:0 24px !important;
-      transition:max-height .35s ease, opacity .25s ease, padding .35s ease;
-    }
-    nav.nav-open .nav-links{
-      max-height:420px;opacity:1;pointer-events:auto;
       padding:16px 24px !important;box-shadow:0 12px 24px rgba(20,10,60,0.08);
     }
-    .nav-links a:not(.nav-cta){
-      padding:12px 0;width:100%;box-sizing:border-box;
-      opacity:0;transform:translateY(-6px);
-      transition:opacity .25s ease, transform .25s ease;
-      color:#4B4566 !important;
-    }
-    nav.nav-open .nav-links a{opacity:1;transform:translateY(0)}
-    .nav-links a:nth-child(1){transition-delay:.04s}
-    .nav-links a:nth-child(2){transition-delay:.08s}
-    .nav-links a:nth-child(3){transition-delay:.12s}
-    .nav-links a:nth-child(4){transition-delay:.16s}
-    .nav-links a:nth-child(5){transition-delay:.2s}
-    .nav-links a:nth-child(6){transition-delay:.24s}
+    .nav-links a{padding:12px 0;width:100%;box-sizing:border-box}
     header{position:relative}
-  }
-  @media (max-width: 900px) and (prefers-reduced-motion: reduce){
-    .nav-links, .nav-links a{transition:none}
+    nav.nav-open .nav-links{display:flex !important}
   }
 
   @media (max-width: 860px){
     h1{font-size:36px !important}
     h2{font-size:28px !important}
     h3{font-size:21px !important}
-    #features,#gallery,#pricing,#faq,#calcolatore,#pilastri,#costi,#come,#fiducia,#lista,#recensioni,#manuale{padding-left:24px !important;padding-right:24px !important;padding-top:56px !important}
+    #features,#gallery,#pricing,#faq,#calcolatore{padding-left:24px !important;padding-right:24px !important;padding-top:56px !important}
     section{padding-left:24px !important;padding-right:24px !important}
     .calc-grid{grid-template-columns:1fr !important;padding:28px !important}
+    .hero-media{flex:1 1 auto !important;max-width:260px !important;margin:0 auto}
     .watch-glow-wrap{margin:0 auto 20px !important}
-    #pilastri > div, #come div[style*="repeat(3,1fr)"]{grid-template-columns:1fr !important}
-    #costi div[style*="minmax(0,420px)"]{grid-template-columns:1fr !important}
-    #costi div[style*="repeat(3,1fr)"]{grid-template-columns:1fr !important}
-    #fiducia div[style*="minmax(0,1fr) minmax(0,1.15fr)"]{grid-template-columns:1fr !important}
-    #fiducia div[style*="1fr 1fr"]{grid-template-columns:1fr !important}
-    #widget div[style*="minmax(0,1fr) minmax(0,1fr)"]{grid-template-columns:1fr !important}
-    #recensioni div[style*="repeat(3,1fr)"]{grid-template-columns:1fr !important}
-    #widget .widget-mockups{margin-top:32px}
-    #hero{background-image:none !important;padding-bottom:80px !important}
-    #pilastri{margin-top:0 !important}
-    .hero-copy{padding-left:24px !important;padding-right:24px !important}
-    .waitlist{margin-left:24px !important;margin-right:24px !important}
-    .widget-panel{padding:36px 24px !important}
-    #lista > div{padding:56px 28px !important}
-    .site-footer{padding:56px 24px 28px !important}
   }
-
-  /* grafico "andamento dell'anno": le 12 colonne sono flex:1 ma senza min-width:0
-     restano al loro min-content (numero + lettera mese) e sfondano la card su schermi
-     stretti invece di comprimersi come previsto da flex:1 */
-  #costi div[style*="height:170px"] > div{min-width:0}
-
-  /* stessa causa un livello più su: la colonna flex che contiene la card "Andamento
-     dell'anno" + le 3 mini-card statistiche è un grid item del grid #costi collassato
-     a 1fr, ma senza min-width:0 il suo min-content (ereditato dai figli) resta più
-     largo della singola colonna 1fr e sfonda il bordo destro dello schermo su mobile */
-  #costi div[style*="flex-direction:column;gap:24px"]{min-width:0}
 
   @media (min-width: 641px) and (max-width: 900px){
     .feature-grid{grid-template-columns:repeat(2,1fr) !important}
@@ -484,369 +250,241 @@
 </head>
 <body>
 
-<div class="scroll-progress-bar"></div>
-
 <a href="#main" class="skip-link">Vai al contenuto</a>
 
 <div class="back-bar"><a href="../progetti.html">← Torna ai progetti di Andrea Zanasi</a></div>
 
 <div style="max-width:1440px;margin:0 auto">
-  <main id="main">
-  <section id="hero" style="position:relative;overflow:hidden;padding:0 0 200px;background-color:#25379B;background-image:linear-gradient(100deg,rgba(31,48,158,.97) 0%,rgba(33,52,170,.9) 34%,rgba(35,58,190,.35) 54%,rgba(35,58,190,0) 66%),url('../assets/hero-isometrico.webp');background-size:auto,1672px auto;background-position:center,right 0px top 0;background-repeat:no-repeat,no-repeat">
-    <header class="site-header" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:44px;height:44px;border-radius:13px;display:block;box-shadow:0 6px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)">
-        <span class="logo-text" style="font-weight:800;font-size:20px;color:#fff">Gestore Costi Veicoli</span>
-      </div>
-      <nav>
-        <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="nav-links" style="display:flex;align-items:center;gap:36px">
-          <a href="#costi" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">Costi</a>
-          <a href="#features" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">Funzioni</a>
-          <a href="#calcolatore" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">Calcolatore</a>
-          <a href="#gallery" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">App</a>
-          <a href="#pricing" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">Prezzi</a>
-          <a href="#faq" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">FAQ</a>
-          <a href="#download" class="nav-cta" style="background:#fff;color:#2436A6;font-weight:800;font-size:15px;padding:12px 24px;border-radius:100px">Scarica l'app</a>
-        </div>
-      </nav>
-    </header>
-    <div class="waitlist" id="waitlist" style="position:relative;z-index:2;margin:8px 64px 0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:16px 22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
-      <span style="display:inline-flex;align-items:flex-start;gap:8px;color:#fff;font-weight:600;font-size:15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio</span>
-      <form class="waitlist-form" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-        <label for="waitlist-email" class="sr-only">La tua email</label>
-        <input id="waitlist-email" type="email" name="email" required placeholder="La tua email" style="border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);border-radius:100px;padding:10px 16px;font-size:14px;font-family:inherit;min-width:220px;color:#fff">
-        <button type="submit" style="background:#fff;color:#2436A6;font-weight:700;font-size:14px;padding:10px 20px;border-radius:100px;border:none;cursor:pointer;white-space:nowrap">Avvisami</button>
-      </form>
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:44px;height:44px;border-radius:13px;display:block;box-shadow:0 6px 16px rgba(69,58,216,0.35), 0 0 0 1px rgba(69,58,216,0.08)">
+      <span style="font-weight:800;font-size:20px;color:#1B1830">Gestore Costi Veicoli</span>
     </div>
-    <div aria-hidden="true" style="position:absolute;bottom:-120px;left:-180px;width:520px;height:520px;border-radius:50%;background:rgba(255,255,255,.06);animation:gcvDrift 28s ease-in-out infinite alternate"></div>
-    <div class="hero-copy" style="position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:24px 64px 0">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:24px">
-        <span style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:700;font-size:13px;padding:8px 16px;border-radius:100px;width:fit-content;white-space:nowrap">
-          <span style="width:7px;height:7px;border-radius:50%;background:#5CF0C4"></span>In arrivo su App Store e Google Play
-        </span>
-        <h1 style="margin:0;font-size:58px;line-height:1.03;font-weight:800;letter-spacing:-1.8px;color:#fff;text-transform:uppercase">Domina le spese<br>della tua auto</h1>
-        <p style="margin:0;font-size:19px;line-height:1.6;color:rgba(255,255,255,.85);max-width:440px">Rate, carburante, bollo, assicurazione e revisione in un'unica dashboard. Scopri quanto ti costa davvero ogni veicolo, ogni mese.</p>
+    <nav>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" style="display:flex;align-items:center;gap:36px">
+        <a href="#features" style="color:#4B4566;font-weight:600;font-size:16px">Funzioni</a>
+        <a href="#calcolatore" style="color:#4B4566;font-weight:600;font-size:16px">Calcolatore</a>
+        <a href="#gallery" style="color:#4B4566;font-weight:600;font-size:16px">App</a>
+        <a href="#pricing" style="color:#4B4566;font-weight:600;font-size:16px">Prezzi</a>
+        <a href="#faq" style="color:#4B4566;font-weight:600;font-size:16px">FAQ</a>
+        <a href="#download" style="background:#4B3FE3;color:#fff;font-weight:700;font-size:15px;padding:12px 24px;border-radius:100px">Scarica l'app</a>
+      </div>
+    </nav>
+  </header>
 
-        <div id="download" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:4px">
-          <a href="#waitlist" class="store-btn" aria-label="In arrivo su App Store — iscriviti alla lista d'attesa" title="In arrivo — iscriviti alla lista d'attesa" style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;padding:13px 22px;border-radius:14px;font-weight:600">
-            <svg viewBox="0 0 384 512" style="width:22px;height:22px;fill:#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>
-            <div style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:11px;opacity:0.8">Scarica su</span><span style="font-size:17px;font-weight:700">App Store</span></div>
-          </a>
-          <a href="#waitlist" class="store-btn" aria-label="In arrivo su Google Play — iscriviti alla lista d'attesa" title="In arrivo — iscriviti alla lista d'attesa" style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;padding:13px 22px;border-radius:14px;font-weight:600">
-            <svg viewBox="0 0 512 512" style="width:22px;height:22px"><path fill="#00D6FF" d="M325.3 234.3L104.3 6.5c-4.7-2.7-9.7-4.2-14.6-4.5L325.3 234.3z"></path><path fill="#00F076" d="M77.8 5.7C68.6 10.3 62 19.6 62 32v448c0 12.4 6.6 21.7 15.8 26.3L325.3 277.7 77.8 5.7z"></path><path fill="#FF3A44" d="M104.3 505.5c4.9-.3 9.9-1.8 14.6-4.5l221-227.3-53.6-53.6z"></path><path fill="#FFCE00" d="M411.8 231.9L339.9 189 286.5 242l53.4 53 71.9-42.9c17.5-10.9 17.5-38.3 0-49.2z"></path></svg>
-            <div style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:11px;opacity:0.8">Disponibile su</span><span style="font-size:17px;font-weight:700">Google Play</span></div>
-          </a>
-        </div>
+  <div class="waitlist" style="margin:0 64px 0;background:#F1EEFF;border-radius:16px;padding:16px 22px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+    <span style="display:inline-flex;align-items:center;gap:8px;color:#4B3FE3;font-weight:600;font-size:15px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>In arrivo su App Store e Google Play — iscriviti per essere avvisato al lancio</span>
+    <form class="waitlist-form" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+      <label for="waitlist-email" class="sr-only">La tua email</label>
+      <input id="waitlist-email" type="email" name="email" required placeholder="La tua email" style="border:1px solid #D9D2FA;border-radius:100px;padding:10px 16px;font-size:14px;font-family:inherit;min-width:220px;color:#1B1830">
+      <button type="submit" style="background:#4B3FE3;color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:100px;border:none;cursor:pointer;white-space:nowrap">Avvisami</button>
+    </form>
+  </div>
 
-        <div style="display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:8px;color:rgba(255,255,255,.86);font-size:13.5px;font-weight:600">
-          <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg></span>Auto e moto</span>
-          <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>Notifiche scadenze</span>
-          <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></span>Dati cifrati, sempre tuoi</span>
-          <span style="display:inline-flex;align-items:center;gap:8px"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(255,255,255,.16);flex-shrink:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9a3.3 3.3 0 0 0-3-1.7c-2 0-3.3 1.6-3.3 4.7s1.3 4.7 3.3 4.7A3.3 3.3 0 0 0 15 15"/><path d="M7 10.5h5.5M7 13.5h4.5"/></svg></span>Acquisto singolo, mai abbonamento</span>
-        </div>
+  <section id="main" style="display:flex;flex-wrap:wrap;align-items:center;gap:64px;padding:64px 64px 40px">
+    <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:26px">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:8px 16px;border-radius:100px;width:fit-content">Per auto, moto e ogni veicolo</div>
+      <h1 style="margin:0;font-size:56px;line-height:1.1;font-weight:800;letter-spacing:-1px">Ogni euro della tua auto, <span style="color:#4B3FE3">sotto controllo.</span></h1>
+      <p style="margin:0;font-size:19px;line-height:1.6;color:#4B4566;max-width:480px">Rate, carburante, bollo, assicurazione e revisione in un'unica dashboard. Scopri quanto ti costa davvero ogni veicolo, ogni mese.</p>
+      <div id="download" style="display:flex;gap:16px;margin-top:8px">
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;padding:13px 22px;border-radius:14px;font-weight:600">
+          <svg viewBox="0 0 384 512" style="width:24px;height:24px;fill:#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>
+          <div style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:11px;opacity:0.8">Scarica su</span><span style="font-size:17px;font-weight:700">App Store</span></div>
+        </a>
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;padding:13px 22px;border-radius:14px;font-weight:600">
+          <svg viewBox="0 0 512 512" style="width:24px;height:24px"><path fill="#00D6FF" d="M325.3 234.3L104.3 6.5c-4.7-2.7-9.7-4.2-14.6-4.5L325.3 234.3z"></path><path fill="#00F076" d="M77.8 5.7C68.6 10.3 62 19.6 62 32v448c0 12.4 6.6 21.7 15.8 26.3L325.3 277.7 77.8 5.7z"></path><path fill="#FF3A44" d="M104.3 505.5c4.9-.3 9.9-1.8 14.6-4.5l221-227.3-53.6-53.6z"></path><path fill="#FFCE00" d="M411.8 231.9L339.9 189 286.5 242l53.4 53 71.9-42.9c17.5-10.9 17.5-38.3 0-49.2z"></path></svg>
+          <div style="display:flex;flex-direction:column;line-height:1.2"><span style="font-size:11px;opacity:0.8">Disponibile su</span><span style="font-size:17px;font-weight:700">Google Play</span></div>
+        </a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px 26px;margin-top:12px;color:#6B6684;font-size:13.5px;font-weight:600">
+        <span style="display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A85A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg>Auto e moto</span>
+        <span style="display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A85A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>Notifiche scadenze</span>
+        <span style="display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A85A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg>Dati cifrati, sempre tuoi</span>
+        <span style="display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A85A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9a3.3 3.3 0 0 0-3-1.7c-2 0-3.3 1.6-3.3 4.7s1.3 4.7 3.3 4.7A3.3 3.3 0 0 0 15 15"/><path d="M7 10.5h5.5M7 13.5h4.5"/></svg>Acquisto singolo, mai abbonamento</span>
+      </div>
+    </div>
+    <div class="hero-media" style="flex:0 0 340px;max-width:100%;display:flex;justify-content:center">
+      <div style="width:min(300px,70vw);max-width:100%;aspect-ratio:1320/2868;background:#0d0d12;border-radius:44px;padding:10px;box-shadow:0 40px 90px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
+        <img src="../assets/screenshots/dashboard.png" alt="Dashboard di Gestore Costi Veicoli" fetchpriority="high" style="width:100%;height:100%;border-radius:36px;object-fit:cover;display:block">
       </div>
     </div>
   </section>
 
-  <section id="pilastri" class="reveal" style="position:relative;margin-top:-80px;padding:0 64px 90px;background:linear-gradient(180deg,rgba(255,255,255,0) 0,#fff 80px)">
-    <h2 class="sr-only">Perché scegliere Gestore Costi Veicoli</h2>
-    <div style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1240px;margin:0 auto">
-      <div class="lift-card" style="background:#fff;border-radius:26px;padding:38px 32px;text-align:center;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.3)">
-        <span style="display:flex;align-items:center;justify-content:center;width:66px;height:66px;border-radius:22px;margin:0 auto 22px;background:#F1EEFF;animation:gcvFloatSoft 5s ease-in-out infinite">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-8 4.5"/><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 8-4.5"/><path d="M17 3v4.5H12.5"/><path d="M7 21v-4.5h4.5"/></svg>
-        </span>
-        <h3 style="margin:0 0 20px;font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:.02em">Sincronizzazione unificata</h3>
-        <div style="display:flex;flex-direction:column;gap:12px;text-align:left">
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Sincronizza tutto tra iPhone, iPad e Android</span></div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Condividi la Dash con chi guida con te</span></div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Puoi continuare offline: i dati restano sempre tuoi</span></div>
-        </div>
-      </div>
-      <div class="lift-card" style="background:#fff;border-radius:26px;padding:38px 32px;text-align:center;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.3)">
-        <span style="display:flex;align-items:center;justify-content:center;width:66px;height:66px;border-radius:22px;margin:0 auto 22px;background:#EAF2FF;animation:gcvFloatSoft 5.4s ease-in-out infinite;animation-delay:-1s">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><path d="M6 18.5v1.5M18 18.5v1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg>
-        </span>
-        <h3 style="margin:0 0 20px;font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:.02em">Garage digitale</h3>
-        <div style="display:flex;flex-direction:column;gap:12px;text-align:left">
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati con Pro, uno gratis per sempre</span></div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Rata, prezzo pagato e costo annuo per ogni mezzo</span></div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Libretto, polizza e ricevute allegati alla scheda</span></div>
-        </div>
-      </div>
-      <div class="lift-card" style="background:#fff;border-radius:26px;padding:38px 32px;text-align:center;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.3)">
-        <span style="display:flex;align-items:center;justify-content:center;width:66px;height:66px;border-radius:22px;margin:0 auto 22px;background:#FDE8EC;animation:gcvFloatSoft 5.8s ease-in-out infinite;animation-delay:-2s">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E0537A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-        </span>
-        <h3 style="margin:0 0 20px;font-size:19px;font-weight:800;text-transform:uppercase;letter-spacing:.02em">Avvisi scadenze</h3>
-        <div style="display:flex;flex-direction:column;gap:12px;text-align:left">
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Bollo, assicurazione, revisione e tagliando</span></div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Notifiche prima che la scadenza arrivi</span></div>
-          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#4B4566"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Storico completo, esportabile in PDF o CSV</span></div>
-        </div>
-      </div>
+  <section id="features" class="reveal" style="padding:100px 64px;background:#FAFAFE">
+    <div style="text-align:center;max-width:640px;margin:0 auto 56px">
+      <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Tutto quello che serve per gestire i tuoi veicoli</h2>
+      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Una sola app per non perdere mai di vista tempo e denaro spesi su auto e moto.</p>
     </div>
-  </section>
-
-  <section id="costi" class="reveal" style="position:relative;padding:96px 64px;background:linear-gradient(180deg,#fff,#FAFAFE 40%,#F6F4FF)">
-    <div style="max-width:1180px;margin:0 auto">
-      <div style="max-width:620px;margin-bottom:56px">
-        <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4B3FE3;margin-bottom:14px">Il quadro completo</span>
-        <h2 style="margin:0 0 14px;font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.1">Non è solo la rata. È tutto il resto.</h2>
-        <p style="margin:0;font-size:17px;line-height:1.65;color:#4B4566">Ecco come si compone il costo mensile reale di un'auto media, così come lo vedresti nell'app.</p>
+    <div class="feature-grid" data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><path d="M6 18.5v1.5M18 18.5v1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Garage multi-veicolo</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Registra auto, moto e ogni altro veicolo con parametri, finanziamento e consumi dedicati.</p>
       </div>
-
-      <div style="display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:36px;align-items:stretch">
-        <div style="position:relative;background:#fff;border:1px solid #EEE9FF;border-radius:28px;padding:36px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 30px 60px -30px rgba(20,10,60,.22);display:flex;flex-direction:column;gap:28px">
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <span style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6B6684">Costo mensile</span>
-            <span style="font-size:11.5px;font-weight:700;color:#4B3FE3;background:#F1EEFF;padding:5px 11px;border-radius:100px">esempio</span>
-          </div>
-          <div style="display:flex;justify-content:center">
-            <div style="position:relative;width:212px;height:212px;border-radius:50%;background:conic-gradient(#4B3FE3 0 48.1%,#F08A3C 48.1% 77.6%,#3B7DDB 77.6% 89.8%,#E0537A 89.8% 94.6%,#2FAE7C 94.6% 100%)">
-              <div aria-hidden="true" style="position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(75,63,227,.2);animation:gcvSpin 40s linear infinite"></div>
-              <div style="position:absolute;inset:26px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 2px 10px rgba(20,10,60,.06)">
-                <span style="font-size:34px;font-weight:800;letter-spacing:-1px">312 €</span>
-                <span style="font-size:12px;font-weight:700;color:#6B6684">al mese</span>
-              </div>
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#4B3FE3"></span><span style="flex:1;color:#4B4566;font-weight:600">Rata finanziamento</span><span style="font-weight:800">150 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#F08A3C"></span><span style="flex:1;color:#4B4566;font-weight:600">Carburante</span><span style="font-weight:800">92 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#3B7DDB"></span><span style="flex:1;color:#4B4566;font-weight:600">Assicurazione</span><span style="font-weight:800">38 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#E0537A"></span><span style="flex:1;color:#4B4566;font-weight:600">Bollo</span><span style="font-weight:800">15 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#2FAE7C"></span><span style="flex:1;color:#4B4566;font-weight:600">Manutenzione</span><span style="font-weight:800">17 €</span></div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:24px">
-          <div style="flex:1;background:#fff;border:1px solid #EEE9FF;border-radius:28px;padding:32px 36px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 30px 60px -30px rgba(20,10,60,.22)">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:24px">
-              <div>
-                <h3 style="margin:0 0 4px;font-size:20px;font-weight:800">Andamento dell'anno</h3>
-                <p style="margin:0;font-size:14px;color:#6B6684;font-weight:600">Spesa totale mese per mese</p>
-              </div>
-              <span style="font-size:13px;font-weight:800;color:#2FAE7C;background:#E6F7F1;padding:6px 12px;border-radius:100px">3.744 € / anno</span>
-            </div>
-            <div style="display:flex;align-items:flex-end;gap:10px;height:170px">
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">286</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:70%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.00s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">G</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">301</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:73%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.06s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">F</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">348</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:85%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.12s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">M</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">262</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:64%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.18s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">A</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">295</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:72%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.24s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">M</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">410</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:100%;background:linear-gradient(180deg,#4B3FE3,#8B7BFA);animation-delay:.30s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">G</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">372</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:91%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.36s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">L</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">214</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:52%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.42s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">A</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">298</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:73%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.48s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">S</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">329</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:80%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.54s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">O</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">307</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:75%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.60s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">N</span></div>
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end"><span style="font-size:11px;font-weight:800;color:#4B3FE3">322</span><div style="width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:gcvGrow .9s cubic-bezier(.2,.8,.2,1) both;height:79%;background:linear-gradient(180deg,#C9C0F7,#E4DEFF);animation-delay:.66s"></div><span style="font-size:11px;font-weight:700;color:#8A85A3">D</span></div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-            <div style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:22px 24px">
-              <div style="font-size:28px;font-weight:800;letter-spacing:-.8px;color:#4B3FE3">6,4 l</div>
-              <div style="font-size:13.5px;font-weight:600;color:#4B4566;margin-top:4px">consumo reale / 100 km</div>
-            </div>
-            <div style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:22px 24px">
-              <div style="font-size:28px;font-weight:800;letter-spacing:-.8px;color:#F08A3C">18</div>
-              <div style="font-size:13.5px;font-weight:600;color:#4B4566;margin-top:4px">rifornimenti tracciati</div>
-            </div>
-            <div style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:22px 24px">
-              <div style="font-size:28px;font-weight:800;letter-spacing:-.8px;color:#2FAE7C">0</div>
-              <div style="font-size:13.5px;font-weight:600;color:#4B4566;margin-top:4px">scadenze dimenticate</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="come" class="reveal" style="padding:96px 64px;background:#fff">
-    <div style="max-width:1180px;margin:0 auto">
-      <div style="max-width:620px;margin-bottom:56px">
-        <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4B3FE3;margin-bottom:14px">Come funziona</span>
-        <h2 style="margin:0;font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.1">Tre passi, poi ci pensa l'app.</h2>
-      </div>
-      <div style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-        <div aria-hidden="true" style="position:absolute;top:46px;left:8%;right:8%;height:2px;background:repeating-linear-gradient(90deg,#DED7FB 0 8px,transparent 8px 16px)"></div>
-        <div style="position:relative;background:#fff;border:1px solid #EEE9FF;border-radius:26px;padding:32px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.22)">
-          <div style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);color:#fff;font-size:20px;font-weight:800;margin-bottom:22px;box-shadow:0 14px 26px -12px rgba(75,63,227,.7)">01</div>
-          <h3 style="margin:0 0 10px;font-size:20px;font-weight:800">Aggiungi il veicolo</h3>
-          <p style="margin:0;color:#4B4566;font-size:15.5px;line-height:1.65">Marca, modello, prezzo pagato, rata e i dati per il bollo: due minuti, una volta sola.</p>
-        </div>
-        <div style="position:relative;background:#fff;border:1px solid #EEE9FF;border-radius:26px;padding:32px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.22)">
-          <div style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);color:#fff;font-size:20px;font-weight:800;margin-bottom:22px;box-shadow:0 14px 26px -12px rgba(75,63,227,.7)">02</div>
-          <h3 style="margin:0 0 10px;font-size:20px;font-weight:800">Registra le spese</h3>
-          <p style="margin:0;color:#4B4566;font-size:15.5px;line-height:1.65">Rifornimenti, tagliandi, assicurazione. Dal telefono, dal widget o dall'Apple Watch.</p>
-        </div>
-        <div style="position:relative;background:#fff;border:1px solid #EEE9FF;border-radius:26px;padding:32px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.22)">
-          <div style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);color:#fff;font-size:20px;font-weight:800;margin-bottom:22px;box-shadow:0 14px 26px -12px rgba(75,63,227,.7)">03</div>
-          <h3 style="margin:0 0 10px;font-size:20px;font-weight:800">Guarda i numeri veri</h3>
-          <p style="margin:0;color:#4B4566;font-size:15.5px;line-height:1.65">L'app calcola il costo mensile reale, ti avvisa sulle scadenze e segnala le anomalie.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="features" class="reveal" style="padding:96px 64px;background:#FAFAFE">
-    <div style="max-width:640px;margin:0 auto 52px;text-align:center">
-      <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4B3FE3;margin-bottom:14px">Funzioni</span>
-      <h2 style="margin:0 0 14px;font-size:38px;font-weight:800;letter-spacing:-0.5px;line-height:1.1">Tutto quello che serve per gestire i tuoi veicoli</h2>
-      <p style="margin:0;font-size:17px;line-height:1.65;color:#4B4566">Una sola app per non perdere mai di vista tempo e denaro spesi su auto e moto.</p>
-    </div>
-
-    <div class="feature-grid" data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1180px;margin:0 auto">
-      <div class="lift-card" style="grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column;justify-content:center;background:#fff;border-radius:26px;padding:40px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div class="feature-icon" style="width:64px;height:64px;border-radius:20px;background:linear-gradient(160deg,#F1EEFF,#E3DDFF);box-shadow:0 6px 14px -4px rgba(75,63,227,.25);display:flex;align-items:center;justify-content:center;margin-bottom:22px;animation-delay:0s">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/><path d="M6 18.5v1.5M18 18.5v1.5"/><circle cx="7" cy="15.5" r="1"/><circle cx="17" cy="15.5" r="1"/></svg>
-        </div>
-        <h3 style="margin:0 0 12px;font-size:26px;font-weight:800;letter-spacing:-.4px">Garage multi-veicolo</h3>
-        <p style="margin:0 0 24px;color:#4B4566;font-size:16.5px;line-height:1.7">Registra auto, moto e ogni altro veicolo con parametri, finanziamento e consumi dedicati — ognuno con il suo costo reale.</p>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:center;gap:14px;background:#FAFAFE;border:1px solid #EFECFB;border-radius:16px;padding:14px 16px">
-            <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#F1EEFF;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5l1.6-4.8A2 2 0 0 1 6.5 6.3h11a2 2 0 0 1 1.9 1.4l1.6 4.8"/><rect x="2.5" y="12.5" width="19" height="6" rx="1.5"/></svg></span>
-            <span style="flex:1"><strong style="display:block;font-size:14.5px">Auto</strong><span style="font-size:12.5px;color:#6B6684;font-weight:600">rata + carburante + bollo</span></span>
-            <strong style="font-size:15px;color:#4B3FE3">312 €</strong>
-          </div>
-          <div style="display:flex;align-items:center;gap:14px;background:#FAFAFE;border:1px solid #EFECFB;border-radius:16px;padding:14px 16px">
-            <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#FFF1E6;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h4l3-6h-4"/></svg></span>
-            <span style="flex:1"><strong style="display:block;font-size:14.5px">Moto</strong><span style="font-size:12.5px;color:#6B6684;font-weight:600">assicurazione + tagliando</span></span>
-            <strong style="font-size:15px;color:#F08A3C">86 €</strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="lift-card" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#FFF1E6,#FFE1C7);box-shadow:0 6px 14px -4px rgba(240,138,60,.3);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:.3s">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#FFF1E6;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v15"/><path d="M4 11h10"/><path d="M14 8.5l3 2v6a1.5 1.5 0 0 0 3 0V9.5a2 2 0 0 0-.6-1.4l-2.4-2.4"/><path d="M2.5 21h13"/></svg>
         </div>
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Carburante e consumi</h3>
-        <p style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Traccia ogni rifornimento e confronta il consumo reale con quello teorico.</p>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Carburante e consumi</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Traccia ogni rifornimento e confronta il consumo reale con quello teorico del veicolo.</p>
       </div>
-
-      <div class="lift-card" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#FDE8EC,#FBD3DC);box-shadow:0 6px 14px -4px rgba(224,83,122,.3);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:.6s">
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#FDE8EC;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0537A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
         </div>
-        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Scadenze e notifiche</h3>
-        <p style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Bollo, assicurazione, revisione e tagliando: un avviso prima che sia tardi.</p>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Scadenze e notifiche</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Bollo, assicurazione, revisione e tagliando: ricevi un avviso prima che sia troppo tardi.</p>
       </div>
-
-      <div class="lift-card" style="grid-column:span 2;background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div style="display:flex;align-items:flex-start;gap:20px">
-          <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#E6F7F1,#C9EEDF);box-shadow:0 6px 14px -4px rgba(47,174,124,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation-delay:.9s">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2FAE7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12.5h3"/><path d="M3 10.5h18"/></svg>
-          </div>
-          <div>
-            <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Costo reale di possesso</h3>
-            <p style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Rata, carburante e costi operativi in un unico totale mensile, annuo o complessivo.</p>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#E6F7F1;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2FAE7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12.5h3"/><path d="M3 10.5h18"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Costo reale di possesso</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Rata, carburante e costi operativi in un unico totale mensile, annuo o complessivo.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#F1EEFF;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5.5-6 4 3L21 6"/><path d="M15 6h6v6"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Insight automatici</h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Confronti mensili, anomalie di spesa e prezzi carburante vicino a te, dai dati ufficiali MIMIT.</p>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:32px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div style="width:52px;height:52px;border-radius:14px;background:#FFF1E6;display:flex;align-items:center;justify-content:center;margin-bottom:18px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19.5h16"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:19px;font-weight:700">Esporta i tuoi dati <span style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Scarica lo storico spese e scadenze in PDF o CSV, in qualsiasi momento.</p>
+      </div>
+      <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap">
+        <div style="flex-shrink:0;width:190px;height:190px;position:relative;display:flex;align-items:center;justify-content:center;margin:-10px 0">
+          <div style="position:absolute;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,#EFEBFF 0%,rgba(239,235,255,0) 72%)"></div>
+          <div style="position:relative;width:126px;height:206px">
+            <div style="position:absolute;left:38px;top:14px;width:88px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:20px;padding:6px;box-shadow:0 20px 40px -10px rgba(20,10,60,0.25)">
+              <img src="../assets/screenshots/dashboard-dark.png" alt="" aria-hidden="true" style="width:100%;height:100%;border-radius:15px;object-fit:cover;display:block">
+            </div>
+            <div style="position:absolute;left:0;top:0;width:88px;aspect-ratio:1320/2868;background:#0d0d12;border-radius:20px;padding:6px;box-shadow:0 24px 50px -8px rgba(20,10,60,0.3)">
+              <img src="../assets/screenshots/dashboard.png" alt="" aria-hidden="true" style="width:100%;height:100%;border-radius:15px;object-fit:cover;display:block">
+            </div>
+            <div style="position:absolute;left:62px;top:76px;width:34px;height:34px;border-radius:50%;background:#4B3FE3;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(75,63,227,0.45);border:3px solid #fff">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-8 4.5"/><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 8-4.5"/><path d="M17 3v4.5H12.5"/><path d="M7 21v-4.5h4.5"/></svg>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="lift-card" style="grid-column:span 2;background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div style="display:flex;align-items:flex-start;gap:20px">
-          <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#F1EEFF,#E3DDFF);box-shadow:0 6px 14px -4px rgba(75,63,227,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation-delay:1.2s">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5.5-6 4 3L21 6"/><path d="M15 6h6v6"/></svg>
-          </div>
-          <div>
-            <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Insight automatici</h3>
-            <p style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Confronti mensili, anomalie di spesa e prezzi carburante vicino a te, dai dati ufficiali MIMIT.</p>
-          </div>
+        <div style="flex:1;min-width:260px">
+          <h3 style="margin:0 0 8px;font-size:22px;font-weight:700">Sincronizza tra i tuoi dispositivi</h3>
+          <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:520px">Accedi (facoltativo) con <span style="font-weight:700;color:#1B1830"><svg width="13" height="13" viewBox="0 0 384 512" style="vertical-align:-1px;margin:0 1px 0 2px;fill:#1B1830"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>Apple</span> o <span style="font-weight:700;color:#1B1830"><svg width="13" height="13" viewBox="0 0 18 18" style="vertical-align:-1px;margin:0 1px 0 2px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>Google</span> per avere veicoli, spese e scadenze sincronizzati su tutti i tuoi dispositivi — l'app resta comunque completamente utilizzabile senza account.</p>
         </div>
       </div>
-
-      <div class="lift-card" style="grid-column:span 2;background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div style="display:flex;align-items:flex-start;gap:20px">
-          <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#FFF1E6,#FFE1C7);box-shadow:0 6px 14px -4px rgba(240,138,60,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation-delay:1.5s">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19.5h16"/></svg>
-          </div>
-          <div>
-            <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Esporta i tuoi dati <span style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
-            <p style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Scarica lo storico spese e scadenze in PDF o CSV, in qualsiasi momento.</p>
+      <div style="background:#fff;border-radius:24px;padding:44px 48px;box-shadow:0 2px 16px rgba(20,10,60,0.06);display:flex;align-items:center;gap:48px;flex-wrap:wrap">
+        <div class="watch-glow-wrap" style="flex-shrink:0;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#EFEBFF 0%,rgba(239,235,255,0) 72%);display:flex;align-items:center;justify-content:center;margin:-14px 0">
+          <div style="position:relative;width:150px;height:184px">
+            <div style="position:absolute;right:-2.5px;top:44px;width:3px;height:11px;border-radius:0 2px 2px 0;background:#3a3a42"></div>
+            <div style="position:absolute;right:-3.5px;top:62px;width:4px;height:18px;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#3a3a42,#57575f)"></div>
+            <div style="box-sizing:border-box;width:150px;height:184px;background:linear-gradient(155deg,#2c2c33,#0a0a0d 55%);border-radius:46px;padding:9px;box-shadow:0 30px 60px -20px rgba(43,34,110,0.35),0 10px 24px -10px rgba(0,0,0,0.35);position:relative">
+              <img src="../assets/screenshots/watch-appgrid-real.png" alt="" aria-hidden="true" style="width:100%;height:100%;border-radius:37px;object-fit:cover;display:block">
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="lift-card" style="grid-column:1/-1;background:#fff;border-radius:26px;padding:38px 40px;display:flex;align-items:center;gap:44px;flex-wrap:wrap;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
-        <div style="flex:1;min-width:280px">
-          <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#EAF2FF,#D2E5FF);box-shadow:0 6px 14px -4px rgba(59,125,219,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:18px;animation-delay:1.8s">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.6L12.6 20.4a5 5 0 0 1-7.1-7.1l8.8-8.8a3.5 3.5 0 0 1 5 5l-8.8 8.8a2 2 0 0 1-2.9-2.9l8.1-8.1"/></svg>
-          </div>
-          <h3 style="margin:0 0 8px;font-size:22px;font-weight:800">Documenti per veicolo</h3>
-          <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:440px">Allega libretto, assicurazione e altri documenti a ogni veicolo: li ritrovi sempre nella sua scheda, senza cercarli altrove.</p>
-        </div>
-        <div style="flex:1;min-width:240px;display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:center;gap:12px;background:#FAFAFE;border:1px solid #EFECFB;border-radius:14px;padding:13px 16px;font-size:14.5px;color:#4B4566;font-weight:600"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Libretto di circolazione</div>
-          <div style="display:flex;align-items:center;gap:12px;background:#FAFAFE;border:1px solid #EFECFB;border-radius:14px;padding:13px 16px;font-size:14.5px;color:#4B4566;font-weight:600"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Polizza assicurativa</div>
-          <div style="display:flex;align-items:center;gap:12px;background:#FAFAFE;border:1px solid #EFECFB;border-radius:14px;padding:13px 16px;font-size:14.5px;color:#4B4566;font-weight:600"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Ricevute e fatture</div>
+        <div style="flex:1;min-width:220px">
+          <h3 style="margin:0 0 8px;font-size:22px;font-weight:700">App per Apple Watch <span style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+          <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.7;max-width:420px">Registra un rifornimento rapido direttamente dal polso, sincronizzato con il telefono — inclusa con Pro.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="gallery" class="reveal" style="padding:60px 64px 40px;background:radial-gradient(560px circle at 5% 50%, rgba(75,63,227,.045), transparent 60%), radial-gradient(560px circle at 95% 50%, rgba(139,123,250,.04), transparent 60%), #fff">
+  <section id="calcolatore" class="reveal" style="padding:80px 64px;background:#fff">
+    <div style="text-align:center;max-width:640px;margin:0 auto 40px">
+      <h2 style="margin:0 0 16px;font-size:34px;font-weight:800;letter-spacing:-0.5px">Quanto ti costa davvero il tuo veicolo?</h2>
+      <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.6">Inserisci qualche numero e scoprilo subito — è solo un calcolo indicativo nel tuo browser.</p>
+    </div>
+    <div class="calc-grid" style="max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;background:#FAFAFE;border:1px solid #EEE9FF;border-radius:24px;padding:40px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Rata o finanziamento mensile (€)
+          <input id="calc-rata" type="number" min="0" inputmode="decimal" placeholder="es. 250" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Carburante al mese (€)
+          <input id="calc-carburante" type="number" min="0" inputmode="decimal" placeholder="es. 120" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Bollo all'anno (€)
+          <input id="calc-bollo" type="number" min="0" inputmode="decimal" placeholder="es. 180" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Assicurazione all'anno (€)
+          <input id="calc-assicurazione" type="number" min="0" inputmode="decimal" placeholder="es. 450" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
+        </label>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <div>
+          <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
+          <p style="margin:0;font-size:36px;font-weight:800;color:#1B1830"><span id="calc-mensile">0 €</span><span style="font-size:15px;font-weight:600;color:#6B6684"> /mese</span></p>
+          <p style="margin:4px 0 0;font-size:15px;color:#4B4566"><span id="calc-annuo">0 €</span> /anno</p>
+        </div>
+        <div id="calc-bars" style="display:flex;flex-direction:column;gap:8px"></div>
+        <a href="#download" style="display:block;text-align:center;background:#4B3FE3;color:#fff;font-weight:700;font-size:14.5px;padding:12px;border-radius:12px;margin-top:6px">Scarica l'app per tracciarlo in automatico</a>
+        <p style="margin:0;color:#6B6684;font-size:12px;text-align:center">Il calcolo avviene solo nel tuo browser: nessun dato viene inviato o salvato.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" style="padding:100px 64px 40px">
     <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Guarda l'app in azione</h2>
-      <p style="margin:0 0 20px;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende.</p>
-      <button type="button" id="gallery-theme-toggle" aria-pressed="false" style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:13.5px;padding:8px 16px;border-radius:100px;border:none;cursor:pointer">
-        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z"/></svg>
-        <span data-label>Guarda in tema scuro</span>
-      </button>
+      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende.</p>
     </div>
 
-    <div class="section-panel">
-    <div class="gallery-carousel" style="margin:0 auto">
-      <div class="gallery-track-wrap coverflow coverflow--gallery" role="region" aria-roledescription="carousel" aria-label="Schermate dell'app">
-       <div class="coverflow-viewport">
-        <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Schermata precedente">
+    <div class="gallery-carousel" style="max-width:1080px;margin:0 auto">
+      <div class="gallery-track-wrap">
+        <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Schermata precedente" disabled>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
 
-        <div class="coverflow-frame" tabindex="0">
-         <div class="coverflow-stage">
-          <div class="coverflow-card" id="gallery-card-1" role="group" aria-roledescription="slide" aria-label="1 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" fetchpriority="high" src="../assets/screenshots/dashboard.webp" data-src-light="../assets/screenshots/dashboard.webp" data-src-dark="../assets/screenshots/dashboard-dark.webp" alt="Dashboard di Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-2" role="group" aria-roledescription="slide" aria-label="2 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/garage.webp" data-src-light="../assets/screenshots/garage.webp" data-src-dark="../assets/screenshots/garage-dark.webp" alt="Garage di Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-3" role="group" aria-roledescription="slide" aria-label="3 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/carburante.webp" data-src-light="../assets/screenshots/carburante.webp" data-src-dark="../assets/screenshots/carburante-dark.webp" alt="Carburante in Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-4" role="group" aria-roledescription="slide" aria-label="4 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/scadenze.webp" data-src-light="../assets/screenshots/scadenze.webp" data-src-dark="../assets/screenshots/scadenze-dark.webp" alt="Scadenze in Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-5" role="group" aria-roledescription="slide" aria-label="5 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.webp" data-src-light="../assets/screenshots/dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/dettaglio-veicolo-dark.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-6" role="group" aria-roledescription="slide" aria-label="6 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/impostazioni.webp" data-src-light="../assets/screenshots/impostazioni.webp" data-src-dark="../assets/screenshots/impostazioni-dark.webp" alt="Impostazioni di Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-7" role="group" aria-roledescription="slide" aria-label="7 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/profilo.webp" data-src-light="../assets/screenshots/profilo.webp" data-src-dark="../assets/screenshots/profilo-dark.webp" alt="Profilo in Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-8" role="group" aria-roledescription="slide" aria-label="8 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/pro.webp" data-src-light="../assets/screenshots/pro.webp" data-src-dark="../assets/screenshots/pro-dark.webp" alt="Schermata Pro in Gestore Costi Veicoli"></div>
-          </div>
-          <div class="coverflow-card" id="gallery-card-9" role="group" aria-roledescription="slide" aria-label="9 di 9">
-            <div class="watch-frame">
-              <div class="watch-crown"></div>
-              <div class="watch-button"></div>
-              <div class="watch-case"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch"></div>
-            </div>
-          </div>
-         </div>
+        <ul class="gallery-track" tabindex="0" aria-label="Schermate dell'app — scorri o usa le frecce">
+      <li class="gallery-card is-active" id="gallery-card-1" data-step="1">
+        <div class="gallery-frame"><img class="gallery-card-img" fetchpriority="high" src="../assets/screenshots/dashboard.webp" alt="Dashboard di Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-2" data-step="2">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/garage.webp" alt="Garage di Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-3" data-step="3">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/carburante.webp" alt="Carburante in Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-4" data-step="4">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/scadenze.webp" alt="Scadenze in Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-5" data-step="5">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card" id="gallery-card-6" data-step="6">
+        <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/impostazioni.webp" alt="Impostazioni di Gestore Costi Veicoli"></div>
+      </li>
+      <li class="gallery-card gallery-card-watch" id="gallery-card-7" data-step="7">
+        <div class="watch-frame">
+          <div class="watch-crown"></div>
+          <div class="watch-button"></div>
+          <div class="watch-case"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch"></div>
         </div>
+      </li>
+        </ul>
 
         <button type="button" class="gallery-nav gallery-nav-next" aria-label="Schermata successiva">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
         </button>
-       </div>
+      </div>
+
+      <div class="gallery-dots" role="tablist" aria-label="Vai a una schermata">
+        <button type="button" class="gallery-dot is-active" role="tab" aria-selected="true" aria-controls="gallery-caption-1" data-step="1" aria-label="Dashboard"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-2" data-step="2" aria-label="Garage"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-3" data-step="3" aria-label="Carburante"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-4" data-step="4" aria-label="Scadenze"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-5" data-step="5" aria-label="Dettaglio veicolo"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-6" data-step="6" aria-label="Impostazioni"></button>
+        <button type="button" class="gallery-dot" role="tab" aria-selected="false" aria-controls="gallery-caption-7" data-step="7" aria-label="Apple Watch"></button>
       </div>
 
       <div class="gallery-caption">
@@ -911,26 +549,6 @@
           </ul>
         </div>
         <div class="gallery-caption-panel" id="gallery-caption-7" data-step="7" aria-hidden="true">
-          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Profilo</span>
-          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">I tuoi dati, sempre sotto controllo</h3>
-          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Gestisci account, sincronizzazione e condivisione della Dash con chi guida con te.</p>
-          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Sincronizza manualmente quando vuoi</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Condividi la Dash con chi guida con te</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Dati personali modificabili in ogni momento</span></li>
-          </ul>
-        </div>
-        <div class="gallery-caption-panel" id="gallery-caption-8" data-step="8" aria-hidden="true">
-          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Pro</span>
-          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Sblocca tutto il potenziale dell'app</h3>
-          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Un acquisto unico, per sempre — nessun abbonamento da ricordare.</p>
-          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati ed export PDF/CSV</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti e foto ricevuta</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget, Apple Watch e mappe distributori</span></li>
-          </ul>
-        </div>
-        <div class="gallery-caption-panel" id="gallery-caption-9" data-step="9" aria-hidden="true">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Apple Watch</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Anche dal polso, senza tirare fuori il telefono</h3>
           <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Registra un rifornimento in pochi secondi direttamente dall'Apple Watch, con veicoli e categorie già sincronizzati dal telefono.</p>
@@ -941,219 +559,51 @@
           </ul>
         </div>
       </div>
-
-      <div class="gallery-dots" role="tablist" aria-label="Vai a una schermata">
-        <button type="button" class="gallery-dot is-active" data-step="1" aria-label="Vai a 1 di 9" aria-current="true"></button>
-        <button type="button" class="gallery-dot" data-step="2" aria-label="Vai a 2 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="3" aria-label="Vai a 3 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="4" aria-label="Vai a 4 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="5" aria-label="Vai a 5 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="6" aria-label="Vai a 6 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="7" aria-label="Vai a 7 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="8" aria-label="Vai a 8 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="9" aria-label="Vai a 9 di 9"></button>
-      </div>
-    </div>
     </div>
   </section>
 
-  <section id="widget" class="reveal" style="padding:0 64px 96px;background:#fff">
-    <div class="widget-panel" style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:34px;padding:64px;background:linear-gradient(155deg,#221D3E,#0D0B1A);box-shadow:0 50px 90px -40px rgba(20,10,60,.7)">
-      <div class="widget-dot-grid" aria-hidden="true"></div>
-      <div aria-hidden="true" style="position:absolute;top:-140px;right:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.35),transparent 62%);filter:blur(20px);animation:gcvDrift 24s ease-in-out infinite alternate"></div>
-      <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
-        <div>
-          <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;margin-bottom:14px">Widget e Apple Watch</span>
-          <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.12;color:#fff">Anche dalla Home, senza aprire l'app.</h2>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Due widget pensati per iOS: uno per il colpo d'occhio sulla spesa, uno per registrare in un tap. E dal polso, con l'app nativa per Apple Watch.</p>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
-              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:rgba(169,157,255,.18);flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Azioni rapide</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Aggiungi una spesa o una scadenza dalla Home, senza aprire l'app.</span></span>
-            </div>
-            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
-              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:rgba(169,157,255,.18);flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
-              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tutti i veicoli, a colpo d'occhio</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Il totale del mese con il dettaglio per categoria, in formato medio o grande.</span></span>
-            </div>
-          </div>
-        </div>
-        <div class="widget-mockups" style="position:relative;display:flex;align-items:center;justify-content:center;gap:24px;min-height:280px">
-          <img class="widget-mockup" src="../assets/screenshots/widget-tutto-grande-light.webp" alt="Widget Tutti i veicoli, formato grande" style="width:180px;border-radius:26px;--base-rot:-4deg;--base-y:0px;box-shadow:0 30px 60px -12px rgba(0,0,0,.55)">
-          <img class="widget-mockup widget-mockup--small" src="../assets/screenshots/widget-azioni-rapide-light.webp" alt="Widget Azioni rapide" style="width:126px;border-radius:22px;--base-rot:5deg;--base-y:20px;box-shadow:0 30px 60px -12px rgba(0,0,0,.55)">
-          <span class="widget-floating-badge" style="top:6px;right:0">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-8 4.5"/><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 8-4.5"/><path d="M17 3v4.5H12.5"/><path d="M7 21v-4.5h4.5"/></svg>
-            Aggiornato in tempo reale
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="calcolatore" class="reveal" style="padding:100px 64px 60px;background:radial-gradient(560px circle at 22% 85%, rgba(75,63,227,.05), transparent 60%), radial-gradient(480px circle at 80% 15%, rgba(139,123,250,.045), transparent 60%), #fff">
-    <div style="text-align:center;max-width:640px;margin:0 auto 40px">
-      <h2 style="margin:0 0 16px;font-size:34px;font-weight:800;letter-spacing:-0.5px">Quanto ti costa davvero il tuo veicolo?</h2>
-      <p style="margin:0;color:#4B4566;font-size:16px;line-height:1.6">Inserisci qualche numero e scoprilo subito — è solo un calcolo indicativo nel tuo browser.</p>
-    </div>
-    <div class="calc-grid" style="max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;background:#FAFAFE;border:1px solid #EEE9FF;border-radius:24px;padding:40px">
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Rata o finanziamento mensile (€)
-          <input id="calc-rata" type="number" min="0" inputmode="decimal" placeholder="es. 250" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
-        </label>
-        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Carburante al mese (€)
-          <input id="calc-carburante" type="number" min="0" inputmode="decimal" placeholder="es. 120" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
-        </label>
-        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Bollo all'anno (€)
-          <input id="calc-bollo" type="number" min="0" inputmode="decimal" placeholder="es. 180" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
-        </label>
-        <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566">Assicurazione all'anno (€)
-          <input id="calc-assicurazione" type="number" min="0" inputmode="decimal" placeholder="es. 450" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
-        </label>
-      </div>
-      <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
-        <div>
-          <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
-          <p style="margin:0;font-size:36px;font-weight:800;color:#1B1830"><span id="calc-mensile">0 €</span><span style="font-size:15px;font-weight:600;color:#6B6684"> /mese</span></p>
-          <p style="margin:4px 0 0;font-size:15px;color:#4B4566"><span id="calc-annuo">0 €</span> /anno</p>
-        </div>
-        <div id="calc-bars" style="display:flex;flex-direction:column;gap:8px"></div>
-        <a href="#download" class="cta-shine" style="display:block;text-align:center;background:#4B3FE3;color:#fff;font-weight:700;font-size:14.5px;padding:12px;border-radius:12px;margin-top:6px">Scarica l'app per tracciarlo in automatico</a>
-        <p style="margin:0;color:#6B6684;font-size:12px;text-align:center">Il calcolo avviene solo nel tuo browser: nessun dato viene inviato o salvato.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="pricing" class="reveal" style="padding:100px 64px;background:radial-gradient(600px circle at 25% 10%, rgba(75,63,227,.05), transparent 60%), radial-gradient(520px circle at 75% 90%, rgba(139,123,250,.045), transparent 60%), #FAFAFE">
+  <section id="pricing" class="reveal" style="padding:100px 64px;background:#FAFAFE">
     <div style="text-align:center;max-width:640px;margin:0 auto 56px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Un piano per ogni esigenza</h2>
       <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Gratis per iniziare. Pro con un acquisto unico, per sempre — nessun abbonamento.</p>
     </div>
-    <div data-stagger style="display:flex;gap:32px;max-width:884px;margin:0 auto;flex-wrap:wrap;justify-content:center;align-items:stretch">
-      <div class="pricing-card lift-card" style="flex:1;min-width:280px;max-width:426px;box-sizing:border-box;background:#fff;border-radius:20px;padding:40px 32px 32px;border:1px solid #EEE9FF;display:flex;flex-direction:column">
-        <div style="text-align:center;margin-bottom:28px">
-          <h3 style="margin:0 0 12px;font-size:20px;font-weight:800">Gratuito</h3>
-          <div style="font-size:40px;font-weight:800;letter-spacing:-1px">0 €</div>
-          <p style="margin:8px 0 0;color:#6B6684;font-size:13.5px">per sempre, nessuna carta richiesta</p>
+    <div style="display:flex;gap:56px;max-width:1080px;margin:0 auto;align-items:center;flex-wrap:wrap;justify-content:center">
+      <div style="flex:0 0 260px;display:flex;justify-content:center">
+        <div style="width:min(260px,70vw);aspect-ratio:1320/2868;background:#0d0d12;border-radius:38px;padding:9px;box-shadow:0 30px 70px rgba(75,63,227,0.28), 0 0 0 2px rgba(0,0,0,0.06)">
+          <img src="../assets/screenshots/pro-paywall.png" alt="Schermata Gestore Costi Veicoli Pro nell'app" style="width:100%;height:100%;border-radius:30px;object-fit:cover;display:block">
         </div>
-        <ul style="margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px;font-size:14.5px;color:#4B4566;flex:1">
-          <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>1 veicolo</span></li>
-          <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Carburante e consumi</span></li>
-          <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Scadenze e notifiche</span></li>
-          <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Costo reale di possesso</span></li>
-        </ul>
-        <a href="#download" class="cta-shine" style="display:block;text-align:center;background:#F1EEFF;color:#4B3FE3;font-weight:700;padding:13px;border-radius:14px;--shine-color:rgba(75,63,227,.22)">Inizia gratis</a>
       </div>
-      <div class="pricing-card pricing-card--pro" style="position:relative;flex:1;min-width:280px;max-width:426px;border-radius:20px;padding:40px 32px 32px;color:#fff;box-shadow:0 20px 50px rgba(75,63,227,0.28);display:flex;flex-direction:column">
-        <span style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#fff;color:#4B3FE3;font-size:12.5px;font-weight:800;padding:6px 18px;border-radius:100px;box-shadow:0 8px 20px rgba(20,10,60,0.18);white-space:nowrap">Il più scelto</span>
-        <div style="text-align:center;margin-bottom:28px">
-          <h3 style="margin:0 0 12px;font-size:20px;font-weight:800">Pro</h3>
-          <div style="font-size:40px;font-weight:800;letter-spacing:-1px">4,99 €</div>
-          <p style="margin:8px 0 0;color:rgba(255,255,255,0.75);font-size:13.5px">una tantum, per sempre — nessun abbonamento</p>
+      <div data-stagger style="flex:1;min-width:280px;max-width:400px;display:flex;flex-direction:column;gap:24px">
+        <div class="pricing-card" style="background:#fff;border-radius:20px;padding:28px 32px;border:1px solid #EEE9FF;display:flex;justify-content:space-between;align-items:center;gap:20px">
+          <div>
+            <h3 style="margin:0 0 4px;font-size:19px;font-weight:800">Gratuito</h3>
+            <p style="margin:0;color:#6B6684;font-size:14px">1 veicolo, carburante e scadenze di base</p>
+          </div>
+          <div style="font-size:26px;font-weight:800;white-space:nowrap">0 €</div>
         </div>
-        <ul style="margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px;font-size:14.5px;flex:1">
-          <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati</span></li>
+        <div class="pricing-card" style="background:linear-gradient(160deg,#4B3FE3,#7566F5);border-radius:20px;padding:28px 32px;color:#fff;box-shadow:0 20px 50px rgba(75,63,227,0.28)">
+          <div style="margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+            <div>
+              <h3 style="margin:0 0 4px;font-size:19px;font-weight:800">Pro</h3>
+              <p style="margin:0;color:rgba(255,255,255,0.75);font-size:14px">Acquisto unico, per sempre — nessun abbonamento</p>
+            </div>
+            <div style="font-size:26px;font-weight:800;white-space:nowrap">4,99 €</div>
+          </div>
+          <ul style="margin:0 0 22px;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14.5px">
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati</span></li>
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Export PDF e CSV</span></li>
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti</span></li>
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Foto ricevuta</span></li>
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Mappe distributori e rifornimenti</span></li>
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget e Apple Watch</span></li>
-        </ul>
-        <a href="#download" class="cta-shine" style="display:block;text-align:center;background:#fff;color:#4B3FE3;font-weight:700;padding:13px;border-radius:14px;--shine-color:rgba(75,63,227,.22)">Sblocca Pro</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="fiducia" class="reveal" style="padding:96px 64px;background:#FAFAFE">
-    <div style="max-width:1180px;margin:0 auto">
-      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:56px;align-items:center">
-        <div>
-          <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4B3FE3;margin-bottom:14px">Come è fatta</span>
-          <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.12">Costruita da una persona, non da un reparto marketing.</h2>
-          <p style="margin:0 0 24px;font-size:16.5px;line-height:1.7;color:#4B4566;max-width:440px">Progettata e sviluppata da <a href="../chi-sono.html">Andrea Zanasi</a>, nata in un garage di famiglia tra manutenzioni e conti su quanto costa davvero tenere un veicolo. Offline-first, dati cifrati sul dispositivo, sincronizzazione solo se la vuoi.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:10px">
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#react-native</span>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#expo</span>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#typescript</span>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#sqlite-cifrato</span>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#supabase-sync</span>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#offline-first</span>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #EEE9FF;color:#4B4566;font-size:13.5px;font-weight:700;padding:9px 15px;border-radius:100px">#apple-watch</span>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
-          <div class="lift-card" style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:26px">
-            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:#E6F7F1;margin-bottom:16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2FAE7C" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3.5v5c0 5-3 8.5-7 9.5-4-1-7-4.5-7-9.5v-5L12 3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-            <strong style="display:block;font-size:16px;margin-bottom:6px">Database cifrato</strong>
-            <span style="font-size:14px;color:#4B4566;line-height:1.6">I dati restano sul tuo telefono per impostazione predefinita.</span>
-          </div>
-          <div class="lift-card" style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:26px">
-            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:#F1EEFF;margin-bottom:16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8a5 5 0 0 0-9.6-1.6A4 4 0 0 0 7 18h10a4.5 4.5 0 0 0 0-9z"/></svg></span>
-            <strong style="display:block;font-size:16px;margin-bottom:6px">Sync opzionale</strong>
-            <span style="font-size:14px;color:#4B4566;line-height:1.6">Accedi con Apple o Google solo se vuoi i dati su più device.</span>
-          </div>
-          <div class="lift-card" style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:26px">
-            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:#EAF2FF;margin-bottom:16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5"/><path d="M18.5 20a5.5 5.5 0 0 0-3-4.9"/></svg></span>
-            <strong style="display:block;font-size:16px;margin-bottom:6px">Dash condivisa</strong>
-            <span style="font-size:14px;color:#4B4566;line-height:1.6">Invita chi guida con te, in modifica o sola lettura.</span>
-          </div>
-          <div class="lift-card" style="background:#fff;border:1px solid #EEE9FF;border-radius:22px;padding:26px">
-            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:#FFF1E6;margin-bottom:16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19.5h16"/></svg></span>
-            <strong style="display:block;font-size:16px;margin-bottom:6px">Sempre esportabile</strong>
-            <span style="font-size:14px;color:#4B4566;line-height:1.6">Backup completo e export PDF/CSV: i dati sono tuoi.</span>
-          </div>
+          </ul>
+          <a href="#download" style="display:block;text-align:center;background:#fff;color:#4B3FE3;font-weight:700;padding:12px;border-radius:14px">Sblocca Pro</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="recensioni" class="reveal" style="padding:100px 64px;background:radial-gradient(560px circle at 15% 15%, rgba(75,63,227,.04), transparent 60%), radial-gradient(520px circle at 85% 85%, rgba(139,123,250,.035), transparent 60%), #fff">
-    <div style="text-align:center;max-width:560px;margin:0 auto 48px">
-      <h2 style="margin:0 0 16px;font-size:34px;font-weight:800;letter-spacing:-0.5px">Le prime recensioni, presto qui</h2>
-      <p style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">L'app non è ancora uscita: appena arrivano le prime recensioni reali da App Store e Google Play, questo spazio si riempie con quelle.</p>
-    </div>
-    <div data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto">
-      <div style="background:#FAFAFE;border:1px dashed #D9D2FA;border-radius:18px;padding:28px 24px">
-        <div style="display:flex;gap:4px;margin-bottom:16px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-        </div>
-        <div style="height:10px;background:#EEE9FF;border-radius:100px;width:90%;margin-bottom:8px"></div>
-        <div style="height:10px;background:#EEE9FF;border-radius:100px;width:70%;margin-bottom:20px"></div>
-        <div style="height:9px;background:#F1EEFF;border-radius:100px;width:50%"></div>
-      </div>
-      <div style="background:#FAFAFE;border:1px dashed #D9D2FA;border-radius:18px;padding:28px 24px">
-        <div style="display:flex;gap:4px;margin-bottom:16px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-        </div>
-        <div style="height:10px;background:#EEE9FF;border-radius:100px;width:80%;margin-bottom:8px"></div>
-        <div style="height:10px;background:#EEE9FF;border-radius:100px;width:95%;margin-bottom:20px"></div>
-        <div style="height:9px;background:#F1EEFF;border-radius:100px;width:45%"></div>
-      </div>
-      <div style="background:#FAFAFE;border:1px dashed #D9D2FA;border-radius:18px;padding:28px 24px">
-        <div style="display:flex;gap:4px;margin-bottom:16px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
-        </div>
-        <div style="height:10px;background:#EEE9FF;border-radius:100px;width:85%;margin-bottom:8px"></div>
-        <div style="height:10px;background:#EEE9FF;border-radius:100px;width:60%;margin-bottom:20px"></div>
-        <div style="height:9px;background:#F1EEFF;border-radius:100px;width:55%"></div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:36px">
-      <a href="#waitlist" style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:12px 24px;border-radius:100px">Iscriviti alla waitlist per essere tra i primi a lasciarne una</a>
-    </div>
-  </section>
-
-  <section id="faq" class="reveal" style="padding:100px 64px;background:radial-gradient(560px circle at 10% 80%, rgba(75,63,227,.045), transparent 60%), radial-gradient(520px circle at 90% 20%, rgba(139,123,250,.04), transparent 60%), #fff">
+  <section id="faq" class="reveal" style="padding:100px 64px">
     <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0;font-size:38px;font-weight:800;letter-spacing:-0.5px">Domande frequenti</h2>
     </div>
@@ -1185,7 +635,7 @@
     </div>
   </section>
 
-  <section id="manuale" class="reveal" style="padding:100px 64px;background:radial-gradient(560px circle at 50% -10%, rgba(75,63,227,.05), transparent 60%), radial-gradient(560px circle at 50% 110%, rgba(139,123,250,.04), transparent 60%), #FAFAFE">
+  <section id="manuale" class="reveal" style="padding:80px 64px;background:#FAFAFE">
     <div style="max-width:820px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;background:#fff;border-radius:20px;padding:40px 44px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
       <div style="flex:1;min-width:260px">
         <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Manuale d'uso</span>
@@ -1199,64 +649,25 @@
     </div>
   </section>
 
-  <section id="lista" class="reveal" style="position:relative;overflow:hidden;padding:0 64px 96px;background:#FAFAFE">
-    <div style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:36px;padding:72px 64px;background:linear-gradient(150deg,#4B3FE3,#3730A3 55%,#221D3E);box-shadow:0 50px 100px -50px rgba(75,63,227,.9)">
-      <div aria-hidden="true" style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.4px,transparent 1.4px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 60% 70% at 80% 30%,#000 20%,transparent 78%);mask-image:radial-gradient(ellipse 60% 70% at 80% 30%,#000 20%,transparent 78%)"></div>
-      <div aria-hidden="true" style="position:absolute;bottom:-200px;left:-80px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 62%);filter:blur(24px);animation:gcvDrift 26s ease-in-out infinite alternate"></div>
-      <div style="position:relative;max-width:640px">
-        <span style="display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.14);color:#fff;font-weight:700;font-size:13px;padding:8px 16px;border-radius:100px;margin-bottom:22px">
-          <span style="width:7px;height:7px;border-radius:50%;background:#4FE3C1"></span>Lancio in arrivo
-        </span>
-        <h2 style="margin:0 0 16px;font-size:46px;font-weight:800;letter-spacing:-1.4px;line-height:1.08;color:#fff">Sii tra i primi a sapere quanto ti costa davvero.</h2>
-        <p style="margin:0 0 32px;font-size:17.5px;line-height:1.65;color:rgba(255,255,255,.82);max-width:480px">Lascia la tua email: ti scrivo una volta sola, il giorno in cui l'app arriva su App Store e Google Play.</p>
-        <a href="#waitlist" style="display:inline-flex;align-items:center;gap:10px;background:#fff;color:#4B3FE3;font-weight:800;font-size:15px;padding:15px 30px;border-radius:100px;white-space:nowrap">Avvisami al lancio</a>
+  <footer style="padding:56px 64px;background:#151129;color:#B3AECB;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:40px;height:40px;border-radius:11px;display:block;box-shadow:0 6px 16px rgba(69,58,216,0.4), 0 0 0 1px rgba(255,255,255,0.06)">
+        <span style="color:#fff;font-weight:800;font-size:17px">Gestore Costi Veicoli</span>
+      </div>
+      <div style="display:flex;gap:14px">
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:8px;background:#221D3E;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600"><svg viewBox="0 0 384 512" style="width:16px;height:16px;fill:#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>App Store</a>
+        <a href="#" class="store-btn" style="display:flex;align-items:center;gap:8px;background:#221D3E;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600"><svg viewBox="0 0 512 512" style="width:16px;height:16px"><path fill="#00D6FF" d="M325.3 234.3L104.3 6.5c-4.7-2.7-9.7-4.2-14.6-4.5L325.3 234.3z"></path><path fill="#00F076" d="M77.8 5.7C68.6 10.3 62 19.6 62 32v448c0 12.4 6.6 21.7 15.8 26.3L325.3 277.7 77.8 5.7z"></path><path fill="#FF3A44" d="M104.3 505.5c4.9-.3 9.9-1.8 14.6-4.5l221-227.3-53.6-53.6z"></path><path fill="#FFCE00" d="M411.8 231.9L339.9 189 286.5 242l53.4 53 71.9-42.9c17.5-10.9 17.5-38.3 0-49.2z"></path></svg>Google Play</a>
       </div>
     </div>
-  </section>
-  </main>
-
-  <footer class="site-footer" style="padding:72px 64px 32px;color:#B3AECB;position:relative;overflow:hidden">
-    <div class="site-footer-grid" style="position:relative;z-index:1;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px">
-      <div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-          <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:40px;height:40px;border-radius:11px;display:block;box-shadow:0 6px 16px rgba(69,58,216,0.4), 0 0 0 1px rgba(255,255,255,0.06)">
-          <span style="color:#fff;font-weight:800;font-size:17px">Gestore Costi Veicoli</span>
-        </div>
-        <p style="margin:0 0 20px;font-size:14px;line-height:1.6;max-width:280px">Ogni euro della tua auto e della tua moto, sotto controllo — senza abbonamenti.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a href="#waitlist" class="store-btn" aria-label="In arrivo su App Store — iscriviti alla lista d'attesa" title="In arrivo — iscriviti alla lista d'attesa" style="display:flex;align-items:center;gap:8px;background:#221D3E;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600"><svg viewBox="0 0 384 512" style="width:16px;height:16px;fill:#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg>App Store</a>
-          <a href="#waitlist" class="store-btn" aria-label="In arrivo su Google Play — iscriviti alla lista d'attesa" title="In arrivo — iscriviti alla lista d'attesa" style="display:flex;align-items:center;gap:8px;background:#221D3E;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;font-weight:600"><svg viewBox="0 0 512 512" style="width:16px;height:16px"><path fill="#00D6FF" d="M325.3 234.3L104.3 6.5c-4.7-2.7-9.7-4.2-14.6-4.5L325.3 234.3z"></path><path fill="#00F076" d="M77.8 5.7C68.6 10.3 62 19.6 62 32v448c0 12.4 6.6 21.7 15.8 26.3L325.3 277.7 77.8 5.7z"></path><path fill="#FF3A44" d="M104.3 505.5c4.9-.3 9.9-1.8 14.6-4.5l221-227.3-53.6-53.6z"></path><path fill="#FFCE00" d="M411.8 231.9L339.9 189 286.5 242l53.4 53 71.9-42.9c17.5-10.9 17.5-38.3 0-49.2z"></path></svg>Google Play</a>
-        </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid #26214A;padding-top:24px;font-size:13px">
+      <span>© 2026 Gestore Costi Veicoli — un progetto di <a href="../chi-sono.html" style="color:#fff">Andrea Zanasi</a></span>
+      <div style="display:flex;gap:24px">
+        <a href="gestore-costi-veicoli-supporto.html" style="color:#B3AECB">Supporto</a>
+        <a href="gestore-costi-veicoli-privacy.html" style="color:#B3AECB">Privacy</a>
+        <a href="gestore-costi-veicoli-termini.html" style="color:#B3AECB">Termini</a>
+        <a href="mailto:andreazanasi1993@gmail.com" style="color:#B3AECB">Contatti</a>
       </div>
-      <div>
-        <h4 style="margin:0 0 16px;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Prodotto</h4>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <a href="#features" style="color:#B3AECB">Funzioni</a>
-          <a href="#calcolatore" style="color:#B3AECB">Calcolatore</a>
-          <a href="#gallery" style="color:#B3AECB">App</a>
-          <a href="#pricing" style="color:#B3AECB">Prezzi</a>
-        </div>
-      </div>
-      <div>
-        <h4 style="margin:0 0 16px;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Supporto</h4>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <a href="gestore-costi-veicoli-supporto.html" style="color:#B3AECB">Assistenza</a>
-          <a href="#faq" style="color:#B3AECB">FAQ</a>
-          <a href="../assets/manuale-gestore-costi-veicoli.pdf" style="color:#B3AECB">Manuale</a>
-        </div>
-      </div>
-      <div>
-        <h4 style="margin:0 0 16px;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Legale</h4>
-        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
-          <a href="gestore-costi-veicoli-privacy.html" style="color:#B3AECB">Privacy</a>
-          <a href="gestore-costi-veicoli-termini.html" style="color:#B3AECB">Termini</a>
-          <a href="mailto:andreazanasi1993@gmail.com" style="color:#B3AECB">Contatti</a>
-        </div>
-      </div>
-    </div>
-    <div style="position:relative;z-index:1;height:1px;margin:40px 0 24px;background:linear-gradient(90deg,transparent,rgba(139,123,250,.5),transparent)"></div>
-    <div style="position:relative;z-index:1;font-size:13px">
-      © 2026 Gestore Costi Veicoli — un progetto di <a href="../chi-sono.html" style="color:#fff">Andrea Zanasi</a>
     </div>
   </footer>
 </div>
@@ -1267,14 +678,9 @@
 
 <script defer src="../assets/nav.js"></script>
 <script defer src="../assets/motion.js"></script>
+<script defer src="../assets/gallery.js"></script>
 <script defer src="../assets/sticky-cta.js"></script>
 <script defer src="../assets/waitlist.js"></script>
 <script defer src="../assets/calcolatore.js"></script>
-<script defer src="../assets/coverflow.js"></script>
-<script defer src="../assets/gallery-theme.js"></script>
-<script defer src="../assets/card-glow.js"></script>
-<script defer src="../assets/widget-interactive.js"></script>
-<script defer src="../assets/scroll-progress.js"></script>
-<script defer src="../assets/faq.js"></script>
 </body>
 </html>
