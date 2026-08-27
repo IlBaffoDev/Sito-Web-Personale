@@ -138,6 +138,67 @@
     .widget-dot-grid{ transform:none; }
   }
 
+  /* spotlight sui pannelli scuri (#idea, #widget): bagliore radiale che segue il cursore,
+     stesso pattern --mx/--my di card-glow.js. Solo i div (l'hero è un <section> con la
+     stessa classe e ha già la dot-grid reattiva: lì il bagliore sarebbe rumore). */
+  div.widget-panel::after{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:0; border-radius:inherit;
+    background:radial-gradient(480px circle at var(--mx,50%) var(--my,50%), rgba(139,123,250,.10), transparent 70%);
+    transition:opacity .35s ease;
+  }
+  div.widget-panel:hover::after{ opacity:1; }
+  @media (prefers-reduced-motion:reduce), (pointer:coarse){
+    div.widget-panel::after{ display:none; }
+  }
+
+  /* collage widget (#widget) — card ritagliate dal mockup di design e riposizionate
+     in percentuale dentro un contenitore con lo stesso aspect-ratio del collage
+     originale, così la composizione scala identica a ogni larghezza. Le card sono
+     .widget-mockup: float + tilt 3D via ../assets/widget-interactive.js. */
+  .wz-collage{ position:relative; width:100%; aspect-ratio:2280/1355; }
+  .wz-card{ position:absolute; height:auto; }
+  .wz-azioni{ left:17.7%; top:8.3%;  width:28.9%; z-index:2; border-radius:14%/14.2%; }
+  .wz-dark{   left:48.4%; top:11.7%; width:47.2%; z-index:1; border-radius:9%/11.5%; }
+  /* il bordo destro sfuma come nel mockup originale (lì proseguiva sfocata) */
+  .wz-light{  left:1.9%;  top:62.8%; width:32.3%; z-index:3; border-radius:13%/21.5%;
+    -webkit-mask-image:linear-gradient(90deg,#000 74%,transparent 99%);
+    mask-image:linear-gradient(90deg,#000 74%,transparent 99%);
+  }
+  .wz-badge-top{ top:-2%; right:-1%; z-index:4 }
+  .wz-badge-mid{ left:43%; top:74%; z-index:4 }
+  .wz-chip{
+    display:inline-block; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+    color:#fff; font-weight:700; font-size:13.5px; padding:8px 16px; border-radius:100px;
+  }
+
+  /* sezione Apple Watch (#watch) — i due render (cinturini a maglia, forme organiche)
+     arrivano dal mockup con il fondo del pannello baked: la mask radiale sfuma i bordi
+     del rettangolo nel gradiente CSS del pannello, così non si vedono giunzioni. */
+  .watch-visual{ position:relative; }
+  .watch-duo{
+    width:100%; height:auto; display:block;
+    -webkit-mask-image:radial-gradient(ellipse 82% 84% at 50% 48%, #000 52%, transparent 92%);
+    mask-image:radial-gradient(ellipse 82% 84% at 50% 48%, #000 52%, transparent 92%);
+  }
+  .watch-badge-top{ top:-4%; left:14%; z-index:2 }
+  .watch-badge-bottom{ bottom:-2%; left:22%; z-index:2 }
+
+  /* collage "dall'idea all'app" (#idea) — 3 colonne, laterali impilate, sketch centrale
+     più grande. Le card sono .widget-mockup dentro un .widget-panel: float + tilt 3D
+     arrivano gratis da ../assets/widget-interactive.js, qui solo la disposizione. */
+  .idea-grid{
+    position:relative; z-index:1; display:grid; gap:28px; align-items:center;
+    grid-template-columns:1fr 1.55fr 1fr;
+    grid-template-areas:"bp sk ri" "dom sk rep";
+  }
+  .idea-card{ width:100%; height:auto; filter:drop-shadow(0 24px 40px rgba(0,0,0,.45)); }
+  .idea-card--bp{ grid-area:bp } .idea-card--dom{ grid-area:dom }
+  .idea-card--sketch{ grid-area:sk } .idea-card--ri{ grid-area:ri }
+  .idea-card--rep{ grid-area:rep }
+  @media (max-width:860px){
+    .idea-grid{ grid-template-columns:1fr 1fr; grid-template-areas:"sk sk" "bp ri" "dom rep"; gap:18px; }
+  }
+
   /* bagliore che segue il cursore sulle card — ../assets/card-glow.js scrive --mx/--my */
   .feature-grid > div, .pricing-card{ position:relative; }
   .feature-grid > div, .pricing-card:not(.pricing-card--pro){ overflow:hidden; }
@@ -190,6 +251,23 @@
     50%{ transform:translateY(-12px); }
   }
 
+  /* uscita di scena dell'hero — scroll-driven, CSS puro: mentre i mockup escono dal
+     viewport verso l'alto scalano e sfumano leggermente (parallasse alla Apple).
+     Solo browser con animation-timeline; altrove nessun effetto, nessun rischio. */
+  @supports (animation-timeline: view()) {
+    #hero .widget-mockups{
+      animation:hero-exit linear both;
+      animation-timeline:view();
+      animation-range:exit 0% exit 100%;
+    }
+    @media (prefers-reduced-motion:reduce){
+      #hero .widget-mockups{ animation:none; }
+    }
+  }
+  @keyframes hero-exit{
+    to{ transform:translateY(70px) scale(.9); opacity:.35; }
+  }
+
   /* keyframes del redesign editoriale (pilastri/costi/come/fiducia/lista) */
   @keyframes gcvFloatSoft{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-7px); } }
   @keyframes gcvDrift{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(26px,-20px) scale(1.09); } }
@@ -197,22 +275,6 @@
   @keyframes gcvGrow{ from{ transform:scaleY(.15); } to{ transform:scaleY(1); } }
   @media (prefers-reduced-motion:reduce){
     [style*="gcvFloat"],[style*="gcvDrift"],[style*="gcvSpin"],[style*="gcvGrow"]{ animation:none !important; }
-  }
-
-  /* base 3D coverflow — usata oggi solo dal carosello schermate più sotto
-     (.coverflow--gallery); pos/target/rAF-ease-out in ../assets/coverflow.js */
-  .coverflow{ max-width:640px; margin:0 auto; }
-  .coverflow-viewport{ position:relative; }
-  .coverflow-frame{
-    cursor:grab; overflow:hidden; padding:40px 0; outline:none; touch-action:pan-y;
-    perspective: calc(var(--cf-card, 260px) * 3);
-  }
-  .coverflow-frame:active{ cursor:grabbing; }
-  .coverflow-frame:focus-visible{ box-shadow:inset 0 0 0 2px #4B3FE3; border-radius:8px; }
-  .coverflow-stage{ position:relative; height:var(--cf-card, 260px); transform-style:preserve-3d; user-select:none; }
-  .coverflow-card{
-    position:absolute; left:50%; top:0; width:var(--cf-card, 260px);
-    will-change:transform;
   }
 
   /* bento feature grid */
@@ -288,58 +350,50 @@
   }
   @media (max-width:640px){ .section-panel{ padding:36px 20px; border-radius:24px; } }
 
-  /* carosello screenshot — coverflow 3D, ../assets/coverflow.js, card in formato telefono. */
-  .gallery-carousel{ --gallery-card-w:min(200px,24vw); position:relative }
+  /* carosello schermate — deck di carte, ../assets/deck.js. Le card sono mockup PNG→webp
+     con cornice iPhone e ombra già incorporate nell'immagine (alpha), quindi qui niente
+     cornice CSS: solo impilamento e transizioni. */
+  .gallery-carousel{ --gallery-card-w:min(280px,30vw); position:relative }
   @media (max-width:860px){
-    .gallery-carousel{ --gallery-card-w:min(150px,44vw) }
+    .gallery-carousel{ --gallery-card-w:min(230px,58vw) }
   }
   .gallery-track-wrap{position:relative}
 
-  .coverflow--gallery{ --cf-card: var(--gallery-card-w); max-width:none; margin:0; }
-  .coverflow--gallery .coverflow-frame{ padding:40px 0; }
-  .coverflow--gallery .coverflow-stage{ height:calc(var(--cf-card) * 2868 / 1320); }
-  .coverflow--gallery .coverflow-card{
-    width:var(--cf-card); aspect-ratio:auto; height:100%;
-    display:flex; align-items:center; justify-content:center;
+  .deck{ position:relative; padding:36px 0; outline:none; }
+  .deck:focus-visible{ box-shadow:inset 0 0 0 2px #4B3FE3; border-radius:16px; }
+  /* padding-right assorbe lo sbalzo delle carte retrostanti (traslate a destra),
+     così il mazzo resta otticamente centrato nella colonna */
+  .deck-stack{
+    position:relative; width:var(--gallery-card-w); aspect-ratio:990/2046;
+    margin:0 auto; user-select:none; -webkit-user-select:none; touch-action:pan-y;
   }
+  .deck-card{
+    position:absolute; inset:0; will-change:transform;
+    transform-origin:50% 85%;
+    transition:transform .55s cubic-bezier(.32,1.35,.35,1), opacity .4s ease, filter .4s ease;
+  }
+  /* posizioni assegnate da deck.js via data-pos: 0 = davanti, 1-2 dietro sfalsate in
+     alto a destra, le altre nascoste. Fallback pre-JS: senza data-pos vale l'ordine
+     DOM inverso (prima carta sopra), così la Dashboard è visibile anche senza script. */
+  .deck-card:nth-child(1){z-index:8} .deck-card:nth-child(2){z-index:7}
+  .deck-card:nth-child(3){z-index:6} .deck-card:nth-child(4){z-index:5}
+  .deck-card:nth-child(5){z-index:4} .deck-card:nth-child(6){z-index:3}
+  .deck-card:nth-child(7){z-index:2} .deck-card:nth-child(8){z-index:1}
+  /* l'ombra è un drop-shadow CSS sulla silhouette alpha (i webp ne sono privi:
+     quella baked negli export veniva tagliata netta dal canvas → rettangoli grigi) */
+  .deck-card[data-pos="0"]{ transform:none; opacity:1; z-index:30; cursor:grab; filter:drop-shadow(0 22px 34px rgba(20,10,60,.30)); }
+  .deck-card[data-pos="0"]:active{ cursor:grabbing; }
+  .deck-card[data-pos="1"]{ transform:translate(7%,-4%) rotate(3deg) scale(.93); opacity:.85; filter:brightness(.96) drop-shadow(0 14px 22px rgba(20,10,60,.20)); z-index:20; }
+  .deck-card[data-pos="2"]{ transform:translate(13%,-7.5%) rotate(6deg) scale(.86); opacity:.55; filter:brightness(.92) drop-shadow(0 10px 16px rgba(20,10,60,.14)); z-index:10; }
+  .deck-card[data-pos="x"]{ opacity:0; pointer-events:none; z-index:0; transform:translate(16%,-9%) rotate(7deg) scale(.82); }
+  /* la carta che vola via: curva d'uscita più decisa, sopra tutte */
+  .deck-card.is-leaving{ transition:transform .45s cubic-bezier(.5,.05,.7,.4), opacity .35s ease; z-index:40; }
+  /* durante il drag la carta segue il dito senza inseguimento elastico */
+  .deck-card.is-dragging{ transition:none; }
+  @media (prefers-reduced-motion:reduce){ .deck-card, .deck-card.is-leaving{ transition:none } }
 
-  /* cornice a forma di iPhone fisico (non solo screen piatto): tasti volume/muto
-     a sinistra e tasto laterale a destra, stessa tecnica visiva della cornice
-     nell'hero ma via ::before/::after così non si duplica markup su ogni card
-     del carosello. Nota: i tasti DEVONO essere elementi veri (non layer di
-     background sul frame) perché un background è sempre clippato al border-box
-     del proprio elemento — un background-position negativo per farlo "sporgere"
-     fuori dal bordo viene semplicemente tagliato via, invisibile. */
-  .gallery-frame{
-    position:relative;width:var(--gallery-card-w);aspect-ratio:1320/2868;border-radius:30px;padding:11px;
-    background:linear-gradient(155deg,#45454e,#0a0a0d 60%);
-    box-shadow:
-      0 20px 50px rgba(20,10,60,0.16),
-      inset 0 1.5px 1px rgba(255,255,255,.3),
-      inset 0 -2px 3px rgba(0,0,0,.6),
-      inset 0 0 0 1px rgba(0,0,0,.4);
-  }
-  .gallery-card-img{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.55); }
-  .gallery-frame::before{
-    content:""; position:absolute; left:-3px; top:17%; width:3px; height:23.5%; border-radius:2px 0 0 2px;
-    background:
-      linear-gradient(90deg,#0a0a0d,#3a3a42) no-repeat 0 0 / 100% 17%,
-      linear-gradient(90deg,#0a0a0d,#3a3a42) no-repeat 0 32% / 100% 30%,
-      linear-gradient(90deg,#0a0a0d,#3a3a42) no-repeat 0 70% / 100% 30%;
-  }
-  .gallery-frame::after{
-    content:""; position:absolute; right:-3px; top:21%; width:3px; height:10%; border-radius:0 2px 2px 0;
-    background:linear-gradient(90deg,#3a3a42,#0a0a0d);
-  }
-  .gallery-card-img{width:100%;height:100%;border-radius:21px;object-fit:cover;display:block;transition:opacity .22s ease}
+  .gallery-card-img{width:100%;height:100%;object-fit:contain;display:block;transition:opacity .22s ease;-webkit-user-drag:none}
   @media (prefers-reduced-motion:reduce){ .gallery-card-img{ transition:none; } }
-
-  .watch-frame{position:relative;width:min(190px,50vw)}
-  @media (max-width:860px){ .watch-frame{width:min(160px,55vw)} }
-  .watch-crown{position:absolute;right:-3px;top:36%;width:4px;height:10%;border-radius:0 2px 2px 0;background:#3a3a42}
-  .watch-button{position:absolute;right:-4.5px;top:50%;width:5.5px;height:15%;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#3a3a42,#57575f)}
-  .watch-case{box-sizing:border-box;width:100%;aspect-ratio:396/484;background:linear-gradient(155deg,#2c2c33,#0a0a0d 55%);border-radius:15%;padding:6.5%;box-shadow:0 20px 50px rgba(20,10,60,0.16)}
-  .watch-case img{width:100%;height:100%;border-radius:11%;object-fit:cover;display:block}
 
   .gallery-nav{
     position:absolute;top:50%;transform:translateY(-50%);
@@ -361,13 +415,13 @@
     .gallery-nav-next{right:-4px}
   }
 
-  /* min-height è solo un fallback per contenuto pre-JS: assets/coverflow.js misura e imposta
+  /* min-height è solo un fallback per contenuto pre-JS: assets/deck.js misura e imposta
      l'altezza esatta del pannello attivo ad ogni cambio, cosí non trabocca mai su nessuna larghezza */
   .gallery-caption{position:relative;max-width:640px;margin:32px auto 0;min-height:280px;text-align:left;transition:height .3s ease}
   @media (max-width:860px){ .gallery-caption{min-height:340px} }
   @media (prefers-reduced-motion: reduce){ .gallery-caption{transition:none} }
 
-  /* pallini di paginazione — cliccabili, sincronizzati con lo step attivo da ../assets/coverflow.js */
+  /* pallini di paginazione — cliccabili, sincronizzati con lo step attivo da ../assets/deck.js */
   .gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:28px}
   .gallery-dot{
     width:8px;height:8px;border-radius:50%;padding:0;border:none;cursor:pointer;
@@ -396,10 +450,34 @@
   #gallery-theme-toggle[aria-pressed="true"]{background:#1B1830;color:#fff}
 
   @media (prefers-reduced-motion: reduce){
-    .gallery-card, .gallery-dot, .gallery-caption-panel{transition:none}
+    .gallery-dot, .gallery-caption-panel{transition:none}
   }
 
   .scroll-progress-bar{position:fixed;top:0;left:0;height:3px;width:0;background:#4B3FE3;z-index:999;pointer-events:none}
+
+  /* navbar glass sticky — appare quando l'hero (che contiene la nav vera) esce dal
+     viewport: js in ../assets/sticky-nav.js. Solo ≥641px: su mobile c'è già la
+     sticky-CTA in basso e due barre fisse sarebbero troppe. */
+  .sticky-nav{
+    position:fixed;top:0;left:0;right:0;z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    padding:10px 28px;
+    background:rgba(20,16,40,.62);
+    backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    transform:translateY(-100%);transition:transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .sticky-nav.is-visible{ transform:translateY(0); }
+  .sticky-nav a{ color:rgba(255,255,255,.85); font-weight:600; font-size:14.5px; transition:color .2s ease; }
+  .sticky-nav a:hover{ color:#fff; }
+  .sticky-nav-links{ display:flex; align-items:center; gap:26px; }
+  .sticky-nav-cta{
+    display:inline-block; background:#fff; color:#2436A6 !important; font-weight:800 !important;
+    font-size:14px !important; padding:9px 20px; border-radius:100px;
+  }
+  @media (max-width:640px){ .sticky-nav{ display:none; } }
+  @media (max-width:900px){ .sticky-nav-links a:not(.sticky-nav-cta){ display:none; } }
+  @media (prefers-reduced-motion:reduce){ .sticky-nav{ transition:none; } }
 
   /* CTA shimmer — fascio di luce diagonale al passaggio del cursore */
   .store-btn, .cta-shine{ position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease; }
@@ -536,6 +614,22 @@
 
 <div class="scroll-progress-bar"></div>
 
+<nav class="sticky-nav" aria-label="Navigazione rapida">
+  <a href="#hero" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;color:#fff">
+    <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:28px;height:28px;border-radius:8px;display:block">
+    Gestore Costi Veicoli
+  </a>
+  <div class="sticky-nav-links">
+    <a href="#costi">Costi</a>
+    <a href="#features">Funzioni</a>
+    <a href="#calcolatore">Calcolatore</a>
+    <a href="#gallery">App</a>
+    <a href="#pricing">Prezzi</a>
+    <a href="#faq">FAQ</a>
+    <a href="#download" class="sticky-nav-cta">Scarica l'app</a>
+  </div>
+</nav>
+
 <a href="#main" class="skip-link">Vai al contenuto</a>
 
 <div class="back-bar"><a href="../progetti.html">← Torna ai progetti di Andrea Zanasi</a></div>
@@ -659,17 +753,17 @@
             <div style="position:relative;width:212px;height:212px;border-radius:50%;background:conic-gradient(#4B3FE3 0 48.1%,#F08A3C 48.1% 77.6%,#3B7DDB 77.6% 89.8%,#E0537A 89.8% 94.6%,#2FAE7C 94.6% 100%)">
               <div aria-hidden="true" style="position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(75,63,227,.2);animation:gcvSpin 40s linear infinite"></div>
               <div style="position:absolute;inset:26px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 2px 10px rgba(20,10,60,.06)">
-                <span style="font-size:34px;font-weight:800;letter-spacing:-1px">312 €</span>
+                <span style="font-size:34px;font-weight:800;letter-spacing:-1px"><span data-count-to="312">312</span> €</span>
                 <span style="font-size:12px;font-weight:700;color:#6B6684">al mese</span>
               </div>
             </div>
           </div>
           <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#4B3FE3"></span><span style="flex:1;color:#4B4566;font-weight:600">Rata finanziamento</span><span style="font-weight:800">150 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#F08A3C"></span><span style="flex:1;color:#4B4566;font-weight:600">Carburante</span><span style="font-weight:800">92 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#3B7DDB"></span><span style="flex:1;color:#4B4566;font-weight:600">Assicurazione</span><span style="font-weight:800">38 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#E0537A"></span><span style="flex:1;color:#4B4566;font-weight:600">Bollo</span><span style="font-weight:800">15 €</span></div>
-            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#2FAE7C"></span><span style="flex:1;color:#4B4566;font-weight:600">Manutenzione</span><span style="font-weight:800">17 €</span></div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#4B3FE3"></span><span style="flex:1;color:#4B4566;font-weight:600">Rata finanziamento</span><span style="font-weight:800"><span data-count-to="150">150</span> €</span></div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#F08A3C"></span><span style="flex:1;color:#4B4566;font-weight:600">Carburante</span><span style="font-weight:800"><span data-count-to="92">92</span> €</span></div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#3B7DDB"></span><span style="flex:1;color:#4B4566;font-weight:600">Assicurazione</span><span style="font-weight:800"><span data-count-to="38">38</span> €</span></div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#E0537A"></span><span style="flex:1;color:#4B4566;font-weight:600">Bollo</span><span style="font-weight:800"><span data-count-to="15">15</span> €</span></div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14.5px"><span style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:#2FAE7C"></span><span style="flex:1;color:#4B4566;font-weight:600">Manutenzione</span><span style="font-weight:800"><span data-count-to="17">17</span> €</span></div>
           </div>
         </div>
 
@@ -840,6 +934,25 @@
     </div>
   </section>
 
+  <section id="idea" class="reveal" style="padding:96px 64px;background:#FAFAFE">
+    <div class="widget-panel" style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:34px;padding:64px;background:linear-gradient(155deg,#221D3E,#0D0B1A);box-shadow:0 50px 90px -40px rgba(20,10,60,.7)">
+      <div class="widget-dot-grid" aria-hidden="true"></div>
+      <div aria-hidden="true" style="position:absolute;top:-140px;left:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.3),transparent 62%);filter:blur(20px);animation:gcvDrift 26s ease-in-out infinite alternate"></div>
+      <div style="position:relative;z-index:1;text-align:center;max-width:640px;margin:0 auto 52px">
+        <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;margin-bottom:14px">Dietro le quinte</span>
+        <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.12;color:#fff">Dall'idea all'app.</h2>
+        <p style="margin:0;font-size:16.5px;line-height:1.7;color:#B3AECB">Dallo sketch su carta al prodotto sull'App Store: il percorso di design di Gestore Costi Veicoli.</p>
+      </div>
+      <div class="idea-grid widget-mockups">
+        <img class="widget-mockup idea-card idea-card--bp" src="../assets/idea-blueprint.webp" alt="Blueprint dell'icona di Gestore Costi Veicoli" loading="lazy" style="--base-rot:-3deg;--base-y:0px">
+        <img class="widget-mockup idea-card idea-card--dom" src="../assets/idea-domanda.webp" alt="Sai quanto ti costa davvero la tua auto?" loading="lazy" style="--base-rot:2deg;--base-y:14px">
+        <img class="widget-mockup idea-card idea-card--sketch" src="../assets/idea-sketch.webp" alt="Sketch annotato dell'app, dall'idea all'interfaccia" loading="lazy" style="--base-rot:0deg;--base-y:0px">
+        <img class="widget-mockup idea-card idea-card--ri" src="../assets/idea-risposta.webp" alt="Rata, carburante, bollo: un solo numero al mese" loading="lazy" style="--base-rot:2.5deg;--base-y:6px">
+        <img class="widget-mockup idea-card idea-card--rep" src="../assets/idea-report.webp" alt="Report: andamento dei costi mensili" loading="lazy" style="--base-rot:-2deg;--base-y:18px">
+      </div>
+    </div>
+  </section>
+
   <section id="gallery" class="reveal" style="padding:60px 64px 40px;background:radial-gradient(560px circle at 5% 50%, rgba(75,63,227,.045), transparent 60%), radial-gradient(560px circle at 95% 50%, rgba(139,123,250,.04), transparent 60%), #fff">
     <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Guarda l'app in azione</h2>
@@ -852,46 +965,37 @@
 
     <div class="section-panel">
     <div class="gallery-carousel" style="margin:0 auto">
-      <div class="gallery-track-wrap coverflow coverflow--gallery" role="region" aria-roledescription="carousel" aria-label="Schermate dell'app">
-       <div class="coverflow-viewport">
+      <div class="gallery-track-wrap">
+       <div class="deck" role="region" aria-roledescription="carousel" aria-label="Schermate dell'app" tabindex="0">
         <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Schermata precedente">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
 
-        <div class="coverflow-frame" tabindex="0">
-         <div class="coverflow-stage">
-          <div class="coverflow-card" id="gallery-card-1" role="group" aria-roledescription="slide" aria-label="1 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" fetchpriority="high" src="../assets/screenshots/dashboard.webp" data-src-light="../assets/screenshots/dashboard.webp" data-src-dark="../assets/screenshots/dashboard-dark.webp" alt="Dashboard di Gestore Costi Veicoli"></div>
+        <div class="deck-stack">
+          <div class="deck-card" id="gallery-card-1" role="group" aria-roledescription="slide" aria-label="1 di 8">
+            <img class="gallery-card-img" fetchpriority="high" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" alt="Dashboard di Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-2" role="group" aria-roledescription="slide" aria-label="2 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/garage.webp" data-src-light="../assets/screenshots/garage.webp" data-src-dark="../assets/screenshots/garage-dark.webp" alt="Garage di Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-2" role="group" aria-roledescription="slide" aria-label="2 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" alt="Garage di Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-3" role="group" aria-roledescription="slide" aria-label="3 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/carburante.webp" data-src-light="../assets/screenshots/carburante.webp" data-src-dark="../assets/screenshots/carburante-dark.webp" alt="Carburante in Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-3" role="group" aria-roledescription="slide" aria-label="3 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" alt="Carburante in Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-4" role="group" aria-roledescription="slide" aria-label="4 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/scadenze.webp" data-src-light="../assets/screenshots/scadenze.webp" data-src-dark="../assets/screenshots/scadenze-dark.webp" alt="Scadenze in Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-4" role="group" aria-roledescription="slide" aria-label="4 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" alt="Scadenze in Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-5" role="group" aria-roledescription="slide" aria-label="5 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/dettaglio-veicolo.webp" data-src-light="../assets/screenshots/dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/dettaglio-veicolo-dark.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-5" role="group" aria-roledescription="slide" aria-label="5 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-light="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/deck-dettaglio-veicolo-dark.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-6" role="group" aria-roledescription="slide" aria-label="6 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/impostazioni.webp" data-src-light="../assets/screenshots/impostazioni.webp" data-src-dark="../assets/screenshots/impostazioni-dark.webp" alt="Impostazioni di Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-6" role="group" aria-roledescription="slide" aria-label="6 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-impostazioni.webp" data-src-light="../assets/screenshots/deck-impostazioni.webp" data-src-dark="../assets/screenshots/deck-impostazioni-dark.webp" alt="Impostazioni di Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-7" role="group" aria-roledescription="slide" aria-label="7 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/profilo.webp" data-src-light="../assets/screenshots/profilo.webp" data-src-dark="../assets/screenshots/profilo-dark.webp" alt="Profilo in Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-7" role="group" aria-roledescription="slide" aria-label="7 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-profilo.webp" data-src-light="../assets/screenshots/deck-profilo.webp" data-src-dark="../assets/screenshots/deck-profilo-dark.webp" alt="Profilo in Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-8" role="group" aria-roledescription="slide" aria-label="8 di 9">
-            <div class="gallery-frame"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/pro.webp" data-src-light="../assets/screenshots/pro.webp" data-src-dark="../assets/screenshots/pro-dark.webp" alt="Schermata Pro in Gestore Costi Veicoli"></div>
+          <div class="deck-card" id="gallery-card-8" role="group" aria-roledescription="slide" aria-label="8 di 8">
+            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-pro.webp" data-src-light="../assets/screenshots/deck-pro.webp" data-src-dark="../assets/screenshots/deck-pro-dark.webp" alt="Schermata Pro in Gestore Costi Veicoli">
           </div>
-          <div class="coverflow-card" id="gallery-card-9" role="group" aria-roledescription="slide" aria-label="9 di 9">
-            <div class="watch-frame">
-              <div class="watch-crown"></div>
-              <div class="watch-button"></div>
-              <div class="watch-case"><img class="gallery-card-img" loading="lazy" src="../assets/screenshots/watch-quickadd-real.png" alt="Aggiunta rapida da Apple Watch"></div>
-            </div>
-          </div>
-         </div>
         </div>
 
         <button type="button" class="gallery-nav gallery-nav-next" aria-label="Schermata successiva">
@@ -981,28 +1085,17 @@
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget, Apple Watch e mappe distributori</span></li>
           </ul>
         </div>
-        <div class="gallery-caption-panel" id="gallery-caption-9" data-step="9" aria-hidden="true">
-          <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Apple Watch</span>
-          <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Anche dal polso, senza tirare fuori il telefono</h3>
-          <p style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Registra un rifornimento in pochi secondi direttamente dall'Apple Watch, con veicoli e categorie già sincronizzati dal telefono.</p>
-          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Scelta rapida di veicolo, categoria e litri</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Tastierino numerico nativo per importo e litri</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Disponibile con Pro</span></li>
-          </ul>
-        </div>
       </div>
 
       <div class="gallery-dots" aria-label="Vai a una schermata">
-        <button type="button" class="gallery-dot is-active" data-step="1" aria-label="Vai a 1 di 9" aria-current="true"></button>
-        <button type="button" class="gallery-dot" data-step="2" aria-label="Vai a 2 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="3" aria-label="Vai a 3 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="4" aria-label="Vai a 4 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="5" aria-label="Vai a 5 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="6" aria-label="Vai a 6 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="7" aria-label="Vai a 7 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="8" aria-label="Vai a 8 di 9"></button>
-        <button type="button" class="gallery-dot" data-step="9" aria-label="Vai a 9 di 9"></button>
+        <button type="button" class="gallery-dot is-active" data-step="1" aria-label="Vai a 1 di 8" aria-current="true"></button>
+        <button type="button" class="gallery-dot" data-step="2" aria-label="Vai a 2 di 8"></button>
+        <button type="button" class="gallery-dot" data-step="3" aria-label="Vai a 3 di 8"></button>
+        <button type="button" class="gallery-dot" data-step="4" aria-label="Vai a 4 di 8"></button>
+        <button type="button" class="gallery-dot" data-step="5" aria-label="Vai a 5 di 8"></button>
+        <button type="button" class="gallery-dot" data-step="6" aria-label="Vai a 6 di 8"></button>
+        <button type="button" class="gallery-dot" data-step="7" aria-label="Vai a 7 di 8"></button>
+        <button type="button" class="gallery-dot" data-step="8" aria-label="Vai a 8 di 8"></button>
       </div>
     </div>
     </div>
@@ -1014,27 +1107,77 @@
       <div aria-hidden="true" style="position:absolute;top:-140px;right:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.35),transparent 62%);filter:blur(20px);animation:gcvDrift 24s ease-in-out infinite alternate"></div>
       <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
         <div>
-          <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;margin-bottom:14px">Widget e Apple Watch</span>
-          <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.12;color:#fff">Anche dalla Home, senza aprire l'app.</h2>
+          <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>Widget e Apple Watch</span>
+          <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
           <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Due widget pensati per iOS: uno per il colpo d'occhio sulla spesa, uno per registrare in un tap. E dal polso, con l'app nativa per Apple Watch.</p>
-          <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
             <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
-              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:rgba(169,157,255,.18);flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
               <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Azioni rapide</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Aggiungi una spesa o una scadenza dalla Home, senza aprire l'app.</span></span>
             </div>
             <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
-              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:rgba(169,157,255,.18);flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
+              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
               <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tutti i veicoli, a colpo d'occhio</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Il totale del mese con il dettaglio per categoria, in formato medio o grande.</span></span>
             </div>
           </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <span style="color:#8A84A6;font-size:14.5px">Disponibile con</span>
+            <span class="wz-chip">iOS 18+</span>
+            <span class="wz-chip">watchOS 11+</span>
+          </div>
         </div>
-        <div class="widget-mockups" style="position:relative;display:flex;align-items:center;justify-content:center;gap:24px;min-height:280px">
-          <img class="widget-mockup" src="../assets/screenshots/widget-tutto-grande-light.webp" alt="Widget Tutti i veicoli, formato grande" loading="lazy" style="width:180px;border-radius:26px;--base-rot:-4deg;--base-y:0px;box-shadow:0 30px 60px -12px rgba(0,0,0,.55)">
-          <img class="widget-mockup widget-mockup--small" src="../assets/screenshots/widget-azioni-rapide-light.webp" alt="Widget Azioni rapide" loading="lazy" style="width:126px;border-radius:22px;--base-rot:5deg;--base-y:20px;box-shadow:0 30px 60px -12px rgba(0,0,0,.55)">
-          <span class="widget-floating-badge" style="top:6px;right:0">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-8 4.5"/><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 8-4.5"/><path d="M17 3v4.5H12.5"/><path d="M7 21v-4.5h4.5"/></svg>
+        <div class="widget-mockups wz-collage">
+          <img class="widget-mockup wz-card wz-dark" src="../assets/widget-tutti-dark.webp" alt="Widget Tutti i veicoli in formato grande, tema scuro: totale del mese e dettaglio per categoria" loading="lazy" style="--base-y:0px">
+          <img class="widget-mockup wz-card wz-azioni" src="../assets/widget-azioni-card.webp" alt="Widget Azioni rapide: nuova spesa e nuova scadenza dalla Home" loading="lazy" style="--base-y:8px;animation-delay:.5s">
+          <img class="widget-mockup wz-card wz-light" src="../assets/widget-tutti-light.webp" alt="Widget Tutti i veicoli in formato medio, tema chiaro" loading="lazy" style="--base-y:4px;animation-delay:1s">
+          <span class="widget-floating-badge wz-badge-top">
+            <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
             Aggiornato in tempo reale
           </span>
+          <span class="widget-floating-badge wz-badge-mid">
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1B1830;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            Spesa registrata in 1 tap
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="watch" class="reveal" style="padding:0 64px 96px;background:#fff">
+    <div class="widget-panel" style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:34px;padding:64px;background:radial-gradient(620px circle at 26% 48%, rgba(80,70,150,.38), transparent 62%), linear-gradient(155deg,#231E42,#141124);box-shadow:0 50px 90px -40px rgba(20,10,60,.7)">
+      <div class="widget-dot-grid" aria-hidden="true"></div>
+      <div aria-hidden="true" style="position:absolute;top:-140px;left:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.3),transparent 62%);filter:blur(20px);animation:gcvDrift 28s ease-in-out infinite alternate"></div>
+      <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
+        <div class="widget-mockups watch-visual">
+          <img class="widget-mockup watch-duo" src="../assets/watch-duo.webp" alt="Due Apple Watch: la Home con l'app installata e la schermata di aggiunta rapida con veicolo, categoria e importo" loading="lazy" style="--base-y:0px">
+          <span class="widget-floating-badge watch-badge-top">
+            <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
+            Sincronizzata con iPhone
+          </span>
+          <span class="widget-floating-badge watch-badge-bottom">
+            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1B1830;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            Spesa registrata dal polso
+          </span>
+        </div>
+        <div>
+          <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>App per Apple Watch</span>
+          <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Registra le spese <span style="color:#8B7BFA">direttamente</span> dal <span style="color:#4FE3C1">polso</span>.</h2>
+          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Al distributore, in officina, al casello: scegli veicolo e categoria, inserisci l'importo e hai finito. Tutto si sincronizza subito con l'app su iPhone.</p>
+          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
+            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
+              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tre campi, dieci secondi</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Veicolo, categoria e importo: la spesa è registrata prima di rimettere il telefono in tasca.</span></span>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
+              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v4.5h-4.5"/></svg></span>
+              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Sincronizzazione istantanea</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Ogni spesa aggiunta dal polso compare subito nella dashboard e nei widget.</span></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <span style="color:#8A84A6;font-size:14.5px">Disponibile con</span>
+            <span class="wz-chip">watchOS 11+</span>
+            <span class="wz-chip">Apple Watch Series 9 e Ultra</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1060,14 +1203,24 @@
           <input id="calc-assicurazione" type="number" min="0" inputmode="decimal" placeholder="es. 450" style="border:1px solid #D9D2FA;border-radius:10px;padding:10px 14px;font-size:15px;font-family:inherit;color:#1B1830">
         </label>
       </div>
-      <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
-        <div aria-live="polite">
-          <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
-          <p style="margin:0;font-size:36px;font-weight:800;color:#1B1830"><span id="calc-mensile">0 €</span><span style="font-size:15px;font-weight:600;color:#6B6684"> /mese</span></p>
-          <p style="margin:4px 0 0;font-size:15px;color:#4B4566"><span id="calc-annuo">0 €</span> /anno</p>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
+        <p style="margin:0;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
+        <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+          <div style="position:relative;width:150px;height:150px;flex-shrink:0">
+            <svg id="calc-donut" viewBox="0 0 120 120" width="150" height="150" aria-hidden="true" style="display:block;transform:rotate(-90deg)">
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#F1EEFF" stroke-width="15"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <span id="calc-mensile" style="font-size:25px;font-weight:800;letter-spacing:-.5px;color:#1B1830">0 €</span>
+              <span style="font-size:11px;font-weight:700;color:#6B6684">/mese</span>
+            </div>
+          </div>
+          <div aria-live="polite" style="flex:1;min-width:180px">
+            <p style="margin:0 0 12px;font-size:15px;color:#4B4566"><span id="calc-annuo" style="font-weight:800;color:#1B1830">0 €</span> /anno</p>
+            <div id="calc-bars" style="display:flex;flex-direction:column;gap:9px"></div>
+          </div>
         </div>
-        <div id="calc-bars" style="display:flex;flex-direction:column;gap:8px"></div>
-        <a href="#download" class="cta-shine" style="display:block;text-align:center;background:#4B3FE3;color:#fff;font-weight:700;font-size:14.5px;padding:12px;border-radius:12px;margin-top:6px">Scarica l'app per tracciarlo in automatico</a>
+        <a href="#download" class="cta-shine" style="display:block;text-align:center;background:#4B3FE3;color:#fff;font-weight:700;font-size:14.5px;padding:12px;border-radius:12px;margin-top:2px">Scarica l'app per tracciarlo in automatico</a>
         <p style="margin:0;color:#6B6684;font-size:12px;text-align:center">Il calcolo avviene solo nel tuo browser: nessun dato viene inviato o salvato.</p>
       </div>
     </div>
@@ -1097,7 +1250,7 @@
         <span style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#fff;color:#4B3FE3;font-size:12.5px;font-weight:800;padding:6px 18px;border-radius:100px;box-shadow:0 8px 20px rgba(20,10,60,0.18);white-space:nowrap">Il più scelto</span>
         <div style="text-align:center;margin-bottom:28px">
           <h3 style="margin:0 0 12px;font-size:20px;font-weight:800">Pro</h3>
-          <div style="font-size:40px;font-weight:800;letter-spacing:-1px">4,99 €</div>
+          <div style="font-size:40px;font-weight:800;letter-spacing:-1px"><span data-count-to="4.99" data-count-decimals="2">4,99</span> €</div>
           <p style="margin:8px 0 0;color:rgba(255,255,255,0.75);font-size:13.5px">una tantum, per sempre — nessun abbonamento</p>
         </div>
         <ul style="margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px;font-size:14.5px;flex:1">
@@ -1355,10 +1508,12 @@
 <script defer src="../assets/sticky-cta.js"></script>
 <script defer src="../assets/contact.js"></script>
 <script defer src="../assets/calcolatore.js"></script>
-<script defer src="../assets/coverflow.js"></script>
+<script defer src="../assets/deck.js"></script>
 <script defer src="../assets/gallery-theme.js"></script>
 <script defer src="../assets/card-glow.js"></script>
 <script defer src="../assets/widget-interactive.js"></script>
+<script defer src="../assets/magnetic.js"></script>
+<script defer src="../assets/sticky-nav.js"></script>
 <script defer src="../assets/scroll-progress.js"></script>
 <script defer src="../assets/faq.js"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "91cdab15dc99410c80e095b9a2d8b4dd"}'></script>
