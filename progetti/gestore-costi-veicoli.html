@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="../assets/theme.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -40,6 +41,44 @@
   "offers": [
     { "@type": "Offer", "name": "Gratuito", "price": "0", "priceCurrency": "EUR" },
     { "@type": "Offer", "name": "Pro", "price": "4.99", "priceCurrency": "EUR" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "L'app funziona anche offline?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sì: l'app funziona completamente offline. Tutti i dati restano solo sul tuo dispositivo, non c'è nessun server con cui sincronizzarsi — anche le poche funzioni che usano internet (mappe, prezzi carburante) sono opzionali." }
+    },
+    {
+      "@type": "Question",
+      "name": "Posso gestire più veicoli insieme?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sì, il piano gratuito supporta 1 veicolo, mentre Pro permette di gestirne quanti vuoi, con un unico acquisto di 4,99 €." }
+    },
+    {
+      "@type": "Question",
+      "name": "Come vengono calcolati i costi stimati?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Combiniamo rata, consumo medio, prezzo del carburante impostato e costi operativi che inserisci tu per stimare il costo reale di possesso." }
+    },
+    {
+      "@type": "Question",
+      "name": "I miei dati sono al sicuro?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sì: i dati sono cifrati e restano solo sul telefono per impostazione predefinita; se attivi il login opzionale per sincronizzare o condividere, passano da Supabase con Row Level Security, visibili solo a te e a chi inviti esplicitamente." }
+    },
+    {
+      "@type": "Question",
+      "name": "Posso condividere i dati con qualcuno (es. un familiare)?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sì: dalla sezione Profilo puoi invitare altre persone sulla Dash come editor o sola lettura (serve Pro per invitare, non per accettare); resti sempre proprietario e puoi revocare l'accesso quando vuoi." }
+    },
+    {
+      "@type": "Question",
+      "name": "Posso esportare il mio storico spese?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sì, con Pro puoi esportare in PDF o CSV lo storico di rifornimenti, scadenze e spese in qualsiasi momento." }
+    }
   ]
 }
 </script>
@@ -132,6 +171,7 @@
     background:#fff; color:#1B1830; font-weight:700; font-size:13px; padding:10px 16px;
     border-radius:100px; box-shadow:0 16px 32px -8px rgba(0,0,0,0.35);
     animation:hero-float 5s ease-in-out infinite;
+    white-space:nowrap; /* è una pillola: a capo su 2-3 righe sborda dal collage */
   }
   @media (prefers-reduced-motion:reduce){
     .widget-mockup, .widget-floating-badge{ animation:none; }
@@ -151,37 +191,37 @@
     div.widget-panel::after{ display:none; }
   }
 
-  /* collage widget (#widget) — card ritagliate dal mockup di design e riposizionate
-     in percentuale dentro un contenitore con lo stesso aspect-ratio del collage
-     originale, così la composizione scala identica a ogni larghezza. Le card sono
-     .widget-mockup: float + tilt 3D via ../assets/widget-interactive.js. */
+  /* collage widget (#widget) — screenshot reali dei widget (card complete, angoli
+     arrotondati e ombra NON baked: trasparenza nel .webp, ombra via drop-shadow qui)
+     riposizionati in percentuale dentro un contenitore con aspect-ratio fisso, così
+     la composizione scala identica a ogni larghezza. Le card sono .widget-mockup:
+     float + tilt 3D via ../assets/widget-interactive.js. */
   .wz-collage{ position:relative; width:100%; aspect-ratio:2280/1355; }
-  .wz-card{ position:absolute; height:auto; }
-  .wz-azioni{ left:17.7%; top:8.3%;  width:28.9%; z-index:2; border-radius:14%/14.2%; }
-  .wz-dark{   left:48.4%; top:11.7%; width:47.2%; z-index:1; border-radius:9%/11.5%; }
-  /* il bordo destro sfuma come nel mockup originale (lì proseguiva sfocata) */
-  .wz-light{  left:1.9%;  top:62.8%; width:32.3%; z-index:3; border-radius:13%/21.5%;
-    -webkit-mask-image:linear-gradient(90deg,#000 74%,transparent 99%);
-    mask-image:linear-gradient(90deg,#000 74%,transparent 99%);
-  }
+  .wz-card{ position:absolute; height:auto; filter:drop-shadow(0 30px 50px rgba(0,0,0,.55)); }
+  .wz-azioni{ left:17.7%; top:8.3%;  width:28.9%; z-index:2; }
+  .wz-dark{   left:48.4%; top:11.7%; width:47.2%; z-index:1; }
+  .wz-light{  left:1.9%;  top:62.8%; width:44%;   z-index:3; }
   .wz-badge-top{ top:-2%; right:-1%; z-index:4 }
-  .wz-badge-mid{ left:43%; top:74%; z-index:4 }
+  .wz-badge-mid{ left:68%; top:86%; z-index:4 }
+  /* fascia desktop stretta: il collage si riduce ma i badge in px no — ridimensionati
+     e ancorati a destra per non sbordare dal pannello (deve stare DOPO le regole base
+     dei .wz-badge, stessa specificità: vince l'ultima) */
+  @media (min-width:861px) and (max-width:1100px){
+    .widget-floating-badge{ font-size:11.5px; padding:8px 12px; gap:6px }
+    .wz-badge-mid{ left:auto; right:0 }
+  }
   .wz-chip{
     display:inline-block; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
     color:#fff; font-weight:700; font-size:13.5px; padding:8px 16px; border-radius:100px;
   }
 
-  /* sezione Apple Watch (#watch) — i due render (cinturini a maglia, forme organiche)
-     arrivano dal mockup con il fondo del pannello baked: la mask radiale sfuma i bordi
-     del rettangolo nel gradiente CSS del pannello, così non si vedono giunzioni. */
+  /* sezione Apple Watch (#watch) — render dei due watch su alpha (export dedicato),
+     nessuna fusione necessaria: solo un'ombra morbida sulla silhouette. */
   .watch-visual{ position:relative; }
   .watch-duo{
     width:100%; height:auto; display:block;
-    -webkit-mask-image:radial-gradient(ellipse 82% 84% at 50% 48%, #000 52%, transparent 92%);
-    mask-image:radial-gradient(ellipse 82% 84% at 50% 48%, #000 52%, transparent 92%);
+    filter:drop-shadow(0 28px 44px rgba(0,0,0,.5));
   }
-  .watch-badge-top{ top:-4%; left:14%; z-index:2 }
-  .watch-badge-bottom{ bottom:-2%; left:22%; z-index:2 }
 
   /* collage "dall'idea all'app" (#idea) — 3 colonne, laterali impilate, sketch centrale
      più grande. Le card sono .widget-mockup dentro un .widget-panel: float + tilt 3D
@@ -577,14 +617,19 @@
     #fiducia div[style*="minmax(0,1fr) minmax(0,1.15fr)"]{grid-template-columns:1fr !important}
     #fiducia div[style*="1fr 1fr"]{grid-template-columns:1fr !important}
     #widget div[style*="minmax(0,1fr) minmax(0,1fr)"]{grid-template-columns:1fr !important}
+    #watch div[style*="minmax(0,1fr) minmax(0,1fr)"]{grid-template-columns:1fr !important}
     #recensioni div[style*="repeat(3,1fr)"]{grid-template-columns:1fr !important}
     #widget .widget-mockups{margin-top:32px}
+    /* i badge hanno font/padding in px fissi: sul collage ristretto vanno ridotti,
+       e il badge centrale ancorato a destra per non coprire il footer della card */
+    .widget-floating-badge{font-size:11px;padding:7px 11px;gap:6px}
+    .wz-badge-mid{left:auto;right:1%}
     #hero{padding-bottom:60px !important}
     .hero-copy{flex-direction:column !important}
     .hero-copy > div:last-child{flex-shrink:0 !important;min-height:480px !important;padding:12px 0 40px !important}
     #pilastri{margin-top:0 !important}
     .hero-copy{padding-left:24px !important;padding-right:24px !important}
-    #widget .widget-panel{padding:36px 24px !important}
+    #widget .widget-panel, #watch .widget-panel{padding:36px 24px !important}
     #contatti > div{padding:56px 28px !important}
     .site-footer{padding:56px 24px 28px !important}
   }
@@ -608,6 +653,70 @@
     .feature-grid{grid-template-columns:1fr !important}
     .feature-grid > div{grid-column:auto !important;grid-row:auto !important;display:block !important}
   }
+
+  /* ============ DARK MODE ============
+     La pagina è inline-styled: il tema scuro è una batteria di override scoped
+     sotto html.dark (aggiunta da ../assets/theme.js prima del primo paint).
+     I selettori [style*=…] intercettano i colori inline ricorrenti; !important
+     serve perché una regola important batte sempre lo stile inline.
+     Le sezioni già scure (hero, #idea, i pannelli widget/watch, contatti interno,
+     back-bar, navbar sticky) restano identiche nei due temi. */
+  html.dark body{ background:#0F0C1D; color:#F2F0FA; }
+  html.dark #costi, html.dark #come, html.dark #features, html.dark #gallery,
+  html.dark #widget, html.dark #watch, html.dark #idea, html.dark #calcolatore,
+  html.dark #pricing, html.dark #fiducia, html.dark #recensioni, html.dark #faq,
+  html.dark #manuale, html.dark #contatti{ background:#0F0C1D !important; }
+  html.dark #pilastri{ background:linear-gradient(180deg,rgba(15,12,29,0) 0,#0F0C1D 80px) !important; }
+
+  /* testi: mappa dei grigi inline ricorrenti */
+  html.dark [style*="color:#1B1830"]{ color:#F2F0FA !important; }
+  html.dark [style*="color:#4B4566"]{ color:#B9B3CE !important; }
+  html.dark [style*="color:#6B6684"]{ color:#918BA8 !important; }
+  html.dark [style*="color:#3B3654"]{ color:#C4BFD6 !important; }
+  html.dark [style*="color:#8A85A3"]{ color:#918BA8 !important; }
+
+  /* superfici chiare → scure */
+  html.dark .lift-card, html.dark #costi div[style*="background:#fff"],
+  html.dark #pilastri div[style*="background:#fff"],
+  html.dark #come div[style*="background:#fff"],
+  html.dark .feature-grid > div, html.dark #faq details,
+  html.dark .calc-grid div[style*="background:#fff"],
+  html.dark #manuale div[style*="background:#fff"],
+  html.dark #recensioni div[style*="background:#fff"],
+  html.dark #fiducia div[style*="background:#fff"],
+  html.dark .pricing-card:not(.pricing-card--pro){
+    background:#191434 !important;
+    box-shadow:0 1px 2px rgba(0,0,0,.4), 0 24px 50px -32px rgba(0,0,0,.6) !important;
+  }
+  html.dark .section-panel{
+    background:#151129 !important; border-color:rgba(255,255,255,.08) !important;
+    box-shadow:0 30px 70px rgba(0,0,0,.5) !important;
+  }
+  html.dark .calc-grid{ background:#151129 !important; border-color:rgba(255,255,255,.08) !important; }
+  html.dark [style*="background:#FAFAFE"]{ background:#1E1839 !important; }
+  html.dark [style*="background:#F1EEFF"]{ background:rgba(139,123,250,.16) !important; }
+  html.dark [style*="color:#4B3FE3"]{ color:#A99DFF !important; }
+
+  /* bordi chiari inline */
+  html.dark [style*="border:1px solid #EEE9FF"], html.dark [style*="border:1px solid #EFECFB"],
+  html.dark [style*="border:1px solid #D9D2FA"]{ border-color:rgba(255,255,255,.10) !important; }
+  html.dark #faq details{ border-color:rgba(255,255,255,.08) !important; }
+
+  /* input del calcolatore */
+  html.dark .calc-grid input{
+    background:#221D3E !important; color:#F2F0FA !important;
+    border-color:rgba(255,255,255,.14) !important;
+  }
+
+  /* sticky CTA mobile */
+  html.dark .sticky-cta{ background:#151129; border-top-color:rgba(255,255,255,.08); }
+
+  /* bottone del toggle: luna in chiaro, sole in scuro */
+  .theme-toggle{ background:none; border:none; cursor:pointer; padding:8px; display:inline-flex; align-items:center; color:inherit; border-radius:50%; }
+  .theme-toggle:hover{ background:rgba(255,255,255,.12); }
+  .theme-toggle .icon-sun{ display:none; }
+  html.dark .theme-toggle .icon-sun{ display:block; }
+  html.dark .theme-toggle .icon-moon{ display:none; }
 </style>
 </head>
 <body>
@@ -626,6 +735,10 @@
     <a href="#gallery">App</a>
     <a href="#pricing">Prezzi</a>
     <a href="#faq">FAQ</a>
+    <button type="button" class="theme-toggle" aria-label="Cambia tema chiaro/scuro" aria-pressed="false" style="color:#fff">
+      <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
     <a href="#download" class="sticky-nav-cta">Scarica l'app</a>
   </div>
 </nav>
@@ -654,6 +767,10 @@
           <a href="#gallery" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">App</a>
           <a href="#pricing" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">Prezzi</a>
           <a href="#faq" style="font-weight:600;font-size:16px;color:rgba(255,255,255,.9)">FAQ</a>
+          <button type="button" class="theme-toggle" aria-label="Cambia tema chiaro/scuro" aria-pressed="false" style="color:#fff">
+            <svg class="icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <svg class="icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
           <a href="#download" class="nav-cta" style="background:#fff;color:#2436A6;font-weight:800;font-size:15px;padding:12px 24px;border-radius:100px">Scarica l'app</a>
         </div>
       </nav>
@@ -1127,9 +1244,9 @@
           </div>
         </div>
         <div class="widget-mockups wz-collage">
-          <img class="widget-mockup wz-card wz-dark" src="../assets/widget-tutti-dark.webp" alt="Widget Tutti i veicoli in formato grande, tema scuro: totale del mese e dettaglio per categoria" loading="lazy" style="--base-y:0px">
-          <img class="widget-mockup wz-card wz-azioni" src="../assets/widget-azioni-card.webp" alt="Widget Azioni rapide: nuova spesa e nuova scadenza dalla Home" loading="lazy" style="--base-y:8px;animation-delay:.5s">
-          <img class="widget-mockup wz-card wz-light" src="../assets/widget-tutti-light.webp" alt="Widget Tutti i veicoli in formato medio, tema chiaro" loading="lazy" style="--base-y:4px;animation-delay:1s">
+          <img class="widget-mockup wz-card wz-dark" src="../assets/widget-tutti-dark.webp" alt="Widget Tutti i veicoli in formato grande, tema scuro: totale del mese, trend e dettaglio per categoria" loading="lazy" style="--base-y:0px">
+          <img class="widget-mockup wz-card wz-azioni" src="../assets/widget-azioni-card.webp" alt="Widget Azioni rapide, tema chiaro: nuova spesa e nuova scadenza dalla Home" loading="lazy" style="--base-y:8px;animation-delay:.5s">
+          <img class="widget-mockup wz-card wz-light" src="../assets/widget-tutti-light.webp" alt="Widget Tutti i veicoli in formato medio, tema chiaro, con gli importi per categoria" loading="lazy" style="--base-y:4px;animation-delay:1s">
           <span class="widget-floating-badge wz-badge-top">
             <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
             Aggiornato in tempo reale
@@ -1138,46 +1255,6 @@
             <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1B1830;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
             Spesa registrata in 1 tap
           </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="watch" class="reveal" style="padding:0 64px 96px;background:#fff">
-    <div class="widget-panel" style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:34px;padding:64px;background:radial-gradient(620px circle at 26% 48%, rgba(80,70,150,.38), transparent 62%), linear-gradient(155deg,#231E42,#141124);box-shadow:0 50px 90px -40px rgba(20,10,60,.7)">
-      <div class="widget-dot-grid" aria-hidden="true"></div>
-      <div aria-hidden="true" style="position:absolute;top:-140px;left:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.3),transparent 62%);filter:blur(20px);animation:gcvDrift 28s ease-in-out infinite alternate"></div>
-      <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
-        <div class="widget-mockups watch-visual">
-          <img class="widget-mockup watch-duo" src="../assets/watch-duo.webp" alt="Due Apple Watch: la Home con l'app installata e la schermata di aggiunta rapida con veicolo, categoria e importo" loading="lazy" style="--base-y:0px">
-          <span class="widget-floating-badge watch-badge-top">
-            <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
-            Sincronizzata con iPhone
-          </span>
-          <span class="widget-floating-badge watch-badge-bottom">
-            <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1B1830;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-            Spesa registrata dal polso
-          </span>
-        </div>
-        <div>
-          <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>App per Apple Watch</span>
-          <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Registra le spese <span style="color:#8B7BFA">direttamente</span> dal <span style="color:#4FE3C1">polso</span>.</h2>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Al distributore, in officina, al casello: scegli veicolo e categoria, inserisci l'importo e hai finito. Tutto si sincronizza subito con l'app su iPhone.</p>
-          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
-            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
-              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tre campi, dieci secondi</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Veicolo, categoria e importo: la spesa è registrata prima di rimettere il telefono in tasca.</span></span>
-            </div>
-            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
-              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v4.5h-4.5"/></svg></span>
-              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Sincronizzazione istantanea</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Ogni spesa aggiunta dal polso compare subito nella dashboard e nei widget.</span></span>
-            </div>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-            <span style="color:#8A84A6;font-size:14.5px">Disponibile con</span>
-            <span class="wz-chip">watchOS 11+</span>
-            <span class="wz-chip">Apple Watch Series 9 e Ultra</span>
-          </div>
         </div>
       </div>
     </div>
@@ -1262,6 +1339,38 @@
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget e Apple Watch</span></li>
         </ul>
         <a href="#download" class="cta-shine" style="display:block;text-align:center;background:#fff;color:#4B3FE3;font-weight:700;padding:13px;border-radius:14px;--shine-color:rgba(75,63,227,.22)">Sblocca Pro</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="watch" class="reveal" style="padding:0 64px 96px;background:#fff">
+    <div class="widget-panel" style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:34px;padding:64px;background:radial-gradient(620px circle at 26% 48%, rgba(80,70,150,.38), transparent 62%), linear-gradient(155deg,#231E42,#141124);box-shadow:0 50px 90px -40px rgba(20,10,60,.7)">
+      <div class="widget-dot-grid" aria-hidden="true"></div>
+      <div aria-hidden="true" style="position:absolute;top:-140px;left:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.3),transparent 62%);filter:blur(20px);animation:gcvDrift 28s ease-in-out infinite alternate"></div>
+      <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
+        <div class="widget-mockups watch-visual">
+          <img class="widget-mockup watch-duo" src="../assets/watch-cluster.webp" alt="Due Apple Watch con i badge Sincronizzata con iPhone e Spesa registrata dal polso: la Home con l'app installata e la schermata di aggiunta rapida con veicolo, categoria e importo" loading="lazy" style="--base-y:0px">
+        </div>
+        <div>
+          <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>App per Apple Watch</span>
+          <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Registra le spese <span style="color:#8B7BFA">direttamente</span> dal <span style="color:#4FE3C1">polso</span>.</h2>
+          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Al distributore, in officina, al casello: scegli veicolo e categoria, inserisci l'importo e hai finito. Tutto si sincronizza subito con l'app su iPhone.</p>
+          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
+            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
+              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tre campi, dieci secondi</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Veicolo, categoria e importo: la spesa è registrata prima di rimettere il telefono in tasca.</span></span>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
+              <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v4.5h-4.5"/></svg></span>
+              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Sincronizzazione istantanea</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Ogni spesa aggiunta dal polso compare subito nella dashboard e nei widget.</span></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <span style="color:#8A84A6;font-size:14.5px">Disponibile con</span>
+            <span class="wz-chip">watchOS 11+</span>
+            <span class="wz-chip">Apple Watch Series 9 e Ultra</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1394,7 +1503,7 @@
       <div style="flex:1;min-width:260px">
         <span style="display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Manuale d'uso</span>
         <h2 style="margin:0 0 10px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutte le funzioni dell'app, in un PDF.</h2>
-        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Guida rapida passo passo e domande frequenti, da scaricare e consultare anche offline.</p>
+        <p style="margin:0;color:#4B4566;font-size:15px;line-height:1.6">Guida rapida passo passo e domande frequenti, da scaricare e consultare anche offline. E per sapere cosa cambia a ogni versione, c'è la pagina <a href="gestore-costi-veicoli-novita.html">Novità</a>.</p>
       </div>
       <a href="../assets/manuale-gestore-costi-veicoli.pdf" download class="store-btn" style="display:flex;align-items:center;gap:10px;background:#4B3FE3;color:#fff;font-weight:700;font-size:15px;padding:14px 26px;border-radius:100px;white-space:nowrap">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19.5h16"/></svg>

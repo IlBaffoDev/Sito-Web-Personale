@@ -6,6 +6,15 @@
   var label = btn.querySelector('[data-label]');
   var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // se la pagina parte in dark mode, il carosello parte con gli screenshot scuri
+  if (document.documentElement.classList.contains('dark')) {
+    btn.setAttribute('aria-pressed', 'true');
+    if (label) label.textContent = 'Guarda in tema chiaro';
+    imgs.forEach(function (img) {
+      img.src = img.getAttribute('data-src-dark');
+    });
+  }
+
   btn.addEventListener('click', function () {
     var toDark = btn.getAttribute('aria-pressed') !== 'true';
     btn.setAttribute('aria-pressed', toDark ? 'true' : 'false');
