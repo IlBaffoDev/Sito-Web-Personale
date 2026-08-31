@@ -1,0 +1,16 @@
+<nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;max-width:1120px;margin:0 auto;padding:22px 32px;background:rgba(11,14,20,0.82);backdrop-filter:blur(10px)">
+  <a href="{{base}}index.html" style="display:flex;align-items:center;gap:10px;color:#EDEFF3;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FE3C1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
+    Andrea Zanasi
+  </a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" style="display:flex;align-items:center;gap:30px;font-family:'IBM Plex Mono',monospace;font-size:14px">
+    <a href="{{base}}index.html" class="nav-link{{attivo_home}}">{{voce_home}}</a>
+    <a href="{{base}}chi-sono.html" class="nav-link{{attivo_chisono}}">{{voce_chisono}}</a>
+    <a href="{{base}}progetti.html" class="nav-link{{attivo_progetti}}">{{voce_progetti}}</a>
+    <a href="mailto:andreazanasi1993@gmail.com" class="nav-link">{{voce_contatti}}</a>
+    <a href="{{alt_href}}" class="nav-link" style="font-family:'IBM Plex Mono',monospace" hreflang="{{alt_lang}}">{{alt_voce}}</a>
+  </div>
+</nav>

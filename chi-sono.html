@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- build:csp -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
+<!-- /build:csp -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Chi sono — Andrea Zanasi</title>
 <meta name="description" content="Andrea Zanasi: percorso professionale come Team Lead nel settore assicurativo, competenze nello sviluppo software e passione per auto e moto fuori dal lavoro.">
@@ -24,9 +26,11 @@
 <meta name="twitter:image" content="https://azanasi.it/assets/og-main.png">
 <meta name="view-transition" content="same-origin">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<!-- build:font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- /build:font -->
 <link rel="stylesheet" href="assets/style.css">
 <link rel="preconnect" href="https://api.github.com">
 <script type="application/ld+json">
@@ -52,6 +56,7 @@
 
 <a href="#main" class="skip-link">Vai al contenuto</a>
 
+<!-- build:nav -->
 <nav style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;max-width:1120px;margin:0 auto;padding:22px 32px;background:rgba(11,14,20,0.82);backdrop-filter:blur(10px)">
   <a href="index.html" style="display:flex;align-items:center;gap:10px;color:#EDEFF3;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px">
     <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4FE3C1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
@@ -68,6 +73,7 @@
     <a href="en/chi-sono.html" class="nav-link" style="font-family:'IBM Plex Mono',monospace" hreflang="en">EN</a>
   </div>
 </nav>
+<!-- /build:nav -->
 
 <section id="main" style="max-width:760px;margin:0 auto;padding:64px 32px 56px">
   <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#4FE3C1;margin:0 0 16px">Chi sono</p>
@@ -191,6 +197,7 @@
   </div>
 </section>
 
+<!-- build:footer -->
 <footer style="border-top:1px solid #1A1E28;padding:32px 0">
   <div style="max-width:1120px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8A93A3">
     <span>© 2026 Andrea Zanasi</span>
@@ -201,11 +208,14 @@
     </div>
   </div>
 </footer>
+<!-- /build:footer -->
 
 <script defer src="assets/nav.js"></script>
 <script defer src="assets/motion.js"></script>
 <script defer src="assets/copy-email.js"></script>
 <script defer src="assets/github-widget.js"></script>
+<!-- build:beacon -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "91cdab15dc99410c80e095b9a2d8b4dd"}'></script>
+<!-- /build:beacon -->
 </body>
 </html>
