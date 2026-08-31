@@ -6,10 +6,14 @@
   var maxWidth = anchor.dataset.maxWidth || '1120px';
   var paddingBottom = anchor.dataset.paddingBottom || '56px';
 
+  // textContent -> innerHTML non neutralizza apici e virgolette: oggi tutti i
+  // valori finiscono in contesto testo, ma basta spostarne uno dentro un
+  // attributo perche' diventi XSS, con la sorgente controllata da chi rinomina
+  // un proprio repo pubblico
   function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   var isEnglish = document.documentElement.lang === 'en';
@@ -18,12 +22,16 @@
     ? { eyebrow: 'Activity', heading: 'What I’m building on GitHub.' }
     : { eyebrow: 'Attività', heading: 'Cosa sto costruendo su GitHub.' };
 
-  fetch('https://api.github.com/users/IlBaffoDev/repos?sort=updated&per_page=6&type=owner')
+  fetch('https://api.github.com/users/IlBaffoDev/repos?sort=updated&per_page=6&type=owner',
+        { signal: AbortSignal.timeout(8000) })
     .then(function (res) {
-      if (!res.ok) throw new Error('bad status');
+      if (!res.ok) throw new Error('risposta ' + res.status);
       return res.json();
     })
     .then(function (repos) {
+      // l'API puo' rispondere 200 con un oggetto (es. rate limit documentato):
+      // senza questo controllo il TypeError finiva in un catch muto
+      if (!Array.isArray(repos)) throw new Error('risposta non e\' un array');
       var list = repos.filter(function (r) { return !r.fork; }).slice(0, 6);
       if (!list.length) return;
 
@@ -31,7 +39,7 @@
         var desc = repo.description ? '<p style="margin:0 0 12px;color:#A7AEBB;font-size:14px;line-height:1.6">' + escapeHtml(repo.description) + '</p>' : '';
         var meta = [];
         if (repo.language) meta.push(escapeHtml(repo.language));
-        if (repo.stargazers_count > 0) meta.push('★ ' + repo.stargazers_count);
+        if (repo.stargazers_count > 0) meta.push('★ ' + escapeHtml(repo.stargazers_count));
         meta.push(new Date(repo.updated_at).toLocaleDateString(locale));
         return (
           '<a href="' + encodeURI(repo.html_url) + '" target="_blank" rel="noopener" style="display:block;background:#12161F;border:1px solid #1E2430;border-radius:12px;padding:20px;color:#EDEFF3;text-decoration:none">' +
@@ -59,5 +67,9 @@
         section.style.opacity = '1';
       }
     })
-    .catch(function () { /* no network / rate limit / offline: leave the page as-is */ });
+    .catch(function (err) {
+      // la pagina degrada senza la sezione, ma lasciamo una traccia: prima il
+      // catch era muto e non c'era modo di sapere perche' non compariva
+      console.warn('[github-widget] sezione non caricata:', err && err.message ? err.message : err);
+    });
 })();

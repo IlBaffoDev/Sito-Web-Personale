@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Novità e versioni — Gestore Costi Veicoli</title>
 <meta name="description" content="Le novità di ogni versione di Gestore Costi Veicoli: nuove funzioni, miglioramenti e correzioni, versione per versione.">
@@ -54,13 +54,24 @@
   }
   .release .badge--soon{background:#E9FBF4;color:#0E9F6E}
   .release .date{color:#6B6684;font-size:0.9rem;font-weight:600;margin-bottom:0.8rem}
+  .skip-link{
+    position:absolute;top:-40px;left:8px;z-index:100;
+    background:#4B3FE3;color:#fff;
+    padding:10px 16px;border-radius:6px;
+    font-weight:600;font-size:14px;text-decoration:none;
+    transition:top .15s ease;
+  }
+  .skip-link:focus{top:8px}
+  a:focus-visible{outline:2px solid #4B3FE3;outline-offset:3px;border-radius:4px}
 </style>
 </head>
 <body>
 
+<a href="#main" class="skip-link">Vai al contenuto</a>
+
 <div class="back-bar"><a href="gestore-costi-veicoli.html">← Torna a Gestore Costi Veicoli</a></div>
 
-<main>
+<main id="main">
   <h1>Novità e versioni</h1>
   <p class="intro">Cosa cambia in ogni versione dell'app: nuove funzioni, miglioramenti e correzioni. La voce più recente è in cima.</p>
 
@@ -88,5 +99,6 @@
   <p style="color:#6B6684;font-size:0.95rem">Hai trovato un problema o hai un'idea? <a href="gestore-costi-veicoli.html#contatti">Scrivimi</a>.</p>
 </main>
 
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "91cdab15dc99410c80e095b9a2d8b4dd"}'></script>
 </body>
 </html>
