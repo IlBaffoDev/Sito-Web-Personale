@@ -501,7 +501,7 @@
   .sticky-nav{
     position:fixed;top:0;left:0;right:0;z-index:80;
     display:flex;align-items:center;justify-content:space-between;gap:24px;
-    padding:10px 28px;
+    padding:10px max(28px, calc((100% - 1368px) / 2 + 64px));
     background:rgba(20,16,40,.62);
     backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
     border-bottom:1px solid rgba(255,255,255,.08);
@@ -533,13 +533,24 @@
     .store-btn:hover, .cta-shine:hover{ transform:none; }
   }
 
-  .back-bar{background:#151129;color:#B3AECB;padding:14px 64px;font-size:14px;font-weight:600}
+  .back-bar{background:#151129;color:#B3AECB;padding:14px var(--gronda-hero);font-size:14px;font-weight:600}
   .back-bar a{color:#fff}
   .shot-frame{width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);font-size:13px;text-align:center;padding:16px}
 
   /* navbar: vive dentro l'hero blu, sempre trasparente — testo bianco via style inline
      sugli <a>, coerente col design (nessuno sticky-on-scroll: scorre via con l'hero). */
   .site-header{ background:transparent; }
+
+  /* Gronde condivise — i fondali delle sezioni arrivano ai bordi dello schermo,
+     i contenuti restano incolonnati al centro anche oltre i 1440px (monitor 27").
+     .hero-copy è max-width:1240px + 64px di padding per lato e non è border-box:
+     la sua scatola reale è 1368px, ed è a quella che si allineano header,
+     back-bar e sticky-nav. Le sezioni hanno invece un contenitore da 1180px,
+     a cui si allinea il footer. Sotto quelle soglie resta il padding di prima. */
+  :root{
+    --gronda-hero:    max(64px, calc((100% - 1368px) / 2 + 64px));
+    --gronda-sezioni: max(64px, calc((100% - 1180px) / 2));
+  }
 
   /* footer — stesso linguaggio mesh del resto del sito, in tonalità scure */
   .site-footer{
@@ -569,6 +580,8 @@
 
   @media (max-width: 900px){
     header{padding:20px 24px !important}
+    /* la back-bar segue l'header e le sezioni sulla gronda stretta di mobile */
+    .back-bar{padding-left:24px;padding-right:24px}
     .nav-toggle{display:flex}
     .nav-links{
       display:flex !important;
@@ -747,11 +760,10 @@
 
 <div class="back-bar"><a href="../progetti.html">← Torna ai progetti di Andrea Zanasi</a></div>
 
-<div style="max-width:1440px;margin:0 auto">
   <main id="main">
   <section id="hero" class="widget-panel" style="position:relative;overflow:hidden;padding:0 0 200px;background-color:#25379B;background-image:linear-gradient(100deg,#1F309E 0%,#2136AC 45%,#233CBE 100%)">
     <div class="widget-dot-grid" aria-hidden="true"></div>
-    <header class="site-header" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:28px 64px">
+    <header class="site-header" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:28px var(--gronda-hero)">
       <div style="display:flex;align-items:center;gap:12px">
         <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:44px;height:44px;border-radius:13px;display:block;box-shadow:0 6px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)">
         <span class="logo-text" style="font-weight:800;font-size:20px;color:#fff">Gestore Costi Veicoli</span>
@@ -1562,7 +1574,7 @@
   </section>
   </main>
 
-  <footer class="site-footer" style="padding:72px 64px 32px;color:#B3AECB;position:relative;overflow:hidden">
+  <footer class="site-footer" style="padding:72px var(--gronda-sezioni) 32px;color:#B3AECB;position:relative;overflow:hidden">
     <div class="site-footer-grid" style="position:relative;z-index:1;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px">
       <div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
@@ -1606,7 +1618,6 @@
       © 2026 Gestore Costi Veicoli — un progetto di <a href="../chi-sono.html" style="color:#fff">Andrea Zanasi</a>
     </div>
   </footer>
-</div>
 
 <div class="sticky-cta">
   <a href="#download">Scarica l'app →</a>
