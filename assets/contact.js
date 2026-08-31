@@ -68,15 +68,24 @@
         messaggio: (messaggio.value || '').trim()
       })
     }).then(function (res) {
-      if (!res.ok) throw new Error('request failed: ' + res.status);
+      if (!res.ok) {
+        // il DB rifiuta due invii ravvicinati dalla stessa email
+        // (trigger di throttling, supabase/contatti-hardening.sql)
+        return res.text().then(function (corpo) {
+          var e = new Error('richiesta rifiutata: ' + res.status);
+          if (/ravvicinati/.test(corpo)) e.name = 'TroppiInvii';
+          throw e;
+        });
+      }
       form.style.display = 'none';
       showMessage('✓ Messaggio inviato! Ti rispondo appena posso.', false);
     }).catch(function (err) {
       setDisabled(false);
       button.textContent = buttonDefaultText;
-      showMessage(err && err.name === 'TimeoutError'
-        ? 'La rete non risponde. Controlla la connessione e riprova.'
-        : 'Qualcosa è andato storto, riprova tra poco.', true);
+      var testo = 'Qualcosa è andato storto, riprova tra poco.';
+      if (err && err.name === 'TimeoutError') testo = 'La rete non risponde. Controlla la connessione e riprova.';
+      if (err && err.name === 'TroppiInvii') testo = 'Hai già inviato un messaggio poco fa: aspetta un paio di minuti.';
+      showMessage(testo, true);
     });
   });
 })();

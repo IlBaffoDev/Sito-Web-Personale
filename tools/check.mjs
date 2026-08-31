@@ -57,7 +57,14 @@ for (const p of pagine) {
     const percorso = u.split(/[?#]/)[0];
     if (!percorso) continue;
     const f = percorso.startsWith('/') ? join(RADICE, percorso) : resolve(base, percorso);
-    if (!existsSync(f)) nota(`${p}: link a un file inesistente -> ${u}`);
+    if (!existsSync(f)) { nota(`${p}: link a un file inesistente -> ${u}`); continue; }
+    // ancora verso un'altra pagina: l'id deve esistere in quella pagina
+    const frammento = u.includes('#') ? u.slice(u.indexOf('#') + 1) : '';
+    if (frammento && f.endsWith('.html')) {
+      const altra = readFileSync(f, 'utf8');
+      const idsAltra = new Set([...altra.matchAll(/\sid="([^"]+)"/g)].map((x) => x[1]));
+      if (!idsAltra.has(frammento)) nota(`${p}: ${u} punta a un id che non esiste in ${percorso}`);
+    }
   }
   // ancore interne: ogni #id deve esistere nella stessa pagina
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
