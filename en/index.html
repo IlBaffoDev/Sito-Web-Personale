@@ -43,6 +43,11 @@
   }
 }
 </script>
+<noscript><style>
+  /* .reveal e [data-stagger] > * partono a opacity:0 e le rende visibili
+     motion.js: senza JS il contenuto della pagina resterebbe invisibile */
+  .reveal, [data-stagger] > *{opacity:1 !important;transform:none !important}
+</style></noscript>
 </head>
 <body>
 

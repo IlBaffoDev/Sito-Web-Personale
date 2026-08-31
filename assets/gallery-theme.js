@@ -6,35 +6,41 @@
   var label = btn.querySelector('[data-label]');
   var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // se la pagina parte in dark mode, il carosello parte con gli screenshot scuri
-  if (document.documentElement.classList.contains('dark')) {
-    btn.setAttribute('aria-pressed', 'true');
-    if (label) label.textContent = 'Guarda in tema chiaro';
+  function swap(toDark) {
     imgs.forEach(function (img) {
-      img.src = img.getAttribute('data-src-dark');
+      img.src = img.getAttribute(toDark ? 'data-src-dark' : 'data-src-light');
     });
   }
 
-  btn.addEventListener('click', function () {
-    var toDark = btn.getAttribute('aria-pressed') !== 'true';
+  // stato del bottone e degli screenshot, sempre insieme: erano queste due cose
+  // a divergere quando il tema cambiava da fuori
+  function applica(toDark, animato) {
     btn.setAttribute('aria-pressed', toDark ? 'true' : 'false');
     if (label) label.textContent = toDark ? 'Guarda in tema chiaro' : 'Guarda in tema scuro';
 
-    function swap() {
-      imgs.forEach(function (img) {
-        img.src = toDark ? img.getAttribute('data-src-dark') : img.getAttribute('data-src-light');
-      });
-    }
-
-    if (reduceMotion) {
-      swap();
+    if (!animato || reduceMotion) {
+      swap(toDark);
       return;
     }
-
     imgs.forEach(function (img) { img.style.opacity = '0'; });
     setTimeout(function () {
-      swap();
+      swap(toDark);
       imgs.forEach(function (img) { img.style.opacity = '1'; });
     }, 220);
+  }
+
+  // se la pagina parte in dark mode, il carosello parte con gli screenshot scuri
+  if (document.documentElement.classList.contains('dark')) applica(true, false);
+
+  btn.addEventListener('click', function () {
+    applica(btn.getAttribute('aria-pressed') !== 'true', true);
+  });
+
+  // il toggle globale in navbar cambia .dark in qualsiasi momento: senza questo
+  // la gallery restava con gli screenshot del tema di partenza e con l'etichetta
+  // del bottone che diceva il contrario di quello che avrebbe fatto
+  document.addEventListener('temacambiato', function (e) {
+    var toDark = !!(e.detail && e.detail.dark);
+    if ((btn.getAttribute('aria-pressed') === 'true') !== toDark) applica(toDark, true);
   });
 })();

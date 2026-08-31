@@ -361,7 +361,10 @@
   }
   .contact-form select{
     -webkit-appearance:none;-moz-appearance:none;appearance:none;
-    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    /* la freccia sta in un file e non in un data: URI perche' la CSP dichiara
+       img-src 'self', che non copre lo schema data: (il chevron veniva bloccato
+       e il select, con appearance:none, restava senza alcun indicatore) */
+    background-image:url('../assets/chevron-select.svg');
     background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;
   }
   .contact-form select option{color:#1B1830}
@@ -731,6 +734,11 @@
   html.dark .theme-toggle .icon-sun{ display:block; }
   html.dark .theme-toggle .icon-moon{ display:none; }
 </style>
+<noscript><style>
+  /* .reveal e [data-stagger] > * partono a opacity:0 e le rende visibili
+     motion.js: senza JS il contenuto della pagina resterebbe invisibile */
+  .reveal, [data-stagger] > *{opacity:1 !important;transform:none !important}
+</style></noscript>
 </head>
 <body>
 
@@ -1536,7 +1544,7 @@
           <h2 style="margin:0 0 16px;font-size:46px;font-weight:800;letter-spacing:-1.4px;line-height:1.08;color:#fff">Hai domande, un bug o solo curiosità sull'app?</h2>
           <p style="margin:0;font-size:17.5px;line-height:1.65;color:rgba(255,255,255,.82)">Scrivimi direttamente: rispondo io in prima persona, di solito entro un giorno o due.</p>
         </div>
-        <div style="flex:1 1 360px;display:flex;justify-content:center">
+        <div style="flex:1 1 360px;display:flex;flex-direction:column;align-items:center;justify-content:center">
         <form id="contact-form" class="contact-form" style="width:100%;max-width:440px;border-radius:26px;padding:34px;display:flex;flex-direction:column;gap:16px">
           <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
             <label for="contact-hp">Lascia questo campo vuoto</label>
@@ -1566,8 +1574,8 @@
           </label>
           <button type="submit" class="cta-shine" style="background:#fff;color:#4B3FE3;font-weight:800;font-size:15px;padding:14px;border-radius:12px;border:none;cursor:pointer;margin-top:2px">Invia messaggio</button>
           <p style="margin:0;text-align:center;font-size:12px;color:rgba(255,255,255,.5)">Niente spam, uso i tuoi dati solo per risponderti.</p>
-          <p id="contact-status" role="status" aria-live="polite" tabindex="-1" style="margin:0;text-align:center;color:#fff"></p>
         </form>
+        <p id="contact-status" role="status" aria-live="polite" tabindex="-1" style="margin:14px 0 0;text-align:center;max-width:440px"></p>
         </div>
       </div>
     </div>

@@ -26,5 +26,8 @@
     document.querySelectorAll('.theme-toggle').forEach(function (b) {
       b.setAttribute('aria-pressed', toDark ? 'true' : 'false');
     });
+    // chi mostra asset diversi per tema (la gallery della landing) deve poter
+    // risincronizzarsi: senza questo evento restava fermo allo stato del load
+    document.dispatchEvent(new CustomEvent('temacambiato', { detail: { dark: toDark } }));
   });
 })();

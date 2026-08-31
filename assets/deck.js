@@ -172,7 +172,7 @@
 
       if (!thrown || reduceMotion) {
         d.card.style.transform = '';
-        if (thrown) nudge(1);
+        if (thrown) nudge(d.dx < 0 ? 1 : -1);
         return;
       }
 
@@ -181,7 +181,7 @@
       d.card.classList.add('is-leaving');
       d.card.style.transform = 'translateX(' + sign * 130 + '%) rotate(' + sign * 14 + 'deg)';
       d.card.style.opacity = '0';
-      setSelected(selected + 1);
+      setSelected(selected - sign);
       afterTransition(d.card, function () {
         d.card.classList.remove('is-leaving');
         d.card.style.transition = 'none';
