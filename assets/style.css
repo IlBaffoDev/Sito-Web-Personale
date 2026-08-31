@@ -26,7 +26,7 @@ body{
 }
 a{color:#4FE3C1}
 a:hover{color:#7FEFD4}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 
 /* accessibility */
 .skip-link{
@@ -217,4 +217,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible{
 ::view-transition-old(root), ::view-transition-new(root){ animation-duration: .25s }
 @media (prefers-reduced-motion: reduce){
   ::view-transition-old(root), ::view-transition-new(root){ animation: none }
+}
+
+/* testo per soli screen reader — usata anche dalla live region di copy-email.js,
+   che gira su tutte le pagine: senza questa regola il testo sarebbe visibile */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }

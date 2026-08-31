@@ -83,6 +83,9 @@
 }
 </script>
 <style>
+  /* width/height sugli <img> sono hint di presentazione: senza height:auto
+     diventano l'altezza usata e stirano le immagini con solo width in CSS */
+  img{max-width:100%;height:auto}
   html{overflow-x:hidden;overscroll-behavior:none}
   body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:#1B1830;background:#fff;overflow-x:hidden}
   a{color:#4B3FE3;text-decoration:none}
@@ -356,7 +359,7 @@
   }
   .contact-form input, .contact-form select, .contact-form textarea{
     border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:12px 14px;font-size:15px;
-    font-family:inherit;color:#fff;background:rgba(255,255,255,.1);width:100%;box-sizing:border-box;
+    font-family:inherit;color:#fff;background:rgba(17,12,60,.22);width:100%;box-sizing:border-box;
     transition:border-color .2s ease, background .2s ease;
   }
   .contact-form select{
@@ -368,7 +371,7 @@
     background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;
   }
   .contact-form select option{color:#1B1830}
-  .contact-form input::placeholder, .contact-form textarea::placeholder{color:rgba(255,255,255,.55)}
+  .contact-form input::placeholder, .contact-form textarea::placeholder{color:rgba(255,255,255,.7)}
   .contact-form input:hover, .contact-form select:hover, .contact-form textarea:hover{border-color:rgba(255,255,255,.5)}
   .contact-form input:focus-visible, .contact-form select:focus-visible, .contact-form textarea:focus-visible{
     outline:2px solid #fff;outline-offset:1px;border-color:#fff;background:rgba(255,255,255,.16);
@@ -744,9 +747,11 @@
 
 <div class="scroll-progress-bar"></div>
 
+<a href="#main" class="skip-link">Vai al contenuto</a>
+
 <nav class="sticky-nav" aria-label="Navigazione rapida">
   <a href="#hero" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;color:#fff">
-    <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:28px;height:28px;border-radius:8px;display:block">
+    <img width="132" height="132" src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:28px;height:28px;border-radius:8px;display:block">
     Gestore Costi Veicoli
   </a>
   <div class="sticky-nav-links">
@@ -764,8 +769,6 @@
   </div>
 </nav>
 
-<a href="#main" class="skip-link">Vai al contenuto</a>
-
 <div class="back-bar"><a href="../progetti.html">← Torna ai progetti di Andrea Zanasi</a></div>
 
   <main id="main">
@@ -773,7 +776,7 @@
     <div class="widget-dot-grid" aria-hidden="true"></div>
     <header class="site-header" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:28px var(--gronda-hero)">
       <div style="display:flex;align-items:center;gap:12px">
-        <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:44px;height:44px;border-radius:13px;display:block;box-shadow:0 6px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)">
+        <img width="132" height="132" src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" style="width:44px;height:44px;border-radius:13px;display:block;box-shadow:0 6px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)">
         <span class="logo-text" style="font-weight:800;font-size:20px;color:#fff">Gestore Costi Veicoli</span>
       </div>
       <nav>
@@ -826,7 +829,7 @@
       <div class="widget-mockups" style="flex:1 1 380px;min-width:0;position:relative;display:flex;align-items:center;justify-content:center;min-height:380px;padding:20px 0 60px">
         <div style="position:relative;z-index:2;width:min(510px,90vw);margin-top:60px">
           <div style="transform:scale(1.25)">
-            <img class="widget-mockup" src="../assets/screenshots/hero-duo-mockup.webp" alt="Gestore Costi Veicoli su due iPhone: dashboard e sincronizzazione" fetchpriority="high" style="width:100%;display:block;filter:drop-shadow(0 40px 70px rgba(0,0,0,.5));--base-rot:0deg;--base-y:0px">
+            <img width="1400" height="1422" class="widget-mockup" src="../assets/screenshots/hero-duo-mockup.webp" alt="Gestore Costi Veicoli su due iPhone: dashboard e sincronizzazione" fetchpriority="high" style="width:100%;display:block;filter:drop-shadow(0 40px 70px rgba(0,0,0,.5));--base-rot:0deg;--base-y:0px">
           </div>
         </div>
       </div>
@@ -1081,11 +1084,11 @@
         <p style="margin:0;font-size:16.5px;line-height:1.7;color:#B3AECB">Dallo sketch su carta al prodotto sull'App Store: il percorso di design di Gestore Costi Veicoli.</p>
       </div>
       <div class="idea-grid widget-mockups">
-        <img class="widget-mockup idea-card idea-card--bp" src="../assets/idea-blueprint.webp" alt="Blueprint dell'icona di Gestore Costi Veicoli" loading="lazy" style="--base-rot:-3deg;--base-y:0px">
-        <img class="widget-mockup idea-card idea-card--dom" src="../assets/idea-domanda.webp" alt="Sai quanto ti costa davvero la tua auto?" loading="lazy" style="--base-rot:2deg;--base-y:14px">
-        <img class="widget-mockup idea-card idea-card--sketch" src="../assets/idea-sketch.webp" alt="Sketch annotato dell'app, dall'idea all'interfaccia" loading="lazy" style="--base-rot:0deg;--base-y:0px">
-        <img class="widget-mockup idea-card idea-card--ri" src="../assets/idea-risposta.webp" alt="Rata, carburante, bollo: un solo numero al mese" loading="lazy" style="--base-rot:2.5deg;--base-y:6px">
-        <img class="widget-mockup idea-card idea-card--rep" src="../assets/idea-report.webp" alt="Report: andamento dei costi mensili" loading="lazy" style="--base-rot:-2deg;--base-y:18px">
+        <img width="760" height="750" class="widget-mockup idea-card idea-card--bp" src="../assets/idea-blueprint.webp" alt="Blueprint dell'icona di Gestore Costi Veicoli" loading="lazy" style="--base-rot:-3deg;--base-y:0px">
+        <img width="760" height="750" class="widget-mockup idea-card idea-card--dom" src="../assets/idea-domanda.webp" alt="Sai quanto ti costa davvero la tua auto?" loading="lazy" style="--base-rot:2deg;--base-y:14px">
+        <img width="1100" height="1503" class="widget-mockup idea-card idea-card--sketch" src="../assets/idea-sketch.webp" alt="Sketch annotato dell'app, dall'idea all'interfaccia" loading="lazy" style="--base-rot:0deg;--base-y:0px">
+        <img width="760" height="750" class="widget-mockup idea-card idea-card--ri" src="../assets/idea-risposta.webp" alt="Rata, carburante, bollo: un solo numero al mese" loading="lazy" style="--base-rot:2.5deg;--base-y:6px">
+        <img width="760" height="750" class="widget-mockup idea-card idea-card--rep" src="../assets/idea-report.webp" alt="Report: andamento dei costi mensili" loading="lazy" style="--base-rot:-2deg;--base-y:18px">
       </div>
     </div>
   </section>
@@ -1110,28 +1113,28 @@
 
         <div class="deck-stack">
           <div class="deck-card" id="gallery-card-1" role="group" aria-roledescription="slide" aria-label="1 di 8">
-            <img class="gallery-card-img" fetchpriority="high" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" alt="Dashboard di Gestore Costi Veicoli">
+            <img width="880" height="1819" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" alt="Dashboard di Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-2" role="group" aria-roledescription="slide" aria-label="2 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" alt="Garage di Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" alt="Garage di Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-3" role="group" aria-roledescription="slide" aria-label="3 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" alt="Carburante in Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" alt="Carburante in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-4" role="group" aria-roledescription="slide" aria-label="4 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" alt="Scadenze in Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" alt="Scadenze in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-5" role="group" aria-roledescription="slide" aria-label="5 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-light="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/deck-dettaglio-veicolo-dark.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-light="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/deck-dettaglio-veicolo-dark.webp" alt="Dettaglio veicolo in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-6" role="group" aria-roledescription="slide" aria-label="6 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-impostazioni.webp" data-src-light="../assets/screenshots/deck-impostazioni.webp" data-src-dark="../assets/screenshots/deck-impostazioni-dark.webp" alt="Impostazioni di Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-impostazioni.webp" data-src-light="../assets/screenshots/deck-impostazioni.webp" data-src-dark="../assets/screenshots/deck-impostazioni-dark.webp" alt="Impostazioni di Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-7" role="group" aria-roledescription="slide" aria-label="7 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-profilo.webp" data-src-light="../assets/screenshots/deck-profilo.webp" data-src-dark="../assets/screenshots/deck-profilo-dark.webp" alt="Profilo in Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-profilo.webp" data-src-light="../assets/screenshots/deck-profilo.webp" data-src-dark="../assets/screenshots/deck-profilo-dark.webp" alt="Profilo in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-8" role="group" aria-roledescription="slide" aria-label="8 di 8">
-            <img class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-pro.webp" data-src-light="../assets/screenshots/deck-pro.webp" data-src-dark="../assets/screenshots/deck-pro-dark.webp" alt="Schermata Pro in Gestore Costi Veicoli">
+            <img width="880" height="1819" class="gallery-card-img" loading="lazy" src="../assets/screenshots/deck-pro.webp" data-src-light="../assets/screenshots/deck-pro.webp" data-src-dark="../assets/screenshots/deck-pro-dark.webp" alt="Schermata Pro in Gestore Costi Veicoli">
           </div>
         </div>
 
@@ -1141,7 +1144,7 @@
        </div>
       </div>
 
-      <div class="gallery-caption">
+      <div class="gallery-caption" aria-live="polite">
         <div class="gallery-caption-panel is-active" id="gallery-caption-1" data-step="1" aria-hidden="false">
           <span style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#4B3FE3;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px">Dashboard</span>
           <h3 style="margin:0 0 14px;font-size:26px;font-weight:800;letter-spacing:-.3px">Tutto il costo dei tuoi veicoli, in un colpo d'occhio</h3>
@@ -1224,7 +1227,7 @@
         </div>
       </div>
 
-      <div class="gallery-dots" aria-label="Vai a una schermata">
+      <div class="gallery-dots" role="group" aria-label="Vai a una schermata">
         <button type="button" class="gallery-dot is-active" data-step="1" aria-label="Vai a 1 di 8" aria-current="true"></button>
         <button type="button" class="gallery-dot" data-step="2" aria-label="Vai a 2 di 8"></button>
         <button type="button" class="gallery-dot" data-step="3" aria-label="Vai a 3 di 8"></button>
@@ -1264,9 +1267,9 @@
           </div>
         </div>
         <div class="widget-mockups wz-collage">
-          <img class="widget-mockup wz-card wz-dark" src="../assets/widget-tutti-dark.webp" alt="Widget Tutti i veicoli in formato grande, tema scuro: totale del mese, trend e dettaglio per categoria" loading="lazy" style="--base-y:0px">
-          <img class="widget-mockup wz-card wz-azioni" src="../assets/widget-azioni-card.webp" alt="Widget Azioni rapide, tema chiaro: nuova spesa e nuova scadenza dalla Home" loading="lazy" style="--base-y:8px;animation-delay:.5s">
-          <img class="widget-mockup wz-card wz-light" src="../assets/widget-tutti-light.webp" alt="Widget Tutti i veicoli in formato medio, tema chiaro, con gli importi per categoria" loading="lazy" style="--base-y:4px;animation-delay:1s">
+          <img width="696" height="698" class="widget-mockup wz-card wz-dark" src="../assets/widget-tutti-dark.webp" alt="Widget Tutti i veicoli in formato grande, tema scuro: totale del mese, trend e dettaglio per categoria" loading="lazy" style="--base-y:0px">
+          <img width="310" height="308" class="widget-mockup wz-card wz-azioni" src="../assets/widget-azioni-card.webp" alt="Widget Azioni rapide, tema chiaro: nuova spesa e nuova scadenza dalla Home" loading="lazy" style="--base-y:8px;animation-delay:.5s">
+          <img width="696" height="303" class="widget-mockup wz-card wz-light" src="../assets/widget-tutti-light.webp" alt="Widget Tutti i veicoli in formato medio, tema chiaro, con gli importi per categoria" loading="lazy" style="--base-y:4px;animation-delay:1s">
           <span class="widget-floating-badge wz-badge-top">
             <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
             Aggiornato in tempo reale
@@ -1369,7 +1372,7 @@
       <div aria-hidden="true" style="position:absolute;top:-140px;left:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.3),transparent 62%);filter:blur(20px);animation:gcvDrift 28s ease-in-out infinite alternate"></div>
       <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
         <div class="widget-mockups watch-visual">
-          <img class="widget-mockup watch-duo" src="../assets/watch-cluster.webp" alt="Due Apple Watch con i badge Sincronizzata con iPhone e Spesa registrata dal polso: la Home con l'app installata e la schermata di aggiunta rapida con veicolo, categoria e importo" loading="lazy" style="--base-y:0px">
+          <img width="1000" height="765" class="widget-mockup watch-duo" src="../assets/watch-cluster.webp" alt="Due Apple Watch con i badge Sincronizzata con iPhone e Spesa registrata dal polso: la Home con l'app installata e la schermata di aggiunta rapida con veicolo, categoria e importo" loading="lazy" style="--base-y:0px">
         </div>
         <div>
           <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>App per Apple Watch</span>
@@ -1573,7 +1576,7 @@
             <textarea id="contact-messaggio" name="messaggio" required rows="4" style="resize:vertical;font-family:inherit"></textarea>
           </label>
           <button type="submit" class="cta-shine" style="background:#fff;color:#4B3FE3;font-weight:800;font-size:15px;padding:14px;border-radius:12px;border:none;cursor:pointer;margin-top:2px">Invia messaggio</button>
-          <p style="margin:0;text-align:center;font-size:12px;color:rgba(255,255,255,.5)">Niente spam, uso i tuoi dati solo per risponderti.</p>
+          <p style="margin:0;text-align:center;font-size:12px;color:rgba(255,255,255,.78)">Niente spam, uso i tuoi dati solo per risponderti.</p>
         </form>
         <p id="contact-status" role="status" aria-live="polite" tabindex="-1" style="margin:14px 0 0;text-align:center;max-width:440px"></p>
         </div>
@@ -1586,7 +1589,7 @@
     <div class="site-footer-grid" style="position:relative;z-index:1;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px">
       <div>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-          <img src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" loading="lazy" style="width:40px;height:40px;border-radius:11px;display:block;box-shadow:0 6px 16px rgba(69,58,216,0.4), 0 0 0 1px rgba(255,255,255,0.06)">
+          <img width="132" height="132" src="../assets/gestore-costi-veicoli-logo.png" alt="" aria-hidden="true" loading="lazy" style="width:40px;height:40px;border-radius:11px;display:block;box-shadow:0 6px 16px rgba(69,58,216,0.4), 0 0 0 1px rgba(255,255,255,0.06)">
           <span style="color:#fff;font-weight:800;font-size:17px">Gestore Costi Veicoli</span>
         </div>
         <p style="margin:0 0 20px;font-size:14px;line-height:1.6;max-width:280px">Ogni euro della tua auto e della tua moto, sotto controllo — senza abbonamenti.</p>

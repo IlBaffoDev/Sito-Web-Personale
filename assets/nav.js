@@ -1,6 +1,15 @@
-document.querySelectorAll('.nav-toggle').forEach(function (toggle) {
+(function () {
+document.querySelectorAll('.nav-toggle').forEach(function (toggle, i) {
   var nav = toggle.closest('nav');
   if (!nav) return;
+
+  // il bottone deve dichiarare quale pannello apre: senza aria-controls uno
+  // screen reader annuncia "espanso" senza dire di che cosa
+  var pannello = nav.querySelector('.nav-links');
+  if (pannello) {
+    if (!pannello.id) pannello.id = 'nav-links-' + i;
+    toggle.setAttribute('aria-controls', pannello.id);
+  }
 
   var close = function () {
     nav.classList.remove('nav-open');
@@ -35,3 +44,4 @@ if (!window.__consoleEasterEgg) {
   );
   console.log('%cAndrea Zanasi — andreazanasi1993@gmail.com — github.com/IlBaffoDev', 'color:#8A93A3;font-size:12px');
 }
+})();

@@ -37,7 +37,7 @@
           '<a href="' + encodeURI(repo.html_url) + '" target="_blank" rel="noopener" style="display:block;background:#12161F;border:1px solid #1E2430;border-radius:12px;padding:20px;color:#EDEFF3;text-decoration:none">' +
           '<span style="display:block;font-family:\'Space Grotesk\',sans-serif;font-weight:600;font-size:16px;margin-bottom:8px;color:#4FE3C1">' + escapeHtml(repo.name) + '</span>' +
           desc +
-          '<span style="display:block;font-family:\'IBM Plex Mono\',monospace;font-size:12px;color:#5C6577">' + meta.join(' · ') + '</span>' +
+          '<span style="display:block;font-family:\'IBM Plex Mono\',monospace;font-size:12px;color:#8A93A3">' + meta.join(' · ') + '</span>' +
           '</a>'
         );
       }).join('');

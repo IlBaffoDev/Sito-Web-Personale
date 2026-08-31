@@ -21,9 +21,12 @@
       if (e.target === content && e.propertyName === 'max-height') finishClose();
     }
 
+    var openTimeout;
+
     summary.addEventListener('click', function (e) {
       e.preventDefault();
       clearTimeout(closeTimeout);
+      clearTimeout(openTimeout);
       content.removeEventListener('transitionend', onTransitionEnd);
 
       if (details.open) {
@@ -41,7 +44,7 @@
         content.style.maxHeight = h + 'px';
         // una volta finita l'apertura, torna a 'none': il contenuto resta sempre
         // interamente visibile anche se cambia altezza dopo (resize, wrap del testo)
-        var openTimeout = setTimeout(function () { content.style.maxHeight = 'none'; }, reduceMotion ? 0 : 350);
+        openTimeout = setTimeout(function () { content.style.maxHeight = 'none'; }, reduceMotion ? 0 : 350);
         content.addEventListener('transitionend', function te(ev) {
           if (ev.target !== content || ev.propertyName !== 'max-height') return;
           clearTimeout(openTimeout);

@@ -49,8 +49,12 @@
     setDisabled(true);
     button.textContent = '...';
 
+    // senza timeout una rete che accetta la connessione ma non risponde mai
+    // (captive portal) lasciava i campi disabilitati e il bottone a '...' a
+    // tempo indefinito, senza modo di riprovare se non ricaricando
     fetch(SUPABASE_URL + '/rest/v1/contatti_sito', {
       method: 'POST',
+      signal: AbortSignal.timeout(15000),
       headers: {
         'Content-Type': 'application/json',
         'apikey': SUPABASE_ANON_KEY,
@@ -67,10 +71,12 @@
       if (!res.ok) throw new Error('request failed: ' + res.status);
       form.style.display = 'none';
       showMessage('✓ Messaggio inviato! Ti rispondo appena posso.', false);
-    }).catch(function () {
+    }).catch(function (err) {
       setDisabled(false);
       button.textContent = buttonDefaultText;
-      showMessage('Qualcosa è andato storto, riprova tra poco.', true);
+      showMessage(err && err.name === 'TimeoutError'
+        ? 'La rete non risponde. Controlla la connessione e riprova.'
+        : 'Qualcosa è andato storto, riprova tra poco.', true);
     });
   });
 })();

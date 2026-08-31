@@ -196,5 +196,16 @@
     stack.addEventListener('pointercancel', endDrag);
 
     setSelected(0);
+
+    // l'altezza della caption viene misurata con i font ancora di fallback e
+    // non veniva piu' ricalcolata: dopo lo swap dei webfont, e a ogni cambio di
+    // larghezza, i pannelli (position:absolute) sbordavano sotto i pallini
+    function rimisura() { updateCaption(); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(rimisura);
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(rimisura, 150);
+    });
   });
 })();

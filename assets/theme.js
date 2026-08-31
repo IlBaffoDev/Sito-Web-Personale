@@ -16,6 +16,24 @@
     });
   });
 
+  // se l'utente non ha mai scelto, la pagina segue il sistema anche mentre e'
+  // aperta (prima il tema era deciso una volta sola al caricamento)
+  if (!saved && window.matchMedia) {
+    var mq = matchMedia('(prefers-color-scheme: dark)');
+    var onSystemChange = function (e) {
+      var scelto = null;
+      try { scelto = localStorage.getItem('gcv-theme'); } catch (e3) {}
+      if (scelto) return;
+      document.documentElement.classList.toggle('dark', e.matches);
+      document.querySelectorAll('.theme-toggle').forEach(function (b) {
+        b.setAttribute('aria-pressed', e.matches ? 'true' : 'false');
+      });
+      document.dispatchEvent(new CustomEvent('temacambiato', { detail: { dark: e.matches } }));
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSystemChange);
+    else if (mq.addListener) mq.addListener(onSystemChange);
+  }
+
   // toggle: i bottoni .theme-toggle arrivano dopo nel DOM — deleghiamo al documento
   document.addEventListener('click', function (e) {
     var btn = e.target && e.target.closest ? e.target.closest('.theme-toggle') : null;

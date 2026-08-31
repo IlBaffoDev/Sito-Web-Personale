@@ -69,7 +69,8 @@
 
   function wireHovers(mod) {
     var lifts = [
-      { sel: '.btn-primary, .btn-outline, .store-btn', y: -3, duration: 0.2 },
+      // .store-btn escluso: il suo transform lo gestisce magnetic.js
+      { sel: '.btn-primary, .btn-outline', y: -3, duration: 0.2 },
       { sel: '.fact-grid > div, .project-grid, .github-grid > a', y: -4, duration: 0.25 },
       { sel: '.feature-grid > div, .pricing-card', y: -6, duration: 0.25 },
       { sel: '#faq details', y: -3, duration: 0.2 }
