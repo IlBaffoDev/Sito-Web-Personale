@@ -66,7 +66,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 23 agosto 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 1 settembre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -136,16 +136,18 @@
     (e Supabase riceve, per creare il tuo account) un identificativo univoco, il tuo indirizzo
     email e, se lo fornisce il provider scelto, il tuo nome.</li>
   <li><strong>Cosa viene inviato</strong>: una volta attiva, la sincronizzazione invia a Supabase
-    gli stessi dati che già tieni nell'app — veicoli, spese, rifornimenti, viaggi, scadenze e le
-    foto che alleghi — così da poterli leggere anche dagli altri tuoi dispositivi collegati allo
-    stesso account.</li>
+    gli stessi dati che già tieni nell'app — veicoli, spese, rifornimenti (comprese le coordinate
+    del punto, se hai scelto di registrarle), viaggi, scadenze, i dati del tuo profilo e le foto:
+    quelle dei veicoli, quelle delle ricevute e i documenti allegati — così da poterli leggere
+    anche dagli altri tuoi dispositivi collegati allo stesso account.</li>
   <li><strong>Chi può vedere questi dati</strong>: solo tu, a meno che tu non attivi anche la
     condivisione descritta nella sezione successiva. Il database su Supabase applica regole di
     sicurezza a livello di riga (Row Level Security) che isolano i dati di ogni utente — nessun
     altro account, incluso lo sviluppatore, può leggerli tramite l'app.</li>
   <li><strong>Disattivazione</strong>: puoi disconnetterti in qualsiasi momento dalla schermata
-    Impostazioni; l'app torna a funzionare solo in locale. La cancellazione dei dati già inviati
-    a Supabase può essere richiesta scrivendo all'indirizzo email in cima a questa pagina.</li>
+    Impostazioni; l'app torna a funzionare solo in locale, e i dati già inviati restano sul
+    server finché non li cancelli. Per cancellarli c'è "Elimina account e tutti i dati", sempre
+    in Impostazioni: vedi la sezione «I tuoi diritti».</li>
 </ul>
 
 <h2>Condivisione della Dash con altre persone (opzionale)</h2>
@@ -188,7 +190,9 @@
   <tr>
     <td>Visualizzazione della mappa rifornimenti</td>
     <td><code>api.maptiler.com</code> (MapTiler) — <code>basemaps.cartocdn.com</code> (CARTO) come riserva se lo stile MapTiler non è disponibile</td>
-    <td>L'area geografica inquadrata sulla mappa (necessario per scaricare le immagini della mappa stessa)</td>
+    <td>L'area geografica inquadrata sulla mappa, l'indirizzo IP del dispositivo e una chiave
+      identificativa dell'app. Poiché la mappa è centrata sui tuoi rifornimenti, questi servizi
+      possono dedurre in quali zone rifornisci</td>
   </tr>
   <tr>
     <td>Segnalazione automatica di crash ed errori imprevisti</td>
@@ -200,10 +204,19 @@
 </table>
 </div>
 <p>
-  Questi servizi sono pubblici, gratuiti e non richiedono un account: nessuna chiave o
-  identificativo personale viene inviato insieme alla richiesta, ma le coordinate stesse sono un
-  dato di localizzazione e transitano quindi verso infrastrutture non gestite da questo sviluppatore.
-  Queste chiamate avvengono solo quando usi attivamente quelle funzionalità specifiche.
+  Nessuno di questi servizi riceve il tuo nome, la tua email o un identificativo del tuo account.
+  Verso MapTiler viaggia però una chiave che identifica l'app (non te), e in tutti i casi le
+  coordinate e l'indirizzo IP sono di per sé dati di localizzazione, che transitano quindi verso
+  infrastrutture non gestite da questo sviluppatore. Queste chiamate avvengono solo quando usi
+  attivamente quelle funzionalità specifiche.
+</p>
+<p>
+  La segnalazione di crash è l'unica sempre attiva, anche senza account. Ciò che viene inviato è
+  limitato a informazioni tecniche: perché l'URL delle richieste di rete non finisca nei rapporti
+  — porterebbe con sé le coordinate di un rifornimento — l'app scarta di proposito quella parte dei
+  dati diagnostici prima di spedirli. Se un giorno hai un account, agli eventi viene associato un
+  codice derivato dal tuo identificativo con una funzione a senso unico, così è possibile capire
+  quante persone colpisce un dato bug senza sapere chi sono.
 </p>
 <p>
   <strong>La ricerca "distributori più vicini" fa eccezione</strong>: la tua posizione GPS non
@@ -222,8 +235,10 @@
 <ul>
   <li>Nessun analytics o tracciamento del comportamento d'uso <strong>dentro l'app</strong> —
     l'unica eccezione è la segnalazione automatica di crash/errori a Sentry (vedi tabella
-    sopra), limitata a informazioni tecniche e mai ai tuoi dati. Per questo sito web, che è
-    una cosa distinta dall'app, vedi la sezione «Questo sito web» più sotto.</li>
+    sopra), limitata a informazioni tecniche e mai ai tuoi dati. Quella è attiva da subito,
+    anche senza account: puoi opporti scrivendo all'indirizzo in cima a questa pagina, vedi
+    «Perché trattiamo questi dati». Per questo sito web, che è una cosa distinta dall'app, vedi
+    la sezione «Questo sito web» più sotto.</li>
   <li>Nessuna pubblicità.</li>
   <li>Nessuna vendita o condivisione dei tuoi dati con terzi per finalità commerciali.</li>
   <li>Nessun account richiesto per usare l'app: la sincronizzazione è sempre una scelta
@@ -249,12 +264,78 @@
   dispositivo — in alternativa, la disinstallazione dell'app ha lo stesso effetto.
 </p>
 <p>
-  Poiché i tuoi dati restano esclusivamente sul tuo dispositivo, hai già pieno controllo diretto
-  su accesso, modifica, esportazione e cancellazione, senza bisogno di richiederlo a nessuno. Se
-  ritieni comunque che i tuoi diritti in materia di protezione dei dati personali non siano
-  stati rispettati, hai diritto di proporre reclamo all'Autorità Garante per la protezione dei
-  dati personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>)
+  Se <strong>non</strong> hai attivato la sincronizzazione, i dati restano esclusivamente sul tuo
+  dispositivo: hai già pieno controllo diretto su accesso, modifica, esportazione e cancellazione,
+  senza dover chiedere nulla a nessuno.
+</p>
+<p>
+  Se <strong>hai</strong> attivato la sincronizzazione, una copia dei dati si trova anche sui
+  server descritti sopra. Anche in quel caso puoi agire da solo: in Impostazioni trovi
+  <strong>"Elimina account e tutti i dati"</strong>, che cancella l'account e tutto ciò che gli
+  appartiene — righe del database e file caricati — senza bisogno di scrivere a nessuno. Se sei
+  il proprietario di una Dash condivisa con altre persone, l'app ti chiede di rimuovere prima i
+  membri: la cancellazione porterebbe via anche i dati che stanno usando.
+</p>
+<p>
+  Resta una sola eccezione, e va detta: il registro tecnico delle verifiche d'acquisto conserva
+  per 90 giorni l'identificativo della transazione, l'esito e la data. Non è collegato al tuo
+  account (per questo l'eliminazione non lo raggiunge) e non contiene altro.
+</p>
+<p>
+  Puoi comunque scrivere all'indirizzo indicato in cima a questa pagina per esercitare i tuoi
+  diritti di accesso, rettifica, cancellazione, limitazione, portabilità e opposizione. Se ritieni
+  che i tuoi diritti in materia di protezione dei dati personali non siano stati rispettati, hai
+  diritto di proporre reclamo all'Autorità Garante per la protezione dei dati personali
+  (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>)
   o all'autorità di controllo del tuo Paese di residenza, se diverso dall'Italia.
+</p>
+
+<h2 id="base-giuridica">Perché trattiamo questi dati</h2>
+<p>
+  Ogni trattamento descritto qui sopra ha una sua ragione giuridica, e sono solo due.
+</p>
+<ul>
+  <li><strong>Esecuzione del servizio che hai richiesto</strong> (art. 6.1.b GDPR) — i dati dei
+    veicoli, le spese, le foto, la sincronizzazione fra i tuoi dispositivi e la condivisione con
+    le persone che inviti tu. Senza questi dati l'app non può fare ciò per cui esiste.</li>
+  <li><strong>Legittimo interesse</strong> (art. 6.1.f GDPR) — la sola segnalazione automatica di
+    crash ed errori, che serve a trovare e correggere difetti che altrimenti resterebbero
+    invisibili. È limitata a informazioni tecniche e non contiene i tuoi dati. Se non vuoi che
+    l'app li invii, <strong>puoi opporti scrivendo all'indirizzo in cima a questa pagina</strong>
+    e la segnalazione verrà disattivata per te.</li>
+</ul>
+<p>
+  Non trattiamo dati per finalità di marketing, profilazione o pubblicità, e non c'è nessun
+  trattamento basato sul consenso — perché non ce n'è nessuno che lo richieda.
+</p>
+
+<h2 id="conservazione">Per quanto tempo</h2>
+<ul>
+  <li><strong>Sul tuo dispositivo</strong>: finché non li cancelli tu, o finché non disinstalli
+    l'app.</li>
+  <li><strong>Sui server, con la sincronizzazione attiva</strong>: finché l'account esiste. Quando
+    cancelli una voce dall'app, la riga viene marcata come cancellata e sparisce ovunque; la sua
+    traccia tecnica viene rimossa definitivamente dopo <strong>180 giorni</strong>, il tempo che
+    serve perché anche un dispositivo rimasto spento a lungo apprenda la cancellazione.</li>
+  <li><strong>Registro delle verifiche d'acquisto</strong>: 90 giorni.</li>
+  <li><strong>Protezioni antiabuso</strong>: i controlli sulla frequenza delle richieste
+    conservano una versione cifrata a senso unico dell'indirizzo IP per 10 minuti, e i tentativi
+    di accettazione di un invito per un'ora.</li>
+  <li><strong>Messaggi inviati dal modulo di contatto del sito</strong>: conservati finché servono
+    a risponderti, e comunque cancellabili su tua richiesta.</li>
+</ul>
+
+<h2 id="dove-sono-i-dati">Dove si trovano fisicamente i dati</h2>
+<p>
+  I dati sincronizzati sono ospitati su infrastruttura <strong>Supabase nell'Unione Europea</strong>
+  (data center in Irlanda). Anche le segnalazioni di crash restano nell'Unione Europea (Germania).
+</p>
+<p>
+  Alcuni servizi accessori si trovano altrove: il servizio di mappe è svizzero e quello di
+  geocodifica è gestito dalla fondazione OpenStreetMap nel Regno Unito — entrambi Paesi per i quali
+  la Commissione europea ha riconosciuto un livello di protezione adeguato. L'autenticazione e i
+  pagamenti passano da Apple e Google secondo le loro condizioni. Il sito web usa inoltre alcuni
+  servizi statunitensi, descritti più sotto.
 </p>
 
 <h2 id="questo-sito-web">Questo sito web</h2>

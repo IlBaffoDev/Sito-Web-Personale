@@ -65,7 +65,7 @@ for (const [file, cfg] of Object.entries(pagine)) {
     ['beacon', () => partial('beacon')],
   ];
   if (cfg.nav) blocchi.push(['nav', () => riempi(partial('nav'), cfg.nav, file)]);
-  if (cfg.footer) blocchi.push(['footer', () => partial('footer')]);
+  if (cfg.footer) blocchi.push(['footer', () => riempi(partial('footer'), cfg.footer, file)]);
 
   for (const [nome, produci] of blocchi) {
     const r = applica(html, nome, produci(), file);

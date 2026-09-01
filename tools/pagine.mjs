@@ -33,14 +33,22 @@ function navEN(attiva, altHref) {
   };
 }
 
+// I link a privacy e termini nel footer sono relativi: `radice` e' il prefisso che porta
+// alla root del sito da quella pagina. Le pagine in root non ne hanno bisogno, quelle in
+// `en/` risalgono di un livello, e la 404 usa un path assoluto perche' viene servita da
+// QUALUNQUE percorso — un relativo li punterebbe ogni volta altrove.
+const FOOTER_ROOT = { radice: '' };
+const FOOTER_EN = { radice: '../' };
+const FOOTER_404 = { radice: '/' };
+
 export const pagine = {
-  'index.html':        { font: FONT_SITO, nav: navIT('', 'home', 'en/index.html'), footer: true },
-  'chi-sono.html':     { font: FONT_SITO, nav: navIT('', 'chisono', 'en/chi-sono.html'), footer: true },
-  'progetti.html':     { font: FONT_SITO, nav: navIT('', 'progetti', 'en/progetti.html'), footer: true },
-  '404.html':          { font: FONT_SITO, nav: navIT('/', null, '/en/index.html'), footer: true },
-  'en/index.html':     { font: FONT_SITO, nav: navEN('home', '../index.html'), footer: true },
-  'en/chi-sono.html':  { font: FONT_SITO, nav: navEN('chisono', '../chi-sono.html'), footer: true },
-  'en/progetti.html':  { font: FONT_SITO, nav: navEN('progetti', '../progetti.html'), footer: true },
+  'index.html':        { font: FONT_SITO, nav: navIT('', 'home', 'en/index.html'), footer: FOOTER_ROOT },
+  'chi-sono.html':     { font: FONT_SITO, nav: navIT('', 'chisono', 'en/chi-sono.html'), footer: FOOTER_ROOT },
+  'progetti.html':     { font: FONT_SITO, nav: navIT('', 'progetti', 'en/progetti.html'), footer: FOOTER_ROOT },
+  '404.html':          { font: FONT_SITO, nav: navIT('/', null, '/en/index.html'), footer: FOOTER_404 },
+  'en/index.html':     { font: FONT_SITO, nav: navEN('home', '../index.html'), footer: FOOTER_EN },
+  'en/chi-sono.html':  { font: FONT_SITO, nav: navEN('chisono', '../chi-sono.html'), footer: FOOTER_EN },
+  'en/progetti.html':  { font: FONT_SITO, nav: navEN('progetti', '../progetti.html'), footer: FOOTER_EN },
 
   // le pagine del progetto hanno nav e footer propri: condividono solo
   // CSP, font e beacon
