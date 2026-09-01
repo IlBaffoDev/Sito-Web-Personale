@@ -21,7 +21,12 @@
 -- Il modello giusto ce l'ha gia' `categoria`, che ha un check dalla nascita:
 -- qui lo si estende agli altri tre campi.
 --
--- DA ESEGUIRE A MANO nell'SQL editor di Supabase (agisce su produzione).
+-- APPLICATO IN PRODUZIONE il 01/09/2026 (SQL editor di Supabase, progetto
+-- tttxrexiqadkojftwtne, branch main). Verificato subito dopo: 6 vincoli check,
+-- 1 trigger, l'indice, e le prove funzionali dentro una transazione annullata --
+-- nome vuoto, email malformata, messaggio che inizia con '=', messaggio da 4001
+-- caratteri e secondo invio ravvicinato: tutti rifiutati; primo invio accettato.
+-- La tabella era ed e' rimasta a 1 riga, nessun residuo di prova.
 -- Idempotente: si puo' rieseguire.
 --
 -- NOTA: se in tabella ci sono gia' righe che violano i vincoli, gli ALTER
