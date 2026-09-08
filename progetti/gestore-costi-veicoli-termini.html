@@ -40,8 +40,6 @@
   main{max-width:720px;margin:0 auto;padding:48px 24px 96px;line-height:1.7}
   ul{padding-left:1.3rem}
   li{margin-bottom:0.6rem}
-  .draft-notice{background:#FFF4E5;border:1px solid #F0C878;border-left:4px solid #E0A030;border-radius:8px;padding:1rem 1.2rem;margin-bottom:2.5rem;font-size:0.95rem}
-  .draft-notice strong{color:#8A5A00}
 
   .skip-link{
     position:absolute;top:-40px;left:8px;z-index:100;
@@ -63,14 +61,7 @@
 <main id="main">
 
 <h1>Termini di servizio</h1>
-<p class="updated">Gestore Costi Veicoli — bozza del 23 agosto 2026</p>
-
-<div class="draft-notice">
-  <strong>⚠ Bozza in attesa di revisione.</strong> Questo testo è una prima stesura generata
-  per coprire i punti standard richiesti da App Store/Google Play, basata sulle caratteristiche
-  reali dell'app. Non è una consulenza legale: va riletto (idealmente con un legale o un
-  commercialista) prima di considerarlo definitivo e prima della pubblicazione dell'app.
-</div>
+<p class="updated">Gestore Costi Veicoli — in vigore dal 9 settembre 2026</p>
 
 <h2>1. Accettazione dei termini</h2>
 <p>
@@ -86,7 +77,16 @@
   esclusivamente sul tuo dispositivo. L'app offre anche una sincronizzazione opzionale tra i
   tuoi dispositivi (accesso con Apple o Google) e, una volta attiva, la possibilità di
   condividere i tuoi veicoli con altre persone come editor o sola lettura — entrambe da
-  attivare esplicitamente. Per i dettagli su come vengono trattati i dati, in tutti i casi, vedi
+  attivare esplicitamente.
+</p>
+<p>
+  Fanno parte dell'app anche alcune funzioni che elaborano i tuoi dati per proporti qualcosa:
+  la previsione dei prossimi 12 mesi, l'Assistente che risponde a domande in italiano sui tuoi
+  dati, la lettura automatica di scontrini e contachilometri dalla fotocamera, il consiglio su
+  quando conviene fare il pieno, il rilevamento automatico dei tragitti in auto (in fase beta,
+  spento di default) e il libretto digitale del veicolo, condivisibile anche tramite un link
+  temporaneo. Le sezioni 5, 8 e 9 qui sotto ne precisano i limiti. Per i dettagli su come
+  vengono trattati i dati, in tutti i casi, vedi
   l'<a href="gestore-costi-veicoli-privacy.html">informativa sulla privacy</a>.
 </p>
 
@@ -99,7 +99,10 @@
     carburante e scadenze.</li>
   <li><strong>Pro</strong>: sblocco tramite un <strong>acquisto singolo, una tantum, a 4,99 €</strong>
     — non è un abbonamento e non prevede rinnovi automatici. Sblocca veicoli illimitati, export
-    PDF/CSV, stime intelligenti, foto ricevuta, mappa dei distributori/rifornimenti e la
+    PDF e CSV, le stime intelligenti e la previsione dei prossimi 12 mesi, la foto ricevuta con
+    lettura automatica di scontrino e contachilometri, «il pieno al prezzo giusto» e la mappa dei
+    distributori/rifornimenti, i widget e le scorciatoie Siri, la spesa rapida da Apple Watch,
+    l'Assistente, i tragitti automatici con Live Activity, il libretto digitale del veicolo e la
     possibilità di invitare altre persone sulla propria Dash condivisa (chi accetta un invito
     non ha bisogno di Pro).</li>
 </ul>
@@ -120,10 +123,23 @@
 <h2>5. Esattezza dei dati e delle stime</h2>
 <p>
   I calcoli, i totali e le stime mostrati nell'app (costi annui, stime di rivendita, consumi
-  previsti, prezzi carburante) sono basati sui dati che inserisci tu e/o su fonti pubbliche
-  (es. dati aperti del Ministero delle Imprese e del Made in Italy per i prezzi carburante) e
-  hanno <strong>scopo puramente informativo</strong>. Non costituiscono consulenza finanziaria,
-  fiscale o legale, e lo sviluppatore non garantisce l'esattezza assoluta di stime o proiezioni.
+  previsti, previsione dei prossimi 12 mesi, consiglio su quando fare il pieno, livello stimato
+  del serbatoio, costo dei tragitti rilevati, prezzi carburante) sono basati sui dati che
+  inserisci tu e/o su fonti pubbliche (es. dati aperti del Ministero delle Imprese e del Made in
+  Italy per i prezzi carburante) e hanno <strong>scopo puramente informativo</strong>. Non
+  costituiscono consulenza finanziaria, fiscale o legale, e lo sviluppatore non garantisce
+  l'esattezza assoluta di stime o proiezioni.
+</p>
+<p>
+  Lo stesso vale per le funzioni che leggono un dato al posto tuo o che rispondono a una domanda:
+  i valori proposti dalla lettura automatica di uno scontrino o di un contachilometri sono una
+  <strong>proposta da verificare</strong>, non una rilevazione certificata, e le risposte
+  dell'Assistente sono un modo più rapido di leggere i tuoi stessi dati, non un parere. I
+  chilometri e i costi dei tragitti rilevati automaticamente sono una misura approssimata,
+  soggetta alla qualità del segnale e alle scelte di risparmio energetico del telefono, e non
+  sostituiscono il contachilometri del veicolo né hanno valore fiscale, contrattuale o
+  probatorio. Verifica sempre i valori prima di usarli per una dichiarazione, un rimborso o una
+  trattativa.
 </p>
 
 <h2>6. Responsabilità dei dati</h2>
@@ -145,28 +161,48 @@
   Generare un invito richiede Pro; accettarlo no.
 </p>
 
-<h2>8. Limitazione di responsabilità</h2>
+<h2>8. Libretto digitale e link condiviso</h2>
+<p>
+  Il libretto digitale è un documento PDF che generi tu a partire dai dati del tuo veicolo, e sei
+  tu a scegliere che cosa includervi (targa, telaio, dettaglio delle spese, ricevute). Se sei
+  autenticato puoi pubblicarlo come <strong>link temporaneo, valido 7 giorni</strong>: quel link
+  non richiede credenziali, quindi <strong>chiunque ne entri in possesso può aprire il
+  documento</strong>. Sei responsabile della scelta di pubblicarlo, di che cosa contiene e di a
+  chi lo trasmetti; puoi revocarlo in qualsiasi momento dall'app. Il libretto non è un documento
+  ufficiale del veicolo, non sostituisce la carta di circolazione né alcuna certificazione di
+  stato o di manutenzione, e non costituisce garanzia nei confronti di un eventuale acquirente.
+</p>
+
+<h2>9. Uso alla guida</h2>
+<p>
+  L'app non va usata mentre guidi. Il rilevamento automatico dei tragitti è pensato proprio per
+  non richiedere alcuna interazione durante la marcia: funziona da solo e ti propone il tragitto
+  a veicolo fermo. Sei sempre tenuto a rispettare il Codice della Strada e le norme sull'uso dei
+  dispositivi alla guida.
+</p>
+
+<h2>10. Limitazione di responsabilità</h2>
 <p>
   L'app viene fornita "così com'è", senza garanzie di alcun tipo, esplicite o implicite. Nei
   limiti consentiti dalla legge applicabile, lo sviluppatore non è responsabile per danni
   diretti o indiretti derivanti dall'uso o dall'impossibilità di utilizzare l'app.
 </p>
 
-<h2>9. Modifiche ai termini</h2>
+<h2>11. Modifiche ai termini</h2>
 <p>
   Questi termini possono essere aggiornati in futuro, ad esempio in seguito all'aggiunta di
   nuove funzionalità. La data in cima alla pagina indica l'ultimo aggiornamento. L'uso
   continuato dell'app dopo una modifica implica l'accettazione dei nuovi termini.
 </p>
 
-<h2>10. Legge applicabile</h2>
+<h2>12. Legge applicabile</h2>
 <p>
   Questi termini sono regolati dalla legge italiana. Per qualunque controversia non risolvibile
   in via amichevole, sarà competente il foro previsto dalla legge applicabile in base alla tua
   residenza, se diversa da quella dello sviluppatore.
 </p>
 
-<h2>11. Contatti</h2>
+<h2>13. Contatti</h2>
 <p>
   Per domande su questi termini puoi scrivere a
   <a href="mailto:andreazanasi1993@gmail.com">andreazanasi1993@gmail.com</a>.

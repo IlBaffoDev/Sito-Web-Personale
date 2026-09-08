@@ -66,7 +66,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 1 settembre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 9 settembre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -89,6 +89,15 @@
   cloud terzo — mai su un server proprietario dello sviluppatore. Il dettaglio è nella sezione
   dedicata più sotto.
 </p>
+<p>
+  Alcune funzioni recenti fanno un lavoro che di solito ci si aspetta venga fatto su un server, e
+  che qui invece avviene <strong>interamente sul telefono</strong>: leggere i numeri da una foto
+  dello scontrino o del contachilometri, rispondere alle domande dell'Assistente, riconoscere che
+  sei in auto per proporti un tragitto. Le sezioni dedicate qui sotto spiegano che cosa comportano
+  in termini di permessi e di dati. Due funzioni fanno invece uscire qualcosa dal dispositivo, e
+  sono entrambe una tua scelta esplicita: la sincronizzazione e il link temporaneo del libretto
+  digitale.
+</p>
 
 <h2>Dati trattati</h2>
 <ul>
@@ -97,7 +106,17 @@
   <li><strong>Posizione geografica</strong>: se scegli di registrare la posizione di un rifornimento o
     di un viaggio, le coordinate GPS restano salvate insieme a quella voce (storico permanente finché
     non la elimini tu).</li>
-  <li><strong>Foto e allegati</strong> che carichi dalla galleria del dispositivo.</li>
+  <li><strong>Foto e allegati</strong> che carichi dalla galleria del dispositivo, che scatti con
+    la fotocamera (foto di una ricevuta, del contachilometri) o che mandi all'app dal foglio di
+    condivisione del sistema.</li>
+  <li><strong>Dati dei tragitti</strong> (solo se accendi i tragitti automatici, spenti di
+    default): chilometri percorsi, durata, orario di inizio e fine e costo stimato di ogni
+    spostamento riconosciuto. <strong>Il percorso non viene registrato</strong>: nessuna
+    coordinata del tragitto viene salvata né inviata.</li>
+  <li><strong>Storico dei prezzi delle tue stazioni</strong>: per la funzione «il pieno al prezzo
+    giusto» l'app tiene sul dispositivo un prezzo al giorno per i distributori che riconosce come
+    tuoi abituali, presi dall'elenco pubblico del Ministero. È una memoria locale di servizio:
+    non viene mai sincronizzata e non entra nei backup.</li>
   <li><strong>Dati di accesso</strong> (solo se attivi la sincronizzazione): l'identificativo
     dell'account, l'indirizzo email e, se lo fornisci tu tramite Apple/Google, il nome associato
     al provider di accesso scelto.</li>
@@ -173,6 +192,77 @@
     Un membro può anche uscire autonomamente da una Dash condivisa in qualsiasi momento.</li>
 </ul>
 
+<h2 id="tragitti">Tragitti automatici (opzionale, spenti di default)</h2>
+<p class="highlight">
+  Questa funzionalità è <strong>spenta</strong> finché non la accendi tu da Impostazioni →
+  Tragitti automatici: se non la accendi, questa sezione non si applica. È in fase beta.
+</p>
+<ul>
+  <li><strong>Che permessi servono</strong>: la posizione con l'opzione «Sempre» e l'accesso ai
+    sensori di movimento del telefono. Servono perché il riconoscimento della guida deve poter
+    avvenire anche quando l'app non è in primo piano. Prima di qualunque richiesta di sistema,
+    l'app ti mostra una schermata che spiega esattamente cosa misura, cosa non registra e che
+    comporta un consumo di batteria.</li>
+  <li><strong>Cosa viene misurato</strong>: la distanza percorsa, la durata, l'orario di inizio e
+    fine e un costo stimato a partire dal consumo reale del tuo veicolo. A fine spostamento l'app
+    ti propone il tragitto e sei tu a decidere se salvarlo o scartarlo.</li>
+  <li><strong>Cosa NON viene fatto</strong>: <strong>il percorso non viene registrato</strong>.
+    Nessuna coordinata del tragitto viene salvata sul dispositivo né inviata a qualcuno — né allo
+    sviluppatore, né a Supabase, né ad alcun servizio terzo. Non c'è nessuna mappa dei tuoi
+    spostamenti, da nessuna parte, perché il dato non esiste.</li>
+  <li><strong>Live Activity</strong>: puoi mostrare il viaggio in corso sulla schermata di blocco
+    del telefono. È un'opzione separata e disattivabile; i dati restano quelli sopra.</li>
+  <li><strong>Come si spegne</strong>: dallo stesso interruttore in Impostazioni, in qualsiasi
+    momento. I tragitti già salvati restano finché non li elimini tu (si tengono premuti nella
+    lista per cancellarli), e se hai la sincronizzazione attiva seguono le regole della sezione
+    dedicata.</li>
+</ul>
+
+<h2 id="libretto">Libretto digitale e link temporaneo</h2>
+<p class="highlight">
+  Il libretto digitale è un PDF del veicolo che generi tu. Condividerlo tramite un
+  <strong>link</strong> è un passaggio ulteriore, che compare solo se hai fatto l'accesso: se ti
+  limiti a generare il PDF e a mandarlo dal foglio di condivisione del telefono, niente di tutto
+  questo si applica.
+</p>
+<ul>
+  <li><strong>Cosa contiene</strong>: la storia del veicolo — dati, chilometri, manutenzione,
+    spese e valore stimato. <strong>Scegli tu cosa includere</strong>: targa e telaio si possono
+    escludere, così come il dettaglio delle spese e le ricevute allegate.</li>
+  <li><strong>Cosa succede quando pubblichi il link</strong>: il PDF viene caricato su Supabase
+    Storage, nello spazio del tuo account, e l'app crea un indirizzo temporaneo che scade da solo
+    dopo <strong>7 giorni</strong>. Lo stesso indirizzo compare come QR code dentro al PDF.</li>
+  <li><strong>Chi può vederlo</strong>: <strong>chiunque abbia il link</strong>. Non chiede
+    credenziali — serve proprio a poterlo girare a chi compra il veicolo o all'officina senza
+    obbligarli a registrarsi. Sei tu a decidere a chi mandarlo, e il contenuto è quello che hai
+    scelto di includere.</li>
+  <li><strong>Revoca</strong>: dall'app puoi revocarlo in qualsiasi momento, anche prima dei 7
+    giorni. Il file viene rimosso e il link smette immediatamente di funzionare.</li>
+</ul>
+
+<h2 id="sul-dispositivo">Cosa viene elaborato sul dispositivo e non esce mai</h2>
+<p>
+  Tre funzioni sembrano richiedere un server, e non lo richiedono. È utile dirlo esplicitamente,
+  perché è il tipo di cosa su cui è ragionevole avere un dubbio:
+</p>
+<ul>
+  <li><strong>Lettura di scontrini e contachilometri dalla foto</strong>: il riconoscimento del
+    testo avviene sul telefono, con una libreria che funziona offline (ML Kit di Google, integrata
+    nell'app: non è un servizio a cui l'app si collega, e non riceve nulla). Nessuna immagine
+    viene inviata da nessuna parte. La foto del contachilometri viene <strong>cancellata subito
+    dopo la lettura</strong>; quella dello scontrino resta come allegato solo se scegli di
+    tenerla, e segue le regole delle altre foto.</li>
+  <li><strong>Assistente</strong>: le risposte sono calcolate dall'app a partire dai tuoi dati,
+    con regole scritte — per questo i numeri e le date sono sempre quelli veri. Dove il telefono
+    lo consente (iPhone con Apple Intelligence), il modello di Apple riformula la risposta in
+    italiano più naturale, e anche in quel caso <strong>gira dentro al dispositivo</strong>: la
+    domanda e la risposta non vengono inviate né ad Apple né a nessun altro. Non esiste alcun
+    servizio esterno a cui le tue domande vengano spedite.</li>
+  <li><strong>Distributori più vicini e consiglio sul pieno</strong>: l'app scarica l'elenco
+    pubblico dei distributori e dei prezzi (uguale per tutti) e fa i confronti in locale. La tua
+    posizione non viene trasmessa a nessuno per questa funzione, come già descritto più sotto.</li>
+</ul>
+
 <h2>Dati inviati a servizi di terze parti</h2>
 <p class="highlight">
   Anche se l'app è "locale", alcune funzionalità opzionali che usano la posizione inviano le
@@ -239,6 +329,11 @@
     anche senza account: puoi opporti scrivendo all'indirizzo in cima a questa pagina, vedi
     «Perché trattiamo questi dati». Per questo sito web, che è una cosa distinta dall'app, vedi
     la sezione «Questo sito web» più sotto.</li>
+  <li><strong>Nessuna registrazione dei tuoi percorsi</strong>: nemmeno con i tragitti automatici
+    accesi. L'app misura quanto hai percorso, non per dove sei passato.</li>
+  <li><strong>Nessun invio delle tue domande o delle tue foto a un servizio di intelligenza
+    artificiale</strong>: l'Assistente e la lettura di scontrini e contachilometri lavorano sul
+    dispositivo.</li>
   <li>Nessuna pubblicità.</li>
   <li>Nessuna vendita o condivisione dei tuoi dati con terzi per finalità commerciali.</li>
   <li>Nessun account richiesto per usare l'app: la sincronizzazione è sempre una scelta
@@ -260,7 +355,7 @@
 <p>
   Puoi in qualsiasi momento esportare i tuoi dati (backup, opzionalmente protetto da password)
   dalla schermata Impostazioni. Nella stessa schermata trovi anche un pulsante "Cancella tutti i
-  dati" che cancella definitivamente veicoli, spese, scadenze, viaggi, foto e allegati dal
+  dati" che cancella definitivamente veicoli, spese, scadenze, viaggi, tragitti, foto e allegati dal
   dispositivo — in alternativa, la disinstallazione dell'app ha lo stesso effetto.
 </p>
 <p>

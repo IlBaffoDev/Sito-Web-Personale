@@ -56,7 +56,17 @@
     {
       "@type": "Question",
       "name": "L'app funziona anche offline?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Sì: l'app funziona completamente offline. Tutti i dati restano solo sul tuo dispositivo, non c'è nessun server con cui sincronizzarsi — anche le poche funzioni che usano internet (mappe, prezzi carburante) sono opzionali." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Sì. I dati restano sul tuo dispositivo, in un database cifrato, e non serve un account. Usano internet solo funzioni opzionali: mappe, prezzi carburante, la sincronizzazione se la attivi tu e il link del libretto digitale. Assistente, lettura di scontrino e contachilometri e tragitti automatici sono calcolati sul telefono e funzionano anche offline." }
+    },
+    {
+      "@type": "Question",
+      "name": "L'Assistente manda i miei dati a un'intelligenza artificiale?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Le risposte le calcola l'app dai tuoi dati con regole scritte, quindi i numeri sono sempre quelli veri. Dove il telefono lo consente, il modello di Apple riscrive la risposta in italiano più naturale, ma gira dentro al dispositivo: nessuna domanda e nessun dato vengono inviati altrove." }
+    },
+    {
+      "@type": "Question",
+      "name": "I tragitti automatici registrano i miei percorsi?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. L'app misura chilometri, durata e orari di ogni spostamento in auto e ne stima il costo, ma non salva né invia il percorso. La funzione è in beta ed è spenta finché non la accendi da Impostazioni." }
     },
     {
       "@type": "Question",
@@ -246,9 +256,9 @@
   }
 
   /* bagliore che segue il cursore sulle card — ../assets/card-glow.js scrive --mx/--my */
-  .feature-grid > div, .pricing-card{ position:relative; }
-  .feature-grid > div, .pricing-card:not(.pricing-card--pro){ overflow:hidden; }
-  .feature-grid > div::after, .pricing-card::after{
+  .feature-grid > div, .novita-grid > div, .pricing-card{ position:relative; }
+  .feature-grid > div, .novita-grid > div, .pricing-card:not(.pricing-card--pro){ overflow:hidden; }
+  .feature-grid > div::after, .novita-grid > div::after, .pricing-card::after{
     content:""; position:absolute; inset:0; pointer-events:none; opacity:0; border-radius:inherit;
     background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(75,63,227,.14), transparent 70%);
     transition:opacity .3s ease;
@@ -256,9 +266,9 @@
   .pricing-card--pro::after{
     background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.16), transparent 70%);
   }
-  .feature-grid > div:hover::after, .pricing-card:hover::after{ opacity:1; }
+  .feature-grid > div:hover::after, .novita-grid > div:hover::after, .pricing-card:hover::after{ opacity:1; }
   @media (prefers-reduced-motion:reduce){
-    .feature-grid > div::after, .pricing-card::after{ transition:none; opacity:0 !important; }
+    .feature-grid > div::after, .novita-grid > div::after, .pricing-card::after{ transition:none; opacity:0 !important; }
   }
 
   /* bordo aurora animato sulla card Pro: due layer di background, il primo (il viola
@@ -321,6 +331,15 @@
   @keyframes gcvGrow{ from{ transform:scaleY(.15); } to{ transform:scaleY(1); } }
   @media (prefers-reduced-motion:reduce){
     .anim-float,.anim-drift,.anim-spin,.anim-grow{ animation:none !important; }
+  }
+
+  /* griglia delle novita': tre colonne pari, niente bento */
+  .novita-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1180px;margin:0 auto}
+  @media (max-width:1000px){ .novita-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:640px){ .novita-grid{grid-template-columns:1fr} }
+  .novita-grid > div:hover .feature-icon{ transform:scale(1.08) rotate(-6deg); transition:transform .25s ease; }
+  @media (prefers-reduced-motion:reduce){
+    .novita-grid > div:hover .feature-icon{ transform:none; transition:none; }
   }
 
   /* bento feature grid */
@@ -692,7 +711,7 @@
   html.dark #costi, html.dark #come, html.dark #features, html.dark #gallery,
   html.dark #widget, html.dark #watch, html.dark #idea, html.dark #calcolatore,
   html.dark #pricing, html.dark #fiducia, html.dark #recensioni, html.dark #faq,
-  html.dark #manuale, html.dark #contatti{ background:#0F0C1D !important; }
+  html.dark #manuale, html.dark #contatti, html.dark #novita-app{ background:#0F0C1D !important; }
   html.dark #pilastri{ background:linear-gradient(180deg,rgba(15,12,29,0) 0,#0F0C1D 80px) !important; }
 
   /* testi: mappa dei grigi inline ricorrenti */
@@ -1081,6 +1100,67 @@
     </div>
   </section>
 
+  <section id="novita-app" class="reveal" style="padding:96px 64px;background:#fff">
+    <div style="max-width:1180px;margin:0 auto 52px;text-align:center">
+      <span style="display:inline-block;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#4B3FE3;margin-bottom:14px">Le ultime arrivate</span>
+      <h2 style="margin:0 0 14px;font-size:38px;font-weight:800;letter-spacing:-0.5px;line-height:1.1">Fa un pezzo di lavoro al posto tuo</h2>
+      <p class="t-medio" style="margin:0 auto;max-width:640px;font-size:17px;line-height:1.65;color:#4B4566">Le funzioni arrivate con gli ultimi aggiornamenti hanno tutte lo stesso scopo: meno cose da digitare, e i numeri che contano davanti agli occhi prima che servano. Girano sul telefono, non su un server.</p>
+    </div>
+
+    <div class="novita-grid" data-stagger>
+      <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
+        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#F1EEFF,#E3DDFF);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:0s">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Assistente <span class="sup-lilla t-viola" style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+        <p class="t-medio" style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Chiedi in italiano: «quanto ho speso quest'anno?», «quando scade l'assicurazione?». Le risposte sono calcolate dai tuoi dati, quindi i numeri sono sempre quelli veri. Nessuna domanda esce dal telefono.</p>
+      </div>
+
+      <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
+        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#E6F7F1,#C9EEDF);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:.2s">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2FAE7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">I prossimi 12 mesi <span class="sup-lilla t-viola" style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+        <p class="t-medio" style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Quanto peseranno i mesi che arrivano, uno per uno: rate e scadenze certe separate dalle stime, con il cumulato e quanto conviene accantonare.</p>
+      </div>
+
+      <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
+        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#FFF1E6,#FFE1C7);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:.4s">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F08A3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.2"/><path d="M8 6l1.5-2h5L16 6"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Scontrino e contachilometri fotografati <span class="sup-lilla t-viola" style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+        <p class="t-medio" style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Fotografi lo scontrino e l'app propone importo, litri e data; fotografi il cruscotto e propone i chilometri. Tutto letto sul telefono, niente viene inviato.</p>
+      </div>
+
+      <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
+        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#FDE8EC,#FBD3DC);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:.6s">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0537A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-5 4 10 2-5h7"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Il pieno al prezzo giusto <span class="sup-lilla t-viola" style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+        <p class="t-medio" style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Con la capacità del serbatoio l'app stima quanto ti resta, riconosce le tue stazioni abituali, ne segue i prezzi e ti dice se conviene fare il pieno oggi o aspettare.</p>
+      </div>
+
+      <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
+        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#EAF2FF,#D2E5FF);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:.8s">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B7DDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5-9 4 5 3-3 4 7z"/><circle cx="12" cy="12" r="9.5"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Tragitti automatici <span class="sup-lilla t-viola" style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro · beta</span></h3>
+        <p class="t-medio" style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Il telefono riconosce da solo quando sei in auto e a fine viaggio ti propone chilometri, durata e costo. Il percorso non viene registrato: restano solo i numeri. Spenti finché non li accendi.</p>
+      </div>
+
+      <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
+        <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#F1EEFF,#E3DDFF);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:1s">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14.5 3v5h5"/><path d="M8.5 13h7M8.5 17h4"/></svg>
+        </div>
+        <h3 style="margin:0 0 8px;font-size:18px;font-weight:800">Libretto digitale <span class="sup-lilla t-viola" style="display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:4px">Pro</span></h3>
+        <p class="t-medio" style="margin:0;color:#4B4566;font-size:14.5px;line-height:1.6">Il PDF con la storia del veicolo: km, manutenzione, spese e valore. Decidi tu cosa includere, e puoi condividerlo con un link che scade dopo 7 giorni.</p>
+      </div>
+
+    </div>
+
+    <p class="t-tenue" style="max-width:1180px;margin:26px auto 0;text-align:center;font-size:14px;color:#6B6684;font-weight:600">Tutte le novità sono descritte passo passo nella <a href="gestore-costi-veicoli-supporto.html#guida" style="color:#4B3FE3">guida</a>, e in dettaglio nella <a href="gestore-costi-veicoli-novita.html" style="color:#4B3FE3">pagina delle versioni</a>.</p>
+  </section>
+
   <section id="idea" class="reveal sup-tenue" style="padding:96px 64px;background:#FAFAFE">
     <div class="widget-panel" style="position:relative;overflow:hidden;max-width:1180px;margin:0 auto;border-radius:34px;padding:64px;background:linear-gradient(155deg,#221D3E,#0D0B1A);box-shadow:0 50px 90px -40px rgba(20,10,60,.7)">
       <div class="widget-dot-grid" aria-hidden="true"></div>
@@ -1228,8 +1308,8 @@
           <p class="t-medio" style="margin:0 0 20px;color:#4B4566;font-size:16px;line-height:1.7">Un acquisto unico, per sempre — nessun abbonamento da ricordare.</p>
           <ul class="t-medio" style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px">
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati ed export PDF/CSV</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti e foto ricevuta</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget, Apple Watch e mappe distributori</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime, i prossimi 12 mesi e Assistente</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget, Siri, Apple Watch, tragitti e libretto</span></li>
           </ul>
         </div>
       </div>
@@ -1363,10 +1443,12 @@
         <ul style="margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px;font-size:14.5px;flex:1">
           <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Veicoli illimitati</span></li>
             <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Export PDF e CSV</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Foto ricevuta</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Mappe distributori e rifornimenti</span></li>
-            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget e Apple Watch</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Stime intelligenti e i prossimi 12 mesi</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Foto ricevuta, scontrino e contachilometri letti</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Il pieno al prezzo giusto e mappe</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Widget, Siri e Apple Watch</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Assistente sui tuoi dati</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5"/></svg><span>Tragitti automatici e libretto digitale</span></li>
         </ul>
         <a href="#download" class="cta-shine t-viola" style="display:block;text-align:center;background:#fff;color:#4B3FE3;font-weight:700;padding:13px;border-radius:14px;--shine-color:rgba(75,63,227,.22)">Sblocca Pro</a>
       </div>
@@ -1503,7 +1585,15 @@
     <div data-stagger style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
         <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">L'app funziona anche offline?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
-        <p class="t-medio" style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì: l'app funziona completamente offline. Tutti i dati restano solo sul tuo dispositivo, non c'è nessun server con cui sincronizzarsi — anche le poche funzioni che usano internet (mappe, prezzi carburante) sono opzionali.</p>
+        <p class="t-medio" style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">Sì. I dati restano sul tuo dispositivo, in un database cifrato, e non serve un account. Usano internet solo funzioni opzionali: mappe, prezzi carburante, la sincronizzazione se la attivi tu e il link del libretto digitale. Assistente, lettura di scontrino e contachilometri e tragitti automatici sono calcolati sul telefono e funzionano anche offline.</p>
+      </details>
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">L'Assistente manda i miei dati a un'intelligenza artificiale?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p class="t-medio" style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">No. Le risposte le calcola l'app dai tuoi dati con regole scritte, quindi i numeri sono sempre quelli veri e non può inventarli. Dove il telefono lo consente, il modello di Apple riscrive la risposta in italiano più naturale, ma gira dentro al dispositivo: nessuna domanda e nessun dato vengono inviati altrove.</p>
+      </details>
+      <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
+        <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">I tragitti automatici registrano i miei percorsi?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
+        <p class="t-medio" style="margin:14px 0 0;color:#4B4566;font-size:15px;line-height:1.6">No. L'app misura chilometri, durata e orari di ogni spostamento in auto e ne stima il costo, ma <strong>non salva né invia il percorso</strong>. La funzione è in beta ed è spenta finché non la accendi tu da Impostazioni.</p>
       </details>
       <details style="background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(20,10,60,0.05)">
         <summary style="font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">Posso gestire più veicoli insieme?<span aria-hidden="true" style="color:#B3AECB;font-size:22px;font-weight:400">+</span></summary>
