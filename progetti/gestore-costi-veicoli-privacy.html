@@ -198,20 +198,26 @@
   Tragitti automatici: se non la accendi, questa sezione non si applica.
 </p>
 <ul>
-  <li><strong>Che permessi servono</strong>: la posizione con l'opzione «Sempre» e l'accesso ai
-    sensori di movimento del telefono. Servono perché il riconoscimento della guida deve poter
-    avvenire anche quando l'app non è in primo piano. Prima di qualunque richiesta di sistema,
+  <li><strong>Che permessi servono</strong>: la posizione con l'opzione «Sempre», l'accesso ai
+    sensori di movimento del telefono e le notifiche. I primi due servono perché il riconoscimento
+    della guida deve poter avvenire anche quando l'app non è in primo piano; le notifiche servono a
+    chiederti conferma prima di registrare. Prima di qualunque richiesta di sistema,
     l'app ti mostra una schermata che spiega esattamente cosa misura, cosa non registra e che
     comporta un consumo di batteria.</li>
+  <li><strong>Prima chiede</strong>: quando rileva che sei partito in auto, l'app ti manda una
+    notifica locale «registro il tragitto?» con le risposte Sì e No, gestite sul telefono. Senza
+    il tuo Sì non compare nulla; se non rispondi, il tragitto ti viene proposto in app alla fine.</li>
   <li><strong>Cosa viene misurato</strong>: la distanza percorsa, la durata, l'orario di inizio e
-    fine e un costo stimato a partire dal consumo reale del tuo veicolo. A fine spostamento l'app
-    ti propone il tragitto e sei tu a decidere se salvarlo o scartarlo.</li>
+    fine e un costo stimato a partire dal consumo reale del veicolo che scegli tu al momento di
+    salvare (nessun veicolo è preimpostato). A fine spostamento l'app ti propone il tragitto e sei
+    tu a decidere se salvarlo o scartarlo.</li>
   <li><strong>Cosa NON viene fatto</strong>: <strong>il percorso non viene registrato</strong>.
     Nessuna coordinata del tragitto viene salvata sul dispositivo né inviata a qualcuno — né allo
     sviluppatore, né a Supabase, né ad alcun servizio terzo. Non c'è nessuna mappa dei tuoi
     spostamenti, da nessuna parte, perché il dato non esiste.</li>
-  <li><strong>Live Activity</strong>: puoi mostrare il viaggio in corso sulla schermata di blocco
-    del telefono. È un'opzione separata e disattivabile; i dati restano quelli sopra.</li>
+  <li><strong>Live Activity</strong>: dopo il tuo Sì puoi mostrare il viaggio in corso (solo
+    chilometri e durata) sulla schermata di blocco e nella Dynamic Island, con un tasto «Termina».
+    È un'opzione separata e disattivabile; i dati restano quelli sopra.</li>
   <li><strong>Come si spegne</strong>: dallo stesso interruttore in Impostazioni, in qualsiasi
     momento. I tragitti già salvati restano finché non li elimini tu (si tengono premuti nella
     lista per cancellarli), e se hai la sincronizzazione attiva seguono le regole della sezione
