@@ -110,9 +110,9 @@
     la fotocamera (foto di una ricevuta, del contachilometri) o che mandi all'app dal foglio di
     condivisione del sistema.</li>
   <li><strong>Dati dei tragitti</strong> (solo se accendi i tragitti automatici, spenti di
-    default): chilometri percorsi, durata, orario di inizio e fine e costo stimato di ogni
-    spostamento riconosciuto. <strong>Il percorso non viene registrato</strong>: nessuna
-    coordinata del tragitto viene salvata né inviata.</li>
+    default): chilometri percorsi, durata, orario di inizio e fine, velocità massima e costo
+    stimato di ogni spostamento che decidi di salvare. <strong>Il percorso non viene
+    registrato</strong>: nessuna coordinata del tragitto viene salvata né inviata.</li>
   <li><strong>Storico dei prezzi delle tue stazioni</strong>: per la funzione «il pieno al prezzo
     giusto» l'app tiene sul dispositivo un prezzo al giorno per i distributori che riconosce come
     tuoi abituali, presi dall'elenco pubblico del Ministero. È una memoria locale di servizio:
@@ -156,7 +156,8 @@
     email e, se lo fornisce il provider scelto, il tuo nome.</li>
   <li><strong>Cosa viene inviato</strong>: una volta attiva, la sincronizzazione invia a Supabase
     gli stessi dati che già tieni nell'app — veicoli, spese, rifornimenti (comprese le coordinate
-    del punto, se hai scelto di registrarle), viaggi, scadenze, i dati del tuo profilo (nome,
+    del punto, se hai scelto di registrarle), viaggi, scadenze, i tragitti salvati (chilometri,
+    durata, orari, velocità massima e costo stimato: mai il percorso), i dati del tuo profilo (nome,
     telefono, data di nascita e luogo di residenza, solo quelli che hai compilato) e le foto:
     quelle dei veicoli, quelle delle ricevute e i documenti allegati — così da poterli leggere
     anche dagli altri tuoi dispositivi collegati allo stesso account.</li>
@@ -209,7 +210,7 @@
     notifica locale «registro il tragitto?» con le risposte Sì e No, gestite sul telefono. Senza
     il tuo Sì non compare nulla; se non rispondi, il tragitto ti viene proposto in app alla fine.</li>
   <li><strong>Cosa viene misurato</strong>: la distanza percorsa, la durata, l'orario di inizio e
-    fine e un costo stimato a partire dal consumo reale del veicolo che scegli tu al momento di
+    fine, la velocità massima e un costo stimato a partire dal consumo reale del veicolo che scegli tu al momento di
     salvare (nessun veicolo è preimpostato). A fine spostamento l'app ti propone il tragitto e sei
     tu a decidere se salvarlo o scartarlo.</li>
   <li><strong>Cosa NON viene fatto</strong>: <strong>il percorso non viene registrato</strong>.
@@ -223,6 +224,11 @@
     momento. I tragitti già salvati restano finché non li elimini tu (si tengono premuti nella
     lista per cancellarli), e se hai la sincronizzazione attiva seguono le regole della sezione
     dedicata.</li>
+  <li><strong>Con la sincronizzazione attiva</strong>: i tragitti salvati vanno sul tuo account
+    insieme agli altri dati, così non si perdono se svuoti o cambi telefono. Restano
+    <strong>solo tuoi</strong> anche quando l'auto è condivisa in un gruppo: chi possiede il
+    veicolo non vede i tragitti che ci hai fatto tu, e se esci dal gruppo i tragitti fatti con le
+    sue auto vengono cancellati dal server.</li>
 </ul>
 
 <h2 id="libretto">Libretto digitale e link temporaneo</h2>
