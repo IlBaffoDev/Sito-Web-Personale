@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- build:csp -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'">
 <!-- /build:csp -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Termini di servizio — Gestore Costi Veicoli</title>
@@ -21,9 +21,7 @@
 <meta name="twitter:image" content="https://azanasi.it/assets/og-app.png">
 <link rel="icon" type="image/png" href="../assets/gestore-costi-veicoli-favicon.png">
 <!-- build:font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="../assets/fonts/gcv.css" rel="stylesheet">
 <!-- /build:font -->
 <style>
   /* width/height sugli <img> sono hint di presentazione: senza height:auto
@@ -61,12 +59,18 @@
 <main id="main">
 
 <h1>Termini di servizio</h1>
-<p class="updated">Gestore Costi Veicoli — in vigore dal 9 settembre 2026 · elenco delle funzioni Pro aggiornato il 19 settembre 2026</p>
+<p class="updated">Gestore Costi Veicoli — in vigore dal 9 settembre 2026 · ultimo aggiornamento: 29 settembre 2026</p>
 
 <h2>1. Accettazione dei termini</h2>
 <p>
   Utilizzando l'app Gestore Costi Veicoli ("l'app"), sviluppata da Andrea Zanasi, sviluppatore
   indipendente, accetti i presenti termini di servizio. Se non li accetti, non utilizzare l'app.
+</p>
+<p>
+  L'app è pensata per chi ha compiuto 14 anni; chi è più giovane può usarla con l'assenso di un
+  genitore o di chi ne fa le veci. Se usi l'app come consumatore, nulla in questi termini limita i
+  diritti che la legge ti riconosce e che non possono essere esclusi da un contratto, a partire da
+  quelli del Codice del Consumo.
 </p>
 
 <h2>2. Cosa fa l'app</h2>
@@ -112,6 +116,17 @@
   ripristino di un acquisto già effettuato, fai riferimento alle policy del rispettivo store:
   lo sviluppatore non ha accesso ai tuoi dati di pagamento e non può elaborare rimborsi
   direttamente.
+</p>
+<p>
+  Il Pro sblocca le funzioni elencate sopra sul tuo account dello store, senza scadenza, per tutto
+  il tempo in cui l'app resta distribuita, e si ripristina gratuitamente sui tuoi dispositivi dal
+  pulsante «Ripristina acquisti». Sul Pro vale la <strong>garanzia legale di conformità</strong>
+  dei contenuti digitali prevista dal Codice del Consumo: le funzioni acquistate devono funzionare
+  come descritto, e ricevi gli aggiornamenti necessari a mantenerle tali. Se qualcosa non
+  funziona, scrivi all'indirizzo in fondo a questa pagina. Le funzioni già acquistate non vengono
+  tolte né rese a pagamento una seconda volta; se un giorno l'app dovesse smettere di essere
+  distribuita, lo sviluppatore lo annuncerà con almeno 60 giorni di anticipo e lascerà il tempo
+  di esportare i tuoi dati.
 </p>
 
 <h2>4. Uso consentito</h2>
@@ -184,23 +199,29 @@
 
 <h2>10. Limitazione di responsabilità</h2>
 <p>
-  L'app viene fornita "così com'è", senza garanzie di alcun tipo, esplicite o implicite. Nei
-  limiti consentiti dalla legge applicabile, lo sviluppatore non è responsabile per danni
-  diretti o indiretti derivanti dall'uso o dall'impossibilità di utilizzare l'app.
+  Fermo quanto previsto dalla sezione 3 sulla garanzia legale di conformità, lo sviluppatore non
+  risponde dei danni che derivano da un uso delle stime e dei calcoli dell'app diverso da quello
+  informativo descritto nella sezione 5, da dati inseriti in modo errato, da interruzioni dei
+  servizi di terzi (store, accesso con Apple o Google, infrastruttura cloud) o da cause che non
+  dipendono da lui. Questa limitazione non si applica ai casi di dolo o colpa grave, ai danni alla
+  persona e a ogni altro caso in cui la legge non consente di limitare la responsabilità.
 </p>
 
 <h2>11. Modifiche ai termini</h2>
 <p>
-  Questi termini possono essere aggiornati in futuro, ad esempio in seguito all'aggiunta di
-  nuove funzionalità. La data in cima alla pagina indica l'ultimo aggiornamento. L'uso
-  continuato dell'app dopo una modifica implica l'accettazione dei nuovi termini.
+  Questi termini possono essere aggiornati per un motivo concreto: nuove funzionalità, cambi nei
+  servizi da cui l'app dipende o nella normativa. La data in cima alla pagina indica l'ultimo
+  aggiornamento, e le modifiche rilevanti vengono segnalate anche nell'app o nella pagina delle
+  novità prima di entrare in vigore. Una modifica non può togliere funzioni Pro già acquistate.
+  Se non la accetti puoi smettere di usare l'app ed eliminare i tuoi dati in ogni momento, come
+  descritto nell'informativa sulla privacy.
 </p>
 
 <h2>12. Legge applicabile</h2>
 <p>
-  Questi termini sono regolati dalla legge italiana. Per qualunque controversia non risolvibile
-  in via amichevole, sarà competente il foro previsto dalla legge applicabile in base alla tua
-  residenza, se diversa da quella dello sviluppatore.
+  Questi termini sono regolati dalla legge italiana. Se sei un consumatore, restano salve le norme
+  inderogabili del Paese dell'Unione europea in cui risiedi, e per qualunque controversia non
+  risolvibile in via amichevole è competente il foro del luogo in cui risiedi o hai il domicilio.
 </p>
 
 <h2>13. Contatti</h2>

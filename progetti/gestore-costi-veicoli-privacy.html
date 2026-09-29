@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- build:csp -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://api.github.com https://tttxrexiqadkojftwtne.supabase.co https://cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; base-uri 'self'">
 <!-- /build:csp -->
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Informativa sulla privacy — Gestore Costi Veicoli</title>
@@ -21,9 +21,7 @@
 <meta name="twitter:image" content="https://azanasi.it/assets/og-app.png">
 <link rel="icon" type="image/png" href="../assets/gestore-costi-veicoli-favicon.png">
 <!-- build:font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="../assets/fonts/gcv.css" rel="stylesheet">
 <!-- /build:font -->
 <style>
   /* width/height sugli <img> sono hint di presentazione: senza height:auto
@@ -66,7 +64,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 24 settembre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 29 settembre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -86,8 +84,9 @@
   L'app offre anche una sincronizzazione <strong>opzionale</strong> tra i tuoi dispositivi,
   che va attivata esplicitamente accedendo con Apple o Google: solo se scegli di
   attivarla, i tuoi dati vengono salvati anche su Supabase, un fornitore di infrastruttura
-  cloud terzo — mai su un server proprietario dello sviluppatore. Il dettaglio è nella sezione
-  dedicata più sotto.
+  cloud terzo, non su un server dello sviluppatore. Lo sviluppatore ne tiene soltanto una
+  copia di sicurezza, per poterli recuperare in caso di guasto. Il dettaglio è nelle sezioni
+  dedicate più sotto.
 </p>
 <p>
   Alcune funzioni recenti fanno un lavoro che di solito ci si aspetta venga fatto su un server, e
@@ -163,8 +162,11 @@
     anche dagli altri tuoi dispositivi collegati allo stesso account.</li>
   <li><strong>Chi può vedere questi dati</strong>: solo tu, a meno che tu non attivi anche la
     condivisione descritta nella sezione successiva. Il database su Supabase applica regole di
-    sicurezza a livello di riga (Row Level Security) che isolano i dati di ogni utente — nessun
-    altro account, incluso lo sviluppatore, può leggerli tramite l'app.</li>
+    sicurezza a livello di riga (Row Level Security) che isolano i dati di ogni utente: nessun
+    altro account può leggerli tramite l'app. Lo sviluppatore, come amministratore del servizio,
+    ha un accesso tecnico al database e alla sua copia di sicurezza: lo usa solo per mantenere il
+    servizio funzionante, per rispondere a una tua richiesta di assistenza e per la sicurezza, mai
+    per consultare i dati di qualcuno senza un motivo di questo tipo.</li>
   <li><strong>Disattivazione</strong>: puoi disconnetterti in qualsiasi momento dalla schermata
     Impostazioni; l'app torna a funzionare solo in locale, e i dati già inviati restano sul
     server finché non li cancelli. Per cancellarli c'è "Elimina account e tutti i dati", sempre
@@ -364,8 +366,8 @@
   <li>Nessun account richiesto per usare l'app: la sincronizzazione è sempre una scelta
     esplicita, mai attivata automaticamente.</li>
   <li>Nessun server proprietario dello sviluppatore: quando la sincronizzazione è attiva, i
-    dati passano solo da Supabase (vedi sopra), non da un'infrastruttura gestita da questo
-    sviluppatore.</li>
+    dati passano solo da Supabase (vedi sopra). L'unica copia che lo sviluppatore conserva è
+    quella di sicurezza descritta in «Copie di sicurezza del servizio».</li>
 </ul>
 
 <h2>Backup ed esportazione dati</h2>
@@ -375,6 +377,23 @@
   dove salvarlo o con chi condividerlo (es. email, cloud personale, AirDrop). L'app stessa non invia
   questo file a nessun server.
 </p>
+
+<h2 id="copie-di-sicurezza">Copie di sicurezza del servizio</h2>
+<p>
+  Questa sezione riguarda solo chi ha attivato la sincronizzazione. Per non perdere i dati di
+  tutti in caso di guasto, ogni notte lo sviluppatore salva una copia del database sincronizzato
+  e dei file caricati (foto e allegati).
+</p>
+<ul>
+  <li><strong>Dove</strong>: sul computer dello sviluppatore, con il disco cifrato, e in un suo
+    spazio iCloud, dove finisce <strong>solo in forma cifrata</strong> (AES-256): Apple conserva
+    il file ma non può leggerne il contenuto.</li>
+  <li><strong>Per quanto</strong>: ogni copia viene cancellata dopo <strong>30 giorni</strong>.
+    Quando elimini una voce o l'intero account, quindi, i dati spariscono subito dal servizio e
+    <strong>entro 30 giorni</strong> anche dalle copie di sicurezza.</li>
+  <li><strong>A cosa serve</strong>: solo a ripristinare il servizio dopo un guasto o un errore.
+    Non viene consultata per nessun altro scopo.</li>
+</ul>
 
 <h2>I tuoi diritti</h2>
 <p>
@@ -399,10 +418,10 @@
 <p>
   Resta un'eccezione, e va detta: ciò che riguarda l'acquisto della versione Pro non è collegato
   al tuo account — il Pro funziona anche senza accedere — e per questo l'eliminazione dell'account
-  non lo raggiunge. Si tratta dell'identificativo della transazione assegnato da Apple, che non
-  contiene il tuo nome né la tua email: serve a riconoscere un acquisto legittimo e a sapere
-  quante licenze sono state attivate. I dettagli di pagamento non li vediamo mai: la transazione
-  è gestita interamente da Apple.
+  non lo raggiunge. Si tratta dell'identificativo della transazione assegnato da Apple (o da
+  Google Play, sulla versione Android), che non contiene il tuo nome né la tua email: serve a
+  riconoscere un acquisto legittimo e a sapere quante licenze sono state attivate. I dettagli di
+  pagamento non li vediamo mai: la transazione è gestita interamente dallo store.
 </p>
 <p>
   Puoi comunque scrivere all'indirizzo indicato in cima a questa pagina per esercitare i tuoi
@@ -431,6 +450,24 @@
   Non trattiamo dati per finalità di marketing, profilazione o pubblicità, e non c'è nessun
   trattamento basato sul consenso — perché non ce n'è nessuno che lo richieda.
 </p>
+<p>
+  Fornire i dati è facoltativo: quelli che non inserisci semplicemente non ci sono, e l'app
+  funziona con quello che le dai. Senza accesso con Apple o Google non puoi usare la
+  sincronizzazione e la condivisione, ma tutto il resto sì.
+</p>
+<p>
+  <strong>Nessuna decisione automatizzata</strong>: nessun trattamento prende da solo decisioni
+  che ti riguardano (art. 22 GDPR) e non c'è profilazione. I controlli antiabuso limitano solo la
+  frequenza delle richieste, non valutano te.
+</p>
+
+<h2 id="eta-minima">Età minima</h2>
+<p>
+  L'app è pensata per chi ha compiuto <strong>14 anni</strong>, l'età dalla quale in Italia si
+  può usare da soli un servizio online. Chi ha meno di 14 anni può usarla solo con l'assenso di un
+  genitore o di chi ne fa le veci, che può anche chiedere in ogni momento la cancellazione dei
+  dati scrivendo all'indirizzo in cima a questa pagina.
+</p>
 
 <h2 id="conservazione">Per quanto tempo</h2>
 <ul>
@@ -446,24 +483,36 @@
   <li><strong>Elenco degli acquisti</strong>: il solo identificativo della transazione, conservato
     finché l'app è distribuita — è il registro delle licenze attivate. Non è collegato al tuo
     account e non contiene dati personali.</li>
+  <li><strong>Notifiche di Apple sugli acquisti</strong>: gli avvisi che Apple invia al servizio
+    quando un acquisto viene rimborsato o revocato (solo l'identificativo della transazione, senza
+    dati personali) sono conservati per <strong>180 giorni</strong>.</li>
+  <li><strong>Copie di sicurezza</strong>: <strong>30 giorni</strong>, vedi «Copie di sicurezza
+    del servizio».</li>
   <li><strong>Protezioni antiabuso</strong>: i controlli sulla frequenza delle richieste
     conservano una versione cifrata a senso unico dell'indirizzo IP per 10 minuti, e i tentativi
     di accettazione di un invito per un'ora.</li>
-  <li><strong>Messaggi inviati dal modulo di contatto del sito</strong>: conservati finché servono
-    a risponderti, e comunque cancellabili su tua richiesta.</li>
+  <li><strong>Messaggi inviati dal modulo di contatto del sito</strong>: cancellati in automatico
+    dopo <strong>90 giorni</strong>, o prima su tua richiesta.</li>
 </ul>
 
 <h2 id="dove-sono-i-dati">Dove si trovano fisicamente i dati</h2>
 <p>
   I dati sincronizzati sono ospitati su infrastruttura <strong>Supabase nell'Unione Europea</strong>
   (data center in Irlanda). Anche le segnalazioni di crash restano nell'Unione Europea (Germania).
+  Le copie di sicurezza stanno in Italia, sul computer dello sviluppatore, e cifrate su iCloud.
+</p>
+<p>
+  Supabase e Sentry sono però società statunitensi, e lo stesso vale per i servizi del sito
+  descritti più sotto (Cloudflare, GitHub). Un accesso ai dati dagli Stati Uniti, per esempio per
+  assistenza tecnica, è coperto dal Data Privacy Framework UE-USA o, dove il fornitore non vi
+  aderisce, dalle clausole contrattuali standard approvate dalla Commissione europea, previste
+  nei loro accordi sul trattamento dei dati.
 </p>
 <p>
   Alcuni servizi accessori si trovano altrove: il servizio di mappe è svizzero e quello di
   geocodifica è gestito dalla fondazione OpenStreetMap nel Regno Unito — entrambi Paesi per i quali
   la Commissione europea ha riconosciuto un livello di protezione adeguato. L'autenticazione e i
-  pagamenti passano da Apple e Google secondo le loro condizioni. Il sito web usa inoltre alcuni
-  servizi statunitensi, descritti più sotto.
+  pagamenti passano da Apple e Google secondo le loro condizioni.
 </p>
 
 <h2 id="questo-sito-web">Questo sito web</h2>
@@ -475,8 +524,8 @@
   <li><strong>Statistiche di visita</strong> — le pagine caricano Cloudflare Web Analytics,
     che raccoglie dati aggregati sulle visite (pagina vista, provenienza, tipo di
     dispositivo) senza cookie e senza costruire un profilo del singolo visitatore.</li>
-  <li><strong>Font</strong> — i caratteri sono serviti da Google Fonts. Il tuo indirizzo IP
-    e il tipo di browser raggiungono quindi Google a ogni caricamento di pagina.</li>
+  <li><strong>Font</strong> — i caratteri sono serviti dal sito stesso: nessuna richiesta
+    parte verso Google o altri fornitori di font.</li>
   <li><strong>Modulo di contatto</strong> — se scrivi tramite il modulo, nome, indirizzo
     email e testo del messaggio vengono salvati su Supabase e usati solo per risponderti.
     Non finiscono in nessuna lista, non vengono usati per invii promozionali e non sono
