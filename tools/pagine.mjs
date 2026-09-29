@@ -4,8 +4,11 @@
 // completi, apribili e leggibili, ma il contenuto di quei blocchi ha
 // una sola fonte di verita' in src/partials/.
 
-const FONT_SITO = 'family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700';
-const FONT_GCV = 'family=Plus+Jakarta+Sans:wght@500;600;700;800';
+// fogli dei font serviti dal sito (tools/scarica-font.mjs), con il percorso relativo alla pagina
+const FONT_SITO = 'assets/fonts/sito.css';
+const FONT_SITO_EN = '../assets/fonts/sito.css';
+const FONT_SITO_404 = '/assets/fonts/sito.css';
+const FONT_GCV = '../assets/fonts/gcv.css';
 
 // voci di menu nelle due lingue
 const IT = { voce_home: 'home', voce_chisono: 'chi-sono', voce_progetti: 'progetti', voce_contatti: 'contatti' };
@@ -45,10 +48,10 @@ export const pagine = {
   'index.html':        { font: FONT_SITO, nav: navIT('', 'home', 'en/index.html'), footer: FOOTER_ROOT },
   'chi-sono.html':     { font: FONT_SITO, nav: navIT('', 'chisono', 'en/chi-sono.html'), footer: FOOTER_ROOT },
   'progetti.html':     { font: FONT_SITO, nav: navIT('', 'progetti', 'en/progetti.html'), footer: FOOTER_ROOT },
-  '404.html':          { font: FONT_SITO, nav: navIT('/', null, '/en/index.html'), footer: FOOTER_404 },
-  'en/index.html':     { font: FONT_SITO, nav: navEN('home', '../index.html'), footer: FOOTER_EN },
-  'en/chi-sono.html':  { font: FONT_SITO, nav: navEN('chisono', '../chi-sono.html'), footer: FOOTER_EN },
-  'en/progetti.html':  { font: FONT_SITO, nav: navEN('progetti', '../progetti.html'), footer: FOOTER_EN },
+  '404.html':          { font: FONT_SITO_404, nav: navIT('/', null, '/en/index.html'), footer: FOOTER_404 },
+  'en/index.html':     { font: FONT_SITO_EN, nav: navEN('home', '../index.html'), footer: FOOTER_EN },
+  'en/chi-sono.html':  { font: FONT_SITO_EN, nav: navEN('chisono', '../chi-sono.html'), footer: FOOTER_EN },
+  'en/progetti.html':  { font: FONT_SITO_EN, nav: navEN('progetti', '../progetti.html'), footer: FOOTER_EN },
 
   // le pagine del progetto hanno nav e footer propri: condividono solo
   // CSP, font e beacon

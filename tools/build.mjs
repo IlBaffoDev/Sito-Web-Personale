@@ -61,7 +61,7 @@ for (const [file, cfg] of Object.entries(pagine)) {
 
   const blocchi = [
     ['csp', () => partial('csp')],
-    ['font', () => riempi(partial('font'), { famiglie: cfg.font }, file)],
+    ['font', () => riempi(partial('font'), { foglio: cfg.font }, file)],
     ['beacon', () => partial('beacon')],
   ];
   if (cfg.nav) blocchi.push(['nav', () => riempi(partial('nav'), cfg.nav, file)]);
