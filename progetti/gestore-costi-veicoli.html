@@ -773,6 +773,7 @@
      motion.js: senza JS il contenuto della pagina resterebbe invisibile */
   .reveal, [data-stagger] > *{opacity:1 !important;transform:none !important}
 </style></noscript>
+<link rel="stylesheet" href="../assets/landing-mobile.css">
 </head>
 <body>
 
@@ -869,7 +870,7 @@
 
   <section id="pilastri" class="reveal" style="position:relative;margin-top:-80px;padding:0 64px 90px;background:linear-gradient(180deg,rgba(255,255,255,0) 0,#fff 80px)">
     <h2 class="sr-only">Perché scegliere Gestore Costi Veicoli</h2>
-    <div style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1240px;margin:0 auto">
+    <div class="pilastri-griglia" style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1240px;margin:0 auto">
       <div class="lift-card sup-bianca pilastri-sup-bianca" style="background:#fff;border-radius:26px;padding:38px 32px;text-align:center;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.3)">
         <span class="sup-lilla anim-float" style="display:flex;align-items:center;justify-content:center;width:66px;height:66px;border-radius:22px;margin:0 auto 22px;background:#F1EEFF;animation:gcvFloatSoft 5s ease-in-out infinite">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9 9 0 0 0-8 4.5"/><path d="M3 12a9 9 0 0 0 9 9 9 9 0 0 0 8-4.5"/><path d="M17 3v4.5H12.5"/><path d="M7 21v-4.5h4.5"/></svg>
@@ -988,7 +989,7 @@
         <h2 style="margin:0;font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.1">Tre passi, poi ci pensa l'app.</h2>
       </div>
       <div class="come-griglia-3" style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-        <div aria-hidden="true" style="position:absolute;top:46px;left:8%;right:8%;height:2px;background:repeating-linear-gradient(90deg,#DED7FB 0 8px,transparent 8px 16px)"></div>
+        <div class="come-linea" aria-hidden="true" style="position:absolute;top:46px;left:8%;right:8%;height:2px;background:repeating-linear-gradient(90deg,#DED7FB 0 8px,transparent 8px 16px)"></div>
         <div class="bordo-1 sup-bianca come-sup-bianca" style="position:relative;background:#fff;border:1px solid #EEE9FF;border-radius:26px;padding:32px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -30px rgba(20,10,60,.22)">
           <div style="display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(160deg,#4B3FE3,#8B7BFA);color:#fff;font-size:20px;font-weight:800;margin-bottom:22px;box-shadow:0 14px 26px -12px rgba(75,63,227,.7)">01</div>
           <h3 style="margin:0 0 10px;font-size:20px;font-weight:800">Aggiungi il veicolo</h3>
@@ -1112,7 +1113,7 @@
       <p class="t-medio" style="margin:0 auto;max-width:640px;font-size:17px;line-height:1.65;color:#4B4566">Le funzioni arrivate con gli ultimi aggiornamenti hanno tutte lo stesso scopo: meno cose da digitare, e i numeri che contano davanti agli occhi prima che servano. Girano sul telefono, non su un server.</p>
     </div>
 
-    <div class="novita-grid" data-stagger>
+    <div class="novita-grid m-rail" data-stagger>
       <div class="lift-card sup-bianca" style="background:#fff;border-radius:26px;padding:30px;box-shadow:0 1px 2px rgba(20,10,60,.05), 0 24px 50px -32px rgba(20,10,60,.24)">
         <div class="feature-icon" style="width:52px;height:52px;border-radius:16px;background:linear-gradient(160deg,#F1EEFF,#E3DDFF);box-shadow:0 6px 14px -4px rgba(75,63,227,.22);display:flex;align-items:center;justify-content:center;margin-bottom:18px;animation-delay:0s">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -1370,7 +1371,7 @@
           <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>Widget e Apple Watch</span>
           <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
           <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Due widget pensati per iOS: uno per il colpo d'occhio sulla spesa, uno per registrare in un tap. E dal polso, con l'app nativa per Apple Watch.</p>
-          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
+          <div class="wz-lista" style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
             <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
               <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
               <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Azioni rapide</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Aggiungi una spesa o una scadenza dalla Home, senza aprire l'app.</span></span>
@@ -1424,8 +1425,8 @@
         </label>
       </div>
       <div class="sup-bianca" style="display:flex;flex-direction:column;justify-content:center;gap:18px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 16px rgba(20,10,60,0.06)">
-        <p class="t-tenue" style="margin:0;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
-        <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+        <p class="t-tenue calc-etichetta" style="margin:0;font-size:13px;font-weight:700;color:#6B6684;text-transform:uppercase;letter-spacing:.04em">Ti costa circa</p>
+        <div class="calc-risultato" style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
           <div style="position:relative;width:150px;height:150px;flex-shrink:0">
             <svg id="calc-donut" viewBox="0 0 120 120" width="150" height="150" aria-hidden="true" style="display:block;transform:rotate(-90deg)">
               <circle cx="60" cy="60" r="48" fill="none" stroke="#F1EEFF" stroke-width="15"/>
@@ -1451,7 +1452,7 @@
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Un piano per ogni esigenza</h2>
       <p class="t-medio" style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">Gratis per iniziare. Pro con un acquisto unico, per sempre — nessun abbonamento.</p>
     </div>
-    <div data-stagger style="display:flex;gap:32px;max-width:884px;margin:0 auto;flex-wrap:wrap;justify-content:center;align-items:stretch">
+    <div class="pricing-griglia" data-stagger style="display:flex;gap:32px;max-width:884px;margin:0 auto;flex-wrap:wrap;justify-content:center;align-items:stretch">
       <div class="pricing-card lift-card bordo-1 sup-bianca" style="flex:1;min-width:280px;max-width:426px;box-sizing:border-box;background:#fff;border-radius:20px;padding:40px 32px 32px;border:1px solid #EEE9FF;display:flex;flex-direction:column">
         <div style="text-align:center;margin-bottom:28px">
           <h3 style="margin:0 0 12px;font-size:20px;font-weight:800">Gratuito</h3>
@@ -1501,7 +1502,7 @@
           <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>App per Apple Watch</span>
           <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Registra le spese <span style="color:#8B7BFA">direttamente</span> dal <span style="color:#4FE3C1">polso</span>.</h2>
           <p style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Al distributore, in officina, al casello: scegli veicolo e categoria, inserisci l'importo e hai finito. Tutto si sincronizza subito con l'app su iPhone.</p>
-          <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
+          <div class="wz-lista" style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
             <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
               <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
               <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tre campi, dieci secondi</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Veicolo, categoria e importo: la spesa è registrata prima di rimettere il telefono in tasca.</span></span>
@@ -1571,9 +1572,9 @@
   <section id="recensioni" class="reveal" style="padding:100px 64px;background:radial-gradient(560px circle at 15% 15%, rgba(75,63,227,.04), transparent 60%), radial-gradient(520px circle at 85% 85%, rgba(139,123,250,.035), transparent 60%), #fff">
     <div style="text-align:center;max-width:560px;margin:0 auto 48px">
       <h2 style="margin:0 0 16px;font-size:34px;font-weight:800;letter-spacing:-0.5px">Le prime recensioni, presto qui</h2>
-      <p class="t-medio" style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">L'app è appena uscita su App Store: appena arrivano le prime recensioni reali, questo spazio si riempie con quelle. Se la stai usando, <a href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562?action=write-review" target="_blank" rel="noopener" style="color:#4B3FE3;font-weight:700">lascia la tua recensione</a>.</p>
+      <p class="t-medio" style="margin:0;color:#4B4566;font-size:17px;line-height:1.6">L'app è appena uscita su App Store: appena arrivano le prime recensioni reali, questo spazio si riempie con quelle.</p>
     </div>
-    <div class="recensioni-griglia-3" data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto">
+    <div class="recensioni-griglia-3 recensioni-segnaposto" data-stagger style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto">
       <div class="sup-tenue" style="background:#FAFAFE;border:1px dashed #D9D2FA;border-radius:18px;padding:28px 24px">
         <div style="display:flex;gap:4px;margin-bottom:16px">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9D2FA" stroke-width="2"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.8z"/></svg>
@@ -1612,7 +1613,7 @@
       </div>
     </div>
     <div style="text-align:center;margin-top:36px">
-      <a class="sup-lilla t-viola" href="#contatti" style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:12px 24px;border-radius:100px">Scrivimi quando l'app è live, sarai tra i primi a saperlo</a>
+      <a class="sup-lilla t-viola" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562?action=write-review" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:14px;padding:12px 24px;border-radius:100px">Usi l'app? Lascia una recensione su App Store</a>
     </div>
   </section>
 
@@ -1770,7 +1771,7 @@
   </footer>
 
 <div class="sticky-cta">
-  <a href="#download">Scarica l'app →</a>
+  <a href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica gratis Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" width="17" height="17" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"></path></svg><span>Scarica gratis su App Store</span></a>
 </div>
 
 <script defer src="../assets/nav.js"></script>
@@ -1786,6 +1787,7 @@
 <script defer src="../assets/sticky-nav.js"></script>
 <script defer src="../assets/scroll-progress.js"></script>
 <script defer src="../assets/faq.js"></script>
+<script defer src="../assets/landing-mobile.js"></script>
 <!-- build:beacon -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "91cdab15dc99410c80e095b9a2d8b4dd"}'></script>
 <!-- /build:beacon -->

@@ -1,0 +1,277 @@
+/* Landing Gestore Costi Veicoli — strato solo telefono.
+   Sopra i 640px questo file non cambia nulla: gli unici elementi che aggiunge
+   (indicatori del carosello, selettore dei piani) sono display:none.
+   Ogni sezione ha la forma adatta al suo contenuto (pilastri nascosti): timeline
+   (come funziona), un unico elenco raggruppato (funzioni), un solo carosello (novità),
+   2×2 (come è fatta), selettore Gratuito | Pro (prezzi). Intestazioni tutte a sinistra.
+   Le regole con !important battono lo stile inline della pagina, come il blocco
+   @media (max-width:860px) nello <style> della landing; dove quel blocco usa
+   selettori con id si ripete la stessa specificità (questo file è caricato dopo). */
+
+.m-rail-nav, .piano-scelta { display: none; }
+
+/* il blocco mobile della pagina porta ogni h3 a 21px: i titoletti del footer
+   (13px su desktop) non stavano più in tre colonne e «Legale» usciva dallo schermo */
+@media (max-width: 860px) {
+  .site-footer-grid h3 { font-size: 13px !important; }
+  /* la regola generica «section{padding 24px}» del blocco mobile colpiva anche la
+     testata, che ha già la sua gronda (header e .hero-copy a 24px): il testo partiva
+     a 48px dal bordo e il badge, che non va a capo, usciva dallo schermo a destra */
+  #hero { padding-left: 0 !important; padding-right: 0 !important; }
+}
+
+@media (max-width: 640px) {
+
+  /* ---------- ritmo: meno vuoto fra le sezioni ---------- */
+  #features, #gallery, #pricing, #faq, #calcolatore, #pilastri, #costi, #come,
+  #fiducia, #recensioni, #manuale, #novita-app, #idea {
+    padding-top: 48px !important; padding-bottom: 48px !important;
+  }
+  #widget, #watch { padding-bottom: 48px !important; }
+  #costi > div > div:first-child,
+  #come > div > div:first-child,
+  #features > div:first-child,
+  #novita-app > div:first-child,
+  #pricing > div:first-child,
+  #recensioni > div:first-child { margin-bottom: 26px !important; }
+
+  /* ---------- intestazioni: tutte a sinistra, come Costi e Come funziona ---------- */
+  #features > div:first-child, #novita-app > div:first-child, #gallery > div:first-child,
+  #calcolatore > div:first-child, #pricing > div:first-child, #recensioni > div:first-child,
+  #faq > div:first-child, #recensioni > div:last-child,
+  #idea .widget-panel > div:not(.widget-dot-grid):not(.anim-drift):not(.idea-grid) {
+    text-align: left !important; margin-left: 0 !important; margin-right: 0 !important;
+  }
+  #novita-app > div:first-child > p { margin-left: 0 !important; }
+  .piano-scelta { margin-left: 0 !important; max-width: none !important; }
+
+  /* ---------- hero ---------- */
+  #hero { padding-bottom: 28px !important; }
+  #hero .hero-copy > div:first-child > span:first-child { white-space: normal !important; font-size: 12.5px !important; }
+  #download { flex-wrap: nowrap !important; gap: 10px !important; }
+  #download .store-btn { flex: 1 1 0; min-width: 0; justify-content: center; padding: 11px 12px !important; }
+  /* le quattro etichette sotto i pulsanti: via, così gli iPhone salgono nel primo schermo */
+  #download + div { display: none !important; }
+  .hero-copy > div:last-child { min-height: 0 !important; padding: 0 0 12px !important; }
+  .hero-copy { gap: 0 !important; }
+  /* flex:1 1 480px del desktop: con le colonne in verticale diventava un'altezza fissa (vuoto sotto i pulsanti) */
+  .hero-copy > div:first-child { gap: 18px !important; flex: 0 0 auto !important; }
+  /* margine che copre l'oscillazione dei mockup (gcvFloat, fino a -12px): senza, nel punto
+     alto gli iPhone toccavano i pulsanti degli store */
+  .hero-copy > div:last-child { display: block !important; }
+  .hero-copy > div:last-child > div { margin: 34px 0 0 !important; width: 100% !important; }
+  /* su desktop il duo di iPhone è ingrandito del 25% (transform inline): senza più il
+     margine doppio della sezione sborderebbe dallo schermo, qui sta fra le gronde */
+  .hero-copy > div:last-child > div > div { transform: none !important; }
+
+  /* ---------- pilastri: su telefono via (scelta di Andrea, 30/09): ripetono le funzioni ---------- */
+  #pilastri { display: none !important; }
+
+  /* ---------- come funziona: timeline verticale 01 → 02 → 03 ---------- */
+  #come div.come-griglia-3 { display: block !important; position: relative; }
+  #come div.come-griglia-3 > .come-linea {
+    top: 22px !important; bottom: 40px !important; left: 21px !important; right: auto !important;
+    width: 2px !important; height: auto !important;
+    background: repeating-linear-gradient(180deg, #DED7FB 0 7px, transparent 7px 14px) !important;
+  }
+  #come div.come-griglia-3 > div.come-sup-bianca,
+  html.dark #come div.come-griglia-3 > div.come-sup-bianca {
+    background: none !important; border: 0 !important; box-shadow: none !important; border-radius: 0 !important;
+    padding: 0 0 26px 62px !important; min-height: 44px;
+  }
+  #come div.come-griglia-3 > div.come-sup-bianca:last-child { padding-bottom: 0 !important; }
+  #come div.come-griglia-3 > div.come-sup-bianca > div:first-child {
+    position: absolute; left: 0; top: 0; margin: 0 !important;
+    width: 44px !important; height: 44px !important; border-radius: 14px !important; font-size: 15px !important;
+  }
+  #come div.come-griglia-3 > div.come-sup-bianca > h3 { font-size: 17px !important; margin: 0 0 4px !important; padding-top: 10px; }
+  #come div.come-griglia-3 > div.come-sup-bianca > p { font-size: 14.5px !important; line-height: 1.55 !important; }
+  html.dark #come div.come-griglia-3 > .come-linea {
+    background: repeating-linear-gradient(180deg, rgba(169,156,255,.35) 0 7px, transparent 7px 14px) !important;
+  }
+
+  /* ---------- funzioni: un unico elenco raggruppato stile iOS ----------
+     Tutte e sette le funzioni, Garage compreso, sono righe della stessa scheda
+     (icona, titolo, una riga di descrizione, filo di separazione). Una scheda
+     grande per Garage seguita dall'elenco sembravano due blocchi scollegati. */
+  .feature-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+  #features .feature-grid > div,
+  html.dark #features .feature-grid > div {
+    /* !important anche su gap e allineamento: alcune righe li hanno inline sul desktop */
+    display: grid !important; grid-template-columns: 40px 1fr !important; gap: 0 14px !important;
+    align-items: start !important; justify-content: stretch !important;
+    padding: 16px 18px !important; border-radius: 0 !important; box-shadow: none !important;
+    border: 1px solid #EEE9FF !important; border-top-width: 0 !important; box-sizing: border-box;
+  }
+  #features .feature-grid > div:first-child,
+  html.dark #features .feature-grid > div:first-child { border-top-width: 1px !important; border-radius: 22px 22px 0 0 !important; }
+  #features .feature-grid > div:last-child,
+  html.dark #features .feature-grid > div:last-child { border-radius: 0 0 22px 22px !important; }
+  html.dark #features .feature-grid > div { border-color: rgba(255,255,255,.08) !important; }
+  /* le righe 4–6 e Documenti hanno un contenitore interno: lo si «scioglie» perché
+     icona e testo entrino nella griglia della riga */
+  .feature-grid > div > div:first-child:not(.feature-icon) { display: contents !important; }
+  .feature-grid > div > div:first-child > div:last-child { display: contents; }
+  /* #features: le regole della pagina per Garage (.feature-grid > div:nth-child(1) …) sono più specifiche */
+  #features .feature-grid > div .feature-icon {
+    grid-column: 1; grid-row: 1 / span 2;
+    width: 40px !important; height: 40px !important; border-radius: 12px !important; margin: 2px 0 0 !important;
+  }
+  #features .feature-grid > div .feature-icon svg { width: 20px; height: 20px; }
+  #features .feature-grid > div h3 { grid-column: 2; font-size: 15.5px !important; line-height: 1.3; letter-spacing: 0 !important; margin: 0 0 3px !important; }
+  #features .feature-grid > div p {
+    grid-column: 2; font-size: 13.5px !important; line-height: 1.5 !important; margin: 0 !important; max-width: none !important;
+  }
+  /* esempi Auto/Moto di Garage ed elenco libretto/polizza/ricevute di Documenti:
+     su telefono bastano titolo e descrizione */
+  .feature-grid > div:first-child > div:last-child,
+  .feature-grid > div:last-child > div + div { display: none !important; }
+  .feature-grid > div:last-child > div:first-child { min-width: 0 !important; }
+
+  /* ---------- come è fatta: 2×2 ---------- */
+  #fiducia div.fiducia-griglia-2 { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  #fiducia div.fiducia-griglia-2 > div { padding: 16px 14px !important; border-radius: 18px !important; }
+  #fiducia div.fiducia-griglia-2 > div > span:first-child {
+    width: 36px !important; height: 36px !important; border-radius: 11px !important; margin-bottom: 10px !important;
+  }
+  #fiducia div.fiducia-griglia-2 > div > strong { font-size: 14.5px !important; margin-bottom: 4px !important; }
+  #fiducia div.fiducia-griglia-2 > div > span:last-child { font-size: 12.5px !important; line-height: 1.5 !important; display: block; }
+
+  /* ---------- prezzi: selettore Gratuito | Pro, una scheda alla volta ---------- */
+  .piano-scelta {
+    display: flex; gap: 4px; padding: 4px; margin: 0 auto 22px; max-width: 300px;
+    background: #EEE9FF; border-radius: 100px;
+  }
+  .piano-scelta button {
+    flex: 1; border: 0; background: none; cursor: pointer; font: inherit;
+    font-size: 14.5px; font-weight: 700; color: #4B4566; padding: 10px 0; border-radius: 100px;
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .piano-scelta button[aria-pressed="true"] { background: #fff; color: #4B3FE3; box-shadow: 0 2px 10px rgba(20,10,60,.12); }
+  html.dark .piano-scelta { background: rgba(255,255,255,.07); }
+  html.dark .piano-scelta button { color: #B3AECB; }
+  html.dark .piano-scelta button[aria-pressed="true"] { background: #4B3FE3; color: #fff; }
+  .pricing-griglia.piani-a-scelta { padding-top: 14px; }
+  .pricing-griglia.piani-a-scelta > .pricing-card:not(.is-scelto) { display: none !important; }
+  .pricing-griglia > .pricing-card { padding: 32px 24px 26px !important; max-width: none !important; }
+
+  /* ---------- rotaia: il carosello delle novità ---------- */
+  .m-rail {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -24px !important;
+    padding: 6px 24px 34px !important;
+    max-width: none !important;
+  }
+  .m-rail::-webkit-scrollbar { display: none; }
+  .m-rail > * {
+    flex: 0 0 calc(100% - 64px) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+  .m-rail:focus-visible { outline: 2px solid #8B7BFA; outline-offset: -4px; border-radius: 18px; }
+
+  /* indicatori: pallini + «2 / 7» */
+  .m-rail-nav {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-top: -18px; color: #4B3FE3;
+  }
+  .m-rail-dots { display: flex; gap: 6px; }
+  .m-rail-dots i {
+    display: block; width: 6px; height: 6px; border-radius: 6px;
+    background: currentColor; opacity: .25;
+    transition: width .3s ease, opacity .3s ease;
+  }
+  .m-rail-dots i.is-active { width: 18px; opacity: 1; }
+  .m-rail-count { font-size: 12px; font-weight: 700; letter-spacing: .04em; opacity: .7; font-variant-numeric: tabular-nums; }
+  html.dark .m-rail-nav, .widget-panel .m-rail-nav { color: #A99CFF; }
+
+  #novita-app .m-rail > * { padding: 26px !important; }
+
+  /* pannelli widget / Watch: le righe restano in colonna, più compatte */
+  .wz-lista { gap: 10px !important; margin-bottom: 24px !important; }
+  .wz-lista > div { padding: 14px 16px !important; border-radius: 16px !important; }
+
+  /* profondità: la scheda a fuoco è piena, quelle ai lati arretrano */
+  @supports (animation-timeline: view(inline)) {
+    @media (prefers-reduced-motion: no-preference) {
+      .m-rail > * {
+        animation: m-rail-fuoco linear both;
+        animation-timeline: view(inline);
+      }
+      @keyframes m-rail-fuoco {
+        0%       { scale: .9; }
+        38%, 62% { scale: 1; }
+        100%     { scale: .9; }
+      }
+    }
+  }
+
+  /* ---------- numeri: tre colonne da cruscotto ---------- */
+  #costi div.costi-griglia-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px !important; }
+  #costi div.costi-griglia-3 > div { padding: 14px 10px !important; border-radius: 16px !important; text-align: center; }
+  #costi div.costi-griglia-3 > div > div:first-child { font-size: 21px !important; letter-spacing: -.5px !important; }
+  #costi div.costi-griglia-3 > div > div:last-child { font-size: 11.5px !important; line-height: 1.3; }
+  #costi div.costi-griglia-principale { gap: 16px !important; }
+  #costi .costi-x-flexdirect { gap: 16px !important; }
+
+  /* ---------- calcolatore: senza scheda nella scheda, campi 2×2 ---------- */
+  #calcolatore div.calc-grid, html.dark #calcolatore div.calc-grid {
+    background: none !important; border: 0 !important; padding: 0 !important; gap: 18px !important;
+  }
+  #calcolatore div.calc-grid > div:first-child { display: grid !important; grid-template-columns: 1fr 1fr; gap: 12px !important; }
+  #calcolatore div.calc-grid > div:first-child label { font-size: 12px !important; justify-content: space-between; }
+  #calcolatore div.calc-grid > div:first-child input { width: 100%; box-sizing: border-box; min-width: 0; }
+  #calcolatore div.calc-grid > div:last-child { padding: 22px 20px !important; }
+
+  /* ---------- calcolatore, risultato: ciambella al centro, voci sotto a tutta larghezza ---------- */
+  .calc-etichetta { text-align: center; }
+  .calc-risultato { justify-content: center; }
+  .calc-risultato > div:last-child { flex: 1 1 100% !important; min-width: 0 !important; }
+
+  /* ---------- recensioni: su telefono la sezione torna quando ci saranno recensioni vere ---------- */
+  #recensioni { display: none !important; }
+
+  /* ---------- dall'idea all'app: tre immagini invece di cinque ---------- */
+  #idea .idea-grid { grid-template-areas: "sk sk" "bp ri" !important; }
+  #idea .idea-card--dom, #idea .idea-card--rep { display: none !important; }
+
+  /* ---------- pillola «Scarica gratis su App Store» al posto della barra piena ----------
+     Porta dritta all'App Store e sparisce dove la pagina ha già i suoi pulsanti
+     (.is-nascosta, da landing-mobile.js: prezzi, contatti, footer). */
+  .sticky-cta, html.dark .sticky-cta {
+    background: none !important; border: 0 !important; box-shadow: none !important;
+    padding: 0 16px calc(14px + env(safe-area-inset-bottom)) !important; pointer-events: none;
+  }
+  .sticky-cta a {
+    pointer-events: auto; width: fit-content; margin: 0 auto; gap: 9px !important;
+    padding: 13px 22px !important; border-radius: 100px !important;
+    background: #111 !important; color: #fff !important; font-size: 15px !important;
+    box-shadow: 0 12px 30px -8px rgba(20, 10, 60, .45), 0 0 0 1px rgba(255, 255, 255, .08);
+  }
+  .sticky-cta a svg { margin-top: -2px; }
+  html.dark .sticky-cta a { background: #fff !important; color: #111 !important; }
+  .sticky-cta.is-nascosta { transform: translateY(130%) !important; }
+}
+
+/* telefoni stretti (≤380px): «Google Play» andava a capo dentro il pulsante */
+@media (max-width: 380px) {
+  #download .store-btn { gap: 8px !important; padding: 11px 10px !important; }
+  #download .store-btn span:last-child { font-size: 15px !important; }
+}
