@@ -334,9 +334,11 @@
   La segnalazione di crash è l'unica sempre attiva, anche senza account. Ciò che viene inviato è
   limitato a informazioni tecniche: perché l'URL delle richieste di rete non finisca nei rapporti
   — porterebbe con sé le coordinate di un rifornimento — l'app scarta di proposito quella parte dei
-  dati diagnostici prima di spedirli. Se un giorno hai un account, agli eventi viene associato un
-  codice derivato dal tuo identificativo con una funzione a senso unico, così è possibile capire
-  quante persone colpisce un dato bug senza sapere chi sono.
+  dati diagnostici prima di spedirli. Se hai un account, agli eventi viene associato un codice
+  derivato dal tuo identificativo con una funzione a senso unico: serve a capire quante persone
+  colpisce un dato bug e, solo per un account che supera i limiti d'uso del servizio, a ricollegare
+  i rapporti a quell'account per fermare un abuso. Per questo i dati di crash e diagnostici sono
+  considerati collegati al tuo account.
 </p>
 <p>
   <strong>La ricerca "distributori più vicini" fa eccezione</strong>: la tua posizione GPS non
