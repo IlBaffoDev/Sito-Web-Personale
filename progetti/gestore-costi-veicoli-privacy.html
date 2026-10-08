@@ -64,7 +64,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 29 settembre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 8 ottobre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -102,9 +102,10 @@
 <ul>
   <li><strong>Dati veicolo</strong>: targa, telaio, marca/modello, note e foto che inserisci tu.</li>
   <li><strong>Dati economici</strong>: importi di spese, rifornimenti, costi fissi, che inserisci tu.</li>
-  <li><strong>Posizione geografica</strong>: se scegli di registrare la posizione di un rifornimento o
-    di un viaggio, le coordinate GPS restano salvate insieme a quella voce (storico permanente finché
-    non la elimini tu).</li>
+  <li><strong>Posizione geografica</strong>: se concedi all'app il permesso di posizione, a ogni
+  nuovo rifornimento l'app salva da sola le coordinate GPS del punto e ne ricava l'indirizzo (vedi
+  «Dati inviati a servizi di terze parti»). Le coordinate restano con il rifornimento e si cancellano
+  solo eliminandolo. I viaggi e le altre spese non hanno coordinate.</li>
   <li><strong>Foto e allegati</strong> che carichi dalla galleria del dispositivo, che scatti con
     la fotocamera (foto di una ricevuta, del contachilometri) o che mandi all'app dal foglio di
     condivisione del sistema.</li>
@@ -155,7 +156,9 @@
     email e, se lo fornisce il provider scelto, il tuo nome.</li>
   <li><strong>Cosa viene inviato</strong>: una volta attiva, la sincronizzazione invia a Supabase
     gli stessi dati che già tieni nell'app — veicoli, spese, rifornimenti (comprese le coordinate
-    del punto, se hai scelto di registrarle), viaggi, scadenze, i tragitti salvati (chilometri,
+    del punto, se hai concesso la posizione), viaggi, scadenze, le letture del contachilometri, le
+    categorie che crei tu, le scadenze che hai segnato come lette nelle notifiche, il tuo piano (se il
+    Pro è attivo e quale veicolo usi senza Pro), i tragitti salvati (chilometri,
     durata, orari, velocità massima e costo stimato: mai il percorso), i dati del tuo profilo (nome,
     telefono, data di nascita e luogo di residenza, solo quelli che hai compilato) e le foto:
     quelle dei veicoli, quelle delle ricevute e i documenti allegati — così da poterli leggere
@@ -169,7 +172,7 @@
     per consultare i dati di qualcuno senza un motivo di questo tipo.</li>
   <li><strong>Disattivazione</strong>: puoi disconnetterti in qualsiasi momento dalla schermata
     Impostazioni; l'app torna a funzionare solo in locale, e i dati già inviati restano sul
-    server finché non li cancelli. Per cancellarli c'è "Elimina account e tutti i dati", sempre
+    server finché non li cancelli. Per cancellarli c'è «Elimina account e dati ovunque», sempre
     in Impostazioni: vedi la sezione «I tuoi diritti».</li>
 </ul>
 
@@ -213,7 +216,7 @@
     il tuo Sì non compare nulla; se non rispondi, il tragitto ti viene proposto in app alla fine.</li>
   <li><strong>Cosa viene misurato</strong>: la distanza percorsa, la durata, l'orario di inizio e
     fine, la velocità massima e un costo stimato a partire dal consumo reale del veicolo che scegli tu al momento di
-    salvare (nessun veicolo è preimpostato). A fine spostamento l'app ti propone il tragitto e sei
+    salvare (l'app propone l'ultimo che hai usato). A fine spostamento l'app ti propone il tragitto e sei
     tu a decidere se salvarlo o scartarlo.</li>
   <li><strong>Cosa NON viene fatto</strong>: <strong>il percorso non viene registrato</strong>.
     Nessuna coordinata del tragitto viene salvata sul dispositivo né inviata a qualcuno — né allo
@@ -343,9 +346,9 @@
   a ogni distributore interamente in locale, senza mai trasmettere le tue coordinate.
 </p>
 <p>
-  Nella scheda di un distributore vicino trovi anche un link "Apri in mappa" che ti porta su
-  <code>openstreetmap.org</code> nel browser del tuo dispositivo: è un link esterno che apri tu
-  volontariamente, non una richiesta di rete fatta dall'app in automatico.
+Toccando un distributore vicino, l'app apre Mappe di Apple (o Google Maps, se è installata e la
+scegli tu) sulla posizione del distributore: è un'altra app che apri tu volontariamente, non una
+richiesta di rete fatta dall'app in automatico.
 </p>
 
 <h2>Cosa NON facciamo</h2>
@@ -398,8 +401,8 @@
 <h2>I tuoi diritti</h2>
 <p>
   Puoi in qualsiasi momento esportare i tuoi dati (backup, opzionalmente protetto da password)
-  dalla schermata Impostazioni. Nella stessa schermata trovi anche un pulsante "Cancella tutti i
-  dati" che cancella definitivamente veicoli, spese, scadenze, viaggi, tragitti, foto e allegati dal
+  dalla schermata Impostazioni. Nella stessa schermata, in fondo, trovi anche «Svuota questo
+  telefono», che cancella definitivamente veicoli, spese, scadenze, viaggi, tragitti, foto e allegati dal
   dispositivo — in alternativa, la disinstallazione dell'app ha lo stesso effetto.
 </p>
 <p>
@@ -410,18 +413,26 @@
 <p>
   Se <strong>hai</strong> attivato la sincronizzazione, una copia dei dati si trova anche sui
   server descritti sopra. Anche in quel caso puoi agire da solo: in Impostazioni trovi
-  <strong>"Elimina account e tutti i dati"</strong>, che cancella l'account e tutto ciò che gli
+  <strong>«Elimina account e dati ovunque»</strong>, che cancella l'account e tutto ciò che gli
   appartiene — righe del database e file caricati — senza bisogno di scrivere a nessuno. Se sei
   il proprietario di una Dash condivisa con altre persone, l'app ti chiede di rimuovere prima i
   membri: la cancellazione porterebbe via anche i dati che stanno usando.
 </p>
 <p>
-  Resta un'eccezione, e va detta: ciò che riguarda l'acquisto della versione Pro non è collegato
-  al tuo account — il Pro funziona anche senza accedere — e per questo l'eliminazione dell'account
-  non lo raggiunge. Si tratta dell'identificativo della transazione assegnato da Apple (o da
-  Google Play, sulla versione Android), che non contiene il tuo nome né la tua email: serve a
-  riconoscere un acquisto legittimo e a sapere quante licenze sono state attivate. I dettagli di
-  pagamento non li vediamo mai: la transazione è gestita interamente dallo store.
+L'acquisto della versione Pro va spiegato a parte. Il Pro funziona anche senza accedere, ed è
+legato al tuo ID Apple. Per ogni acquisto il servizio tiene un registro della licenza:
+l'identificativo della transazione assegnato da Apple, il prodotto (Pro o prova gratuita),
+l'eventuale offerta o codice usato e il prezzo pagato, con la valuta. Il registro non contiene il
+tuo nome né la tua email: serve a riconoscere un acquisto legittimo e a sapere quante licenze
+sono state attivate.
+</p>
+<p>
+Se hai fatto l'accesso, quando l'app verifica l'acquisto il servizio <strong>collega la licenza al
+tuo account</strong> (al massimo 3 account per acquisto, per esempio uno personale e uno di
+lavoro con lo stesso ID Apple). Serve perché il server possa riconoscere il Pro anche in ciò che
+condividi con altre persone, come gli inviti alla tua Dash. Eliminando l'account il collegamento
+viene cancellato; il registro della licenza resta, senza più alcun legame con te. I dettagli di
+pagamento non li vediamo mai: la transazione è gestita interamente da Apple.
 </p>
 <p>
   Puoi comunque scrivere all'indirizzo indicato in cima a questa pagina per esercitare i tuoi
@@ -480,9 +491,11 @@
   <li><strong>Verifiche dell'acquisto Pro</strong>: l'app ricontrolla periodicamente presso Apple
     che l'acquisto sia ancora valido, e ogni controllo lascia una riga tecnica conservata per
     <strong>90 giorni</strong>, il tempo utile ad accorgersi di eventuali abusi.</li>
-  <li><strong>Elenco degli acquisti</strong>: il solo identificativo della transazione, conservato
-    finché l'app è distribuita — è il registro delle licenze attivate. Non è collegato al tuo
-    account e non contiene dati personali.</li>
+  <li><strong>Elenco degli acquisti</strong>: identificativo della transazione, prodotto, offerta e
+  prezzo, conservati finché l'app è distribuita — è il registro delle licenze attivate. Non contiene
+  il tuo nome né la tua email.</li>
+  <li><strong>Collegamento fra acquisto e account</strong> (solo se hai fatto l'accesso): finché esiste
+  l'account, e si cancella insieme a lui.</li>
   <li><strong>Notifiche di Apple sugli acquisti</strong>: gli avvisi che Apple invia al servizio
     quando un acquisto viene rimborsato o revocato (solo l'identificativo della transazione, senza
     dati personali) sono conservati per <strong>180 giorni</strong>.</li>
