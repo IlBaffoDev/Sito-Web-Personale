@@ -424,8 +424,9 @@ richiesta di rete fatta dall'app in automatico.
 </p>
 <p>
 L'acquisto della versione Pro va spiegato a parte. Il Pro funziona anche senza accedere, ed è
-legato al tuo ID Apple. Per ogni acquisto il servizio tiene un registro della licenza:
-l'identificativo della transazione assegnato da Apple, il prodotto (Pro o prova gratuita),
+legato all'acquisto: all'ID Apple su iPhone e iPad, all'account Google Play su Android. Per ogni
+acquisto il servizio tiene un registro della licenza: l'identificativo della transazione assegnato
+da Apple o da Google, il prodotto (Pro o prova gratuita),
 l'eventuale offerta o codice usato e il prezzo pagato, con la valuta. Il registro non contiene il
 tuo nome né la tua email: serve a riconoscere un acquisto legittimo e a sapere quante licenze
 sono state attivate.
@@ -433,10 +434,11 @@ sono state attivate.
 <p>
 Se hai fatto l'accesso, quando l'app verifica l'acquisto il servizio <strong>collega la licenza al
 tuo account</strong> (al massimo 3 account per acquisto, per esempio uno personale e uno di
-lavoro con lo stesso ID Apple). Serve perché il server possa riconoscere il Pro anche in ciò che
-condividi con altre persone, come gli inviti alla tua Dash. Eliminando l'account il collegamento
+lavoro). Serve perché il Pro valga anche sugli altri dispositivi dove entri con lo stesso account,
+iPhone o Android, e perché il server lo riconosca in ciò che condividi con altre persone, come gli
+inviti alla tua Dash. Eliminando l'account il collegamento
 viene cancellato; il registro della licenza resta, senza più alcun legame con te. I dettagli di
-pagamento non li vediamo mai: la transazione è gestita interamente da Apple.
+pagamento non li vediamo mai: la transazione è gestita interamente da Apple o da Google.
 </p>
 <p>
   Su Android la prova gratuita di 15 giorni la ricorda il servizio, perché Google Play non la
@@ -505,7 +507,7 @@ pagamento non li vediamo mai: la transazione è gestita interamente da Apple.
     traccia tecnica viene rimossa definitivamente dopo <strong>180 giorni</strong>, il tempo che
     serve perché anche un dispositivo rimasto spento a lungo apprenda la cancellazione.</li>
   <li><strong>Verifiche dell'acquisto Pro</strong>: l'app ricontrolla periodicamente presso Apple
-    che l'acquisto sia ancora valido, e ogni controllo lascia una riga tecnica conservata per
+    o Google che l'acquisto sia ancora valido, e ogni controllo lascia una riga tecnica conservata per
     <strong>90 giorni</strong>, il tempo utile ad accorgersi di eventuali abusi.</li>
   <li><strong>Elenco degli acquisti</strong>: identificativo della transazione, prodotto, offerta e
   prezzo, conservati finché l'app è distribuita — è il registro delle licenze attivate. Non contiene
@@ -514,7 +516,9 @@ pagamento non li vediamo mai: la transazione è gestita interamente da Apple.
   l'account, e si cancella insieme a lui.</li>
   <li><strong>Notifiche di Apple sugli acquisti</strong>: gli avvisi che Apple invia al servizio
     quando un acquisto viene rimborsato o revocato (solo l'identificativo della transazione, senza
-    dati personali) sono conservati per <strong>180 giorni</strong>.</li>
+    dati personali) sono conservati per <strong>180 giorni</strong>. Da Google arriva solo l'avviso
+    di rimborso, che il servizio annota nel registro della licenza (la data del rimborso) e non
+    conserva altrove.</li>
   <li><strong>Copie di sicurezza</strong>: <strong>30 giorni</strong>, vedi «Copie di sicurezza
     del servizio».</li>
   <li><strong>Protezioni antiabuso</strong>: i controlli sulla frequenza delle richieste

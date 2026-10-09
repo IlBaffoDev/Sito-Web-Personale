@@ -60,4 +60,5 @@ export const pagine = {
   'progetti/gestore-costi-veicoli-supporto.html': { font: FONT_GCV },
   'progetti/gestore-costi-veicoli-termini.html':  { font: FONT_GCV },
   'progetti/gestore-costi-veicoli-novita.html':   { font: FONT_GCV },
+  'progetti/gestore-costi-veicoli-elimina-account.html': { font: FONT_GCV },
 };
