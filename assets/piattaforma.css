@@ -62,46 +62,60 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .and-badge-top { top: -18px; right: 0; z-index: 2; }
 .and-badge-bot { left: 0; bottom: -22px; z-index: 2; }
 
-/* ---------- Wear OS: due quadranti rotondi disegnati in HTML ---------- */
-.wear-duo { position: relative; display: flex; align-items: center; justify-content: center; gap: 28px; padding: 20px 0 30px; }
+/* ---------- Wear OS: schermi rotondi senza cassa, come nelle guide Material 3 di Google.
+   Misure in --u = 1/700 della larghezza del contenitore: i tre schermi scalano insieme. */
+.wear-duo { container-type: inline-size; position: relative; display: flex; align-items: center; justify-content: center; gap: 0; padding: 1.5cqw 0; }
+.wear-duo > * { --u: calc(100cqw / 600); }
+/* i due laterali stanno un po' dietro al centrale, sovrapposti */
+.wear-duo .wear--lato { margin: 0 calc(-26 * var(--u)); z-index: 0; }
+.wear-duo .wear--centro { z-index: 1; box-shadow: 0 0 0 calc(1.5 * var(--u)) rgba(255,255,255,.18), 0 calc(30 * var(--u)) calc(70 * var(--u)) rgba(0,0,0,.85); }
 .wear-duo .wear {
-  box-sizing: border-box; aspect-ratio: 1;
-  position: relative; flex-shrink: 0; width: 230px; height: 230px; border-radius: 50%;
-  background: #000; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 34px;
-  box-shadow: 0 0 0 9px #2E2B38, 0 0 0 11px #47435A, 0 34px 60px -14px rgba(0,0,0,.75);
+  box-sizing: border-box; aspect-ratio: 1; position: relative; flex-shrink: 0; overflow: hidden;
+  width: calc(200 * var(--u)); height: auto; border-radius: 50%; padding: calc(30 * var(--u)) calc(26 * var(--u)) 0;
+  background: #000; color: #E6E0FF; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  text-align: center; font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 calc(1.5 * var(--u)) rgba(255,255,255,.14), 0 calc(30 * var(--u)) calc(60 * var(--u)) -18px rgba(0,0,0,.8);
 }
-.wear::before, .wear::after { /* cinturino */
-  content: ""; position: absolute; left: 50%; width: 120px; transform: translateX(-50%); height: 70px; z-index: -1;
-  background: linear-gradient(180deg, #26222F, #3A3548);
+.wear-duo .wear--centro { width: calc(236 * var(--u)); padding-top: calc(30 * var(--u)); }
+.wear-duo .wear--lato { filter: brightness(.82); }
+.wear__ora { font-size: calc(11 * var(--u)); font-weight: 700; color: #fff; margin-bottom: calc(10 * var(--u)); }
+.wear__tit { font-size: calc(12.5 * var(--u)); font-weight: 700; color: #C8BFFF; }
+.wear__importo { font-size: calc(30 * var(--u)); font-weight: 800; letter-spacing: -.8px; color: #fff; line-height: 1.15; margin: calc(2 * var(--u)) 0 calc(2 * var(--u)); }
+.wear--centro .wear__importo { font-size: calc(34 * var(--u)); }
+.wear__nota { font-size: calc(11 * var(--u)); font-weight: 600; color: #A9A3C2; }
+.wear__chip {
+  display: inline-flex; align-items: center; gap: calc(6 * var(--u)); margin: calc(8 * var(--u)) 0 calc(4 * var(--u));
+  font-size: calc(11 * var(--u)); font-weight: 700; color: #E6E0FF; background: #24212F; border-radius: calc(100 * var(--u)); padding: calc(6 * var(--u)) calc(11 * var(--u));
 }
-.wear::before { top: -70px; border-radius: 22px 22px 0 0; }
-.wear::after { bottom: -70px; border-radius: 0 0 22px 22px; }
-.wear-duo .wear--piccolo { width: 190px; height: 190px; padding: 28px; margin-top: 52px; }
-.wear__k { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: #A99DFF; margin-bottom: 6px; }
-.wear__chip { font-size: 12px; font-weight: 700; background: #1E1B2E; border-radius: 100px; padding: 6px 12px; margin-bottom: 8px; }
-.wear__importo { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
-.wear__ok { margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: #4FE3C1; color: #0D0B1A; }
-.wear__ok svg { width: 20px; height: 20px; }
-.wear__anello {
-  position: absolute; inset: 10px; border-radius: 50%;
-  background: conic-gradient(#8B7BFA 0 68%, rgba(255,255,255,.1) 68% 100%);
-  -webkit-mask: radial-gradient(circle, transparent 66%, #000 67%);
-  mask: radial-gradient(circle, transparent 66%, #000 67%);
+.wear__pallino { width: calc(7 * var(--u)); height: calc(7 * var(--u)); border-radius: 50%; background: #F08A3C; }
+.wear__pillola {
+  position: absolute; left: 50%; bottom: calc(14 * var(--u)); transform: translateX(-50%);
+  display: inline-flex; align-items: center; justify-content: center; gap: calc(6 * var(--u));
+  width: 58%; height: calc(40 * var(--u)); border-radius: calc(100 * var(--u)) calc(100 * var(--u)) calc(60 * var(--u)) calc(60 * var(--u)) / calc(100 * var(--u)) calc(100 * var(--u)) calc(40 * var(--u)) calc(40 * var(--u));
+  background: #C8BFFF; color: #2A1F9E; font-size: calc(13 * var(--u)); font-weight: 800;
 }
-.wear-duo .widget-floating-badge { position: absolute; }
-.wear-badge-top { top: -6px; right: 4%; z-index: 2; }
-.wear-badge-bot { left: 2%; bottom: -14px; z-index: 2; }
+.wear__pillola svg { width: calc(15 * var(--u)); height: calc(15 * var(--u)); }
+.wear__pillola--tono { background: #2E2A40; color: #E6E0FF; height: calc(34 * var(--u)); bottom: calc(12 * var(--u)); font-size: calc(12 * var(--u)); }
+.wear__arco { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.wear__arco circle { fill: none; stroke-width: 3.5; stroke-linecap: round; }
+.wear__arco-fondo { stroke: #24212F; }
+.wear__arco-pieno { stroke: #C8BFFF; }
+.wear__data { font-size: calc(11 * var(--u)); font-weight: 700; letter-spacing: .08em; color: #C8BFFF; margin-top: calc(4 * var(--u)); }
+.wear__orologio { font-size: calc(46 * var(--u)); font-weight: 300; letter-spacing: -1px; color: #fff; line-height: 1; margin: calc(4 * var(--u)) 0 calc(12 * var(--u)); }
+.wear__compl { display: flex; gap: calc(8 * var(--u)); }
+.wear__c {
+  width: calc(54 * var(--u)); height: calc(54 * var(--u)); border-radius: 50%; background: #1C1A26; box-shadow: inset 0 0 0 calc(2 * var(--u)) #C8BFFF33;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1;
+}
+.wear__c b { font-size: calc(12 * var(--u)); font-weight: 800; color: #fff; }
+.wear__c i { font-style: normal; font-size: calc(8.5 * var(--u)); font-weight: 600; color: #A9A3C2; }
 
 @media (max-width: 860px) {
   .and-collage { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
-  .wear-duo { gap: 14px; max-width: 100%; }
-  .wear-duo .wear { width: min(190px, 54%); height: auto; padding: 18px; }
-  .wear-duo .wear--piccolo { width: min(150px, 42%); height: auto; padding: 14px; margin-top: 40px; }
-  .wear__importo { font-size: clamp(18px, 6vw, 26px); }
-  .wear__chip { font-size: 10.5px; padding: 4px 8px; }
-  .wear__ok { width: 34px; height: 34px; }
-  .wear::before, .wear::after { width: 60%; height: 50px; }
-  .wear::before { top: -50px; } .wear::after { bottom: -50px; }
-  .wear-badge-top { right: 0; }
+}
+/* telefono: due schermi invece di tre, più grandi (il primo, «Ottobre», si nasconde) */
+@media (max-width: 560px) {
+  .wear-duo > * { --u: calc(100cqw / 470); }
+  .wear-duo .wear--lato:first-child { display: none; }
+  .wear-duo .wear--lato { margin: 0 0 0 calc(-14 * var(--u)); }
 }
