@@ -63,27 +63,29 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .and-badge-bot { left: 0; bottom: -22px; z-index: 2; }
 
 /* ---------- Wear OS: schermate disegnate in HTML dentro la cassa di un orologio rotondo
-   (assets/wearos-cassa.webp, schermo trasparente). Misure in --u = 1/600 della larghezza
+   (assets/wearos-cassa.webp: Pixel Watch 4, schermo trasparente). Misure in --u = 1/600 della larghezza
    del contenitore: i tre orologi scalano insieme. */
 .wear-duo { container-type: inline-size; position: relative; display: flex; align-items: center; justify-content: center; gap: 0; padding: 1.5cqw 0; }
 .wear-duo > * { --u: calc(100cqw / 600); }
-.wear-duo .wear-cassa { position: relative; flex-shrink: 0; width: calc(225 * var(--u)); aspect-ratio: 1460 / 2087; }
-.wear-duo .wear-cassa--centro { width: calc(265 * var(--u)); z-index: 1; }
+.wear-duo .wear-cassa { position: relative; flex-shrink: 0; width: calc(215 * var(--u)); aspect-ratio: 1038 / 1591; }
+.wear-duo .wear-cassa--centro { width: calc(255 * var(--u)); z-index: 1; }
 /* i due laterali stanno un po' dietro al centrale, sovrapposti */
-.wear-duo .wear-cassa--lato { margin: 0 calc(-62 * var(--u)); z-index: 0; filter: brightness(.8); }
+.wear-duo .wear-cassa--lato { margin: 0 calc(-45 * var(--u)); z-index: 0; filter: brightness(.8); }
 .wear-cassa::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background: url(wearos-cassa.webp) center / 100% 100% no-repeat;
 }
 .wear-duo .wear-cassa--centro::after { filter: drop-shadow(0 calc(26 * var(--u)) calc(30 * var(--u)) rgba(0,0,0,.7)); }
-/* lo schermo è il foro della cassa: centro a (48,5%; 50,1%), diametro 88,6% della larghezza */
+/* lo schermo è il foro della cassa: centro a (47,4%; 50,2%), diametro 87,7% della larghezza */
 .wear-duo .wear {
   box-sizing: border-box; aspect-ratio: 1; position: absolute; overflow: hidden;
-  left: 48.5%; top: 50.1%; transform: translate(-50%, -50%); width: 89.4%; height: auto;
+  left: 47.4%; top: 50.2%; transform: translate(-50%, -50%); width: 88.4%; height: auto;
   border-radius: 50%; padding: calc(30 * var(--u)) calc(26 * var(--u)) 0;
   background: #000; color: #E6E0FF; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
   text-align: center; font-variant-numeric: tabular-nums;
 }
+/* riflesso del vetro, come nel mockup originale */
+.wear-duo .wear::after { content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; background: linear-gradient(140deg, rgba(255,255,255,.13), rgba(255,255,255,0) 34%); }
 .wear__ora { font-size: calc(11 * var(--u)); font-weight: 700; color: #fff; margin-bottom: calc(10 * var(--u)); }
 .wear__tit { font-size: calc(12.5 * var(--u)); font-weight: 700; color: #C8BFFF; }
 .wear__importo { font-size: calc(30 * var(--u)); font-weight: 800; letter-spacing: -.8px; color: #fff; line-height: 1.15; margin: calc(2 * var(--u)) 0 calc(2 * var(--u)); }
@@ -123,5 +125,5 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 @media (max-width: 560px) {
   .wear-duo > * { --u: calc(100cqw / 470); }
   .wear-duo .wear-cassa--lato:first-child { display: none; }
-  .wear-duo .wear-cassa--lato { margin: 0 0 0 calc(-62 * var(--u)); }
+  .wear-duo .wear-cassa--lato { margin: 0 0 0 calc(-45 * var(--u)); }
 }
