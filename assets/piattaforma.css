@@ -82,6 +82,7 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 /* lo schermo è il foro della cassa: centro a (47,4%; 50,2%), diametro 87,7% della larghezza */
 .wear-duo .wear {
   box-sizing: border-box; aspect-ratio: 1; position: absolute; overflow: hidden; container-type: inline-size;
+  clip-path: circle(50%); /* Safari: overflow+border-radius non ritaglia i figli mentre la cassa si anima */
   left: 47.4%; top: 50.2%; transform: translate(-50%, -50%); width: 88.4%; height: auto;
   border-radius: 50%; padding: 0 12%;
   background: #000; color: #E6E0FF; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -113,7 +114,7 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .wear__pillola svg { width: calc(13 * var(--u)); height: calc(13 * var(--u)); }
 .wear__pillola--tono { background: #2E2A40; color: #E6E0FF; height: calc(30 * var(--u)); font-size: calc(11.5 * var(--u)); }
 /* l'anello del budget corre appena dentro la lunetta */
-.wear__arco { position: absolute; inset: 4%; width: 92%; height: 92%; transform: rotate(-90deg); }
+.wear__arco { position: absolute; inset: 4%; width: 92%; height: 92%; } /* ruotato dentro l'SVG, non col CSS */
 .wear__arco circle { fill: none; stroke-width: 3; stroke-linecap: round; }
 .wear__arco-fondo { stroke: #24212F; }
 .wear__arco-pieno { stroke: #C8BFFF; }
