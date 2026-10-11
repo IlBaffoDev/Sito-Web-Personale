@@ -67,6 +67,9 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
    del contenitore: i tre orologi scalano insieme. */
 .wear-duo { container-type: inline-size; position: relative; display: flex; align-items: center; justify-content: center; gap: 0; padding: 1.5cqw 0; }
 .wear-duo > * { --u: calc(100cqw / 600); }
+/* flat: cassa e schermo sullo stesso piano dentro il 3D del tilt lampeggiavano (z-fighting);
+   backwards: durante animation-delay l'orologio sta già a --base-y, niente scatto alla partenza */
+.wear-duo .wear-cassa { transform-style: flat; animation-fill-mode: backwards; will-change: transform; }
 .wear-duo .wear-cassa { position: relative; flex-shrink: 0; width: calc(215 * var(--u)); aspect-ratio: 1038 / 1591; }
 .wear-duo .wear-cassa--centro { width: calc(255 * var(--u)); z-index: 1; }
 /* i due laterali stanno un po' dietro al centrale, sovrapposti */
