@@ -224,19 +224,26 @@
      riposizionati in percentuale dentro un contenitore con aspect-ratio fisso, così
      la composizione scala identica a ogni larghezza. Le card sono .widget-mockup:
      float + tilt 3D via ../assets/widget-interactive.js. */
-  .wz-collage{ position:relative; width:100%; aspect-ratio:2280/1355; }
+  /* widget di ottobre: grande scuro a sinistra, piccolo in alto a destra (Budget su iPhone, riquadro
+     tonale su Android), medio in basso a destra. Stessa composizione sulle due piattaforme. */
+  .wz-collage{ position:relative; width:100%; aspect-ratio:100/88; }
   .wz-card{ position:absolute; height:auto; filter:drop-shadow(0 30px 50px rgba(0,0,0,.55)); }
-  .wz-azioni{ left:17.7%; top:8.3%;  width:28.9%; z-index:2; }
-  .wz-dark{   left:48.4%; top:11.7%; width:47.2%; z-index:1; }
-  .wz-light{  left:1.9%;  top:62.8%; width:44%;   z-index:3; }
-  .wz-badge-top{ top:-2%; right:-1%; z-index:4 }
-  .wz-badge-mid{ left:68%; top:86%; z-index:4 }
+  .wz-grande{ left:0;   top:2%;  width:58%; z-index:1; }
+  .wz-piccolo{ left:66%; top:6%;  width:28%; z-index:2; }
+  .wz-medio{  left:36%; top:66%; width:64%; z-index:3; }
+  .wz-badge-top{ top:-4%; right:-1%; z-index:4 }
+  .wz-badge-mid{ left:0; bottom:-9%; z-index:4 }
+  #widget .wz-collage{ margin-bottom:28px }
+  .wz-tonale{ box-sizing:border-box; aspect-ratio:1; border-radius:17%; background:#E9E5FF; color:#1A1830; padding:2.6%; display:flex; flex-direction:column; justify-content:space-between; container-type:inline-size; font-family:Roboto, 'Plus Jakarta Sans', system-ui, sans-serif; }
+  .wz-tonale__mese{ font-size:10cqw; font-weight:700; color:#5B4FE0; }
+  .wz-tonale__tot{ font-size:19cqw; font-weight:800; letter-spacing:-.02em; line-height:1; }
+  .wz-tonale__trend{ font-size:9.5cqw; font-weight:700; color:#C23764; }
+  .wz-tonale__btn{ display:block; text-align:center; background:#5B4FE0; color:#fff; border-radius:12cqw; font-size:10.5cqw; font-weight:700; padding:6cqw 0; }
   /* fascia desktop stretta: il collage si riduce ma i badge in px no — ridimensionati
      e ancorati a destra per non sbordare dal pannello (deve stare DOPO le regole base
      dei .wz-badge, stessa specificità: vince l'ultima) */
   @media (min-width:861px) and (max-width:1100px){
     .widget-floating-badge{ font-size:11.5px; padding:8px 12px; gap:6px }
-    .wz-badge-mid{ left:auto; right:0 }
   }
   .wz-chip{
     display:inline-block; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
@@ -670,11 +677,11 @@
     #widget div.widget-griglia-2{grid-template-columns:1fr !important}
     #watch div.watch-griglia-2{grid-template-columns:1fr !important}
     #recensioni div.recensioni-griglia-3{grid-template-columns:1fr !important}
-    #widget .widget-mockups{margin-top:32px}
+    #widget .widget-mockups{margin:32px 0 44px}
     /* i badge hanno font/padding in px fissi: sul collage ristretto vanno ridotti,
-       e il badge centrale ancorato a destra per non coprire il footer della card */
+       e il badge in basso scende sotto il collage per non coprire il widget medio */
     .widget-floating-badge{font-size:11px;padding:7px 11px;gap:6px}
-    .wz-badge-mid{left:auto;right:1%}
+    .wz-badge-mid{bottom:-12%}
     #hero{padding-bottom:60px !important}
     .hero-copy{flex-direction:column !important}
     .hero-copy > div:last-child{flex-shrink:0 !important;min-height:480px !important;padding:12px 0 40px !important}
@@ -868,7 +875,7 @@
       <div class="widget-mockups" style="flex:1 1 380px;min-width:0;position:relative;display:flex;align-items:center;justify-content:center;min-height:380px;padding:20px 0 60px">
         <div style="position:relative;z-index:2;width:min(510px,90vw);margin-top:60px">
           <div style="transform:scale(1.25)">
-            <img width="1400" height="1422" class="widget-mockup" src="../assets/screenshots/hero-duo-mockup.webp" alt="Gestore Costi Veicoli su due telefoni: dashboard e sincronizzazione" fetchpriority="high" style="width:100%;display:block;filter:drop-shadow(0 40px 70px rgba(0,0,0,.5));--base-rot:0deg;--base-y:0px">
+            <img width="1400" height="1422" class="widget-mockup" src="../assets/screenshots/hero-duo-mockup.webp" alt="Gestore Costi Veicoli su iPhone e su un telefono Android: la dashboard del mese e la scheda di un veicolo" fetchpriority="high" style="width:100%;display:block;filter:drop-shadow(0 40px 70px rgba(0,0,0,.5));--base-rot:0deg;--base-y:0px">
           </div>
         </div>
       </div>
@@ -1197,10 +1204,16 @@
     <div style="text-align:center;max-width:640px;margin:0 auto 48px">
       <h2 style="margin:0 0 16px;font-size:38px;font-weight:800;letter-spacing:-0.5px">Guarda l'app in azione</h2>
       <p class="t-medio" style="margin:0 0 20px;color:#4B4566;font-size:17px;line-height:1.6">Un'interfaccia semplice, pensata per chi vuole capire davvero quanto spende.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center">
+      <div class="os-switch" role="group" aria-label="Schermate su iPhone o su Android">
+        <button type="button" data-os-scelta="ios" aria-pressed="true"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg>iPhone</button>
+        <button type="button" data-os-scelta="android" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.5l1.8-3.1a.4.4 0 0 0-.7-.4l-1.8 3.2A11 11 0 0 0 12 8.2c-1.8 0-3.4.4-4.9 1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 17.8h22a10.4 10.4 0 0 0-5.4-8.3zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>Android</button>
+      </div>
       <button class="sup-lilla t-viola" type="button" id="gallery-theme-toggle" aria-pressed="false" style="display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:13.5px;padding:8px 16px;border-radius:100px;border:none;cursor:pointer">
         <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z"/></svg>
         <span data-label>Guarda in tema scuro</span>
       </button>
+      </div>
     </div>
 
     <div class="section-panel">
@@ -1213,34 +1226,34 @@
 
         <div class="deck-stack">
           <div class="deck-card" id="gallery-card-1" role="group" aria-roledescription="slide" aria-label="1 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" alt="Dashboard di Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" data-src-android="../assets/screenshots/deck-dashboard-android.webp" data-src-android-dark="../assets/screenshots/deck-dashboard-android-dark.webp" alt="Dashboard di Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-2" role="group" aria-roledescription="slide" aria-label="2 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-light="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/deck-dettaglio-veicolo-dark.webp" alt="Scheda veicolo in Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-light="../assets/screenshots/deck-dettaglio-veicolo.webp" data-src-dark="../assets/screenshots/deck-dettaglio-veicolo-dark.webp" data-src-android="../assets/screenshots/deck-dettaglio-veicolo-android.webp" data-src-android-dark="../assets/screenshots/deck-dettaglio-veicolo-android-dark.webp" alt="Scheda veicolo in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-3" role="group" aria-roledescription="slide" aria-label="3 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-tragitti.webp" data-src-light="../assets/screenshots/deck-tragitti.webp" data-src-dark="../assets/screenshots/deck-tragitti-dark.webp" alt="Tragitti rilevati in auto in Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-tragitti.webp" data-src-light="../assets/screenshots/deck-tragitti.webp" data-src-dark="../assets/screenshots/deck-tragitti-dark.webp" data-src-android="../assets/screenshots/deck-tragitti-android.webp" data-src-android-dark="../assets/screenshots/deck-tragitti-android-dark.webp" alt="Tragitti rilevati in auto in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-4" role="group" aria-roledescription="slide" aria-label="4 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-assistente.webp" data-src-light="../assets/screenshots/deck-assistente.webp" data-src-dark="../assets/screenshots/deck-assistente-dark.webp" alt="Assistente di Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-assistente.webp" data-src-light="../assets/screenshots/deck-assistente.webp" data-src-dark="../assets/screenshots/deck-assistente-dark.webp" data-src-android="../assets/screenshots/deck-assistente-android.webp" data-src-android-dark="../assets/screenshots/deck-assistente-android-dark.webp" alt="Assistente di Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-5" role="group" aria-roledescription="slide" aria-label="5 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-previsione.webp" data-src-light="../assets/screenshots/deck-previsione.webp" data-src-dark="../assets/screenshots/deck-previsione-dark.webp" alt="Previsione dei prossimi 12 mesi in Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-previsione.webp" data-src-light="../assets/screenshots/deck-previsione.webp" data-src-dark="../assets/screenshots/deck-previsione-dark.webp" data-src-android="../assets/screenshots/deck-previsione-android.webp" data-src-android-dark="../assets/screenshots/deck-previsione-android-dark.webp" alt="Previsione dei prossimi 12 mesi in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-6" role="group" aria-roledescription="slide" aria-label="6 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" alt="Carburante in Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" data-src-android="../assets/screenshots/deck-carburante-android.webp" data-src-android-dark="../assets/screenshots/deck-carburante-android-dark.webp" alt="Carburante in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-7" role="group" aria-roledescription="slide" aria-label="7 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" alt="Scadenze in Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" data-src-android="../assets/screenshots/deck-scadenze-android.webp" data-src-android-dark="../assets/screenshots/deck-scadenze-android-dark.webp" alt="Scadenze in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-8" role="group" aria-roledescription="slide" aria-label="8 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" alt="Garage di Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" data-src-android="../assets/screenshots/deck-garage-android.webp" data-src-android-dark="../assets/screenshots/deck-garage-android-dark.webp" alt="Garage di Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-9" role="group" aria-roledescription="slide" aria-label="9 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-viaggi.webp" data-src-light="../assets/screenshots/deck-viaggi.webp" data-src-dark="../assets/screenshots/deck-viaggi-dark.webp" alt="Dettaglio di un viaggio in Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-viaggi.webp" data-src-light="../assets/screenshots/deck-viaggi.webp" data-src-dark="../assets/screenshots/deck-viaggi-dark.webp" data-src-android="../assets/screenshots/deck-viaggi-android.webp" data-src-android-dark="../assets/screenshots/deck-viaggi-android-dark.webp" alt="Dettaglio di un viaggio in Gestore Costi Veicoli">
           </div>
           <div class="deck-card" id="gallery-card-10" role="group" aria-roledescription="slide" aria-label="10 di 10">
-            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-impostazioni.webp" data-src-light="../assets/screenshots/deck-impostazioni.webp" data-src-dark="../assets/screenshots/deck-impostazioni-dark.webp" alt="Impostazioni di Gestore Costi Veicoli">
+            <img width="880" height="1820" loading="lazy" class="gallery-card-img" src="../assets/screenshots/deck-impostazioni.webp" data-src-light="../assets/screenshots/deck-impostazioni.webp" data-src-dark="../assets/screenshots/deck-impostazioni-dark.webp" data-src-android="../assets/screenshots/deck-impostazioni-android.webp" data-src-android-dark="../assets/screenshots/deck-impostazioni-android-dark.webp" alt="Impostazioni di Gestore Costi Veicoli">
           </div>
         </div>
 
@@ -1375,71 +1388,47 @@
       <div class="anim-drift" aria-hidden="true" style="position:absolute;top:-140px;right:-100px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(139,123,250,.35),transparent 62%);filter:blur(20px);animation:gcvDrift 24s ease-in-out infinite alternate"></div>
       <div class="widget-griglia-2" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center">
         <div>
-          <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>Widget e smartwatch</span>
+          <span style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A99DFF;border:1px solid rgba(169,157,255,.35);border-radius:100px;padding:9px 18px;margin-bottom:22px"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#8B7BFA"></span>Widget</span>
           <h2 style="margin:0 0 16px;font-size:44px;font-weight:800;letter-spacing:-1.2px;line-height:1.1;color:#fff">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
           <div class="os-switch os-switch--scuro" role="group" aria-label="Widget per iPhone o per Android" style="margin-bottom:26px">
             <button type="button" data-os-scelta="ios" aria-pressed="true"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg>iPhone</button>
             <button type="button" data-os-scelta="android" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.5l1.8-3.1a.4.4 0 0 0-.7-.4l-1.8 3.2A11 11 0 0 0 12 8.2c-1.8 0-3.4.4-4.9 1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 17.8h22a10.4 10.4 0 0 0-5.4-8.3zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>Android</button>
           </div>
-          <p data-os-solo="ios" style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Due widget pensati per iOS: uno per il colpo d'occhio sulla spesa, uno per registrare in un tap. E dal polso, con l'app nativa per Apple Watch.</p>
-          <p data-os-solo="android" style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Gli stessi due widget sulla schermata Home di Android, ridimensionabili e nei colori del tuo tema. E dal polso, con l'app per Wear OS.</p>
+          <p data-os-solo="ios" style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Sette widget per la Home e la schermata di blocco: il mese a colpo d'occhio, la spesa per veicolo, il budget, la prossima scadenza e le azioni rapide. In piccolo, medio o grande, chiari o scuri.</p>
+          <p data-os-solo="android" style="margin:0 0 28px;font-size:16.5px;line-height:1.7;color:#B3AECB;max-width:440px">Gli stessi widget sulla Home di Android, ridimensionabili a piacere. In più il riquadro tonale, nei colori del tuo tema, con il totale del mese e «+ Spesa».</p>
           <div class="wz-lista" style="display:flex;flex-direction:column;gap:16px;margin-bottom:30px">
             <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
               <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
-              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Azioni rapide</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Aggiungi una spesa o una scadenza dalla Home, senza aprire l'app.<span data-os-solo="android"> E tenendo premuta l'icona, le scorciatoie per andare dritto al modulo.</span></span></span>
+              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Azioni rapide</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Spesa, pieno, scadenza o km in un tocco, con gli ultimi movimenti sotto mano.<span data-os-solo="android"> E tenendo premuta l'icona, le scorciatoie per andare dritto al modulo.</span></span></span>
             </div>
             <div style="display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 20px">
               <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:#6C5CE7;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span>
-              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Tutti i veicoli, a colpo d'occhio</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Il totale del mese con il dettaglio per categoria, in formato medio o grande.</span></span>
+              <span><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Il mese a colpo d'occhio</strong><span style="color:#B3AECB;font-size:14.5px;line-height:1.6">Il totale con il confronto sul mese prima, la spesa di ogni veicolo, l'andamento degli ultimi sei mesi e quanto resta del budget.</span></span>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
             <span style="color:#8A84A6;font-size:14.5px">Disponibile con</span>
             <span class="wz-chip" data-os-solo="ios">iOS 17+</span>
-            <span class="wz-chip" data-os-solo="ios">watchOS 10+</span>
             <span class="wz-chip" data-os-solo="android">Android 7+</span>
-            <span class="wz-chip" data-os-solo="android">Wear OS 3+</span>
             <span class="wz-chip wz-chip--arrivo" data-os-solo="android">In arrivo con l'uscita su Google Play</span>
           </div>
         </div>
-        <div class="widget-mockups wz-collage" data-os-solo="ios">
-          <img width="696" height="698" class="widget-mockup wz-card wz-dark" src="../assets/widget-tutti-dark.webp" alt="Widget Tutti i veicoli in formato grande, tema scuro: totale del mese, trend e dettaglio per categoria" loading="lazy" style="--base-y:0px">
-          <img width="310" height="308" class="widget-mockup wz-card wz-azioni" src="../assets/widget-azioni-card.webp" alt="Widget Azioni rapide, tema chiaro: nuova spesa e nuova scadenza dalla Home" loading="lazy" style="--base-y:8px;animation-delay:.5s">
-          <img width="696" height="303" class="widget-mockup wz-card wz-light" src="../assets/widget-tutti-light.webp" alt="Widget Tutti i veicoli in formato medio, tema chiaro, con gli importi per categoria" loading="lazy" style="--base-y:4px;animation-delay:1s">
+        <div class="widget-mockups wz-collage">
+          <img width="760" height="793" class="widget-mockup wz-card wz-grande" src="../assets/widget-per-veicolo-dark.webp" alt="Widget Per veicolo in formato grande, tema scuro: 1.120 euro a settembre su 4 veicoli, con la spesa di ciascuno" loading="lazy" style="--base-y:0px">
+          <img width="360" height="360" class="widget-mockup wz-card wz-piccolo" data-os-solo="ios" src="../assets/widget-budget.webp" alt="Widget Budget in formato piccolo, tema chiaro: 185 euro oltre il budget del mese" loading="lazy" style="--base-y:8px;animation-delay:.5s">
+          <div class="widget-mockup wz-card wz-piccolo wz-tonale" data-os-solo="android" role="img" aria-label="Riquadro tonale Android: 1.120 euro a settembre, più 51 per cento, con il tasto più spesa" style="--base-y:8px;animation-delay:.5s">
+            <span class="wz-tonale__mese" aria-hidden="true">Settembre</span>
+            <span class="wz-tonale__tot" aria-hidden="true">1.120 €</span>
+            <span class="wz-tonale__trend" aria-hidden="true">▲ 51%</span>
+            <span class="wz-tonale__btn" aria-hidden="true">+ Spesa</span>
+          </div>
+          <img width="760" height="352" class="widget-mockup wz-card wz-medio" src="../assets/widget-azioni-rapide.webp" alt="Widget Azioni rapide in formato medio, tema chiaro: più spesa, pieno, scadenza e km" loading="lazy" style="--base-y:4px;animation-delay:1s">
           <span class="widget-floating-badge wz-badge-top">
             <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
             Si aggiorna quando usi l'app
           </span>
           <span class="widget-floating-badge wz-badge-mid">
             <span aria-hidden="true" style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1B1830;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-            Spesa registrata in 1 tap
-          </span>
-        </div>
-        <div class="widget-mockups and-collage" data-os-solo="android" role="img" aria-label="Widget Android disegnati: Azioni rapide con Nuova spesa e Nuova scadenza, e Tutti i veicoli con il totale del mese e il dettaglio per categoria">
-          <div class="and-w widget-mockup" style="--base-y:8px" aria-hidden="true">
-            <div class="and-w__tit"><img src="../assets/gestore-costi-veicoli-logo.png" alt="" width="18" height="18">Azioni rapide</div>
-            <div class="and-w__azioni">
-              <span class="and-w__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Nuova spesa</span>
-              <span class="and-w__btn and-w__btn--tono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg>Nuova scadenza</span>
-            </div>
-          </div>
-          <div class="and-w and-w--scuro widget-mockup" style="--base-y:0px;animation-delay:.5s" aria-hidden="true">
-            <div class="and-w__tit"><img src="../assets/gestore-costi-veicoli-logo.png" alt="" width="18" height="18">Tutti i veicoli</div>
-            <div class="and-w__tot">412 €</div>
-            <div class="and-w__sub">speso a ottobre · 2 veicoli</div>
-            <div class="and-w__righe">
-                <div class="and-w__riga"><span>Carburante</span><span>148 €</span><div class="and-w__barra"><span style="width:62%;background:#F08A3C"></span></div></div>
-                <div class="and-w__riga"><span>Rata</span><span>150 €</span><div class="and-w__barra"><span style="width:64%;background:#4B3FE3"></span></div></div>
-                <div class="and-w__riga"><span>Manutenzione</span><span>74 €</span><div class="and-w__barra"><span style="width:31%;background:#2FAE7C"></span></div></div>
-                <div class="and-w__riga"><span>Assicurazione</span><span>40 €</span><div class="and-w__barra"><span style="width:17%;background:#3B7DDB"></span></div></div>
-            </div>
-          </div>
-          <span class="widget-floating-badge and-badge-top" aria-hidden="true">
-            <span style="width:8px;height:8px;border-radius:50%;background:#22C55E;flex-shrink:0"></span>
-            Si aggiorna quando usi l'app
-          </span>
-          <span class="widget-floating-badge and-badge-bot" aria-hidden="true">
-            <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#1B1830;flex-shrink:0"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#A99DFF" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
             Spesa registrata in 1 tap
           </span>
         </div>

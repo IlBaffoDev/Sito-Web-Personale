@@ -35,33 +35,6 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .store-btn--presto:hover { transform: none !important; box-shadow: none !important; }
 .store-btn--presto::before { display: none; }
 
-/* ---------- widget Android (Material You), disegnati in HTML ---------- */
-.and-collage { position: relative; display: grid; grid-template-columns: 1fr 1.35fr; gap: 18px; align-items: start; }
-.and-collage .and-w {
-  display: block; border-radius: 28px; padding: 20px; color: #1C1B1F;
-  background: #F4F0FF; box-shadow: 0 30px 50px -22px rgba(0,0,0,.6);
-  font-family: inherit;
-}
-.and-w--scuro { background: #2A2540; color: #EDE9FF; }
-.and-w__tit { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; opacity: .75; margin-bottom: 10px; }
-.and-w__tit img { width: 18px; height: 18px; border-radius: 5px; }
-.and-w__tot { font-size: 30px; font-weight: 800; letter-spacing: -1px; line-height: 1.05; }
-.and-w__sub { font-size: 12px; font-weight: 600; opacity: .7; margin-top: 2px; }
-.and-w__righe { display: flex; flex-direction: column; gap: 9px; margin-top: 16px; }
-.and-w__riga { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; font-size: 12.5px; font-weight: 700; }
-.and-w__barra { grid-column: 1 / -1; height: 7px; border-radius: 100px; background: rgba(127,115,230,.18); overflow: hidden; }
-.and-w__barra span { display: block; height: 100%; border-radius: inherit; }
-.and-w__azioni { display: flex; flex-direction: column; gap: 10px; }
-.and-w__btn {
-  display: flex; align-items: center; gap: 10px; border-radius: 100px; padding: 12px 14px;
-  background: #4B3FE3; color: #fff; font-size: 13.5px; font-weight: 700;
-}
-.and-w__btn--tono { background: #E1DBFF; color: #2A1F9E; }
-.and-w__btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-.and-collage .widget-floating-badge { position: absolute; }
-.and-badge-top { top: -18px; right: 0; z-index: 2; }
-.and-badge-bot { left: 0; bottom: -22px; z-index: 2; }
-
 /* ---------- Wear OS: schermate disegnate in HTML dentro la cassa di un orologio rotondo
    (assets/wearos-cassa.webp: Pixel Watch 4, schermo trasparente). Misure in --u = 1/600 della larghezza
    del contenitore: i tre orologi scalano insieme. */
@@ -131,9 +104,6 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .wear__c b { font-size: calc(12 * var(--u)); font-weight: 800; color: #fff; }
 .wear__c i { font-style: normal; font-size: calc(8.5 * var(--u)); font-weight: 600; color: #A9A3C2; }
 
-@media (max-width: 860px) {
-  .and-collage { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
-}
 /* telefono: due schermi invece di tre, più grandi (il primo, «Ottobre», si nasconde) */
 @media (max-width: 560px) {
   .wear-duo > * { --u: calc(100cqw / 470); }
