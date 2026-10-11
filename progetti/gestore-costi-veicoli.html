@@ -411,6 +411,48 @@
     .anim-float, .widget-mockup, .wz-card, .pannello-scuro__luce, .slide-in{animation:none !important}
     .st-btn, .calc-barra > div, .sticky-cta{transition:none}
   }
+
+  /* widget v2: titolo centrato, widget grandi al centro, tre punti in fila */
+  .wz2__testa{position:relative;text-align:center;max-width:640px;margin:0 auto}
+  .wz2__testa .p-scuro{margin-left:auto;margin-right:auto}
+  .wz2__collage{max-width:760px;margin:24px auto 8px}
+  .wz2__punti{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:24px}
+  .wz2__punti .punto{margin:0}
+
+  /* smartwatch senza mockup: flusso in tre passi */
+  .w2-testa{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:32px}
+  .w2-testa h2{max-width:620px}
+  .w2-testa .lead{margin-bottom:0}
+  .w2-flusso{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#FAFAFE;border:1px solid #EEE9FF;border-radius:32px;padding:clamp(22px,3.5vw,40px);box-shadow:0 30px 70px -40px rgba(20,10,60,.25)}
+  .w2-passo{flex:1 1 170px;display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid #E4DEFF;border-radius:22px;padding:18px 20px;box-shadow:0 10px 24px -16px rgba(20,10,60,.25)}
+  .w2-passo__n{width:26px;height:26px;border-radius:9px;background:#4B3FE3;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .w2-passo__et{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6B6684}
+  .w2-passo__val{display:flex;align-items:center;gap:8px;font-size:clamp(20px,2.2vw,26px);font-weight:800;letter-spacing:-.02em;color:#1B1830;font-variant-numeric:tabular-nums}
+  .w2-pallino{width:10px;height:10px;border-radius:50%;background:#F08A3C}
+  .w2-freccia{color:#8B7BFA;flex-shrink:0}
+  .w2-fatto{flex:1 1 170px;display:flex;flex-direction:column;gap:2px;border-radius:22px;padding:18px 20px;color:#fff;background:linear-gradient(160deg,#1F9D6A,#16805A);box-shadow:0 16px 30px -16px rgba(31,157,106,.7)}
+  .w2-fatto > span:first-child{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:8px}
+  .w2-fatto b{font-size:clamp(20px,2.2vw,26px);font-weight:800;letter-spacing:-.02em}
+  .w2-fatto > span:last-child{font-size:13.5px;color:rgba(255,255,255,.85);font-weight:600}
+  .w2-sotto{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .w2-card{background:#fff;border:1px solid #EEE9FF;border-radius:24px;padding:26px 28px;display:flex;flex-direction:column;gap:12px}
+  .w2-card h3{margin:0;font-size:20px;font-weight:800}
+  .w2-card p{margin:0;color:#4B4566;font-size:15px;line-height:1.6}
+  .w2-compl{display:flex;gap:12px;margin-top:4px}
+  .w2-c{width:76px;height:76px;border-radius:50%;background:#1C1A26;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;box-shadow:inset 0 0 0 2px #C8BFFF44}
+  .w2-c--anello{background:radial-gradient(closest-side,#1C1A26 86%,transparent 87%),conic-gradient(#C8BFFF calc(var(--q)*1%),#2E2A40 0)}
+  .w2-c b{font-size:15px;font-weight:800;color:#fff}
+  .w2-c i{font-style:normal;font-size:11px;color:#A9A3C2;font-weight:600}
+  .chips--chiare{margin-top:auto}
+  .chip-chiaro{display:inline-block;background:#F1EEFF;color:#4B3FE3;font-weight:700;font-size:13px;padding:7px 14px;border-radius:100px}
+  .chip-chiaro--arrivo{background:rgba(31,157,106,.1);color:#16805A}
+  html.dark .w2-flusso, html.dark .w2-card{background:#1E1839;border-color:rgba(255,255,255,.10)}
+  html.dark .w2-card{background:#191434}
+  html.dark .w2-passo{background:#221D3E;border-color:rgba(255,255,255,.10)}
+  html.dark .w2-passo__val, html.dark .w2-card h3{color:#F2F0FA}
+  html.dark .w2-passo__et, html.dark .w2-card p{color:#B9B3CE}
+  html.dark .chip-chiaro--arrivo{color:#4FE3C1;background:rgba(79,227,193,.12)}
+  @media (max-width:560px){ .w2-freccia{transform:rotate(90deg);margin:0 auto} .w2-passo, .w2-fatto{flex-basis:100%} }
 </style>
 </head>
 <body>
@@ -483,81 +525,64 @@
   </section>
 
   <section id="widget" class="sezione sezione--pannello sup-pagina">
-    <div class="pannello-scuro">
+    <div class="pannello-scuro wz2">
       <div aria-hidden="true" class="pannello-scuro__luce"></div>
-      <div class="due-colonne">
-        <div>
-          <span class="kicker-scuro"><span aria-hidden="true"></span>Widget</span>
-          <h2 class="h2-scuro">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
-          <div class="os-switch os-switch--scuro" role="group" aria-label="Widget per iPhone o per Android"><button type="button" data-os-scelta="ios" aria-pressed="true">iPhone</button><button type="button" data-os-scelta="android" aria-pressed="false">Android</button></div>
-          <p class="p-scuro">Spesa del mese e budget, costo per veicolo, e le azioni rapide per aggiungere un rifornimento o una spesa con un tocco.</p>
-          <div class="punti">
-            <div class="punto"><span class="punto__n">1</span><span><strong>Spesa del mese e budget</strong><span>quanto hai speso, quanto resta e la tendenza rispetto al mese scorso.</span></span></div>
-            <div class="punto"><span class="punto__n">2</span><span><strong>Per veicolo</strong><span>il costo di ogni mezzo del garage, con la prossima scadenza.</span></span></div>
-            <div class="punto"><span class="punto__n">3</span><span><strong>Azioni rapide</strong><span><span data-os-solo="ios">rifornimento o spesa con un tocco; anche con Siri e Comandi rapidi.</span><span data-os-solo="android">rifornimento o spesa con un tocco; anche dalle scorciatoie tenendo premuta l'icona.</span></span></span></div>
-          </div>
+      <div class="wz2__testa">
+        <span class="kicker-scuro"><span aria-hidden="true"></span>Widget</span>
+        <h2 class="h2-scuro">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
+        <p class="p-scuro">Sette widget in piccolo, medio e grande, chiari o scuri. <span data-os-solo="ios">Anche sulla schermata di blocco.</span><span data-os-solo="android">Ridimensionabili, più il riquadro nei colori del tuo tema.</span></p>
+        <div class="os-switch os-switch--scuro" role="group" aria-label="Widget per iPhone o per Android"><button type="button" data-os-scelta="ios" aria-pressed="true">iPhone</button><button type="button" data-os-scelta="android" aria-pressed="false">Android</button></div>
+      </div>
+      <div class="wz-collage wz2__collage">
+        <img class="wz-card wz-grande" width="760" height="793" src="../assets/widget-per-veicolo-dark.webp" alt="Widget Per veicolo in formato grande, tema scuro: 1.120 euro a settembre su 4 veicoli, con la spesa di ciascuno" loading="lazy">
+        <img class="wz-card wz-piccolo" data-os-solo="ios" width="360" height="360" src="../assets/widget-budget.webp" alt="Widget Budget in formato piccolo: 185 euro oltre il budget del mese" loading="lazy">
+        <div class="wz-card wz-piccolo wz-tonale" data-os-solo="android" role="img" aria-label="Riquadro tonale Android: 1.120 euro a settembre, più 51 per cento, con il tasto più spesa">
+          <span class="wz-tonale__mese" aria-hidden="true">Settembre</span><span class="wz-tonale__tot" aria-hidden="true">1.120 €</span><span class="wz-tonale__trend" aria-hidden="true">▲ 51%</span><span class="wz-tonale__btn" aria-hidden="true">+ Spesa</span>
         </div>
-        <div class="wz-collage">
-          <img class="wz-card wz-grande" width="760" height="793" src="../assets/widget-per-veicolo-dark.webp" alt="Widget Per veicolo in formato grande, tema scuro: 1.120 euro a settembre su 4 veicoli, con la spesa di ciascuno" loading="lazy">
-          <img class="wz-card wz-piccolo" data-os-solo="ios" width="360" height="360" src="../assets/widget-budget.webp" alt="Widget Budget in formato piccolo: 185 euro oltre il budget del mese" loading="lazy">
-          <div class="wz-card wz-piccolo wz-tonale" data-os-solo="android" role="img" aria-label="Riquadro tonale Android: 1.120 euro a settembre, più 51 per cento, con il tasto più spesa">
-            <span class="wz-tonale__mese" aria-hidden="true">Settembre</span><span class="wz-tonale__tot" aria-hidden="true">1.120 €</span><span class="wz-tonale__trend" aria-hidden="true">▲ 51%</span><span class="wz-tonale__btn" aria-hidden="true">+ Spesa</span>
-          </div>
-          <img class="wz-card wz-medio" width="760" height="352" src="../assets/widget-azioni-rapide.webp" alt="Widget Azioni rapide in formato medio: più spesa, pieno, scadenza e km" loading="lazy">
-        </div>
+        <img class="wz-card wz-medio" width="760" height="352" src="../assets/widget-azioni-rapide.webp" alt="Widget Azioni rapide in formato medio: più spesa, pieno, scadenza e km" loading="lazy">
+      </div>
+      <div class="wz2__punti">
+        <div class="punto"><span class="punto__n">1</span><span><strong>Spesa del mese e budget</strong><span>quanto hai speso, quanto resta e la tendenza rispetto al mese scorso.</span></span></div>
+        <div class="punto"><span class="punto__n">2</span><span><strong>Per veicolo</strong><span>il costo di ogni mezzo del garage, con la prossima scadenza.</span></span></div>
+        <div class="punto"><span class="punto__n">3</span><span><strong>Azioni rapide</strong><span><span data-os-solo="ios">rifornimento o spesa con un tocco; anche con Siri e Comandi rapidi.</span><span data-os-solo="android">rifornimento o spesa con un tocco; anche dalle scorciatoie tenendo premuta l'icona.</span></span></span></div>
       </div>
     </div>
   </section>
 
-  <section id="watch" class="sezione sezione--pannello sup-pagina">
-    <div class="pannello-scuro pannello-scuro--watch">
-      <div aria-hidden="true" class="pannello-scuro__luce pannello-scuro__luce--sx"></div>
-      <div class="due-colonne">
-        <div class="watch-visual">
-          <img data-os-solo="ios" src="../assets/watch-cluster.webp" width="1000" height="765" alt="Due Apple Watch con i badge Sincronizzata con iPhone e Spesa registrata dal polso: la Home con l'app installata e l'aggiunta rapida di una spesa" loading="lazy" class="anim-float">
-        <div class="widget-mockups wear-duo" data-os-solo="android" role="img" aria-label="Tre schermate dell'app per Wear OS: la spesa del mese con la quota di budget, l'aggiunta rapida di un rifornimento da 45 euro e il quadrante con le complicazioni della prossima scadenza e della spesa del mese">
-          <div class="wear-cassa wear-cassa--lato widget-mockup" style="--base-y:10px;animation-delay:.4s" aria-hidden="true"><div class="wear wear--lato">
-            <svg class="wear__arco" viewBox="0 0 100 100"><g transform="rotate(-90 50 50)"><circle cx="50" cy="50" r="46.5" pathLength="100" class="wear__arco-fondo"/><circle cx="50" cy="50" r="46.5" pathLength="100" class="wear__arco-pieno" style="stroke-dasharray:68 100"/></g></svg>
-            <span class="wear__ora">10:09</span>
-            <span class="wear__tit">Ottobre</span>
-            <span class="wear__importo">412 €</span>
-            <span class="wear__nota">68% del budget</span>
-            <span class="wear__pillola wear__pillola--tono">Dettaglio</span>
-          </div></div>
-          <div class="wear-cassa wear-cassa--centro widget-mockup" style="--base-y:0px" aria-hidden="true"><div class="wear wear--centro">
-            <span class="wear__ora">10:09</span>
-            <span class="wear__tit">Nuova spesa</span>
-            <span class="wear__chip"><span class="wear__pallino"></span>BMW 128Ti · Carburante</span>
-            <span class="wear__importo">45,00 €</span>
-            <span class="wear__pillola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Salva</span>
-          </div></div>
-          <div class="wear-cassa wear-cassa--lato widget-mockup" style="--base-y:6px;animation-delay:.8s" aria-hidden="true"><div class="wear wear--lato">
-            <span class="wear__data">VEN 10</span>
-            <span class="wear__orologio">10:09</span>
-            <span class="wear__compl">
-              <span class="wear__c"><b>12 g</b><i>revisione</i></span>
-              <span class="wear__c"><b>412 €</b><i>ottobre</i></span>
-            </span>
-          </div></div>
-          <span class="wear-badge wear-badge--top" aria-hidden="true"><span class="wear-badge__punto"></span>Sincronizzata con il telefono</span>
-          <span class="wear-badge wear-badge--bot" aria-hidden="true"><span class="wear-badge__piu">+</span>Spesa registrata dal polso</span>
-        </div>
-        </div>
+  <section id="watch" class="sezione sup-pagina">
+    <div class="contenitore">
+      <div class="w2-testa">
         <div>
-          <span class="kicker-scuro"><span aria-hidden="true"></span>App per smartwatch</span>
-          <h2 class="h2-scuro">Registra le spese <span style="color:#8B7BFA">direttamente</span> dal <span style="color:#4FE3C1">polso</span>.</h2>
-          <div class="os-switch os-switch--scuro" role="group" aria-label="Apple Watch o Wear OS"><button type="button" data-os-scelta="ios" aria-pressed="true">Apple Watch</button><button type="button" data-os-scelta="android" aria-pressed="false">Wear OS</button></div>
-          <p class="p-scuro">Al distributore, in officina, al casello: scegli veicolo e categoria, inserisci l'importo e hai finito. La spesa arriva sul telefono con la data di oggi.</p>
-          <div class="punti">
-            <div class="punto"><span class="punto__n">1</span><span><strong>Tre campi, dieci secondi</strong><span>veicolo, categoria e importo: registrata prima di rimettere il telefono in tasca.</span></span></div>
-            <div class="punto"><span class="punto__n">2</span><span><strong>Sul quadrante</strong><span><span data-os-solo="ios">due complicazioni</span><span data-os-solo="android">complicazioni e un riquadro</span>: la prossima scadenza con il conto alla rovescia e la spesa del mese con la quota di budget.</span></span></div>
+          <span class="kicker t-viola">App per smartwatch</span>
+          <h2>Registra le spese dal polso, in dieci secondi.</h2>
+          <p class="t-medio lead">Al distributore, in officina, al casello: tre scelte e hai finito. La spesa arriva sul telefono con la data di oggi.</p>
+        </div>
+        <div class="os-switch" role="group" aria-label="Apple Watch o Wear OS"><button type="button" data-os-scelta="ios" aria-pressed="true">Apple Watch</button><button type="button" data-os-scelta="android" aria-pressed="false">Wear OS</button></div>
+      </div>
+      <div class="w2-flusso sup-tenue bordo" role="img" aria-label="Dal polso: veicolo BMW 128Ti, categoria Carburante, importo 45 euro, spesa salvata sul telefono">
+        <div class="w2-passo"><span class="w2-passo__n">1</span><span class="w2-passo__et">Veicolo</span><span class="w2-passo__val">BMW 128Ti</span></div><span class="w2-freccia" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <div class="w2-passo"><span class="w2-passo__n">2</span><span class="w2-passo__et">Categoria</span><span class="w2-passo__val"><span class="w2-pallino"></span>Carburante</span></div><span class="w2-freccia" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <div class="w2-passo"><span class="w2-passo__n">3</span><span class="w2-passo__et">Importo</span><span class="w2-passo__val">45,00 €</span></div><span class="w2-freccia" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <div class="w2-fatto"><span aria-hidden="true">✓</span><b>Salvata</b><span>sul telefono, data di oggi</span></div>
+      </div>
+      <div class="w2-sotto">
+        <div class="w2-card sup-bianca bordo">
+          <h3 class="t-forte">Sul quadrante</h3>
+          <p class="t-medio"><span data-os-solo="ios">Due complicazioni</span><span data-os-solo="android">Complicazioni e un riquadro (tile)</span>: la prossima scadenza con il conto alla rovescia e la spesa del mese con la quota di budget.</p>
+          <div class="w2-compl" aria-hidden="true">
+            <span class="w2-c"><b>12 g</b><i>revisione</i></span>
+            <span class="w2-c w2-c--anello" style="--q:68"><b>412 €</b><i>ottobre</i></span>
           </div>
-          <div class="chips">
-            <span style="color:#8A84A6;font-size:14px">Disponibile con</span>
-            <span class="chip-scuro" data-os-solo="ios">watchOS 10+</span>
-            <span class="chip-scuro" data-os-solo="ios">Apple Watch Series 4 e successivi</span>
-            <span class="chip-scuro" data-os-solo="android">Wear OS 3+</span>
-            <span class="chip-scuro chip-scuro--arrivo play-presto" data-os-solo="android">In arrivo con l'uscita su Google Play</span>
+        </div>
+        <div class="w2-card sup-bianca bordo">
+          <h3 class="t-forte">Sempre allineato</h3>
+          <p class="t-medio">Veicoli e categorie arrivano dal telefono, e ogni spesa fatta dal polso finisce nella dashboard come le altre. Nessuna configurazione sull'orologio.</p>
+          <div class="chips chips--chiare">
+            <span class="t-tenue" style="font-size:14px">Disponibile con</span>
+            <span class="chip-chiaro sup-lilla t-viola" data-os-solo="ios">watchOS 10+</span>
+            <span class="chip-chiaro sup-lilla t-viola" data-os-solo="ios">Apple Watch Series 4 e successivi</span>
+            <span class="chip-chiaro sup-lilla t-viola" data-os-solo="android">Wear OS 3+</span>
+            <span class="chip-chiaro chip-chiaro--arrivo play-presto" data-os-solo="android">In arrivo con l'uscita su Google Play</span>
           </div>
         </div>
       </div>
