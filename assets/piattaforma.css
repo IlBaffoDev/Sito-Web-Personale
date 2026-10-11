@@ -93,6 +93,9 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .wear-duo .wear > * { --u: calc(100cqw / 200); }
 /* con il pulsante in basso il contenuto sale per lasciargli posto */
 .wear-duo .wear:has(.wear__pillola) { padding-bottom: 26%; }
+/* con l'anello del budget il pulsante sale e si stringe, così resta dentro l'anello */
+.wear-duo .wear:has(.wear__arco) { padding-bottom: 32%; }
+.wear-duo .wear:has(.wear__arco) .wear__pillola { bottom: 21%; width: 46%; }
 /* riflesso del vetro, come nel mockup originale */
 .wear-duo .wear::after { content: ""; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; background: linear-gradient(140deg, rgba(255,255,255,.13), rgba(255,255,255,0) 34%); }
 .wear__ora { font-size: calc(10.5 * var(--u)); font-weight: 700; color: #fff; margin-bottom: calc(6 * var(--u)); }
