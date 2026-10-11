@@ -169,7 +169,7 @@
   .hero__dentro{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
   .hero__badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:700;font-size:13px;padding:8px 16px;border-radius:100px;width:fit-content}
   .hero__badge > span:first-child{width:7px;height:7px;border-radius:50%;background:#5CF0C4}
-  .hero h1{margin:0;font-size:clamp(48px,9.5vw,128px);line-height:.94;font-weight:800;letter-spacing:-.045em;color:#fff;text-transform:uppercase;max-width:14ch}
+  .hero h1{margin:0;font-size:clamp(44px,min(9vw,13svh),120px);line-height:.94;font-weight:800;letter-spacing:-.045em;color:#fff;text-transform:uppercase;max-width:14ch}
   .hero h1 span{color:#4FE3C1}
   .hero__riga{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;align-items:end;margin-top:8px}
   .hero__riga p{margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.55;color:rgba(255,255,255,.9);max-width:520px}
@@ -183,6 +183,13 @@
   .st-btn__t{display:flex;flex-direction:column;line-height:1.2}
   .st-btn__t > span{font-size:11px;opacity:.75}
   .st-btn__t b{font-size:17px;font-weight:800}
+  /* da computer l'hero riempie esattamente lo schermo sotto la navbar (63 px), a qualsiasi altezza */
+  @media (min-width:761px){
+    .hero{box-sizing:border-box;min-height:calc(100svh - 63px);display:flex;align-items:center;padding:clamp(28px,5svh,72px) 24px}
+    .hero__dentro{width:100%;gap:clamp(14px,2.6svh,28px)}
+    .hero__numeri{margin-top:clamp(4px,1.5svh,24px) !important}
+    .hero__numeri > div{padding:clamp(12px,2svh,20px) 22px !important}
+  }
   .hero__numeri{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);border-radius:18px;overflow:hidden;margin-top:24px}
   .hero__numeri > div{background:rgba(27,42,150,.6);padding:20px 22px}
   .hero__numeri b{display:block;font-size:26px;font-weight:800;color:#fff;letter-spacing:-.02em}
@@ -452,7 +459,7 @@
   <section id="funzioni" class="sezione sup-pagina">
     <div class="contenitore">
       <div class="fx-testa">
-        <div style="max-width:640px"><span class="kicker t-viola">L'app in azione</span><h2>Tutto quello che serve. Niente che non serva.</h2></div>
+        <div style="max-width:640px"><span class="kicker t-viola">L'app in azione</span><h2>Ogni spesa del tuo veicolo, in un'app sola.</h2></div>
         <div class="fx-controlli">
           <div class="os-switch" role="group" aria-label="Schermate su iPhone o su Android"><button type="button" data-os-scelta="ios" aria-pressed="true"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg>iPhone</button><button type="button" data-os-scelta="android" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.5l1.8-3.1a.4.4 0 0 0-.7-.4l-1.8 3.2A11 11 0 0 0 12 8.2c-1.8 0-3.4.4-4.9 1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 17.8h22a10.4 10.4 0 0 0-5.4-8.3zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>Android</button></div>
           <button type="button" class="theme-toggle tema-pill sup-lilla t-viola" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z"/></svg><span class="solo-light">Tema scuro</span><span class="solo-dark">Tema chiaro</span></button>
