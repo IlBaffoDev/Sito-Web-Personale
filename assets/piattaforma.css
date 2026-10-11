@@ -62,22 +62,28 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 .and-badge-top { top: -18px; right: 0; z-index: 2; }
 .and-badge-bot { left: 0; bottom: -22px; z-index: 2; }
 
-/* ---------- Wear OS: schermi rotondi senza cassa, come nelle guide Material 3 di Google.
-   Misure in --u = 1/700 della larghezza del contenitore: i tre schermi scalano insieme. */
+/* ---------- Wear OS: schermate disegnate in HTML dentro la cassa di un orologio rotondo
+   (assets/wearos-cassa.webp, schermo trasparente). Misure in --u = 1/600 della larghezza
+   del contenitore: i tre orologi scalano insieme. */
 .wear-duo { container-type: inline-size; position: relative; display: flex; align-items: center; justify-content: center; gap: 0; padding: 1.5cqw 0; }
 .wear-duo > * { --u: calc(100cqw / 600); }
+.wear-duo .wear-cassa { position: relative; flex-shrink: 0; width: calc(225 * var(--u)); aspect-ratio: 1460 / 2087; }
+.wear-duo .wear-cassa--centro { width: calc(265 * var(--u)); z-index: 1; }
 /* i due laterali stanno un po' dietro al centrale, sovrapposti */
-.wear-duo .wear--lato { margin: 0 calc(-26 * var(--u)); z-index: 0; }
-.wear-duo .wear--centro { z-index: 1; box-shadow: 0 0 0 calc(1.5 * var(--u)) rgba(255,255,255,.18), 0 calc(30 * var(--u)) calc(70 * var(--u)) rgba(0,0,0,.85); }
+.wear-duo .wear-cassa--lato { margin: 0 calc(-62 * var(--u)); z-index: 0; filter: brightness(.8); }
+.wear-cassa::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: url(wearos-cassa.webp) center / 100% 100% no-repeat;
+}
+.wear-duo .wear-cassa--centro::after { filter: drop-shadow(0 calc(26 * var(--u)) calc(30 * var(--u)) rgba(0,0,0,.7)); }
+/* lo schermo è il foro della cassa: centro a (48,5%; 50,1%), diametro 88,6% della larghezza */
 .wear-duo .wear {
-  box-sizing: border-box; aspect-ratio: 1; position: relative; flex-shrink: 0; overflow: hidden;
-  width: calc(200 * var(--u)); height: auto; border-radius: 50%; padding: calc(30 * var(--u)) calc(26 * var(--u)) 0;
+  box-sizing: border-box; aspect-ratio: 1; position: absolute; overflow: hidden;
+  left: 48.5%; top: 50.1%; transform: translate(-50%, -50%); width: 89.4%; height: auto;
+  border-radius: 50%; padding: calc(30 * var(--u)) calc(26 * var(--u)) 0;
   background: #000; color: #E6E0FF; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
   text-align: center; font-variant-numeric: tabular-nums;
-  box-shadow: 0 0 0 calc(1.5 * var(--u)) rgba(255,255,255,.14), 0 calc(30 * var(--u)) calc(60 * var(--u)) -18px rgba(0,0,0,.8);
 }
-.wear-duo .wear--centro { width: calc(236 * var(--u)); padding-top: calc(30 * var(--u)); }
-.wear-duo .wear--lato { filter: brightness(.82); }
 .wear__ora { font-size: calc(11 * var(--u)); font-weight: 700; color: #fff; margin-bottom: calc(10 * var(--u)); }
 .wear__tit { font-size: calc(12.5 * var(--u)); font-weight: 700; color: #C8BFFF; }
 .wear__importo { font-size: calc(30 * var(--u)); font-weight: 800; letter-spacing: -.8px; color: #fff; line-height: 1.15; margin: calc(2 * var(--u)) 0 calc(2 * var(--u)); }
@@ -116,6 +122,6 @@ html.dark .os-switch--scuro button[aria-pressed="true"] { background: #fff; colo
 /* telefono: due schermi invece di tre, più grandi (il primo, «Ottobre», si nasconde) */
 @media (max-width: 560px) {
   .wear-duo > * { --u: calc(100cqw / 470); }
-  .wear-duo .wear--lato:first-child { display: none; }
-  .wear-duo .wear--lato { margin: 0 0 0 calc(-14 * var(--u)); }
+  .wear-duo .wear-cassa--lato:first-child { display: none; }
+  .wear-duo .wear-cassa--lato { margin: 0 0 0 calc(-62 * var(--u)); }
 }
