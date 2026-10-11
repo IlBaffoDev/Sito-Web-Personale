@@ -1,6 +1,7 @@
 // Carosello a schede della sezione #funzioni (landing GCV): una schermata dell'app per volta,
 // scelta dalle schede o dalle frecce. L'immagine segue la piattaforma (data-os, piattaforma.js)
-// e il tema (.dark, theme.js): ogni <img class="fx-img"> porta le quattro varianti in data-src-*.
+// e il tema: ogni <img class="fx-img"> porta le quattro varianti in data-src-*. Il bottone .fx-tema cambia
+// solo le schermate (chiare/scure), non la pagina; quando cambia il tema della pagina le schermate lo seguono.
 (function () {
   var root = document.getElementById('funzioni');
   if (!root) return;
@@ -11,12 +12,21 @@
   if (!N || imgs.length !== N || testi.length !== N) return;
   var html = document.documentElement;
   var step = 0;
+  var bottoneTema = root.querySelector('.fx-tema');
+  var etichetta = bottoneTema ? bottoneTema.querySelector('[data-fx-etichetta]') : null;
+  var scure = html.classList.contains('dark');
+
+  function aggiornaBottone() {
+    if (!bottoneTema) return;
+    bottoneTema.setAttribute('aria-pressed', scure ? 'true' : 'false');
+    bottoneTema.setAttribute('aria-label', scure ? 'Schermate dell\'app in tema chiaro' : 'Schermate dell\'app in tema scuro');
+    if (etichetta) etichetta.textContent = scure ? 'Schermate chiare' : 'Schermate scure';
+  }
 
   function sorgente(img) {
     var and = html.getAttribute('data-os') === 'android';
-    var dark = html.classList.contains('dark');
-    var attr = and ? (dark ? 'data-src-android-dark' : 'data-src-android')
-                   : (dark ? 'data-src-dark' : 'data-src-light');
+    var attr = and ? (scure ? 'data-src-android-dark' : 'data-src-android')
+                   : (scure ? 'data-src-dark' : 'data-src-light');
     return img.getAttribute(attr) || img.getAttribute('data-src-light');
   }
 
@@ -62,7 +72,18 @@
 
   // piattaforma e tema possono cambiare in qualsiasi momento (selettori della pagina, tema di sistema)
   document.addEventListener('oscambiato', function () { aggiornaImg(imgs[step]); });
-  document.addEventListener('temacambiato', function () { aggiornaImg(imgs[step]); });
+  document.addEventListener('temacambiato', function (e) {
+    scure = !!(e.detail && e.detail.dark);
+    aggiornaBottone();
+    aggiornaImg(imgs[step]);
+  });
+  if (bottoneTema) bottoneTema.addEventListener('click', function () {
+    scure = !scure;
+    aggiornaBottone();
+    aggiornaImg(imgs[step]);
+    rianima(imgs[step]);
+  });
 
+  aggiornaBottone();
   aggiornaImg(imgs[0]);
 })();
