@@ -1,108 +1,46 @@
+// Calcolatore della landing GCV (#calcolatore): costo mensile e annuo indicativo da rata,
+// carburante, bollo e assicurazione. Tutto nel browser, niente viene inviato o salvato.
 (function () {
   var section = document.getElementById('calcolatore');
   if (!section) return;
 
-  var rata = document.getElementById('calc-rata');
-  var carburante = document.getElementById('calc-carburante');
-  var bollo = document.getElementById('calc-bollo');
-  var assicurazione = document.getElementById('calc-assicurazione');
+  var campi = {
+    rata: document.getElementById('calc-rata'),
+    carburante: document.getElementById('calc-carburante'),
+    bollo: document.getElementById('calc-bollo'),
+    assicurazione: document.getElementById('calc-assicurazione')
+  };
   var mensileOut = document.getElementById('calc-mensile');
   var annuoOut = document.getElementById('calc-annuo');
-  var bars = document.getElementById('calc-bars');
-  var donut = document.getElementById('calc-donut');
-  if (!rata || !carburante || !bollo || !assicurazione || !mensileOut || !annuoOut || !bars || !donut) return;
-
-  var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!campi.rata || !campi.carburante || !campi.bollo || !campi.assicurazione || !mensileOut || !annuoOut) return;
 
   function num(el) {
-    var v = parseFloat(el.value);
+    var v = parseFloat(String(el.value).replace(',', '.'));
     return isNaN(v) || v < 0 ? 0 : v;
   }
-
   function fmt(n) {
     return Math.round(n).toLocaleString('it-IT') + ' €';
   }
 
-  // stessa palette del donut "esempio" nella sezione #costi
-  var segments = [
-    { label: 'Rata', color: '#4B3FE3' },
-    { label: 'Carburante', color: '#F08A3C' },
-    { label: 'Bollo e assicurazione', color: '#E0537A' }
-  ];
-
-  // segmenti del donut: un <circle> per categoria, disegnato con stroke-dasharray
-  // (lunghezza arco + resto) e ruotato al proprio punto d'inizio; le transizioni CSS
-  // fanno l'animazione ad ogni ricalcolo senza ridisegnare nulla
-  var R = 48;
-  var CIRC = 2 * Math.PI * R;
-  var rings = segments.map(function (seg) {
-    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('cx', '60'); c.setAttribute('cy', '60'); c.setAttribute('r', String(R));
-    c.setAttribute('fill', 'none');
-    c.setAttribute('stroke', seg.color);
-    c.setAttribute('stroke-width', '15');
-    c.setAttribute('stroke-dasharray', '0 ' + CIRC);
-    if (!reduceMotion) c.style.transition = 'stroke-dasharray .5s cubic-bezier(.22,1,.36,1), stroke-dashoffset .5s cubic-bezier(.22,1,.36,1)';
-    donut.appendChild(c);
-    return c;
-  });
-
-  // il totale non salta al nuovo valore: conta con easing dal valore mostrato
-  var shownMensile = 0;
-  var rafId = null;
-  function animateTotal(target, annuo) {
-    if (reduceMotion) {
-      shownMensile = target;
-      mensileOut.textContent = fmt(target);
-      annuoOut.textContent = fmt(annuo);
-      return;
-    }
-    if (rafId !== null) cancelAnimationFrame(rafId);
-    var from = shownMensile;
-    var t0 = null;
-    var dur = 450;
-    function step(t) {
-      if (t0 === null) t0 = t;
-      var p = Math.min((t - t0) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      shownMensile = from + (target - from) * eased;
-      mensileOut.textContent = fmt(shownMensile);
-      annuoOut.textContent = fmt(shownMensile * 12);
-      if (p < 1) rafId = requestAnimationFrame(step);
-      else rafId = null;
-    }
-    rafId = requestAnimationFrame(step);
-  }
-
-  function update() {
-    var values = [num(rata), num(carburante), (num(bollo) + num(assicurazione)) / 12];
-    var mensile = values[0] + values[1] + values[2];
-    var total = mensile || 1;
-
-    animateTotal(mensile, mensile * 12);
-
-    var offset = 0;
-    rings.forEach(function (ring, i) {
-      var len = (values[i] / total) * CIRC;
-      ring.setAttribute('stroke-dasharray', len + ' ' + (CIRC - len));
-      ring.setAttribute('stroke-dashoffset', String(-offset));
-      offset += len;
-    });
-
-    bars.innerHTML = '';
-    segments.forEach(function (seg, i) {
-      var row = document.createElement('div');
-      row.style.cssText = 'display:flex;align-items:center;gap:9px;font-size:13.5px';
-      row.innerHTML =
-        '<span style="width:9px;height:9px;border-radius:50%;flex-shrink:0;background:' + seg.color + '"></span>' +
-        '<span style="flex:1;color:#4B4566;font-weight:600">' + seg.label + '</span>' +
-        '<span style="font-weight:800;color:#1B1830">' + fmt(values[i]) + '</span>';
-      bars.appendChild(row);
+  function aggiorna() {
+    // bollo e assicurazione sono annui: nel mese pesano un dodicesimo
+    var voci = {
+      rata: num(campi.rata),
+      carburante: num(campi.carburante),
+      bollo: num(campi.bollo) / 12,
+      assicurazione: num(campi.assicurazione) / 12
+    };
+    var tot = voci.rata + voci.carburante + voci.bollo + voci.assicurazione;
+    mensileOut.textContent = fmt(tot);
+    annuoOut.textContent = fmt(tot * 12);
+    Object.keys(voci).forEach(function (k) {
+      var seg = section.querySelector('[data-voce="' + k + '"]');
+      if (seg) seg.style.width = (tot ? voci[k] / tot * 100 : 0) + '%';
+      var val = section.querySelector('[data-val="' + k + '"]');
+      if (val) val.textContent = fmt(voci[k]);
     });
   }
 
-  [rata, carburante, bollo, assicurazione].forEach(function (el) {
-    el.addEventListener('input', update);
-  });
-  update();
+  Object.keys(campi).forEach(function (k) { campi[k].addEventListener('input', aggiorna); });
+  aggiorna();
 })();
