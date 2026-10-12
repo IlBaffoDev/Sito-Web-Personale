@@ -60,7 +60,7 @@
       "name": "L’app c’è anche per Android?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sì. Su iPhone è già su App Store e su Android arriva su Google Play entro un mese: stessa app, stessi dati e stesso piano Pro. Con l’accesso i dati si sincronizzano fra iPhone, iPad e Android, e il Pro comprato su un telefono vale anche sull’altro."
+        "text": "Sì. Su iPhone è già su App Store e su Android è presto in arrivo su Google Play: stessa app, stessi dati e stesso piano Pro. Con l’accesso i dati si sincronizzano fra iPhone, iPad e Android, e il Pro comprato su un telefono vale anche sull’altro."
       }
     },
     {
@@ -146,7 +146,7 @@
   @media (max-width:760px){ .solo-desktop{display:none !important} }
   html:not(.dark) .icona-sole, html.dark .icona-luna{display:none}
   html.dark .solo-light, html:not(.dark) .solo-dark{display:none !important}
-  /* Google Play: oggi «entro un mese»; al lancio togliere .play-presto e mostrare .play-live */
+  /* Google Play: oggi «presto in arrivo»; al lancio togliere .play-presto e mostrare .play-live */
   .play-live{display:none !important}
 
   /* nav */
@@ -171,7 +171,7 @@
   .hero__badge > span:first-child{width:7px;height:7px;border-radius:50%;background:#5CF0C4}
   .hero h1{margin:0;font-size:clamp(44px,min(9vw,13svh),120px);line-height:.94;font-weight:800;letter-spacing:-.045em;color:#fff;text-transform:uppercase;max-width:14ch}
   .hero h1 span{color:#4FE3C1}
-  .hero__riga{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;align-items:end;margin-top:8px}
+  .hero__riga{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:32px;align-items:end;margin-top:8px}
   .hero__riga p{margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.55;color:rgba(255,255,255,.9);max-width:520px}
   .hero__store{display:flex;gap:14px;flex-wrap:wrap;justify-self:end}
   .hero__store--sx{justify-self:start}
@@ -190,7 +190,7 @@
     .hero__numeri{margin-top:clamp(4px,1.5svh,24px) !important}
     .hero__numeri > div{padding:clamp(12px,2svh,20px) 22px !important}
   }
-  .hero__numeri{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);border-radius:18px;overflow:hidden;margin-top:24px}
+  .hero__numeri{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);border-radius:18px;overflow:hidden;margin-top:24px}
   .hero__numeri > div{background:rgba(27,42,150,.6);padding:20px 22px}
   .hero__numeri b{display:block;font-size:26px;font-weight:800;color:#fff;letter-spacing:-.02em}
   .hero__numeri span{display:block;font-size:13.5px;color:rgba(255,255,255,.75);font-weight:600;margin-top:2px}
@@ -206,7 +206,7 @@
   .lead{margin:0 0 28px;color:#4B4566;font-size:17px;line-height:1.65;max-width:460px}
   .testa-centrata{text-align:center;max-width:640px;margin:0 auto 44px}
   .testa-centrata p{margin:0;color:#4B4566;font-size:17px;line-height:1.6}
-  .due-colonne{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center}
+  .due-colonne{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:56px;align-items:center}
   .due-colonne--48{gap:48px}
   .lista{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#4B4566;font-size:15px}
   .lista li{display:flex;gap:10px;align-items:flex-start}
@@ -217,7 +217,7 @@
   .fx-controlli{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
   .tema-pill{display:inline-flex;align-items:center;gap:8px;background:#F1EEFF;color:#4B3FE3;font:inherit;font-weight:700;font-size:13.5px;padding:10px 16px;border-radius:100px;border:none;cursor:pointer}
   .fx-pannello{position:relative;background:#FAFAFE;border:1px solid #EEE9FF;border-radius:32px;padding:clamp(24px,4vw,48px);box-shadow:0 30px 70px -40px rgba(20,10,60,.25)}
-  .fx-griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:center}
+  .fx-griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:40px;align-items:center}
   .fx-telefono{position:relative;display:flex;align-items:center;justify-content:center;min-width:0}
   .fx-schermo{width:min(270px,62vw);position:relative}
   .fx-schermo img{width:100%;display:block;filter:drop-shadow(0 22px 34px rgba(20,10,60,.28))}
@@ -235,7 +235,7 @@
   .badge-pro{display:inline-block;background:#F1EEFF;color:#4B3FE3;font-size:11px;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:0}
   .fx-testo h3{margin:0 0 14px;font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.025em;line-height:1.1}
   .fx-testo p{margin:0 0 18px;color:#4B4566;font-size:16.5px;line-height:1.7}
-  .extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+  .extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:20px}
   .extra{background:#fff;border:1px solid #EEE9FF;border-radius:18px;padding:16px 18px}
   .extra strong{display:block;font-size:14.5px;color:#1B1830;margin-bottom:3px}
   .extra span{font-size:13.5px;color:#4B4566;line-height:1.5}
@@ -278,7 +278,7 @@
   .watch-visual .wear-duo{width:100%}
 
   /* calcolatore */
-  .calc-campi{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+  .calc-campi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:14px}
   .calc-campi label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#4B4566}
   .ci{border:1px solid #D9D2FA;border-radius:12px;padding:12px 14px;font:inherit;font-size:15px;color:#1B1830;background:#fff;width:100%;box-sizing:border-box}
   .calc-risultato{display:flex;flex-direction:column;gap:20px;border-radius:28px;padding:clamp(26px,4vw,40px);color:#fff;background:linear-gradient(160deg,#4B3FE3,#2A2FB0);box-shadow:0 30px 70px -30px rgba(75,63,227,.7)}
@@ -297,7 +297,7 @@
   .calc-cta:hover{color:#3730A3}
 
   /* prezzi */
-  .prezzi{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:884px;margin:0 auto;align-items:stretch}
+  .prezzi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:28px;max-width:884px;margin:0 auto;align-items:stretch}
   .piano{position:relative;background:#fff;border-radius:24px;padding:40px 32px 32px;border:1px solid #EEE9FF;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(20,10,60,.05),0 24px 50px -32px rgba(20,10,60,.2)}
   .piano--pro{color:#fff;border:0;background:linear-gradient(160deg,#4B3FE3,#7566F5);box-shadow:0 20px 50px rgba(75,63,227,.28)}
   .piano__nastro{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#fff;color:#4B3FE3;font-size:12.5px;font-weight:800;padding:6px 18px;border-radius:100px;box-shadow:0 8px 20px rgba(20,10,60,.18);white-space:nowrap}
@@ -313,7 +313,7 @@
   .piano__btn--bianco:hover{color:#3730A3}
 
   /* come è fatta */
-  .mini-griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .mini-griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:12px}
   .mini{background:#FAFAFE;border:1px solid #EEE9FF;border-radius:18px;padding:18px 20px}
   .mini strong{display:block;font-size:15px;margin-bottom:4px}
   .mini span{font-size:13.5px;color:#4B4566;line-height:1.55}
@@ -342,7 +342,7 @@
   .contatti-form{width:100%;max-width:440px;justify-self:center}
   .contact-form{position:relative;border-radius:26px;padding:30px;display:flex;flex-direction:column;gap:14px;box-sizing:border-box;background:rgba(255,255,255,.07);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 80px -40px rgba(0,0,0,.55)}
   .contact-form__titolo{font-weight:800;font-size:15.5px;color:#fff}
-  .contact-form__riga{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .contact-form__riga{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:12px}
   .contact-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:rgba(255,255,255,.85);text-align:left}
   .contact-form input, .contact-form select, .contact-form textarea{border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;color:#fff;background:rgba(17,12,60,.22);width:100%;box-sizing:border-box;transition:border-color .2s ease,background .2s ease}
   .contact-form textarea{resize:vertical}
@@ -362,7 +362,7 @@
   .footer{padding:56px 24px 28px;color:#B3AECB;background:radial-gradient(560px circle at 15% 0%,rgba(139,123,250,.10),transparent 60%),#151129}
   .footer a{color:#B3AECB}
   .footer a:hover{color:#fff}
-  .footer__griglia{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px}
+  .footer__griglia{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:36px}
   .footer__marca{grid-column:span 2}
   .footer__marca > div{display:flex;align-items:center;gap:12px;margin-bottom:14px}
   .footer__marca img{width:40px;height:40px;border-radius:11px;display:block}
@@ -386,6 +386,10 @@
     .fx-freccia{width:38px;height:38px}
     .wz-collage{margin:8px 0 0}
     .calc-voci{grid-template-columns:1fr}
+    .cta-finale{padding:32px 18px}
+    .contact-form{padding:22px 18px}
+    .pannello-scuro{padding:28px 18px}
+    .w3-box{padding:18px}
   }
 
   /* tema scuro */
@@ -416,7 +420,7 @@
   .wz2__testa{position:relative;text-align:center;max-width:640px;margin:0 auto}
   .wz2__testa .p-scuro{margin-left:auto;margin-right:auto}
   .wz2__collage{max-width:760px;margin:24px auto 8px}
-  .wz2__punti{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:24px}
+  .wz2__punti{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px;margin-top:24px}
   .wz2__punti .punto{margin:0}
 
   /* smartwatch senza mockup: flusso in tre passi */
@@ -434,7 +438,7 @@
   .w2-fatto > span:first-child{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:8px}
   .w2-fatto b{font-size:clamp(20px,2.2vw,26px);font-weight:800;letter-spacing:-.02em}
   .w2-fatto > span:last-child{font-size:13.5px;color:rgba(255,255,255,.85);font-weight:600}
-  .w2-sotto{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .w2-sotto{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px;margin-top:16px}
   .w2-card{background:#fff;border:1px solid #EEE9FF;border-radius:24px;padding:26px 28px;display:flex;flex-direction:column;gap:12px}
   .w2-card h3{margin:0;font-size:20px;font-weight:800}
   .w2-card p{margin:0;color:#4B4566;font-size:15px;line-height:1.6}
@@ -492,6 +496,18 @@
   }
   .w3-box--azioni .w3-tasti{margin-top:auto}
   .w3-box--azioni .w3-tasto{padding:20px 8px;font-size:16px}
+  .w3-cifra{flex-wrap:wrap;row-gap:6px}
+  .cta-finale__titolo{overflow-wrap:break-word}
+  /* tablet: nome dell'app nascosto in navbar (va a capo), numeri dell'hero 2 × 2 */
+  @media (max-width:1000px){ .nav-nome{display:none} .hero__numeri{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:480px){ .hero__numeri{grid-template-columns:1fr} }
+  .calc-voce b{white-space:nowrap}
+  @media (max-width:1000px){ .calc-voci{grid-template-columns:1fr} }
+  /* tablet: i quattro passi dello smartwatch in 2 × 2, senza frecce */
+  @media (min-width:561px) and (max-width:1000px){
+    .w2-flusso{display:grid;grid-template-columns:1fr 1fr}
+    .w2-freccia{display:none}
+  }
 </style>
 </head>
 <body>
@@ -499,7 +515,7 @@
 <a href="#main" class="skip-link">Vai al contenuto</a>
 
 <header class="nav-chiara bordo">
-  <a href="#main" class="nav-logo t-forte"><img src="../assets/gestore-costi-veicoli-logo.png" alt="" width="132" height="132"><span class="solo-desktop">Gestore Costi Veicoli</span></a>
+  <a href="#main" class="nav-logo t-forte"><img src="../assets/gestore-costi-veicoli-logo.png" alt="" width="132" height="132"><span class="nav-nome">Gestore Costi Veicoli</span></a>
   <nav aria-label="Sezioni della pagina">
     <a class="nl solo-desktop" href="#funzioni">Funzioni</a>
     <a class="nl solo-desktop" href="#widget">Widget</a>
@@ -522,11 +538,11 @@
     <div aria-hidden="true" class="hero__anello hero__anello--1"></div>
     <div aria-hidden="true" class="hero__anello hero__anello--2"></div>
     <div class="hero__dentro">
-      <span class="hero__badge"><span aria-hidden="true"></span><span class="play-presto">Su App Store · su Google Play entro un mese</span><span class="play-live">Su App Store e Google Play</span></span>
+      <span class="hero__badge"><span aria-hidden="true"></span><span class="play-presto">Su App Store · presto in arrivo su Google Play</span><span class="play-live">Su App Store e Google Play</span></span>
       <h1>Domina le spese della tua <span>auto</span>.</h1>
       <div class="hero__riga">
         <p>Rata, carburante, bollo, assicurazione e manutenzione in un numero solo, ogni mese. Un'app per iPhone e Android con gli stessi dati, gratis per un veicolo.</p>
-        <div id="download" class="hero__store"><a class="st-btn st-btn--chiaro" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" style="width:22px;height:22px;fill:#111"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span class="st-btn__t"><span>Scarica su</span><b>App Store</b></span></a><a class="st-btn st-btn--vetro" href="#contatti" aria-label="Google Play in arrivo: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;fill:#fff;flex-shrink:0"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg><span class="st-btn__t"><span><span class="play-presto">Entro un mese su</span><span class="play-live">Disponibile su</span></span><b>Google Play</b></span></a></div>
+        <div id="download" class="hero__store"><a class="st-btn st-btn--chiaro" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" style="width:22px;height:22px;fill:#111"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span class="st-btn__t"><span>Scarica su</span><b>App Store</b></span></a><a class="st-btn st-btn--vetro" href="#contatti" aria-label="Google Play in arrivo: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;fill:#fff;flex-shrink:0"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg><span class="st-btn__t"><span><span class="play-presto">Presto in arrivo su</span><span class="play-live">Disponibile su</span></span><b>Google Play</b></span></a></div>
       </div>
       <div class="hero__numeri">
         <div><b>1 numero</b><span>il costo mensile reale, tutto incluso</span></div>
@@ -577,19 +593,19 @@
       <div class="w3-griglia" role="img" aria-label="Cosa mostrano i widget: 1.120 euro a settembre su 4 veicoli, 185 euro oltre il budget, azioni rapide e la revisione della Fiat Panda tra 12 giorni">
         <div class="w3-box w3-box--mese" aria-hidden="true">
           <span class="w3-et">Il mese · 4 veicoli</span>
-          <div class="w3-cifra">1.120 €<span class="w3-trend w3-trend--su">▲ 51%</span></div>
+          <div class="w3-cifra">1.120&nbsp;€<span class="w3-trend w3-trend--su">▲ 51%</span></div>
           <div class="w3-seg"><span style="flex:391;background:#8B7BFA"></span><span style="flex:335;background:#F0A04B"></span><span style="flex:203;background:#4FE3C1"></span><span style="flex:191;background:#6BB7F5"></span></div>
           <div class="w3-riga"><span class="w3-pallino" style="background:#8B7BFA"></span><span><b>BMW</b><i>Rata 333 · Altre 58</i></span><b>391 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#F0A04B"></span><span><b>Fiat Panda</b><i>Manutenzione 287 · Carburante 48</i></span><b>335 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#4FE3C1"></span><span><b>Mitsubishi</b><i>Bollo e assic. 203</i></span><b>203 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#6BB7F5"></span><span><b>KTM</b><i>Carburante 96 · Altre 95</i></span><b>191 €</b></div>
         </div>
         <div class="w3-box" aria-hidden="true">
           <span class="w3-et">Budget</span>
-          <div class="w3-cifra w3-cifra--m">185 €</div>
+          <div class="w3-cifra w3-cifra--m">185&nbsp;€</div>
           <span class="w3-nota">oltre i 150 € del mese</span>
           <div class="w3-barra"><span style="width:100%"></span></div>
         </div>
         <div class="w3-box" aria-hidden="true">
           <span class="w3-et">Prossima scadenza</span>
-          <div class="w3-cifra w3-cifra--m">12 giorni</div>
+          <div class="w3-cifra w3-cifra--m">12&nbsp;giorni</div>
           <span class="w3-nota">Revisione · Fiat Panda</span>
         </div>
         <div class="w3-box w3-box--azioni" aria-hidden="true">
@@ -723,7 +739,7 @@
 
   <section id="faq" class="sezione sup-pagina">
     <div class="testa-centrata"><span class="kicker t-viola">FAQ</span><h2>Domande frequenti</h2></div>
-    <div class="faq"><details class="sup-bianca bordo"><summary>L’app c’è anche per Android?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì. Su iPhone è già su App Store e su Android arriva su Google Play entro un mese: stessa app, stessi dati e stesso piano Pro. Con l’accesso i dati si sincronizzano fra iPhone, iPad e Android, e il Pro comprato su un telefono vale anche sull’altro.</p></details><details class="sup-bianca bordo"><summary>L’app funziona anche offline?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì. I dati restano sul tuo dispositivo, in un database cifrato, e non serve un account. Usano internet solo funzioni opzionali: mappe, prezzi carburante, la sincronizzazione se la attivi tu e il link del libretto digitale.</p></details><details class="sup-bianca bordo"><summary>L’Assistente manda i miei dati a un’intelligenza artificiale?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">No. Le risposte le calcola l’app dai tuoi dati con regole scritte, quindi i numeri sono sempre quelli veri. In nessun caso domande o dati vengono inviati altrove.</p></details><details class="sup-bianca bordo"><summary>I tragitti automatici registrano i miei percorsi?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">No. L’app ti chiede con una notifica se registrare il tragitto; se dici sì misura chilometri, durata e orari e ne stima il costo, ma non salva né invia il percorso. La funzione è spenta finché non la accendi da Impostazioni › Tragitti.</p></details><details class="sup-bianca bordo"><summary>Posso gestire più veicoli insieme?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì, il piano gratuito supporta 1 veicolo, mentre Pro permette di gestirne quanti vuoi, con un unico acquisto di 4,99 €. Puoi provare Pro gratis per 15 giorni.</p></details><details class="sup-bianca bordo"><summary>I miei dati sono al sicuro?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì: i dati sono cifrati e restano solo sul telefono per impostazione predefinita; se attivi il login opzionale per sincronizzare o condividere, passano da Supabase con Row Level Security, visibili solo a te e a chi inviti.</p></details><details class="sup-bianca bordo"><summary>Posso condividere i dati con un familiare?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì: da Impostazioni › il tuo nome › «Condividi la Dash» inviti altre persone come editor o sola lettura (serve Pro per invitare, non per accettare); resti proprietario e puoi revocare quando vuoi.</p></details><details class="sup-bianca bordo"><summary>Posso importare o esportare lo storico?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì, con Pro: importi da .csv o .xlsx con anteprima di ciò che entra; esporti spese e scadenze in PDF o CSV e il report annuale in PDF. I file sono letti sul telefono.</p></details></div>
+    <div class="faq"><details class="sup-bianca bordo"><summary>L’app c’è anche per Android?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì. Su iPhone è già su App Store e su Android è presto in arrivo su Google Play: stessa app, stessi dati e stesso piano Pro. Con l’accesso i dati si sincronizzano fra iPhone, iPad e Android, e il Pro comprato su un telefono vale anche sull’altro.</p></details><details class="sup-bianca bordo"><summary>L’app funziona anche offline?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì. I dati restano sul tuo dispositivo, in un database cifrato, e non serve un account. Usano internet solo funzioni opzionali: mappe, prezzi carburante, la sincronizzazione se la attivi tu e il link del libretto digitale.</p></details><details class="sup-bianca bordo"><summary>L’Assistente manda i miei dati a un’intelligenza artificiale?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">No. Le risposte le calcola l’app dai tuoi dati con regole scritte, quindi i numeri sono sempre quelli veri. In nessun caso domande o dati vengono inviati altrove.</p></details><details class="sup-bianca bordo"><summary>I tragitti automatici registrano i miei percorsi?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">No. L’app ti chiede con una notifica se registrare il tragitto; se dici sì misura chilometri, durata e orari e ne stima il costo, ma non salva né invia il percorso. La funzione è spenta finché non la accendi da Impostazioni › Tragitti.</p></details><details class="sup-bianca bordo"><summary>Posso gestire più veicoli insieme?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì, il piano gratuito supporta 1 veicolo, mentre Pro permette di gestirne quanti vuoi, con un unico acquisto di 4,99 €. Puoi provare Pro gratis per 15 giorni.</p></details><details class="sup-bianca bordo"><summary>I miei dati sono al sicuro?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì: i dati sono cifrati e restano solo sul telefono per impostazione predefinita; se attivi il login opzionale per sincronizzare o condividere, passano da Supabase con Row Level Security, visibili solo a te e a chi inviti.</p></details><details class="sup-bianca bordo"><summary>Posso condividere i dati con un familiare?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì: da Impostazioni › il tuo nome › «Condividi la Dash» inviti altre persone come editor o sola lettura (serve Pro per invitare, non per accettare); resti proprietario e puoi revocare quando vuoi.</p></details><details class="sup-bianca bordo"><summary>Posso importare o esportare lo storico?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì, con Pro: importi da .csv o .xlsx con anteprima di ciò che entra; esporti spese e scadenze in PDF o CSV e il report annuale in PDF. I file sono letti sul telefono.</p></details></div>
     <p class="faq-nota t-tenue">Guida completa e manuale PDF nella pagina <a href="gestore-costi-veicoli-supporto.html">Supporto</a> · cosa cambia a ogni versione in <a href="gestore-costi-veicoli-novita.html">Novità</a>.</p>
   </section>
 
@@ -734,7 +750,7 @@
         <div>
           <h2 class="cta-finale__titolo">Scaricala e scopri quanto ti costa davvero.</h2>
           <p class="cta-finale__testo">Gratis per un veicolo, Pro con un acquisto unico. Nessun account obbligatorio, nessun abbonamento.</p>
-          <div class="hero__store hero__store--sx"><a class="st-btn st-btn--chiaro" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" style="width:22px;height:22px;fill:#111"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span class="st-btn__t"><span>Scarica su</span><b>App Store</b></span></a><span class="st-btn st-btn--vetro" aria-label="Google Play in arrivo: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;fill:#fff;flex-shrink:0"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg><span class="st-btn__t"><span><span class="play-presto">Entro un mese su</span><span class="play-live">Disponibile su</span></span><b>Google Play</b></span></span></div>
+          <div class="hero__store hero__store--sx"><a class="st-btn st-btn--chiaro" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" style="width:22px;height:22px;fill:#111"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span class="st-btn__t"><span>Scarica su</span><b>App Store</b></span></a><span class="st-btn st-btn--vetro" aria-label="Google Play in arrivo: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;fill:#fff;flex-shrink:0"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg><span class="st-btn__t"><span><span class="play-presto">Presto in arrivo su</span><span class="play-live">Disponibile su</span></span><b>Google Play</b></span></span></div>
         </div>
         <div class="contatti-form">
         <form id="contact-form" class="contact-form">
@@ -779,7 +795,7 @@
 </footer>
 
 <div class="sticky-cta">
-  <a data-os-solo="android" href="#contatti" aria-label="Gestore Costi Veicoli arriva su Google Play entro un mese: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg>Entro un mese su Google Play · avvisami</a>
+  <a data-os-solo="android" href="#contatti" aria-label="Gestore Costi Veicoli è presto in arrivo su Google Play: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="currentColor"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg>Presto in arrivo su Google Play · avvisami</a>
   <a data-os-solo="ios" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica gratis Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" width="17" height="17" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg>Scarica gratis su App Store</a>
 </div>
 
