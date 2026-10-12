@@ -19,7 +19,40 @@
     return isNaN(v) || v < 0 ? 0 : v;
   }
   function fmt(n) {
-    return Math.round(n).toLocaleString('it-IT') + ' €';
+    // punto delle migliaia anche a quattro cifre (5.070 €): toLocaleString('it-IT') lo omette
+    return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €';
+  }
+
+  // il totale scorre dal valore di prima a quello nuovo (subito, con «riduci movimento»)
+  var calmo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mostrato = 0, corsa = 0, paracadute = 0;
+  var live = section.querySelector('[aria-live]');
+  function scrivi(v) {
+    mostrato = v;
+    mensileOut.textContent = fmt(v);
+    annuoOut.textContent = fmt(v * 12);
+  }
+  function anima(fine) {
+    cancelAnimationFrame(corsa);
+    if (calmo) { scrivi(fine); return; }
+    if (live) live.setAttribute('aria-busy', 'true');
+    var da = mostrato, t0 = null;
+    // paracadute: se il browser non dà frame (scheda in background, pagina ancora in caricamento)
+    // il valore giusto arriva comunque
+    clearTimeout(paracadute);
+    paracadute = setTimeout(function () {
+      cancelAnimationFrame(corsa);
+      scrivi(fine);
+      if (live) live.removeAttribute('aria-busy');
+    }, 700);
+    function passo(t) {
+      if (t0 === null) t0 = t;
+      var p = Math.min(1, (t - t0) / 450);
+      scrivi(da + (fine - da) * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) corsa = requestAnimationFrame(passo);
+      else if (live) live.removeAttribute('aria-busy');
+    }
+    corsa = requestAnimationFrame(passo);
   }
 
   function aggiorna() {
@@ -31,8 +64,7 @@
       assicurazione: num(campi.assicurazione) / 12
     };
     var tot = voci.rata + voci.carburante + voci.bollo + voci.assicurazione;
-    mensileOut.textContent = fmt(tot);
-    annuoOut.textContent = fmt(tot * 12);
+    anima(tot);
     Object.keys(voci).forEach(function (k) {
       var seg = section.querySelector('[data-voce="' + k + '"]');
       if (seg) seg.style.width = (tot ? voci[k] / tot * 100 : 0) + '%';

@@ -533,6 +533,253 @@
   .foto--larga figcaption{width:min(680px,100%);background:linear-gradient(to right,rgba(10,8,30,.92) 0%,rgba(10,8,30,.75) 55%,rgba(10,8,30,0) 100%)}
   .cta-finale{background:linear-gradient(150deg,rgba(75,63,227,.9) 0%,rgba(55,48,163,.72) 50%,rgba(34,29,62,.45) 100%),url('../assets/foto/strada-sera.webp') center 70%/cover no-repeat}
   @media (max-width:560px){ .foto--larga figcaption{width:100%;background:linear-gradient(to top,rgba(10,8,30,.92),rgba(10,8,30,.4) 60%,rgba(10,8,30,0))} }
+
+  /* ── Fasce (12/10, sul modello di arrivesafe.app): fasce a tutta larghezza blu notte, grigie e bianche
+     che si alternano; le fasce scure hanno il bordo a onda doppia (assets/onda-{su,giu}-{fronte,velo1,velo2}.svg,
+     usate come maschera: l'onda dietro è la fascia stessa al 30%). ── */
+  :root{--onda:clamp(40px,6vw,90px);--viola:#5B54F0;--viola-scuro:#3D37C9;--viola-fondo:#2D2899;--viola-chiaro:#EDEEFF;--notte:linear-gradient(160deg,#2D2899 0%,#3D37C9 55%,#4B45E0 100%);--grigio:#EBEBF5;--ombra-scheda:0 1px 2px rgba(45,40,153,.06),0 18px 50px -22px rgba(45,40,153,.32)}
+  body{background:#fff}
+  .sezione{padding:96px 24px;background:#fff}
+  .sezione--pannello{padding-top:96px}
+
+  /* onde: davanti un'onda ferma, dietro due veli trasparenti che scorrono piano in versi opposti
+     (assets/onda-{su,giu}-{fronte,velo1,velo2}.svg come maschera: i veli sono la fascia stessa al 16% e al 38%) */
+  :root{--tile:1440px}
+  @media (max-width:760px){ :root{--tile:900px} }
+  .onda-su, .onda-giu, #hero{position:relative;z-index:1}
+  .onda-su{margin-top:calc(-1 * var(--onda));padding-top:calc(var(--onda) + 88px) !important;-webkit-mask:url('../assets/onda-su-fronte.svg') top/100% var(--onda) no-repeat,url('../assets/onda-su-velo1.svg') 0 top/var(--tile) var(--onda) repeat-x,url('../assets/onda-su-velo2.svg') 0 top/var(--tile) var(--onda) repeat-x,linear-gradient(#000 0 0) bottom/100% calc(100% - var(--onda) + 1px) no-repeat;mask:url('../assets/onda-su-fronte.svg') top/100% var(--onda) no-repeat,url('../assets/onda-su-velo1.svg') 0 top/var(--tile) var(--onda) repeat-x,url('../assets/onda-su-velo2.svg') 0 top/var(--tile) var(--onda) repeat-x,linear-gradient(#000 0 0) bottom/100% calc(100% - var(--onda) + 1px) no-repeat;animation:ondaSu 48s linear infinite}
+  .onda-giu, #hero{margin-bottom:calc(-1 * var(--onda));padding-bottom:calc(var(--onda) + 88px) !important;-webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - var(--onda) + 1px) no-repeat,url('../assets/onda-giu-fronte.svg') bottom/100% var(--onda) no-repeat,url('../assets/onda-giu-velo1.svg') 0 bottom/var(--tile) var(--onda) repeat-x,url('../assets/onda-giu-velo2.svg') 0 bottom/var(--tile) var(--onda) repeat-x;mask:linear-gradient(#000 0 0) top/100% calc(100% - var(--onda) + 1px) no-repeat,url('../assets/onda-giu-fronte.svg') bottom/100% var(--onda) no-repeat,url('../assets/onda-giu-velo1.svg') 0 bottom/var(--tile) var(--onda) repeat-x,url('../assets/onda-giu-velo2.svg') 0 bottom/var(--tile) var(--onda) repeat-x;animation:ondaGiu 48s linear infinite}
+  .onda-su.onda-giu{-webkit-mask:url('../assets/onda-su-fronte.svg') top/100% var(--onda) no-repeat,url('../assets/onda-su-velo1.svg') 0 top/var(--tile) var(--onda) repeat-x,url('../assets/onda-su-velo2.svg') 0 top/var(--tile) var(--onda) repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - 2 * var(--onda) + 2px) no-repeat,url('../assets/onda-giu-fronte.svg') bottom/100% var(--onda) no-repeat,url('../assets/onda-giu-velo1.svg') 0 bottom/var(--tile) var(--onda) repeat-x,url('../assets/onda-giu-velo2.svg') 0 bottom/var(--tile) var(--onda) repeat-x;mask:url('../assets/onda-su-fronte.svg') top/100% var(--onda) no-repeat,url('../assets/onda-su-velo1.svg') 0 top/var(--tile) var(--onda) repeat-x,url('../assets/onda-su-velo2.svg') 0 top/var(--tile) var(--onda) repeat-x,linear-gradient(#000 0 0) center/100% calc(100% - 2 * var(--onda) + 2px) no-repeat,url('../assets/onda-giu-fronte.svg') bottom/100% var(--onda) no-repeat,url('../assets/onda-giu-velo1.svg') 0 bottom/var(--tile) var(--onda) repeat-x,url('../assets/onda-giu-velo2.svg') 0 bottom/var(--tile) var(--onda) repeat-x;animation:ondaEntrambe 48s linear infinite}
+  @keyframes ondaSu{from{-webkit-mask-position:top,0 top,0 top,bottom;mask-position:top,0 top,0 top,bottom}to{-webkit-mask-position:top,calc(var(--tile) * -1) top,calc(var(--tile) * 2) top,bottom;mask-position:top,calc(var(--tile) * -1) top,calc(var(--tile) * 2) top,bottom}}
+  @keyframes ondaGiu{from{-webkit-mask-position:top,bottom,0 bottom,0 bottom;mask-position:top,bottom,0 bottom,0 bottom}to{-webkit-mask-position:top,bottom,calc(var(--tile) * -1) bottom,calc(var(--tile) * 2) bottom;mask-position:top,bottom,calc(var(--tile) * -1) bottom,calc(var(--tile) * 2) bottom}}
+  @keyframes ondaEntrambe{from{-webkit-mask-position:top,0 top,0 top,center,bottom,0 bottom,0 bottom;mask-position:top,0 top,0 top,center,bottom,0 bottom,0 bottom}to{-webkit-mask-position:top,calc(var(--tile) * -1) top,calc(var(--tile) * 2) top,center,bottom,calc(var(--tile) * -1) bottom,calc(var(--tile) * 2) bottom;mask-position:top,calc(var(--tile) * -1) top,calc(var(--tile) * 2) top,center,bottom,calc(var(--tile) * -1) bottom,calc(var(--tile) * 2) bottom}}
+  @media (prefers-reduced-motion:reduce){ .onda-su, .onda-giu, #hero{animation:none !important} }
+  /* la sezione sotto un'onda parte più in basso, così il contenuto non ci finisce sotto */
+  #hero + .sezione, .onda-giu + .sezione{padding-top:calc(var(--onda) + 96px)}
+  .sezione:has(+ .onda-su){padding-bottom:calc(var(--onda) + 96px)}
+
+  /* hero: stesso blu notte delle fasce */
+  .hero{background-color:#2D2899;background-image:radial-gradient(900px circle at 85% 10%,rgba(79,227,193,.16),transparent 55%),radial-gradient(700px circle at 0% 100%,rgba(139,123,250,.32),transparent 60%),var(--notte)}
+  .hero__numeri > div{background:rgba(45,40,153,.5)}
+  @media (min-width:761px){ .hero{padding-top:clamp(28px,5svh,72px) !important} }
+
+  /* ritmo dei fondi: bianco e grigio che si alternano fra le fasce scure */
+
+  /* etichetta a pillola sopra i titoli */
+  .kicker{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;background:rgba(91,84,240,.13);color:var(--viola-scuro) !important;padding:5px 10px;border-radius:6px;margin-bottom:16px}
+  .testa-centrata{margin-bottom:56px}
+  .testa-centrata h2{margin-bottom:14px}
+
+  /* fasce scure */
+  .banda-scura{padding:88px 24px;background:var(--notte);color:#fff}
+  .banda-scura h2{margin:0 0 14px;color:#fff}
+
+  /* fasce più vive: bagliori menta e lilla + puntini, come nell'hero */
+  .banda-scura{position:relative;overflow:hidden}
+  .banda-scura::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(45% 60% at 92% 20%,rgba(79,227,193,.20),transparent 70%),radial-gradient(50% 70% at 0% 85%,rgba(160,150,255,.35),transparent 70%)}
+  .banda-scura::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.13) 1.4px,transparent 1.4px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 55% 60% at 80% 40%,#000 25%,transparent 80%);mask-image:radial-gradient(ellipse 55% 60% at 80% 40%,#000 25%,transparent 80%)}
+  .banda-scura > *{position:relative;z-index:1}
+  #funzioni, #prezzi, #come-e-fatta{background:linear-gradient(180deg,#F4F4FA,var(--grigio))}
+  #widget{background:linear-gradient(180deg,#EDEEFF,#E4E2FF)}
+
+  /* in più: griglia con icone tonde */
+  .ip-griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:44px 36px}
+  .ip-voce{display:flex;gap:16px;align-items:flex-start}
+  .ip-ico{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--viola-scuro);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.45)}
+  .ip-voce h3{margin:2px 0 6px;font-size:16.5px;font-weight:800;color:#fff}
+  .ip-voce p{margin:0;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.78)}
+
+  /* funzioni: telefono a sinistra, passi a destra */
+  .fx-controlli{justify-content:center;margin-top:22px}
+  .tema-pill{background:#fff;box-shadow:var(--ombra-scheda)}
+  .fx-griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(32px,6vw,80px);align-items:center;max-width:1080px;margin:0 auto}
+  .fx-telefono{padding:0 0 34px}
+  .fx-telefono::after{content:"";position:absolute;left:50%;bottom:4px;width:min(260px,60%);height:26px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(45,40,153,.3),transparent);pointer-events:none}
+  .fx-schermo{width:min(330px,68vw);z-index:1}
+  .fx-schermo img{filter:drop-shadow(0 34px 40px rgba(45,40,153,.32))}
+  .fx-freccia{border:none;box-shadow:var(--ombra-scheda)}
+  .fx-elenco{display:flex;flex-direction:column;gap:4px;min-width:0}
+  .fx-voce{border-radius:16px;padding:6px 8px;transition:background .3s ease,box-shadow .3s ease}
+  .fx-voce--on{background:#fff;box-shadow:var(--ombra-scheda);padding:14px 18px 18px}
+  .fx-tab{width:100%;display:flex;align-items:center;gap:14px;background:none !important;border:0 !important;padding:6px 0;font:inherit;font-size:17px;font-weight:800;color:#1B1830 !important;text-align:left;cursor:pointer;box-shadow:none !important}
+  .fx-n{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--viola);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .fx-voce:not(.fx-voce--on) .fx-tab{color:#5B5675 !important}
+  .fx-voce:not(.fx-voce--on) .fx-n{background:#fff;color:var(--viola);box-shadow:inset 0 0 0 1.5px #CFCBFA}
+  .fx-voce:not(.fx-voce--on):hover .fx-tab{color:#1B1830 !important}
+  .fx-testo{padding:8px 0 0 48px}
+  .fx-testo h3{font-size:clamp(20px,2.2vw,24px);margin:0 0 10px}
+  .fx-testo p{font-size:15.5px;margin:0 0 14px}
+
+  /* schede bianche con ombra al posto dei bordi */
+  .piano:not(.piano--pro), .w2-card, .faq details, .w2-passo{background:#fff !important;border:0 !important;box-shadow:var(--ombra-scheda) !important}
+  .w2-flusso{background:transparent;border:0;box-shadow:none;padding:0}
+  .mini{background:var(--grigio);border:0}
+  .pannello-scuro, .idea{background:radial-gradient(60% 70% at 100% 0%,rgba(139,123,250,.28),transparent 60%),var(--notte)}
+  .piano--pro{background:var(--notte)}
+
+  /* contatti: fascia scura con la foto */
+  #contatti{background:linear-gradient(170deg,rgba(45,40,153,.94) 0%,rgba(61,55,201,.84) 50%,rgba(75,69,224,.62) 100%),url('../assets/foto/strada-sera.webp') center 70%/cover no-repeat;padding-bottom:110px}
+  #contatti .cta-finale{background:none;box-shadow:none;padding:0;border-radius:0;overflow:visible}
+  #contatti .cta-finale__punti{display:none}
+  .footer{position:relative;z-index:1}
+
+  /* comparsa allo scroll */
+  .js-rivela :is(.sezione h2, .banda-scura h2, .kicker, .lead, .fx-griglia, .ip-voce, .pannello-scuro, .w2-passo, .w2-fatto, .w2-card, .calc-risultato, .piano, .mini, .idea, .faq details){opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 80ms),transform .8s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 80ms)}
+  .js-rivela .visibile{opacity:1 !important;transform:none !important}
+
+  /* tema scuro: le fasce chiare diventano notte, quelle scure restano blu */
+  html.dark body, html.dark .sezione{background:#0F0C1D}
+  html.dark #funzioni, html.dark #prezzi, html.dark #come-e-fatta{background:#16122B}
+  html.dark #widget{background:linear-gradient(180deg,#1C1740,#1A1538)}
+  html.dark .kicker{background:rgba(139,123,250,.18);color:#C9C2FF !important}
+  html.dark .fx-voce--on, html.dark .tema-pill{background:#221D3E}
+  html.dark .fx-tab{color:#F2F0FA !important}
+  html.dark .fx-voce:not(.fx-voce--on) .fx-tab{color:#9C96B5 !important}
+  html.dark .fx-voce:not(.fx-voce--on) .fx-n{background:transparent;color:#C9C2FF;box-shadow:inset 0 0 0 1.5px rgba(201,194,255,.35)}
+  html.dark .fx-n{background:#6C5CE7}
+  html.dark .w2-passo, html.dark .w2-card, html.dark .faq details, html.dark .piano:not(.piano--pro){background:#1E1839 !important;box-shadow:0 18px 50px -22px rgba(0,0,0,.7) !important}
+  html.dark .mini{background:#16122B !important}
+  html.dark .w2-flusso{background:transparent !important}
+
+  @media (max-width:760px){
+    .sezione{padding:72px 20px}
+    .banda-scura{padding:64px 20px}
+    .fx-testo{padding-left:0}
+    .fx-voce--on{padding:12px 14px 16px}
+  }
+  @media (prefers-reduced-motion:reduce){ .fx-voce{transition:none} }
+  /* sulle fasce viola la pillola diventa bianca trasparente, altrimenti sparisce nel fondo */
+  .banda-scura .kicker, html.dark .banda-scura .kicker{background:rgba(255,255,255,.16);color:#fff !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+  /* niente filo bianco fra contatti e footer (la maschera della fascia arrotonda il mezzo pixel)
+     e niente bianco tirando la pagina oltre il fondo: la tela dietro la pagina è del colore del footer */
+  .footer{margin-top:-2px}
+  html{background:#151129}
+
+  /* ── secondo giro (13/10) ── */
+  /* titoli: una sola misura, teste centrate con i controlli sotto */
+  .sezione h2, .banda-scura h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.04}
+  .testa-centrata{max-width:680px}
+  .testa-centrata p{max-width:620px;margin:0 auto;font-size:18px;color:#5B5675}
+  .testa-controlli{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:24px}
+  .h2-accento{background:linear-gradient(90deg,var(--viola),#9B5CF0);-webkit-background-clip:text;background-clip:text;color:transparent}
+  html.dark .testa-centrata p{color:#B9B3CE}
+  html.dark .h2-accento{background-image:linear-gradient(90deg,#A99DFF,#D79BFF)}
+
+  /* striscia di fiducia sotto l'hero */
+  .fiducia{list-style:none;margin:0 auto 64px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;font-size:14px;font-weight:700;color:#5B5675}
+  .fiducia li{display:flex;align-items:center;gap:8px;padding:0 20px}
+  .fiducia li + li{border-left:1px solid rgba(91,84,240,.18)}
+  .fiducia svg{width:17px;height:17px;color:var(--viola);flex-shrink:0}
+  .fiducia li:first-child svg{color:#F5B301}
+  html.dark .fiducia{color:#B9B3CE}
+  html.dark .fiducia li + li{border-color:rgba(255,255,255,.12)}
+  @media (max-width:640px){ .fiducia{gap:12px 0;font-size:13px} .fiducia li{padding:0 12px} .fiducia li + li{border-left:0} }
+
+  /* widget in fascia lilla: schede bianche */
+  #widget .w3-box{background:#fff;border:0;box-shadow:var(--ombra-scheda);color:#1B1830}
+  #widget .w3-et{color:var(--viola)}
+  #widget .w3-cifra{color:var(--viola-scuro)}
+  #widget .w3-nota, #widget .w3-riga i{color:#6B6684}
+  #widget .w3-riga{border-top-color:#EEECF8}
+  #widget .w3-barra{background:#EEECF8}
+  #widget .w3-trend--su{color:#D6336C;background:rgba(214,51,108,.1)}
+  #widget .w3-tasto{background:var(--viola-chiaro);color:var(--viola-scuro)}
+  #widget .w3-tasto--pieno{background:var(--viola);color:#fff}
+  #widget .w3-chips{justify-content:center}
+  html.dark #widget .w3-box{background:#221D3E;color:#F2F0FA;box-shadow:0 18px 50px -22px rgba(0,0,0,.7)}
+  html.dark #widget .w3-cifra{color:#C9C2FF}
+  html.dark #widget .w3-riga, html.dark #widget .w3-barra{border-top-color:rgba(255,255,255,.08)}
+  html.dark #widget .w3-barra{background:rgba(255,255,255,.1)}
+  html.dark #widget .w3-tasto{background:rgba(139,123,250,.16);color:#C9C2FF}
+
+  /* recensione */
+  #recensioni{background:#fff}
+  .citazione{max-width:760px;margin:0 auto;background:#fff;border-radius:28px;padding:clamp(28px,5vw,52px);box-shadow:var(--ombra-scheda);text-align:center;position:relative}
+  .citazione::before{content:"“";position:absolute;top:-28px;left:50%;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:var(--viola);color:#fff;font:800 44px/72px Georgia,serif;box-shadow:0 12px 26px -10px rgba(91,84,240,.7)}
+  .stelle{display:inline-flex;gap:4px;color:#F5B301;margin-bottom:14px}
+  .stelle svg{width:22px;height:22px}
+  .citazione blockquote{margin:0}
+  .citazione__titolo{margin:0 0 10px !important;font-size:clamp(22px,2.6vw,28px) !important;font-weight:800;letter-spacing:-.02em;color:#1B1830 !important}
+  .citazione blockquote p{margin:0;font-size:clamp(17px,1.8vw,20px);line-height:1.6;color:#4B4566}
+  .citazione figcaption{display:inline-flex;align-items:center;gap:12px;margin-top:24px;text-align:left}
+  .citazione figcaption svg{width:34px;height:34px;padding:8px;box-sizing:border-box;border-radius:10px;background:#111;fill:#fff}
+  .citazione figcaption > span{display:flex;flex-direction:column;font-size:13px;color:#6B6684}
+  .citazione figcaption b{font-size:15px;color:#1B1830}
+  .media-store{margin:28px 0 0;text-align:center;font-size:15px;color:#5B5675;font-weight:600}
+  .media-store b{font-size:18px;color:#1B1830}
+  .media-store a{margin-left:10px;font-weight:700}
+  html.dark #recensioni{background:#0F0C1D}
+  html.dark .citazione{background:#1E1839;box-shadow:0 18px 50px -22px rgba(0,0,0,.7)}
+  html.dark .citazione__titolo, html.dark .citazione figcaption b, html.dark .media-store b{color:#F2F0FA !important}
+  html.dark .citazione blockquote p, html.dark .media-store{color:#B9B3CE}
+
+  /* CTA finale: logo grande, titolo e bottoni al centro, form sotto */
+  .cta-centro{text-align:center;max-width:760px;margin:0 auto 48px;display:flex;flex-direction:column;align-items:center}
+  .cta-logo{width:96px;height:96px;border-radius:24px;margin-bottom:26px;box-shadow:0 0 0 8px rgba(255,255,255,.08),0 0 60px 10px rgba(160,150,255,.45),0 24px 40px -14px rgba(0,0,0,.5);animation:gcvFloat 6s ease-in-out infinite}
+  #contatti .cta-finale__testo{margin-left:auto;margin-right:auto}
+  .cta-store{justify-self:auto;justify-content:center}
+  #contatti .contatti-form{max-width:560px;margin:0 auto}
+
+  /* navbar che si compatta scorrendo */
+  .nav-chiara{transition:padding .3s ease,box-shadow .3s ease}
+  .nav-chiara.nav--compatta{padding-top:7px;padding-bottom:7px;box-shadow:0 10px 30px -18px rgba(45,40,153,.35)}
+
+  /* bottoni con bagliore e riflesso che scorre */
+  .st-btn, .nav-cta, .piano__btn, .calc-cta, .contact-form button{position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .3s ease,background .2s ease}
+  .st-btn::after, .nav-cta::after, .piano__btn::after, .calc-cta::after, .contact-form button::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s ease;pointer-events:none}
+  .st-btn:hover::after, .nav-cta:hover::after, .piano__btn:hover::after, .calc-cta:hover::after, .contact-form button:hover::after{left:120%}
+  .st-btn:hover, .nav-cta:hover, .piano__btn:hover, .calc-cta:hover{box-shadow:0 12px 30px -10px rgba(91,84,240,.65)}
+  .st-btn:active, .nav-cta:active, .piano__btn:active, .calc-cta:active, .contact-form button:active{transform:scale(.97)}
+
+  /* funzioni a scorrimento (da computer): telefono fermo, passi lunghi uno schermo e mezzo */
+  .fx-schermo{transition:transform .25s ease-out;will-change:transform}
+  .fx-scorre .fx-griglia{align-items:start;grid-template-columns:1fr 1fr}
+  .fx-scorre .fx-telefono{position:sticky;top:max(84px,calc(50vh - 370px))}
+  .fx-scorre .fx-elenco{gap:0;padding:12vh 0}
+  .fx-scorre .fx-voce{min-height:46vh;display:flex;flex-direction:column;justify-content:center;opacity:.4;background:none;box-shadow:none;padding:24px 28px;transition:opacity .4s ease,background .4s ease,box-shadow .4s ease}
+  .fx-scorre .fx-voce--on{opacity:1;background:none;box-shadow:none}
+  .fx-scorre .fx-voce:not(.fx-voce--on) .fx-n{background:var(--viola);color:#fff;box-shadow:none}
+  .fx-scorre .fx-voce:not(.fx-voce--on) .fx-tab{color:#1B1830 !important}
+  html.dark .fx-scorre .fx-voce--on{background:none}
+  html.dark .fx-scorre .fx-voce:not(.fx-voce--on) .fx-tab{color:#F2F0FA !important}
+  .fx-scorre .fx-voce .fx-testo{padding-top:10px}
+
+  @media (prefers-reduced-motion:reduce){
+    .cta-logo{animation:none}
+    .st-btn::after, .nav-cta::after, .piano__btn::after, .calc-cta::after, .contact-form button::after{display:none}
+    .fx-schermo, .nav-chiara{transition:none}
+  }
+  /* overflow-x:hidden sul body ne fa un contenitore di scorrimento e rompe position:sticky (telefono
+     delle funzioni, navbar): clip taglia allo stesso modo senza crearlo */
+  html{overflow-x:hidden;overflow-x:clip}
+  body{overflow-x:visible}
+  .fx-scorre .fx-testo h3{font-size:clamp(26px,2.6vw,34px)}
+
+
+  /* iPhone e Android affiancati (widget, watch): le differenze tutte visibili, senza selettore */
+  .piattaforme{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px;max-width:880px;margin:32px auto 0}
+  .piatt{background:#fff;border-radius:24px;padding:24px 26px;box-shadow:var(--ombra-scheda)}
+  .piatt__testa{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .piatt__testa h3{margin:0;font-size:18px;font-weight:800;color:#1B1830}
+  .piatt__ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .piatt__ico svg{width:19px;height:19px;fill:currentColor}
+  .piatt--ios .piatt__ico{background:#111;color:#fff}
+  .piatt--android .piatt__ico{background:#E5F7EC;color:#1E8E4E}
+  .piatt .lista{font-size:15px}
+  html.dark .piatt{background:#1E1839;box-shadow:0 18px 50px -22px rgba(0,0,0,.7)}
+  html.dark .piatt__testa h3{color:#F2F0FA}
+  html.dark .piatt--ios .piatt__ico{background:#fff;color:#111}
+  html.dark .piatt--android .piatt__ico{background:rgba(126,226,168,.15);color:#7EE2A8}
+  /* check 13/10: in tema scuro le schede di «come è fatta» avevano il colore della fascia; 2 × 2 dei passi fino a 1100 px (a 1024 andava a capo con la freccia appesa) */
+  html.dark .mini{background:#221D3E !important}
+  @media (min-width:561px) and (max-width:1100px){ #watch .w2-flusso{display:grid;grid-template-columns:1fr 1fr} #watch .w2-freccia{display:none} }
+  /* revisione 13/10 */
+  .onda-ferma{animation-play-state:paused !important}
+  /* il telefono fermo deve stare tutto nello schermo anche sui portatili bassi (1366 × 768) */
+  .fx-scorre .fx-schermo{width:min(330px,calc((100svh - 150px) * 880 / 1820))}
+  .fx-scorre .fx-telefono{top:max(76px,calc(50svh - (min(330px,calc((100svh - 150px) * 880 / 1820)) * 1820 / 880 + 34px) / 2))}
+  html.dark .fx-scorre .fx-voce:not(.fx-voce--on) .fx-n{background:#6C5CE7;color:#fff;box-shadow:none}
+  @media print{ .js-rivela *{opacity:1 !important;transform:none !important} .onda-su, .onda-giu, #hero{-webkit-mask:none;mask:none} }
 </style>
 </head>
 <body>
@@ -578,59 +825,56 @@
     </div>
   </section>
 
-  <section id="funzioni" class="sezione sup-pagina">
+  <section id="funzioni" class="sezione">
     <div class="contenitore">
-      <div class="fx-testa">
-        <div style="max-width:640px"><span class="kicker t-viola">L'app in azione</span><h2>Ogni spesa del tuo veicolo, in un'app sola.</h2></div>
-        <div class="fx-controlli">
+      <ul class="fiducia" aria-label="In breve">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg>5,0 su App Store</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Dati cifrati sul telefono</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>Nessun abbonamento</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>iPhone, iPad e Android</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Fatto in Italia</li>
+      </ul>
+      <div class="testa-centrata">
+        <span class="kicker t-viola">L'app in azione</span><h2>Ogni spesa del tuo veicolo, in un'app sola.</h2>
+        <div class="fx-controlli testa-controlli">
           <div class="os-switch" role="group" aria-label="Schermate su iPhone o su Android"><button type="button" data-os-scelta="ios" aria-pressed="true"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg>iPhone</button><button type="button" data-os-scelta="android" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.5l1.8-3.1a.4.4 0 0 0-.7-.4l-1.8 3.2A11 11 0 0 0 12 8.2c-1.8 0-3.4.4-4.9 1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 17.8h22a10.4 10.4 0 0 0-5.4-8.3zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>Android</button></div>
-          <button type="button" class="fx-tema tema-pill sup-lilla t-viola" aria-pressed="false" aria-label="Schermate dell'app in tema scuro"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z"/></svg><span data-fx-etichetta>Schermate scure</span></button>
+          <button type="button" class="fx-tema tema-pill" aria-pressed="false" aria-label="Schermate dell'app in tema scuro"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z"/></svg><span data-fx-etichetta>Schermate scure</span></button>
         </div>
       </div>
-      <div class="fx-pannello sup-tenue bordo">
-        <div class="fx-griglia">
-          <div class="fx-telefono">
-            <button type="button" class="fx-freccia fx-prev" aria-label="Schermata precedente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
-            <div class="fx-schermo"><img class="fx-img" data-fx="0" width="880" height="1820" alt="Dashboard di Gestore Costi Veicoli" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" data-src-android="../assets/screenshots/deck-dashboard-android.webp" data-src-android-dark="../assets/screenshots/deck-dashboard-android-dark.webp"><img class="fx-img" data-fx="1" hidden width="880" height="1820" alt="Garage di Gestore Costi Veicoli" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" data-src-android="../assets/screenshots/deck-garage-android.webp" data-src-android-dark="../assets/screenshots/deck-garage-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="2" hidden width="880" height="1820" alt="Scadenze in Gestore Costi Veicoli" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" data-src-android="../assets/screenshots/deck-scadenze-android.webp" data-src-android-dark="../assets/screenshots/deck-scadenze-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="3" hidden width="880" height="1820" alt="Carburante in Gestore Costi Veicoli" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" data-src-android="../assets/screenshots/deck-carburante-android.webp" data-src-android-dark="../assets/screenshots/deck-carburante-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="4" hidden width="880" height="1820" alt="Assistente di Gestore Costi Veicoli" src="../assets/screenshots/deck-assistente.webp" data-src-light="../assets/screenshots/deck-assistente.webp" data-src-dark="../assets/screenshots/deck-assistente-dark.webp" data-src-android="../assets/screenshots/deck-assistente-android.webp" data-src-android-dark="../assets/screenshots/deck-assistente-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="5" hidden width="880" height="1820" alt="Previsione dei prossimi 12 mesi in Gestore Costi Veicoli" src="../assets/screenshots/deck-previsione.webp" data-src-light="../assets/screenshots/deck-previsione.webp" data-src-dark="../assets/screenshots/deck-previsione-dark.webp" data-src-android="../assets/screenshots/deck-previsione-android.webp" data-src-android-dark="../assets/screenshots/deck-previsione-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="6" hidden width="880" height="1820" alt="Tragitti rilevati in auto in Gestore Costi Veicoli" src="../assets/screenshots/deck-tragitti.webp" data-src-light="../assets/screenshots/deck-tragitti.webp" data-src-dark="../assets/screenshots/deck-tragitti-dark.webp" data-src-android="../assets/screenshots/deck-tragitti-android.webp" data-src-android-dark="../assets/screenshots/deck-tragitti-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="7" hidden width="880" height="1820" alt="Dettaglio di un viaggio in Gestore Costi Veicoli" src="../assets/screenshots/deck-viaggi.webp" data-src-light="../assets/screenshots/deck-viaggi.webp" data-src-dark="../assets/screenshots/deck-viaggi-dark.webp" data-src-android="../assets/screenshots/deck-viaggi-android.webp" data-src-android-dark="../assets/screenshots/deck-viaggi-android-dark.webp" loading="lazy"></div>
-            <button type="button" class="fx-freccia fx-next" aria-label="Schermata successiva"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
-          </div>
-          <div class="fx-destra">
-            <div class="fx-tabs" role="tablist" aria-label="Funzioni"><button type="button" role="tab" id="fx-tab-0" aria-controls="fx-testo-0" aria-selected="true" tabindex="0" class="fx-tab bordo">Dashboard</button><button type="button" role="tab" id="fx-tab-1" aria-controls="fx-testo-1" aria-selected="false" tabindex="-1" class="fx-tab bordo">Garage</button><button type="button" role="tab" id="fx-tab-2" aria-controls="fx-testo-2" aria-selected="false" tabindex="-1" class="fx-tab bordo">Scadenze</button><button type="button" role="tab" id="fx-tab-3" aria-controls="fx-testo-3" aria-selected="false" tabindex="-1" class="fx-tab bordo">Carburante</button><button type="button" role="tab" id="fx-tab-4" aria-controls="fx-testo-4" aria-selected="false" tabindex="-1" class="fx-tab bordo">Assistente</button><button type="button" role="tab" id="fx-tab-5" aria-controls="fx-testo-5" aria-selected="false" tabindex="-1" class="fx-tab bordo">Previsione</button><button type="button" role="tab" id="fx-tab-6" aria-controls="fx-testo-6" aria-selected="false" tabindex="-1" class="fx-tab bordo">Tragitti</button><button type="button" role="tab" id="fx-tab-7" aria-controls="fx-testo-7" aria-selected="false" tabindex="-1" class="fx-tab bordo">Viaggi</button></div>
-            <div class="fx-testo" id="fx-testo-0" role="tabpanel" aria-labelledby="fx-tab-0"><div class="fx-num"><span class="t-tenue">1 / 8</span></div><h3>Tutto il costo dei tuoi veicoli, in un colpo d’occhio</h3><p class="t-medio">La schermata che apri per prima: quanto hai speso questo mese — spese registrate più la rata — con il previsto a parte e il dettaglio per voce.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Vista Mensile, Annuo o Totale</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Insight automatici: voce principale e scadenze vicine</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzi benzina e diesel self-service aggiornati (dati MIMIT)</span></li></ul></div><div class="fx-testo" id="fx-testo-1" role="tabpanel" aria-labelledby="fx-tab-1" hidden><div class="fx-num"><span class="t-tenue">2 / 8</span></div><h3>Auto, moto e ciclomotori, in un unico garage</h3><p class="t-medio">Ogni mezzo con prezzo finale, rata mensile e costo annuo reale a colpo d’occhio. Uno gratis per sempre, illimitati con Pro.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzo di listino vs prezzo pagato</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Libretto, polizza e ricevute allegati alla scheda</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Modifica, archivia o elimina in un tap</span></li></ul></div><div class="fx-testo" id="fx-testo-2" role="tabpanel" aria-labelledby="fx-tab-2" hidden><div class="fx-num"><span class="t-tenue">3 / 8</span></div><h3>Bollo, assicurazione, revisione: mai più una sorpresa</h3><p class="t-medio">Tutte le scadenze di tutti i veicoli in un’unica timeline ordinata per data, con lo storico di quelle già completate.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Notifiche prima che la scadenza arrivi</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Timeline per ogni veicolo, tagliando compreso</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Esporta lo storico in CSV o PDF (Pro)</span></li></ul></div><div class="fx-testo" id="fx-testo-3" role="tabpanel" aria-labelledby="fx-tab-3" hidden><div class="fx-num"><span class="t-tenue">4 / 8</span></div><h3>Ogni rifornimento, tracciato nel dettaglio</h3><p class="t-medio">Importo, litri e prezzo al litro di ogni pieno, per confrontare il consumo reale con quello teorico.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Spesa totale, litri e prezzo medio per periodo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Il pieno al prezzo giusto: conviene oggi o aspettare? (Pro)</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Mappa dei distributori dove hai fatto rifornimento (Pro)</span></li></ul></div><div class="fx-testo" id="fx-testo-4" role="tabpanel" aria-labelledby="fx-tab-4" hidden><div class="fx-num"><span class="t-tenue">5 / 8</span><span class="badge-pro sup-lilla t-viola">Pro</span></div><h3>Chiedi in italiano, risponde con i tuoi numeri</h3><p class="t-medio">«Quanto ho speso quest’anno?», «aggiungi 45 € di benzina»: risposte calcolate dai tuoi dati, sul telefono, non generate. Scrive solo quando confermi.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Il riepilogo del mese pronto appena lo apri</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Nessuna domanda esce dal telefono</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Funziona anche offline</span></li></ul></div><div class="fx-testo" id="fx-testo-5" role="tabpanel" aria-labelledby="fx-tab-5" hidden><div class="fx-num"><span class="t-tenue">6 / 8</span><span class="badge-pro sup-lilla t-viola">Pro</span></div><h3>I prossimi 12 mesi, senza sorprese</h3><p class="t-medio">Quanto peseranno i mesi che arrivano, con le voci certe distinte dalle stime: rata, bollo, assicurazione, revisione, tagliando e carburante.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Totale dell’anno, media al mese e mese di picco</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Quanto conviene accantonare ogni mese</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Mese per mese, con il cumulato</span></li></ul></div><div class="fx-testo" id="fx-testo-6" role="tabpanel" aria-labelledby="fx-tab-6" hidden><div class="fx-num"><span class="t-tenue">7 / 8</span><span class="badge-pro sup-lilla t-viola">Pro</span></div><h3>I tuoi tragitti in auto, senza doverli scrivere</h3><p class="t-medio">Quando parti il telefono te lo chiede con una notifica; a fine viaggio propone km, durata e costo stimato. Il percorso non viene registrato: restano solo i numeri.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Riepilogo del mese: km, costo stimato e costo al km</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Spento finché non lo accendi da Impostazioni</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Nessun percorso salvato né inviato</span></li></ul></div><div class="fx-testo" id="fx-testo-7" role="tabpanel" aria-labelledby="fx-tab-7" hidden><div class="fx-num"><span class="t-tenue">8 / 8</span></div><h3>Quanto ti è costato quel viaggio?</h3><p class="t-medio">Crea un viaggio con le sue date: le spese del periodo si agganciano da sole e ottieni il costo reale al chilometro.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Totale speso, km percorsi e costo al km</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Confronto con la media annua del veicolo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Distribuzione delle spese e mappa dei rifornimenti (Pro)</span></li></ul></div>
-          </div>
+      <div class="fx-griglia">
+        <div class="fx-telefono">
+          <button type="button" class="fx-freccia fx-prev" aria-label="Schermata precedente"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="fx-schermo"><img class="fx-img" data-fx="0" width="880" height="1820" alt="Dashboard di Gestore Costi Veicoli" src="../assets/screenshots/deck-dashboard.webp" data-src-light="../assets/screenshots/deck-dashboard.webp" data-src-dark="../assets/screenshots/deck-dashboard-dark.webp" data-src-android="../assets/screenshots/deck-dashboard-android.webp" data-src-android-dark="../assets/screenshots/deck-dashboard-android-dark.webp"><img class="fx-img" data-fx="1" hidden width="880" height="1820" alt="Garage di Gestore Costi Veicoli" src="../assets/screenshots/deck-garage.webp" data-src-light="../assets/screenshots/deck-garage.webp" data-src-dark="../assets/screenshots/deck-garage-dark.webp" data-src-android="../assets/screenshots/deck-garage-android.webp" data-src-android-dark="../assets/screenshots/deck-garage-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="2" hidden width="880" height="1820" alt="Scadenze in Gestore Costi Veicoli" src="../assets/screenshots/deck-scadenze.webp" data-src-light="../assets/screenshots/deck-scadenze.webp" data-src-dark="../assets/screenshots/deck-scadenze-dark.webp" data-src-android="../assets/screenshots/deck-scadenze-android.webp" data-src-android-dark="../assets/screenshots/deck-scadenze-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="3" hidden width="880" height="1820" alt="Carburante in Gestore Costi Veicoli" src="../assets/screenshots/deck-carburante.webp" data-src-light="../assets/screenshots/deck-carburante.webp" data-src-dark="../assets/screenshots/deck-carburante-dark.webp" data-src-android="../assets/screenshots/deck-carburante-android.webp" data-src-android-dark="../assets/screenshots/deck-carburante-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="4" hidden width="880" height="1820" alt="Assistente di Gestore Costi Veicoli" src="../assets/screenshots/deck-assistente.webp" data-src-light="../assets/screenshots/deck-assistente.webp" data-src-dark="../assets/screenshots/deck-assistente-dark.webp" data-src-android="../assets/screenshots/deck-assistente-android.webp" data-src-android-dark="../assets/screenshots/deck-assistente-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="5" hidden width="880" height="1820" alt="Previsione dei prossimi 12 mesi in Gestore Costi Veicoli" src="../assets/screenshots/deck-previsione.webp" data-src-light="../assets/screenshots/deck-previsione.webp" data-src-dark="../assets/screenshots/deck-previsione-dark.webp" data-src-android="../assets/screenshots/deck-previsione-android.webp" data-src-android-dark="../assets/screenshots/deck-previsione-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="6" hidden width="880" height="1820" alt="Tragitti rilevati in auto in Gestore Costi Veicoli" src="../assets/screenshots/deck-tragitti.webp" data-src-light="../assets/screenshots/deck-tragitti.webp" data-src-dark="../assets/screenshots/deck-tragitti-dark.webp" data-src-android="../assets/screenshots/deck-tragitti-android.webp" data-src-android-dark="../assets/screenshots/deck-tragitti-android-dark.webp" loading="lazy"><img class="fx-img" data-fx="7" hidden width="880" height="1820" alt="Dettaglio di un viaggio in Gestore Costi Veicoli" src="../assets/screenshots/deck-viaggi.webp" data-src-light="../assets/screenshots/deck-viaggi.webp" data-src-dark="../assets/screenshots/deck-viaggi-dark.webp" data-src-android="../assets/screenshots/deck-viaggi-android.webp" data-src-android-dark="../assets/screenshots/deck-viaggi-android-dark.webp" loading="lazy"></div>
+          <button type="button" class="fx-freccia fx-next" aria-label="Schermata successiva"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
         </div>
+        <div class="fx-elenco"><div class="fx-voce fx-voce--on"><button type="button" class="fx-tab" id="fx-tab-0" aria-expanded="true" aria-controls="fx-testo-0"><span class="fx-n">1</span><span class="fx-nome">Dashboard</span></button><div class="fx-testo" id="fx-testo-0" role="region" aria-labelledby="fx-tab-0"><h3>Tutto il costo dei tuoi veicoli, in un colpo d’occhio</h3><p class="t-medio">La schermata che apri per prima: quanto hai speso questo mese — spese registrate più la rata — con il previsto a parte e il dettaglio per voce.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Vista Mensile, Annuo o Totale</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Insight automatici: voce principale e scadenze vicine</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzi benzina e diesel self-service aggiornati (dati MIMIT)</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-1" aria-expanded="false" aria-controls="fx-testo-1"><span class="fx-n">2</span><span class="fx-nome">Garage</span></button><div class="fx-testo" id="fx-testo-1" role="region" aria-labelledby="fx-tab-1" hidden><h3>Auto, moto e ciclomotori, in un unico garage</h3><p class="t-medio">Ogni mezzo con prezzo finale, rata mensile e costo annuo reale a colpo d’occhio. Uno gratis per sempre, illimitati con Pro.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Prezzo di listino vs prezzo pagato</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Libretto, polizza e ricevute allegati alla scheda</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Modifica, archivia o elimina in un tap</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-2" aria-expanded="false" aria-controls="fx-testo-2"><span class="fx-n">3</span><span class="fx-nome">Scadenze</span></button><div class="fx-testo" id="fx-testo-2" role="region" aria-labelledby="fx-tab-2" hidden><h3>Bollo, assicurazione, revisione: mai più una sorpresa</h3><p class="t-medio">Tutte le scadenze di tutti i veicoli in un’unica timeline ordinata per data, con lo storico di quelle già completate.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Notifiche prima che la scadenza arrivi</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Timeline per ogni veicolo, tagliando compreso</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Esporta lo storico in CSV o PDF (Pro)</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-3" aria-expanded="false" aria-controls="fx-testo-3"><span class="fx-n">4</span><span class="fx-nome">Carburante</span></button><div class="fx-testo" id="fx-testo-3" role="region" aria-labelledby="fx-tab-3" hidden><h3>Ogni rifornimento, tracciato nel dettaglio</h3><p class="t-medio">Importo, litri e prezzo al litro di ogni pieno, per confrontare il consumo reale con quello teorico.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Spesa totale, litri e prezzo medio per periodo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Il pieno al prezzo giusto: conviene oggi o aspettare? (Pro)</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Mappa dei distributori dove hai fatto rifornimento (Pro)</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-4" aria-expanded="false" aria-controls="fx-testo-4"><span class="fx-n">5</span><span class="fx-nome">Assistente</span><span class="badge-pro">Pro</span></button><div class="fx-testo" id="fx-testo-4" role="region" aria-labelledby="fx-tab-4" hidden><h3>Chiedi in italiano, risponde con i tuoi numeri</h3><p class="t-medio">«Quanto ho speso quest’anno?», «aggiungi 45 € di benzina»: risposte calcolate dai tuoi dati, sul telefono, non generate. Scrive solo quando confermi.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Il riepilogo del mese pronto appena lo apri</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Nessuna domanda esce dal telefono</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Funziona anche offline</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-5" aria-expanded="false" aria-controls="fx-testo-5"><span class="fx-n">6</span><span class="fx-nome">Previsione</span><span class="badge-pro">Pro</span></button><div class="fx-testo" id="fx-testo-5" role="region" aria-labelledby="fx-tab-5" hidden><h3>I prossimi 12 mesi, senza sorprese</h3><p class="t-medio">Quanto peseranno i mesi che arrivano, con le voci certe distinte dalle stime: rata, bollo, assicurazione, revisione, tagliando e carburante.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Totale dell’anno, media al mese e mese di picco</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Quanto conviene accantonare ogni mese</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Mese per mese, con il cumulato</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-6" aria-expanded="false" aria-controls="fx-testo-6"><span class="fx-n">7</span><span class="fx-nome">Tragitti</span><span class="badge-pro">Pro</span></button><div class="fx-testo" id="fx-testo-6" role="region" aria-labelledby="fx-tab-6" hidden><h3>I tuoi tragitti in auto, senza doverli scrivere</h3><p class="t-medio">Quando parti il telefono te lo chiede con una notifica; a fine viaggio propone km, durata e costo stimato. Il percorso non viene registrato: restano solo i numeri.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Riepilogo del mese: km, costo stimato e costo al km</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Spento finché non lo accendi da Impostazioni</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Nessun percorso salvato né inviato</span></li></ul></div></div><div class="fx-voce"><button type="button" class="fx-tab" id="fx-tab-7" aria-expanded="false" aria-controls="fx-testo-7"><span class="fx-n">8</span><span class="fx-nome">Viaggi</span></button><div class="fx-testo" id="fx-testo-7" role="region" aria-labelledby="fx-tab-7" hidden><h3>Quanto ti è costato quel viaggio?</h3><p class="t-medio">Crea un viaggio con le sue date: le spese del periodo si agganciano da sole e ottieni il costo reale al chilometro.</p><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Totale speso, km percorsi e costo al km</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Confronto con la media annua del veicolo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Distribuzione delle spese e mappa dei rifornimenti (Pro)</span></li></ul></div></div></div>
       </div>
-      <div class="extras"><div class="extra sup-bianca bordo"><strong class="t-forte">Scontrino e contachilometri</strong><span class="t-medio">fotografi, l’app compila importo, litri e km (Pro)</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Importa ed esporta</strong><span class="t-medio">da Excel, CSV o altre app; export PDF e CSV (Pro)</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Libretto digitale</strong><span class="t-medio">PDF con la storia del veicolo, condivisibile 7 giorni (Pro)</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Dash condivisa</strong><span class="t-medio">invita chi guida con te, in modifica o sola lettura</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Sync iPhone, iPad e Android</strong><span class="t-medio">opzionale, con accesso Apple o Google</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Documenti per veicolo</strong><span class="t-medio">libretto, polizza e ricevute sempre nella scheda</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Blocco app</strong><span class="t-medio">PIN, Face ID / Touch ID o biometria Android</span></div><div class="extra sup-bianca bordo"><strong class="t-forte">Backup completo</strong><span class="t-medio">con password opzionale, sempre esportabile</span></div></div>
     </div>
   </section>
 
-  <section id="widget" class="sezione sezione--pannello sup-pagina">
-    <div class="pannello-scuro w3">
-      <div aria-hidden="true" class="pannello-scuro__luce"></div>
-      <div class="w3-testa">
-        <div>
-          <span class="kicker-scuro"><span aria-hidden="true"></span>Widget</span>
-          <h2 class="h2-scuro">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
-          <p class="p-scuro">I numeri che contano, già sulla schermata Home, e la spesa registrata con un tocco.</p>
-        </div>
-        <div class="os-switch os-switch--scuro" role="group" aria-label="Widget per iPhone o per Android"><button type="button" data-os-scelta="ios" aria-pressed="true">iPhone</button><button type="button" data-os-scelta="android" aria-pressed="false">Android</button></div>
+  <section id="widget" class="sezione">
+    <div class="contenitore w3">
+      <div class="testa-centrata">
+        <span class="kicker t-viola">Widget</span>
+        <h2>Anche dalla Home, <span class="h2-accento">senza aprire l'app</span>.</h2>
+        <p class="t-medio">I numeri che contano, già sulla schermata Home, e la spesa registrata con un tocco.</p>
       </div>
       <div class="w3-griglia" role="img" aria-label="Cosa mostrano i widget: 1.120 euro a settembre su 4 veicoli, 185 euro oltre il budget, azioni rapide e la revisione della Fiat Panda tra 12 giorni">
         <div class="w3-box w3-box--mese" aria-hidden="true">
           <span class="w3-et">Il mese · 4 veicoli</span>
-          <div class="w3-cifra">1.120&nbsp;€<span class="w3-trend w3-trend--su">▲ 51%</span></div>
+          <div class="w3-cifra"><span><span data-conta="1120">1.120</span>&nbsp;€</span><span class="w3-trend w3-trend--su">▲ 51%</span></div>
           <div class="w3-seg"><span style="flex:391;background:#8B7BFA"></span><span style="flex:335;background:#F0A04B"></span><span style="flex:203;background:#4FE3C1"></span><span style="flex:191;background:#6BB7F5"></span></div>
           <div class="w3-riga"><span class="w3-pallino" style="background:#8B7BFA"></span><span><b>BMW</b><i>Rata 333 · Altre 58</i></span><b>391 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#F0A04B"></span><span><b>Fiat Panda</b><i>Manutenzione 287 · Carburante 48</i></span><b>335 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#4FE3C1"></span><span><b>Mitsubishi</b><i>Bollo e assic. 203</i></span><b>203 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#6BB7F5"></span><span><b>KTM</b><i>Carburante 96 · Altre 95</i></span><b>191 €</b></div>
         </div>
         <div class="w3-box" aria-hidden="true">
           <span class="w3-et">Budget</span>
-          <div class="w3-cifra w3-cifra--m">185&nbsp;€</div>
+          <div class="w3-cifra w3-cifra--m"><span><span data-conta="185">185</span>&nbsp;€</span></div>
           <span class="w3-nota">oltre i 150 € del mese</span>
           <div class="w3-barra"><span style="width:100%"></span></div>
         </div>
         <div class="w3-box" aria-hidden="true">
           <span class="w3-et">Prossima scadenza</span>
-          <div class="w3-cifra w3-cifra--m">12&nbsp;giorni</div>
+          <div class="w3-cifra w3-cifra--m"><span><span data-conta="12">12</span>&nbsp;giorni</span></div>
           <span class="w3-nota">Revisione · Fiat Panda</span>
         </div>
         <div class="w3-box w3-box--azioni" aria-hidden="true">
@@ -638,29 +882,16 @@
           <div class="w3-tasti"><span class="w3-tasto w3-tasto--pieno">+ Spesa</span><span class="w3-tasto">Pieno</span><span class="w3-tasto">Scadenza</span><span class="w3-tasto">Km</span></div>
         </div>
       </div>
-      <div class="chips w3-chips">
-        <span class="chip-scuro">Piccolo, medio e grande</span>
-        <span class="chip-scuro">Chiari o scuri</span>
-        <span class="chip-scuro" data-os-solo="ios">Anche sulla schermata di blocco</span>
-        <span class="chip-scuro" data-os-solo="ios">Siri e Comandi rapidi</span>
-        <span class="chip-scuro" data-os-solo="android">Ridimensionabili</span>
-        <span class="chip-scuro" data-os-solo="android">Riquadro nei colori del tuo tema</span>
-        <span class="chip-scuro" data-os-solo="android">Scorciatoie sull'icona</span>
-        <span class="chip-scuro" data-os-solo="ios">iOS 17+</span>
-        <span class="chip-scuro" data-os-solo="android">Android 7+</span>
-      </div>
+      <div class="piattaforme"><div class="piatt piatt--ios"><div class="piatt__testa"><span class="piatt__ico"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg></span><h3>Su iPhone</h3></div><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Piccolo, medio e grande, chiari o scuri</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Anche sulla schermata di blocco</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Siri e Comandi rapidi</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>iOS 17 o successivo</span></li></ul></div><div class="piatt piatt--android"><div class="piatt__testa"><span class="piatt__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.5l1.8-3.1a.4.4 0 0 0-.7-.4l-1.8 3.2A11 11 0 0 0 12 8.2c-1.8 0-3.4.4-4.9 1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 17.8h22a10.4 10.4 0 0 0-5.4-8.3zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><h3>Su Android</h3></div><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Ridimensionabili come vuoi, chiari o scuri</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Riquadro nei colori del tuo tema</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Scorciatoie tenendo premuta l'icona</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Android 7 o successivo</span></li></ul></div></div>
     </div>
   </section>
 
-  <section id="watch" class="sezione sup-pagina">
+  <section id="watch" class="sezione">
     <div class="contenitore">
-      <div class="w2-testa">
-        <div>
-          <span class="kicker t-viola">App per smartwatch</span>
-          <h2>Registra le spese dal polso, in dieci secondi.</h2>
-          <p class="t-medio lead">Al distributore, in officina, al casello: tre scelte e hai finito. La spesa arriva sul telefono con la data di oggi.</p>
-        </div>
-        <div class="os-switch" role="group" aria-label="Apple Watch o Wear OS"><button type="button" data-os-scelta="ios" aria-pressed="true">Apple Watch</button><button type="button" data-os-scelta="android" aria-pressed="false">Wear OS</button></div>
+      <div class="testa-centrata">
+        <span class="kicker t-viola">App per smartwatch</span>
+        <h2>Registra le spese dal polso, in dieci secondi.</h2>
+        <p class="t-medio">Al distributore, in officina, al casello: tre scelte e hai finito. La spesa arriva sul telefono con la data di oggi.</p>
       </div>
       <div class="w2-flusso sup-tenue bordo" role="img" aria-label="Dal polso: veicolo BMW 128Ti, categoria Carburante, importo 45 euro, spesa salvata sul telefono">
         <div class="w2-passo"><span class="w2-passo__n">1</span><span class="w2-passo__et">Veicolo</span><span class="w2-passo__val">BMW 128Ti</span></div><span class="w2-freccia" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -671,7 +902,7 @@
       <div class="w2-sotto">
         <div class="w2-card sup-bianca bordo">
           <h3 class="t-forte">Sul quadrante</h3>
-          <p class="t-medio"><span data-os-solo="ios">Due complicazioni</span><span data-os-solo="android">Complicazioni e un riquadro (tile)</span>: la prossima scadenza con il conto alla rovescia e la spesa del mese con la quota di budget.</p>
+          <p class="t-medio">Le complicazioni mostrano la prossima scadenza con il conto alla rovescia e la spesa del mese con la quota di budget.</p>
           <div class="w2-compl" aria-hidden="true">
             <span class="w2-c"><b>12 g</b><i>revisione</i></span>
             <span class="w2-c w2-c--anello" style="--q:68"><b>412 €</b><i>ottobre</i></span>
@@ -680,19 +911,20 @@
         <div class="w2-card sup-bianca bordo">
           <h3 class="t-forte">Sempre allineato</h3>
           <p class="t-medio">Veicoli e categorie arrivano dal telefono, e ogni spesa fatta dal polso finisce nella dashboard come le altre. Nessuna configurazione sull'orologio.</p>
-          <div class="chips chips--chiare">
-            <span class="t-tenue" style="font-size:14px">Disponibile con</span>
-            <span class="chip-chiaro sup-lilla t-viola" data-os-solo="ios">watchOS 10+</span>
-            <span class="chip-chiaro sup-lilla t-viola" data-os-solo="ios">Apple Watch Series 4 e successivi</span>
-            <span class="chip-chiaro sup-lilla t-viola" data-os-solo="android">Wear OS 3+</span>
-            <span class="chip-chiaro chip-chiaro--arrivo play-presto" data-os-solo="android">In arrivo con l'uscita su Google Play</span>
-          </div>
         </div>
       </div>
+      <div class="piattaforme"><div class="piatt piatt--ios"><div class="piatt__testa"><span class="piatt__ico"><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg></span><h3>Apple Watch</h3></div><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Due complicazioni sul quadrante</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>watchOS 10 o successivo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Apple Watch Series 4 e successivi</span></li></ul></div><div class="piatt piatt--android"><div class="piatt__testa"><span class="piatt__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.5l1.8-3.1a.4.4 0 0 0-.7-.4l-1.8 3.2A11 11 0 0 0 12 8.2c-1.8 0-3.4.4-4.9 1L5.3 6a.4.4 0 0 0-.7.4l1.8 3.1A10.4 10.4 0 0 0 1 17.8h22a10.4 10.4 0 0 0-5.4-8.3zM7 15.3a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg></span><h3>Wear OS</h3></div><ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Complicazioni e un riquadro (tile)</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Wear OS 3 o successivo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B54F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span><span class="play-presto">In arrivo con l'uscita su Google Play</span><span class="play-live">Disponibile su Google Play</span></span></li></ul></div></div>
     </div>
   </section>
 
-  <section id="calcolatore" class="sezione sup-pagina">
+  <section id="in-piu" class="banda-scura onda-su onda-giu">
+    <div class="contenitore">
+      <div class="testa-centrata"><span class="kicker t-viola">In più</span><h2>E tutto il resto che serve.</h2></div>
+      <div class="ip-griglia"><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span><div><h3>Scontrino e contachilometri</h3><p>Fotografi, l’app compila importo, litri e km (Pro).</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg></span><div><h3>Importa ed esporta</h3><p>Da Excel, CSV o altre app; export PDF e CSV (Pro).</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg></span><div><h3>Libretto digitale</h3><p>PDF con la storia del veicolo, condivisibile 7 giorni (Pro).</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M18 14c2 .8 3 2.8 3 6"/></svg></span><div><h3>Dash condivisa</h3><p>Invita chi guida con te, in modifica o sola lettura.</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.7-4.3M4 13a8 8 0 0 0 14.7 4.3"/><path d="M5 3v4h4M19 21v-4h-4"/></svg></span><div><h3>Sync iPhone, iPad e Android</h3><p>Opzionale, con accesso Apple o Google.</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><div><h3>Documenti per veicolo</h3><p>Libretto, polizza e ricevute sempre nella scheda.</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><h3>Blocco app</h3><p>PIN, Face ID / Touch ID o biometria Android.</p></div></div><div class="ip-voce"><span class="ip-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div><h3>Backup completo</h3><p>Con password opzionale, sempre esportabile.</p></div></div></div>
+    </div>
+  </section>
+
+  <section id="calcolatore" class="sezione">
     <div class="contenitore due-colonne due-colonne--48">
       <div>
         <span class="kicker t-viola">Calcolatore</span>
@@ -710,7 +942,7 @@
     </div>
   </section>
 
-  <section id="prezzi" class="sezione sup-pagina">
+  <section id="prezzi" class="sezione">
     <div class="testa-centrata">
       <span class="kicker t-viola">Prezzi</span>
       <h2>Gratis per iniziare. Pro per sempre.</h2>
@@ -719,7 +951,7 @@
     <div class="prezzi">
       <div class="piano sup-bianca bordo">
         <div class="piano__testa"><h3>Gratuito</h3><div class="piano__prezzo">0 €</div><p class="t-tenue">per sempre, nessuna carta richiesta</p></div>
-        <ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>1 veicolo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Carburante e consumi</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Scadenze e notifiche</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Costo reale di possesso</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Sync opzionale e partecipare a una Dash condivisa</span></li></ul>
+        <ul class="lista t-medio"><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>1 veicolo</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Carburante e consumi</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Scadenze e notifiche</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Costo reale di possesso</span></li><li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B3FE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6L9 17l-5-5"/></svg><span>Sync opzionale e accesso a una Dash condivisa</span></li></ul>
         <a href="#download" class="piano__btn sup-lilla t-viola">Inizia gratis</a>
       </div>
       <div class="piano piano--pro">
@@ -731,7 +963,17 @@
     </div>
   </section>
 
-  <section id="come-e-fatta" class="sezione sup-pagina">
+  <section id="recensioni" class="sezione">
+    <div class="testa-centrata"><span class="kicker t-viola">Recensioni</span><h2>Chi la usa, la tiene.</h2></div>
+    <figure class="citazione">
+      <span class="stelle" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span>
+      <blockquote><p class="citazione__titolo">«Comodissima!»</p><p>finalmente una app dove posso archiviare pagamenti e tenere monitorato la moto e due macchine. sopratutto per le scadenze. bellissima</p></blockquote>
+      <figcaption><svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span><b>Luca6555</b><span>recensione su App Store · 5 stelle su 5</span></span></figcaption>
+    </figure>
+    <p class="media-store"><b>5,0</b> di media su App Store <a href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener">Lascia anche tu una recensione</a></p>
+  </section>
+
+  <section id="come-e-fatta" class="sezione">
     <div class="contenitore due-colonne due-colonne--48">
       <div>
         <span class="kicker t-viola">Come è fatta</span>
@@ -762,21 +1004,20 @@
     </div>
   </section>
 
-  <section id="faq" class="sezione sup-pagina">
+  <section id="faq" class="sezione">
     <div class="testa-centrata"><span class="kicker t-viola">FAQ</span><h2>Domande frequenti</h2></div>
     <div class="faq"><details class="sup-bianca bordo"><summary>L’app c’è anche per Android?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì. Su iPhone è già su App Store e su Android è presto in arrivo su Google Play: stessa app, stessi dati e stesso piano Pro. Con l’accesso i dati si sincronizzano fra iPhone, iPad e Android, e il Pro comprato su un telefono vale anche sull’altro.</p></details><details class="sup-bianca bordo"><summary>L’app funziona anche offline?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì. I dati restano sul tuo dispositivo, in un database cifrato, e non serve un account. Usano internet solo funzioni opzionali: mappe, prezzi carburante, la sincronizzazione se la attivi tu e il link del libretto digitale.</p></details><details class="sup-bianca bordo"><summary>L’Assistente manda i miei dati a un’intelligenza artificiale?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">No. Le risposte le calcola l’app dai tuoi dati con regole scritte, quindi i numeri sono sempre quelli veri. In nessun caso domande o dati vengono inviati altrove.</p></details><details class="sup-bianca bordo"><summary>I tragitti automatici registrano i miei percorsi?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">No. L’app ti chiede con una notifica se registrare il tragitto; se dici sì misura chilometri, durata e orari e ne stima il costo, ma non salva né invia il percorso. La funzione è spenta finché non la accendi da Impostazioni › Tragitti.</p></details><details class="sup-bianca bordo"><summary>Posso gestire più veicoli insieme?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì, il piano gratuito supporta 1 veicolo, mentre Pro permette di gestirne quanti vuoi, con un unico acquisto di 4,99 €. Puoi provare Pro gratis per 15 giorni.</p></details><details class="sup-bianca bordo"><summary>I miei dati sono al sicuro?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì: i dati sono cifrati e restano solo sul telefono per impostazione predefinita; se attivi il login opzionale per sincronizzare o condividere, passano da Supabase con Row Level Security, visibili solo a te e a chi inviti.</p></details><details class="sup-bianca bordo"><summary>Posso condividere i dati con un familiare?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì: da Impostazioni › il tuo nome › «Condividi la Dash» inviti altre persone come editor o sola lettura (serve Pro per invitare, non per accettare); resti proprietario e puoi revocare quando vuoi.</p></details><details class="sup-bianca bordo"><summary>Posso importare o esportare lo storico?<span class="faq-plus" aria-hidden="true">+</span></summary><p class="t-medio">Sì, con Pro: importi da .csv o .xlsx con anteprima di ciò che entra; esporti spese e scadenze in PDF o CSV e il report annuale in PDF. I file sono letti sul telefono.</p></details></div>
     <p class="faq-nota t-tenue">Guida completa e manuale PDF nella pagina <a href="gestore-costi-veicoli-supporto.html">Supporto</a> · cosa cambia a ogni versione in <a href="gestore-costi-veicoli-novita.html">Novità</a>.</p>
   </section>
 
-  <section id="contatti" class="sezione sezione--ultima sup-pagina">
+  <section id="contatti" class="banda-scura banda-foto onda-su">
     <div class="cta-finale">
-      <div aria-hidden="true" class="cta-finale__punti"></div>
-      <div class="due-colonne due-colonne--48">
-        <div>
-          <h2 class="cta-finale__titolo">Scaricala e scopri quanto ti costa davvero.</h2>
-          <p class="cta-finale__testo">Gratis per un veicolo, Pro con un acquisto unico. Nessun account obbligatorio, nessun abbonamento.</p>
-          <div class="hero__store hero__store--sx"><a class="st-btn st-btn--chiaro" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" style="width:22px;height:22px;fill:#111"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span class="st-btn__t"><span>Scarica su</span><b>App Store</b></span></a><span class="st-btn st-btn--vetro" aria-label="Google Play in arrivo: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;fill:#fff;flex-shrink:0"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg><span class="st-btn__t"><span><span class="play-presto">Presto in arrivo su</span><span class="play-live">Disponibile su</span></span><b>Google Play</b></span></span></div>
-        </div>
+      <div class="cta-centro">
+        <img class="cta-logo" src="../assets/gestore-costi-veicoli-logo.png" alt="" width="132" height="132" loading="lazy">
+        <h2 class="cta-finale__titolo">Scaricala e scopri quanto ti costa davvero.</h2>
+        <p class="cta-finale__testo">Gratis per un veicolo, Pro con un acquisto unico. Nessun account obbligatorio, nessun abbonamento.</p>
+        <div class="hero__store cta-store"><a class="st-btn st-btn--chiaro" href="https://apps.apple.com/it/app/gestore-costi-veicoli/id6796724562" target="_blank" rel="noopener" aria-label="Scarica Gestore Costi Veicoli su App Store"><svg viewBox="0 0 384 512" aria-hidden="true" style="width:22px;height:22px;fill:#111"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.2C56.9 141.5 4 184.8 4 273.1c0 26.1 4.8 53.1 14.3 80.9 12.8 37.4 58.9 129 106.9 127.5 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.4-.7 90.2-83.9 102.4-121.4-65.2-30.8-61.1-90.2-61.1-91.4zM255.7 60.5c26.5-31.5 24.1-60.1 23.4-70.5-23.6 1.4-51 16.4-66.5 34.6-17 19.4-27 43.5-24.8 69.7 24.9 1.9 47.5-12.6 67.9-33.8z"/></svg><span class="st-btn__t"><span>Scarica su</span><b>App Store</b></span></a><span class="st-btn st-btn--vetro" aria-label="Google Play in arrivo: scrivimi per essere avvisato"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;fill:#fff;flex-shrink:0"><path d="M3.6 1.8 13.8 12 3.6 22.2a1.6 1.6 0 0 1-.6-1.3V3.1c0-.5.2-1 .6-1.3zm11.3 11.3 2.6 2.6-11.8 6.8 9.2-9.4zm3.9-3.8 3 1.7c.9.5.9 1.6 0 2.1l-3 1.7-2.8-2.8 2.8-2.7zM5.7 1.5l11.8 6.8-2.6 2.6-9.2-9.4z"/></svg><span class="st-btn__t"><span><span class="play-presto">Presto in arrivo su</span><span class="play-live">Disponibile su</span></span><b>Google Play</b></span></span></div>
+      </div>
         <div class="contatti-form">
         <form id="contact-form" class="contact-form">
           <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
@@ -801,7 +1042,6 @@
         </form>
         <p id="contact-status" role="status" aria-live="polite" tabindex="-1"></p>
         </div>
-      </div>
     </div>
   </section>
 </main>
@@ -825,6 +1065,8 @@
 </div>
 
 <script defer src="../assets/funzioni.js"></script>
+<script defer src="../assets/rivela.js"></script>
+<script defer src="../assets/movimento-gcv.js"></script>
 <script defer src="../assets/calcolatore.js"></script>
 <script defer src="../assets/contact.js"></script>
 <script defer src="../assets/faq.js"></script>
