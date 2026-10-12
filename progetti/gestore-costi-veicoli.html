@@ -453,6 +453,45 @@
   html.dark .w2-passo__et, html.dark .w2-card p{color:#B9B3CE}
   html.dark .chip-chiaro--arrivo{color:#4FE3C1;background:rgba(79,227,193,.12)}
   @media (max-width:560px){ .w2-freccia{transform:rotate(90deg);margin:0 auto} .w2-passo, .w2-fatto{flex-basis:100%} }
+
+  /* widget v3: senza immagini, i contenuti dei widget in una griglia */
+  .w3-testa{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:32px}
+  .w3-testa .p-scuro{margin-bottom:0}
+  .w3-testa .os-switch{margin-bottom:0}
+  .w3-griglia{position:relative;display:grid;grid-template-columns:1.35fr 1fr 1fr;grid-template-rows:auto auto;gap:14px}
+  .w3-box{display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:24px;padding:22px 24px;color:#fff;min-width:0}
+  .w3-box--mese{grid-row:span 2;gap:10px}
+  .w3-box--azioni{grid-column:span 2}
+  .w3-et{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#A99DFF}
+  .w3-cifra{display:flex;align-items:baseline;gap:12px;font-size:clamp(36px,4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+  .w3-cifra--m{font-size:clamp(30px,3vw,40px)}
+  .w3-trend{font-size:13px;font-weight:800;letter-spacing:0;padding:4px 9px;border-radius:100px}
+  .w3-trend--su{color:#FF8FAA;background:rgba(255,143,170,.14)}
+  .w3-nota{font-size:14px;color:#B3AECB;font-weight:600}
+  .w3-seg{display:flex;gap:4px;height:8px;margin:6px 0 4px}
+  .w3-seg span{border-radius:100px}
+  .w3-riga{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid rgba(255,255,255,.07);font-size:15px}
+  .w3-riga > span:nth-child(2){display:flex;flex-direction:column;min-width:0}
+  .w3-riga i{font-style:normal;font-size:12px;color:#8A84A6}
+  .w3-riga > b{font-variant-numeric:tabular-nums}
+  .w3-pallino{width:9px;height:9px;border-radius:50%}
+  .w3-barra{height:8px;border-radius:100px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:auto}
+  .w3-barra span{display:block;height:100%;background:#E0537A;border-radius:inherit}
+  .w3-tasti{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
+  .w3-tasto{display:flex;align-items:center;justify-content:center;padding:14px 8px;border-radius:16px;background:rgba(139,123,250,.16);color:#C9C2FF;font-weight:700;font-size:15px;white-space:nowrap}
+  .w3-tasto--pieno{background:#6C5CE7;color:#fff}
+  .w3-chips{position:relative;margin-top:22px}
+  @media (max-width:860px){
+    .w3-griglia{grid-template-columns:1fr 1fr}
+    .w3-box--mese{grid-column:1 / -1;grid-row:auto}
+    .w3-box--azioni{grid-column:1 / -1}
+  }
+  @media (max-width:560px){
+    .w3-griglia{grid-template-columns:1fr}
+    .w3-tasti{grid-template-columns:1fr 1fr}
+  }
+  .w3-box--azioni .w3-tasti{margin-top:auto}
+  .w3-box--azioni .w3-tasto{padding:20px 8px;font-size:16px}
 </style>
 </head>
 <body>
@@ -525,26 +564,49 @@
   </section>
 
   <section id="widget" class="sezione sezione--pannello sup-pagina">
-    <div class="pannello-scuro wz2">
+    <div class="pannello-scuro w3">
       <div aria-hidden="true" class="pannello-scuro__luce"></div>
-      <div class="wz2__testa">
-        <span class="kicker-scuro"><span aria-hidden="true"></span>Widget</span>
-        <h2 class="h2-scuro">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
-        <p class="p-scuro">Sette widget in piccolo, medio e grande, chiari o scuri. <span data-os-solo="ios">Anche sulla schermata di blocco.</span><span data-os-solo="android">Ridimensionabili, più il riquadro nei colori del tuo tema.</span></p>
+      <div class="w3-testa">
+        <div>
+          <span class="kicker-scuro"><span aria-hidden="true"></span>Widget</span>
+          <h2 class="h2-scuro">Anche dalla Home, <span style="color:#8B7BFA">senza aprire l'</span><span style="color:#4FE3C1">app</span>.</h2>
+          <p class="p-scuro">I numeri che contano, già sulla schermata Home, e la spesa registrata con un tocco.</p>
+        </div>
         <div class="os-switch os-switch--scuro" role="group" aria-label="Widget per iPhone o per Android"><button type="button" data-os-scelta="ios" aria-pressed="true">iPhone</button><button type="button" data-os-scelta="android" aria-pressed="false">Android</button></div>
       </div>
-      <div class="wz-collage wz2__collage">
-        <img class="wz-card wz-grande" width="760" height="793" src="../assets/widget-per-veicolo-dark.webp" alt="Widget Per veicolo in formato grande, tema scuro: 1.120 euro a settembre su 4 veicoli, con la spesa di ciascuno" loading="lazy">
-        <img class="wz-card wz-piccolo" data-os-solo="ios" width="360" height="360" src="../assets/widget-budget.webp" alt="Widget Budget in formato piccolo: 185 euro oltre il budget del mese" loading="lazy">
-        <div class="wz-card wz-piccolo wz-tonale" data-os-solo="android" role="img" aria-label="Riquadro tonale Android: 1.120 euro a settembre, più 51 per cento, con il tasto più spesa">
-          <span class="wz-tonale__mese" aria-hidden="true">Settembre</span><span class="wz-tonale__tot" aria-hidden="true">1.120 €</span><span class="wz-tonale__trend" aria-hidden="true">▲ 51%</span><span class="wz-tonale__btn" aria-hidden="true">+ Spesa</span>
+      <div class="w3-griglia" role="img" aria-label="Cosa mostrano i widget: 1.120 euro a settembre su 4 veicoli, 185 euro oltre il budget, azioni rapide e la revisione della Fiat Panda tra 12 giorni">
+        <div class="w3-box w3-box--mese" aria-hidden="true">
+          <span class="w3-et">Il mese · 4 veicoli</span>
+          <div class="w3-cifra">1.120 €<span class="w3-trend w3-trend--su">▲ 51%</span></div>
+          <div class="w3-seg"><span style="flex:391;background:#8B7BFA"></span><span style="flex:335;background:#F0A04B"></span><span style="flex:203;background:#4FE3C1"></span><span style="flex:191;background:#6BB7F5"></span></div>
+          <div class="w3-riga"><span class="w3-pallino" style="background:#8B7BFA"></span><span><b>BMW</b><i>Rata 333 · Altre 58</i></span><b>391 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#F0A04B"></span><span><b>Fiat Panda</b><i>Manutenzione 287 · Carburante 48</i></span><b>335 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#4FE3C1"></span><span><b>Mitsubishi</b><i>Bollo e assic. 203</i></span><b>203 €</b></div><div class="w3-riga"><span class="w3-pallino" style="background:#6BB7F5"></span><span><b>KTM</b><i>Carburante 96 · Altre 95</i></span><b>191 €</b></div>
         </div>
-        <img class="wz-card wz-medio" width="760" height="352" src="../assets/widget-azioni-rapide.webp" alt="Widget Azioni rapide in formato medio: più spesa, pieno, scadenza e km" loading="lazy">
+        <div class="w3-box" aria-hidden="true">
+          <span class="w3-et">Budget</span>
+          <div class="w3-cifra w3-cifra--m">185 €</div>
+          <span class="w3-nota">oltre i 150 € del mese</span>
+          <div class="w3-barra"><span style="width:100%"></span></div>
+        </div>
+        <div class="w3-box" aria-hidden="true">
+          <span class="w3-et">Prossima scadenza</span>
+          <div class="w3-cifra w3-cifra--m">12 giorni</div>
+          <span class="w3-nota">Revisione · Fiat Panda</span>
+        </div>
+        <div class="w3-box w3-box--azioni" aria-hidden="true">
+          <span class="w3-et">Azioni rapide</span>
+          <div class="w3-tasti"><span class="w3-tasto w3-tasto--pieno">+ Spesa</span><span class="w3-tasto">Pieno</span><span class="w3-tasto">Scadenza</span><span class="w3-tasto">Km</span></div>
+        </div>
       </div>
-      <div class="wz2__punti">
-        <div class="punto"><span class="punto__n">1</span><span><strong>Spesa del mese e budget</strong><span>quanto hai speso, quanto resta e la tendenza rispetto al mese scorso.</span></span></div>
-        <div class="punto"><span class="punto__n">2</span><span><strong>Per veicolo</strong><span>il costo di ogni mezzo del garage, con la prossima scadenza.</span></span></div>
-        <div class="punto"><span class="punto__n">3</span><span><strong>Azioni rapide</strong><span><span data-os-solo="ios">rifornimento o spesa con un tocco; anche con Siri e Comandi rapidi.</span><span data-os-solo="android">rifornimento o spesa con un tocco; anche dalle scorciatoie tenendo premuta l'icona.</span></span></span></div>
+      <div class="chips w3-chips">
+        <span class="chip-scuro">Piccolo, medio e grande</span>
+        <span class="chip-scuro">Chiari o scuri</span>
+        <span class="chip-scuro" data-os-solo="ios">Anche sulla schermata di blocco</span>
+        <span class="chip-scuro" data-os-solo="ios">Siri e Comandi rapidi</span>
+        <span class="chip-scuro" data-os-solo="android">Ridimensionabili</span>
+        <span class="chip-scuro" data-os-solo="android">Riquadro nei colori del tuo tema</span>
+        <span class="chip-scuro" data-os-solo="android">Scorciatoie sull'icona</span>
+        <span class="chip-scuro" data-os-solo="ios">iOS 17+</span>
+        <span class="chip-scuro" data-os-solo="android">Android 7+</span>
       </div>
     </div>
   </section>
