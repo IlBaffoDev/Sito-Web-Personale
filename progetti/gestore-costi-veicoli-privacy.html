@@ -64,7 +64,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 10 ottobre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 13 ottobre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -426,8 +426,10 @@ richiesta di rete fatta dall'app in automatico.
 L'acquisto della versione Pro va spiegato a parte. Il Pro funziona anche senza accedere, ed è
 legato all'acquisto: all'ID Apple su iPhone e iPad, all'account Google Play su Android. Per ogni
 acquisto il servizio tiene un registro della licenza: l'identificativo della transazione assegnato
-da Apple o da Google, il prodotto (Pro o prova gratuita),
-l'eventuale offerta o codice usato e il prezzo pagato, con la valuta. Il registro non contiene il
+da Apple o da Google, il prodotto (Pro a vita, Pro annuale, Pro mensile o prova gratuita),
+l'eventuale offerta o codice usato e il prezzo pagato, con la valuta; per gli abbonamenti (annuale e mensile) anche
+la data di fine del periodo pagato, aggiornata quando lo store ci comunica un rinnovo, una
+disdetta o un rimborso. Il registro non contiene il
 tuo nome né la tua email: serve a riconoscere un acquisto legittimo e a sapere quante licenze
 sono state attivate.
 </p>
@@ -441,16 +443,19 @@ viene cancellato; il registro della licenza resta, senza più alcun legame con t
 pagamento non li vediamo mai: la transazione è gestita interamente da Apple o da Google.
 </p>
 <p>
-  Su Android la prova gratuita di 15 giorni la ricorda il servizio, perché Google Play non la
-  gestisce per gli acquisti una tantum: vale una volta per telefono e, se hai fatto l'accesso, una
-  volta per account. Per riconoscere il telefono l'app usa l'identificativo che Android assegna a
-  ogni app installata (diverso per app e per telefono), solo quando apri l'offerta della prova o
-  la prova è in corso. Non lo invia così com'è: sul telefono ne calcola un'impronta (SHA-256), che
-  il servizio cifra di nuovo con una chiave segreta (HMAC) prima di salvarla, insieme alla data di
-  inizio della prova. L'impronta non permette di risalire all'identificativo né a te, ed è
-  conservata finché l'app è distribuita, perché serve proprio a non concedere la prova due volte;
-  se elimini l'account resta senza alcun legame con lui. La base è l'esecuzione del servizio che
-  chiedi toccando «Prova gratis».
+  Dalla versione 1.0.3 la prova gratuita è l'offerta introduttiva del Pro mensile e del Pro annuale: la concede e
+  la ricorda lo store (Apple o Google Play), una volta per ID Apple o per account Google, come
+  qualunque altro acquisto, e il servizio non raccoglie altro per gestirla. Fino alla versione
+  precedente, su Android la prova di 15 giorni la ricordava il servizio, perché Google Play non
+  la gestisce per gli acquisti una tantum: valeva una volta per telefono e, se avevi fatto
+  l'accesso, una volta per account. Per riconoscere il telefono l'app usava l'identificativo che
+  Android assegna a ogni app installata (diverso per app e per telefono), senza inviarlo così
+  com'è: sul telefono ne calcolava un'impronta (SHA-256), che il servizio cifrava di nuovo con una
+  chiave segreta (HMAC) prima di salvarla, insieme alla data di inizio della prova. Le impronte
+  già salvate non permettono di risalire all'identificativo né a te e sono conservate finché
+  l'app è distribuita, perché servono a non concedere quella prova due volte; se elimini
+  l'account restano senza alcun legame con lui. La base è l'esecuzione del servizio che avevi
+  chiesto toccando «Prova gratis».
 </p>
 <p>
   Puoi comunque scrivere all'indirizzo indicato in cima a questa pagina per esercitare i tuoi
