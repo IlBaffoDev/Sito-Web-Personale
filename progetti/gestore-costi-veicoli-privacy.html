@@ -64,7 +64,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 13 ottobre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 10 novembre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -111,7 +111,8 @@
     condivisione del sistema.</li>
   <li><strong>Dati dei tragitti</strong> (solo se accendi i tragitti automatici, spenti di
     default): chilometri percorsi, durata, orario di inizio e fine, velocità massima e costo
-    stimato di ogni spostamento che decidi di salvare. <strong>Il percorso non viene
+    stimato di ogni spostamento che decidi di salvare e, se li indichi tu, l'uso (lavoro o
+    privato) e una nota. <strong>Il percorso non viene
     registrato</strong>: nessuna coordinata del tragitto viene salvata né inviata.</li>
   <li><strong>Storico dei prezzi delle tue stazioni</strong>: per la funzione «il pieno al prezzo
     giusto» l'app tiene sul dispositivo un prezzo al giorno per i distributori che riconosce come
@@ -155,11 +156,14 @@
     (e Supabase riceve, per creare il tuo account) un identificativo univoco, il tuo indirizzo
     email e, se lo fornisce il provider scelto, il tuo nome.</li>
   <li><strong>Cosa viene inviato</strong>: una volta attiva, la sincronizzazione invia a Supabase
-    gli stessi dati che già tieni nell'app — veicoli, spese, rifornimenti (comprese le coordinate
+    gli stessi dati che già tieni nell'app — veicoli (compresa la data di vendita, se la indichi),
+    spese (con il giorno in cui le hai inserite e, per quelle non inserite dal modulo dell'app,
+    da dove sono arrivate: orologio, widget e scorciatoie, file importato), rifornimenti (comprese le coordinate
     del punto, se hai concesso la posizione), viaggi, scadenze, le letture del contachilometri, le
     categorie che crei tu, le scadenze che hai segnato come lette nelle notifiche, il tuo piano (se il
     Pro è attivo e quale veicolo usi senza Pro), i tragitti salvati (chilometri,
-    durata, orari, velocità massima e costo stimato: mai il percorso), i dati del tuo profilo (nome,
+    durata, orari, velocità massima, costo stimato e, se li hai indicati, uso lavoro o privato e
+    nota: mai il percorso), i dati personali del tuo account (nome,
     telefono, data di nascita e luogo di residenza, solo quelli che hai compilato) e le foto:
     quelle dei veicoli, quelle delle ricevute e i documenti allegati — così da poterli leggere
     anche dagli altri tuoi dispositivi collegati allo stesso account.</li>
@@ -220,6 +224,11 @@
     fine, la velocità massima e un costo stimato a partire dal consumo reale del veicolo che scegli tu al momento di
     salvare (l'app propone l'ultimo che hai usato). A fine spostamento l'app ti propone il tragitto e sei
     tu a decidere se salvarlo o scartarlo.</li>
+  <li><strong>Il pieno in due tocchi</strong> (Pro): quando un tragitto finisce, o si ferma per un
+    paio di minuti, l'app confronta <strong>sul telefono</strong> il punto in cui ti trovi con le
+    stazioni che riconosce come tue abituali e, se il serbatoio stimato è basso, ti chiede con una
+    notifica locale se hai fatto benzina. Quel punto serve solo al confronto: non viene salvato né
+    inviato.</li>
   <li><strong>Cosa NON viene fatto</strong>: <strong>il percorso non viene registrato</strong>.
     Nessuna coordinata del tragitto viene salvata sul dispositivo né inviata a qualcuno — né allo
     sviluppatore, né a Supabase, né ad alcun servizio terzo. Non c'è nessuna mappa dei tuoi
@@ -290,6 +299,13 @@
     Watch attraverso il collegamento che Apple mette a disposizione fra i tuoi dispositivi, senza
     passare da alcun nostro server. Se hai attivato il blocco dell'app, al Watch e ai widget
     <strong>non viene inviata nessuna cifra</strong>: mostrano solo l'icona.</li>
+  <li><strong>Profilo e Premi</strong>: punti, livelli, medaglie e premi (colore, icona, cornici,
+    titolo) si calcolano sul telefono a partire dai dati che hai già nell'app, e restano lì: non
+    vengono inviati a nessun server, nemmeno con la sincronizzazione attiva. Anche gli avvisi di
+    una medaglia nuova sono interni all'app, non notifiche.</li>
+  <li><strong>«Il tuo anno»</strong>: il riepilogo dell'anno è calcolato sul telefono. Se scegli di
+    condividerne una pagina, l'immagine contiene solo il nome che hai dato al veicolo e i numeri,
+    mai la targa, e parte solo dal foglio di condivisione del sistema, verso chi scegli tu.</li>
   <li><strong>Richiesta di recensione</strong>: ogni tanto, dopo un'operazione riuscita, l'app può
     chiedere ad iOS di mostrare il suo invito a lasciare una recensione sull'App Store. È una
     finestra di Apple: l'app non sa se hai risposto né cosa hai scritto, e non trasmette nulla.</li>
@@ -405,7 +421,7 @@ richiesta di rete fatta dall'app in automatico.
 <h2>I tuoi diritti</h2>
 <p>
   Puoi in qualsiasi momento esportare i tuoi dati (backup, opzionalmente protetto da password)
-  dalla schermata Impostazioni. Nella stessa schermata, in fondo, trovi anche «Svuota questo
+  dalle Impostazioni, in «I tuoi dati e backup». Nella stessa schermata, in fondo, trovi anche «Svuota questo
   telefono», che cancella definitivamente veicoli, spese, scadenze, viaggi, tragitti, foto e allegati dal
   dispositivo — in alternativa, la disinstallazione dell'app ha lo stesso effetto.
 </p>
