@@ -142,7 +142,9 @@
     Il PIN non viene mai salvato in chiaro (solo un suo hash con sale casuale) e i dati
     biometrici non lasciano mai il sistema operativo del tuo dispositivo: l'app non li vede né
     li memorizza in alcuna forma. Dopo alcuni tentativi di PIN errati consecutivi, l'app applica
-    un breve blocco temporaneo crescente a scopo di protezione da tentativi ripetuti.</li>
+    un breve blocco temporaneo crescente a scopo di protezione da tentativi ripetuti. Su iPhone
+    l'hash del PIN segue la chiave del database nel backup cifrato e nel trasferimento: sul
+    telefono nuovo i dati arrivano protetti dallo stesso PIN.</li>
   <li>Un backup esportato può essere protetto da una password a tua scelta, cifrata con
     algoritmi standard (AES-256, PBKDF2/HKDF) — se la perdi, nessuno (nemmeno lo sviluppatore)
     può recuperare il contenuto del backup.</li>
