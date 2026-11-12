@@ -64,7 +64,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 10 novembre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 12 novembre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -134,7 +134,10 @@
   <li>Il database locale che contiene tutti i tuoi dati è <strong>cifrato</strong> (SQLCipher):
     anche accedendo fisicamente ai file dell'app, i dati non sono leggibili senza la chiave di
     cifratura, generata automaticamente e conservata nell'enclave sicura del sistema operativo
-    (Keychain su iOS, Keystore su Android) — mai in chiaro, mai condivisa.</li>
+    (Keychain su iOS, Keystore su Android), mai in chiaro. Su iPhone la chiave entra nel
+    backup cifrato del tuo telefono (iCloud, o il Mac se il backup è cifrato) e nel trasferimento
+    da un iPhone all'altro, insieme ai dati: così sul telefono nuovo l'app li ritrova. Non va
+    nel portachiavi di iCloud e non arriva sugli altri tuoi dispositivi.</li>
   <li>Puoi impostare un <strong>blocco app con PIN e/o Face ID / Touch ID / impronta</strong>.
     Il PIN non viene mai salvato in chiaro (solo un suo hash con sale casuale) e i dati
     biometrici non lasciano mai il sistema operativo del tuo dispositivo: l'app non li vede né
