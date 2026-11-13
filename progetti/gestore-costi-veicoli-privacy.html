@@ -64,7 +64,7 @@
 <main id="main">
 
 <h1>Informativa sulla privacy</h1>
-<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 12 novembre 2026</p>
+<p class="updated">Gestore Costi Veicoli — ultimo aggiornamento: 13 novembre 2026</p>
 
 <h2>Titolare del trattamento</h2>
 <p>
@@ -137,14 +137,19 @@
     (Keychain su iOS, Keystore su Android), mai in chiaro. Su iPhone la chiave entra nel
     backup cifrato del tuo telefono (iCloud, o il Mac se il backup è cifrato) e nel trasferimento
     da un iPhone all'altro, insieme ai dati: così sul telefono nuovo l'app li ritrova. Non va
-    nel portachiavi di iCloud e non arriva sugli altri tuoi dispositivi.</li>
+    nel portachiavi di iCloud e non arriva sugli altri tuoi dispositivi. Su Android, dalla
+    versione 1.0.6, il solo file del database entra nel backup di Google e nel trasferimento fra
+    telefoni, e la chiave lo segue in Google Block Store, insieme all'hash del PIN (se impostato) e
+    all'identificativo dell'account a cui appartengono i dati: nel backup del cloud solo se il
+    telefono ha un blocco schermo, che lo cifra end-to-end, altrimenti solo nel trasferimento
+    diretto da un telefono all'altro.</li>
   <li>Puoi impostare un <strong>blocco app con PIN e/o Face ID / Touch ID / impronta</strong>.
     Il PIN non viene mai salvato in chiaro (solo un suo hash con sale casuale) e i dati
     biometrici non lasciano mai il sistema operativo del tuo dispositivo: l'app non li vede né
     li memorizza in alcuna forma. Dopo alcuni tentativi di PIN errati consecutivi, l'app applica
     un breve blocco temporaneo crescente a scopo di protezione da tentativi ripetuti. Su iPhone
-    l'hash del PIN segue la chiave del database nel backup cifrato e nel trasferimento: sul
-    telefono nuovo i dati arrivano protetti dallo stesso PIN.</li>
+    l'hash del PIN segue la chiave del database nel backup cifrato e nel trasferimento, su
+    Android in Google Block Store: sul telefono nuovo i dati arrivano protetti dallo stesso PIN.</li>
   <li>Un backup esportato può essere protetto da una password a tua scelta, cifrata con
     algoritmi standard (AES-256, PBKDF2/HKDF) — se la perdi, nessuno (nemmeno lo sviluppatore)
     può recuperare il contenuto del backup.</li>
